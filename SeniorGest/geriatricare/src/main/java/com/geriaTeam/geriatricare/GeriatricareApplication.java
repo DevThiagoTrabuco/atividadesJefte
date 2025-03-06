@@ -1,13 +1,13 @@
-package com.geriatricare.geriatricare_test;
+package com.geriaTeam.geriatricare;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GeriatricareTestApplication {
+public class GeriatricareApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GeriatricareTestApplication.class, args);
+		SpringApplication.run(GeriatricareApplication.class, args);
 	}
 
 }

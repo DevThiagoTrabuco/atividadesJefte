@@ -1,10 +1,10 @@
-package com.geriatricare.geriatricare_test;
+package com.geriaTeam.geriatricare;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GeriatricareTestApplicationTests {
+class GeriatricareApplicationTests {
 
 	@Test
 	void contextLoads() {
