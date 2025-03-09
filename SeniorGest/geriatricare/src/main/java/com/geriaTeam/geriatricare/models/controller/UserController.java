@@ -1,4 +1,4 @@
-package com.geriaTeam.geriatricare.controller;
+package com.geriaTeam.geriatricare.models.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
