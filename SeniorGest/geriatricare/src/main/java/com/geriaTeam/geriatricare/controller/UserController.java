@@ -2,8 +2,7 @@ package com.geriaTeam.geriatricare.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tech.buildrun.agregadorinvestimentos.entity.User;
-import tech.buildrun.agregadorinvestimentos.service.UserService;
+
 
 import java.net.URI;
 import java.util.List;
