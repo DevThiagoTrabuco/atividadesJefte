@@ -1,19 +1,20 @@
 package com.geriaTeam.geriatricare.models;
 
 import java.util.List;
+import java.util.UUID;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter
 @Setter
+@Getter
 @Table(name = "Familiar")
 public class Familiar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private UUID id;
 
     @Column(name = "nomeFamiliar")
     private String name;
@@ -26,4 +27,6 @@ public class Familiar {
 
     @ManyToMany(mappedBy = "familiares")
     private List<Paciente> pacients;
-}   
+
+
+}

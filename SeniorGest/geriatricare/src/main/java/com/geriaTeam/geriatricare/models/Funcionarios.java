@@ -1,8 +1,8 @@
 package com.geriaTeam.geriatricare.models;
 
 import java.sql.Date;
-
 import jakarta.persistence.*;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +13,7 @@ import lombok.Setter;
 public class Funcionarios {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private UUID id;
 
     @Column(name = "nomeFuncionario")
     private String name;

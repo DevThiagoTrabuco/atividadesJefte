@@ -1,19 +1,19 @@
 package com.geriaTeam.geriatricare.models;
 
 import java.util.List;
-
 import jakarta.persistence.*;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-@Table (name = "Plano")
+@Table(name = "Plano")
 public class Plano {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private UUID id;
 
     @Column(name = "tipoPlano")
     private String name;
