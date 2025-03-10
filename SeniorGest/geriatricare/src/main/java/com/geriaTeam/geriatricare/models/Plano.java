@@ -1,10 +1,14 @@
 package com.geriaTeam.geriatricare.models;
 
-import jakarta.persistence.*;
 import java.util.List;
+import jakarta.persistence.*;
 import java.util.UUID;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "Plano")
 public class Plano {
     @Id
@@ -20,57 +24,6 @@ public class Plano {
     @Column(name = "valorPlano")
     private double value;
 
-    @OneToMany(mappedBy = "plan")
+    @OneToMany(mappedBy = "plano")
     private List<PlanoHasPaciente> pacients;
-
-    public Plano(UUID id, String name, String description, double value, List<PlanoHasPaciente> pacients) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.value = value;
-        this.pacients = pacients;
-    }
-
-    public Plano() {
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public double getValue() {
-        return value;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
-    }
-
-    public List<PlanoHasPaciente> getPacients() {
-        return pacients;
-    }
-
-    public void setPacients(List<PlanoHasPaciente> pacients) {
-        this.pacients = pacients;
-    }
 }
