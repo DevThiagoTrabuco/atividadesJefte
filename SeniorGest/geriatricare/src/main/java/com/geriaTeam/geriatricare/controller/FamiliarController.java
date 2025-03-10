@@ -1,0 +1,46 @@
+package com.geriaTeam.geriatricare.controller;
+
+import com.geriaTeam.geriatricare.models.Admin;
+import com.geriaTeam.geriatricare.models.Familiar;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
+
+@RequestMapping("/familiar/")
+@RestController
+public class FamiliarController {
+    private final FamiliarFacade familiarFacade;
+
+    @Autowired
+    public FamiliarController(FamiliarFacade familiarFacade) {
+        this.familiarFacade = familiarFacade;
+
+    }
+
+    @GetMapping("")
+    public List<Admin> get(){
+        return familiarFacade.buscar();
+    }
+
+    @GetMapping("/{codigo}")
+    public Admin getLanche(@PathVariable UUID codigo){
+        return familiarFacade.buscarPorCodigo(codigo);
+    }
+
+    @PostMapping("")
+    public void cadastrar(@RequestBody Familiar familiar){
+        familiarFacade.cadastrar(familiar);
+    }
+
+    @PutMapping("/{codigo}")
+    public void atualizar(@PathVariable UUID codigo, @RequestBody Familiar familiar){
+        familiarFacade.atualizar(codigo, familiar);
+    }
+
+    @DeleteMapping("/{codigo}")
+    public void deletar(@PathVariable UUID codigo, @RequestBody Familiar familiar){
+        familiarFacade.remover(codigo, familiar);
+    }
+}

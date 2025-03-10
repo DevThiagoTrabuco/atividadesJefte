@@ -1,14 +1,11 @@
 package com.geriaTeam.geriatricare.models;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
-@Getter
-@Setter
 @Table(name = "PlanoHasPaciente")
 public class PlanoHasPaciente {
     @ManyToOne
@@ -26,4 +23,46 @@ public class PlanoHasPaciente {
 
     @Column(name = "vencimentoPlano")
     private LocalDateTime isDue;
+
+    public PlanoHasPaciente(Plano plan, Paciente pacient, boolean isPayed, LocalDateTime isDue) {
+        this.plan = plan;
+        this.pacient = pacient;
+        this.isPayed = isPayed;
+        this.isDue = isDue;
+    }
+
+    public PlanoHasPaciente() {
+    }
+
+    public Plano getPlan() {
+        return plan;
+    }
+
+    public void setPlan(Plano plan) {
+        this.plan = plan;
+    }
+
+    public Paciente getPacient() {
+        return pacient;
+    }
+
+    public void setPacient(Paciente pacient) {
+        this.pacient = pacient;
+    }
+
+    public boolean isPayed() {
+        return isPayed;
+    }
+
+    public void setPayed(boolean isPayed) {
+        this.isPayed = isPayed;
+    }
+
+    public LocalDateTime getIsDue() {
+        return isDue;
+    }
+
+    public void setIsDue(LocalDateTime isDue) {
+        this.isDue = isDue;
+    }
 }
