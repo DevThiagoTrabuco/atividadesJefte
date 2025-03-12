@@ -1,12 +1,20 @@
 package com.geriaTeam.geriatricare.controller;
 
-import com.geriaTeam.geriatricare.models.Admin;
-import com.geriaTeam.geriatricare.models.Familiar;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.geriaTeam.geriatricare.facade.FamiliarFacade;
+import com.geriaTeam.geriatricare.models.domain.Familiar;
 
 @RequestMapping("/familiar/")
 @RestController
@@ -20,12 +28,12 @@ public class FamiliarController {
     }
 
     @GetMapping("")
-    public List<Admin> get(){
+    public List<Familiar> get(){
         return familiarFacade.buscar();
     }
 
     @GetMapping("/{codigo}")
-    public Admin getLanche(@PathVariable UUID codigo){
+    public Familiar getLanche(@PathVariable UUID codigo){
         return familiarFacade.buscarPorCodigo(codigo);
     }
 

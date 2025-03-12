@@ -2,7 +2,6 @@ package com.geriaTeam.geriatricare.models.domain;
 
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
-import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 
