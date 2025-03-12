@@ -1,6 +1,7 @@
 package com.geriaTeam.geriatricare.models.domain;
 
 import jakarta.persistence.*;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +12,7 @@ import lombok.Setter;
 public class SinaisVitais {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private UUID id;
 
     @Column(name = "frequencia_cardiaca")
     private int heartRate;

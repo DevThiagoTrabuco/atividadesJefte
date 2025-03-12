@@ -2,8 +2,8 @@ package com.geriaTeam.geriatricare.models.domain;
 
 import java.util.Date;
 import java.util.List;
-
 import jakarta.persistence.*;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +14,7 @@ import lombok.Setter;
 public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private UUID id;
 
     @Column(name = "nomePaciente")
     private String name;
@@ -36,7 +36,7 @@ public class Paciente {
 
     @ManyToMany
     @JoinTable(name = "Paciente_has_Familiar",
-        joinColumns = @JoinColumn(name = "Paciente_idPaciente"),
-        inverseJoinColumns = @JoinColumn(name = "Familiar_idFamiliar"))
+            joinColumns = @JoinColumn(name = "Paciente_idPaciente"),
+            inverseJoinColumns = @JoinColumn(name = "Familiar_idFamiliar"))
     private List<Familiar> relatives;
 }
