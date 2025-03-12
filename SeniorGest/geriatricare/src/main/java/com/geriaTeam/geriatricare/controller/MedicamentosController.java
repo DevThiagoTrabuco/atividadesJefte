@@ -1,13 +1,20 @@
 package com.geriaTeam.geriatricare.controller;
 
-import com.geriaTeam.geriatricare.models.Admin;
-import com.geriaTeam.geriatricare.models.Funcionarios;
-import com.geriaTeam.geriatricare.models.Medicamentos;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.geriaTeam.geriatricare.facade.MedicamentosFacade;
+import com.geriaTeam.geriatricare.models.domain.Medicamentos;
 
 @RequestMapping("/medicamentos/")
 @RestController
@@ -17,17 +24,16 @@ public class MedicamentosController {
 
     @Autowired
     public MedicamentosController(MedicamentosFacade medicamentoFacade) {
-        this.medicamentosFacade = medicamentosFacade;
-
+        this.medicamentosFacade = medicamentoFacade;
     }
 
     @GetMapping("")
-    public List<Admin> get(){
+    public List<Medicamentos> get(){
         return medicamentosFacade.buscar();
     }
 
     @GetMapping("/{codigo}")
-    public Admin getLanche(@PathVariable UUID codigo){
+    public Medicamentos getLanche(@PathVariable UUID codigo){
         return medicamentosFacade.buscarPorCodigo(codigo);
     }
 

@@ -1,4 +1,4 @@
-package com.geriaTeam.geriatricare.models;
+package com.geriaTeam.geriatricare.models.domain;
 
 import java.util.List;
 import java.util.UUID;
