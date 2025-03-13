@@ -42,5 +42,6 @@ public class FuncaoRepositoryImpl implements FuncaoRepository {
     public void atualizar(int codigo, Funcao funcao) {
         Funcao funcaoInMemory = this.buscarPorCodigo(codigo);
         funcaoInMemory.setName(funcao.getName());
+        funcaoInMemory.setId(funcao.getId());
     }
 }

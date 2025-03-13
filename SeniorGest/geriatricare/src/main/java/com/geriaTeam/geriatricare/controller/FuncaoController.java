@@ -47,7 +47,7 @@ public class FuncaoController {
     }
 
     @DeleteMapping("/{codigo}")
-    public void deletar(@PathVariable int codigo){
+    public void remover(@PathVariable int codigo){
         funcaoFacade.remover(codigo);
     }
 }
