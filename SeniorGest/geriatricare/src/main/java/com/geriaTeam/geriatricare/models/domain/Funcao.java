@@ -8,5 +8,5 @@ import lombok.Setter;
 public class Funcao {
     private int id;
 
-    private String name;
+    private String nome;
 }
