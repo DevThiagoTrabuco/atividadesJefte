@@ -1,11 +1,11 @@
 package com.geriaTeam.geriatricare.facade;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.geriaTeam.geriatricare.applications.FuncaoApplication;
 import com.geriaTeam.geriatricare.models.domain.Funcao;
 
 import lombok.AllArgsConstructor;
@@ -20,19 +20,19 @@ public class FuncaoFacade {
         return funcaoApplication.buscar();
     }
 
-    public Funcao buscarPorCodigo(UUID codigo) {
+    public Funcao buscarPorCodigo(int codigo) {
         return funcaoApplication.buscarPorCodigo(codigo);
     }
 
-    public void cadastrar(Funcao funcao) {
-        funcaoApplication.cadastrar(funcao);
+    public void adicionar(Funcao funcao) {
+        funcaoApplication.adicionar(funcao);
     }
 
-    public void atualizar(UUID codigo, Funcao funcao) {
+    public void atualizar(int codigo, Funcao funcao) {
         funcaoApplication.atualizar(codigo, funcao);
     }
 
-    public void remover(UUID codigo, Funcao funcao) {
-        funcaoApplication.remover(codigo, funcao);
+    public void remover(int codigo) {
+        funcaoApplication.remover(codigo);
     }
 }

@@ -1,7 +1,6 @@
 package com.geriaTeam.geriatricare.controller;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,27 +27,27 @@ public class FuncaoController {
     }
 
     @GetMapping("")
-    public List<Funcao> get(){
+    public List<Funcao> buscar(){
         return funcaoFacade.buscar();
     }
 
     @GetMapping("/{codigo}")
-    public Funcao getLanche(@PathVariable UUID codigo){
+    public Funcao buscarPorCodigo(@PathVariable int codigo){
         return funcaoFacade.buscarPorCodigo(codigo);
     }
 
     @PostMapping("")
-    public void cadastrar(@RequestBody Funcao funcao){
-        funcaoFacade.cadastrar(funcao);
+    public void adicionar(@RequestBody Funcao funcao){
+        funcaoFacade.adicionar(funcao);
     }
 
     @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable UUID codigo, @RequestBody Funcao funcao){
+    public void atualizar(@PathVariable int codigo, @RequestBody Funcao funcao){
         funcaoFacade.atualizar(codigo, funcao);
     }
 
     @DeleteMapping("/{codigo}")
-    public void deletar(@PathVariable UUID codigo, @RequestBody Funcao funcao){
-        funcaoFacade.remover(codigo, funcao);
+    public void remover(@PathVariable int codigo){
+        funcaoFacade.remover(codigo);
     }
 }
