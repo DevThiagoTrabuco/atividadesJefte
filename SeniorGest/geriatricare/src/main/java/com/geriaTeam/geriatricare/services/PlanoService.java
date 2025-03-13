@@ -1,6 +1,6 @@
 package com.geriaTeam.geriatricare.services;
 
-import com.geriaTeam.geriatricare.repositories.PlanoRepository;
+import com.geriaTeam.geriatricare.repositories.PlanoRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,5 +8,5 @@ import org.springframework.stereotype.Service;
 public class PlanoService {
 
     @Autowired
-    private PlanoRepository planoRepository;
+    private PlanoRepositoryImpl planoRepositoryImpl;
 }

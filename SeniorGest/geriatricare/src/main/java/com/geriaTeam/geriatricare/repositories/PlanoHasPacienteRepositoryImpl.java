@@ -5,7 +5,7 @@ import com.geriaTeam.geriatricare.models.domain.PacienteHasPlano;
 
 import java.util.List;
 
-public class PacienteHasPlanoRepositoryImpl implements PacienteHasPlanoRepository {
+public class PlanoHasPacienteRepositoryImpl implements PacienteHasPlanoRepository {
     @Override
     public PacienteHasPlano buscarPorCodigo(int codigo) {
         return null;
