@@ -40,10 +40,10 @@ public class FamiliarRepositoryImpl implements FamiliarRepository {
 
     @Override
     public void atualizar(int codigo, Familiar familiar) {
-        Familiar familiarInMemory = this.buscarPorCodigo(codigo);
-        familiarInMemory.setName(familiar.getName());
-        familiarInMemory.setId(familiar.getId());
-        familiarInMemory.setEmail(familiar.getEmail());
-        familiarInMemory.setPhone(familiar.getPhone());
+        Familiar familiarEmMemoria = this.buscarPorCodigo(codigo);
+        familiarEmMemoria.setNome(familiar.getNome());
+        familiarEmMemoria.setId(familiar.getId());
+        familiarEmMemoria.setEmail(familiar.getEmail());
+        familiarEmMemoria.setTelefone(familiar.getTelefone());
     }
 }

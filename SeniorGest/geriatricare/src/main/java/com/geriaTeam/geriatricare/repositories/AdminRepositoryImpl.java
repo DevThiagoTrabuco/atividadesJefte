@@ -19,10 +19,10 @@ public class AdminRepositoryImpl implements AdminRepository {
 
     @Override
     public void atualizar(int codigo, Admin admin) {
-        Admin adminInMemory = this.buscarPorCodigo(codigo);
-        adminInMemory.setName(admin.getName());
-        adminInMemory.setId(admin.getId());
-        adminInMemory.setPassword(admin.getPassword());       
+        Admin adminEmMemoria = this.buscarPorCodigo(codigo);
+        adminEmMemoria.setNome(admin.getNome());
+        adminEmMemoria.setId(admin.getId());
+        adminEmMemoria.setSenha(admin.getSenha());       
     }
 
     @Override

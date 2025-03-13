@@ -40,8 +40,8 @@ public class FuncaoRepositoryImpl implements FuncaoRepository {
 
     @Override
     public void atualizar(int codigo, Funcao funcao) {
-        Funcao funcaoInMemory = this.buscarPorCodigo(codigo);
-        funcaoInMemory.setName(funcao.getName());
-        funcaoInMemory.setId(funcao.getId());
+        Funcao funcaoEmMemoria = this.buscarPorCodigo(codigo);
+        funcaoEmMemoria.setNome(funcao.getNome());
+        funcaoEmMemoria.setId(funcao.getId());
     }
 }
