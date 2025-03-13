@@ -1,6 +1,7 @@
 package com.geriaTeam.geriatricare.services;
 
-import com.geriaTeam.geriatricare.repositories.AdminRepository;
+
+import com.geriaTeam.geriatricare.repositories.AdminRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class AdminService {
 
     @Autowired
-    private AdminRepository adminRepository;
+    private AdminRepositoryImpl adminRepositoryImpl;
 }
 
 

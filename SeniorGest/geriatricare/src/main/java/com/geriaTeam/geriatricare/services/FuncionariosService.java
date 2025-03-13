@@ -1,6 +1,6 @@
 package com.geriaTeam.geriatricare.services;
 
-import com.geriaTeam.geriatricare.repositories.FuncionariosRepository;
+import com.geriaTeam.geriatricare.repositories.FuncionariosRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,5 +8,5 @@ import org.springframework.stereotype.Service;
 public class FuncionariosService {
 
     @Autowired
-    private FuncionariosRepository funcionarioRepository;
+    private FuncionariosRepositoryImpl funcionarioRepositoryImpl;
 }
