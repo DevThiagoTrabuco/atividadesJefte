@@ -20,9 +20,7 @@ public class MedicamentosController {
     }
 
     @GetMapping("")
-    public List<Admin> buscar(){
-        return medicamentosFacade.buscar();
-    }
+    public List<Admin> buscar(){return medicamentosFacade.buscar();}
 
     @GetMapping("/{codigo}")
     public Admin buscarPorCodigo(@PathVariable int codigo){
