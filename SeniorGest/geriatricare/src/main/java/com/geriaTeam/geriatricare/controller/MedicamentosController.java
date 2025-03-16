@@ -19,6 +19,7 @@ public class MedicamentosController {
     }
 
     @GetMapping("")
+    public List<Admin> buscar(){return medicamentosFacade.buscar();}
     public List<Medicamentos> listar(){
         return medicamentosFacade.listar();
     }

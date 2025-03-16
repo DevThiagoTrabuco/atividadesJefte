@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import com.geriaTeam.geriatricare.applications.AdminApplication;
 import com.geriaTeam.geriatricare.models.domain.Admin;
-
 import lombok.AllArgsConstructor;
 
 @Component
