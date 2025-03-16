@@ -1,14 +1,13 @@
 package com.geriaTeam.geriatricare.controller;
 
 import com.geriaTeam.geriatricare.facade.MedicamentosFacade;
-import com.geriaTeam.geriatricare.models.domain.Admin;
 import com.geriaTeam.geriatricare.models.domain.Medicamentos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/admin/")
+@RequestMapping("/medicamentos/")
 @RestController
 public class MedicamentosController {
     private final MedicamentosFacade medicamentosFacade;
@@ -20,18 +19,18 @@ public class MedicamentosController {
     }
 
     @GetMapping("")
-    public List<Admin> buscar(){
-        return medicamentosFacade.buscar();
+    public List<Medicamentos> listar(){
+        return medicamentosFacade.listar();
     }
 
     @GetMapping("/{codigo}")
-    public Admin buscarPorCodigo(@PathVariable int codigo){
-        return medicamentosFacade.buscarPorCodigo(codigo);
+    public Medicamentos listarPorCodigo(@PathVariable int codigo){
+        return medicamentosFacade.listarPorCodigo(codigo);
     }
 
     @PostMapping("")
-    public void adicionar(@RequestBody Admin admin){
-        medicamentosFacade.adicionar(admin);
+    public void registrar(@RequestBody Medicamentos medicamentos){
+        medicamentosFacade.registrar(medicamentos);
     }
 
     @PutMapping("/{codigo}")
