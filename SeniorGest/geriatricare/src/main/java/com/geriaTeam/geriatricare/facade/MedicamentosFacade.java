@@ -14,16 +14,16 @@ public class MedicamentosFacade {
     @Autowired
     private MedicamentosApplication medicamentosApplication;
 
-    public List<Medicamentos> buscar() {
-        return medicamentosApplication.buscar();
+    public List<Medicamentos> listar() {
+        return medicamentosApplication.listar();
     }
 
-    public Medicamentos buscarPorCodigo(int codigo) {
-        return medicamentosApplication.buscarPorCodigo(codigo);
+    public Medicamentos listarPorCodigo(int codigo) {
+        return medicamentosApplication.listarPorCodigo(codigo);
     }
 
-    public void adicionar(Medicamentos medicamentos) {
-        medicamentosApplication.adicionar(medicamentos);
+    public void registrar(Medicamentos medicamentos) {
+        medicamentosApplication.registrar(medicamentos);
     }
 
     public void atualizar(int codigo, Medicamentos medicamentos) {
