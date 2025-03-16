@@ -33,4 +33,13 @@ public class MedicamentosFacade {
     public void remover(int codigo) {
         medicamentosApplication.remover(codigo);
     }
+    public void reduzirEstoque(int id, int quantidade) {
+        medicamentosApplication.reduzirEstoque(id, quantidade);
+    }
+    public void reabastecerEstoque(int id, int quantidade) {
+        medicamentosApplication.reabastecerEstoque(id, quantidade);
+    }
+    private boolean medicamentoVinculadoAPaciente(int id) {
+        return false;
+    }
 }
