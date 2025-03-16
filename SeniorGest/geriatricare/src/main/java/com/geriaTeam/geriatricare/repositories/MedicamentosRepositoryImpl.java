@@ -11,25 +11,26 @@ import java.util.List;
 public class MedicamentosRepositoryImpl implements MedicamentosRepository {
     private List<Medicamentos> medicamentoss = new ArrayList<>();
 
+
     @Override
-    public void adicionar(Medicamentos medicamentos) {
+    public void registrar(Medicamentos medicamentos) {
         medicamentoss.add(medicamentos);
     }
 
     @Override
     public void atualizar(int codigo, Medicamentos medicamentos) {
-        Medicamentos medicamentosEmMemoria = this.buscarPorCodigo(codigo);
+        Medicamentos medicamentosEmMemoria = this.listarPorCodigo(codigo);
         medicamentosEmMemoria.setNome(medicamentos.getNome());
         medicamentosEmMemoria.setId(medicamentos.getId());
     }
 
     @Override
-    public List<Medicamentos> buscar() {
+    public List<Medicamentos> listar() {
         return medicamentoss;
     }
 
     @Override
-    public Medicamentos buscarPorCodigo(int codigo) {
+    public Medicamentos listarPorCodigo(int codigo) {
         Medicamentos medicamentos = medicamentoss
                 .stream()
                 .filter(l -> l.getId() == codigo)

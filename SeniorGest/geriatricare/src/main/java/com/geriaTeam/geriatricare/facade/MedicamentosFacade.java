@@ -14,16 +14,16 @@ public class MedicamentosFacade {
     @Autowired
     private MedicamentosApplication medicamentosApplication;
 
-    public List<Medicamentos> buscar() {
-        return medicamentosApplication.buscar();
+    public List<Medicamentos> listar() {
+        return medicamentosApplication.listar();
     }
 
-    public Medicamentos buscarPorCodigo(int codigo) {
-        return medicamentosApplication.buscarPorCodigo(codigo);
+    public Medicamentos listarPorCodigo(int codigo) {
+        return medicamentosApplication.listarPorCodigo(codigo);
     }
 
-    public void adicionar(Medicamentos medicamentos) {
-        medicamentosApplication.adicionar(medicamentos);
+    public void registrar(Medicamentos medicamentos) {
+        medicamentosApplication.registrar(medicamentos);
     }
 
     public void atualizar(int codigo, Medicamentos medicamentos) {
@@ -32,5 +32,14 @@ public class MedicamentosFacade {
 
     public void remover(int codigo) {
         medicamentosApplication.remover(codigo);
+    }
+    public void reduzirEstoque(int id, int quantidade) {
+        medicamentosApplication.reduzirEstoque(id, quantidade);
+    }
+    public void reabastecerEstoque(int id, int quantidade) {
+        medicamentosApplication.reabastecerEstoque(id, quantidade);
+    }
+    private boolean medicamentoVinculadoAPaciente(int id) {
+        return false;
     }
 }
