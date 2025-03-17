@@ -13,15 +13,18 @@ public class FuncionarioRepositoryImpl implements FuncionarioRepository {
 
     @Override
     public void adicionar(Funcionario funcionario) {
-        funcionarios.add(Funcionario);
+        funcionarios.add(funcionario);
     }
 
     @Override
     public void atualizar(int codigo, Funcionario Funcionario) {
         Funcionario funcionarioEmMemoria = this.buscarPorCodigo(codigo);
-        funcionarioEmMemoria.setNome(Funcionario.getNome());
         funcionarioEmMemoria.setId(Funcionario.getId());
-        funcionarioEmMemoria.setSenha(Funcionario.getSenha());
+        funcionarioEmMemoria.setNome(Funcionario.getNome());
+        funcionarioEmMemoria.setEmail(Funcionario.getEmail());
+        funcionarioEmMemoria.setTelefone(Funcionario.getTelefone());
+        funcionarioEmMemoria.setNascimento(Funcionario.getNascimento());
+        funcionarioEmMemoria.setFuncao(Funcionario.getFuncao());
     }
 
     @Override

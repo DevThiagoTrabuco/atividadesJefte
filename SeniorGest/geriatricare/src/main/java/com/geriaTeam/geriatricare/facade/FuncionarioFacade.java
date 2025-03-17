@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.geriaTeam.geriatricare.applications.FuncionarioApplication;
 import com.geriaTeam.geriatricare.models.domain.Funcionario;
 import lombok.AllArgsConstructor;
 

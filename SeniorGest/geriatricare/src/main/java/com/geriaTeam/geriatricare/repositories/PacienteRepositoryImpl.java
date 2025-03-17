@@ -20,9 +20,12 @@ public class PacienteRepositoryImpl implements PacienteRepository {
     @Override
     public void atualizar(int codigo, Paciente paciente) {
         Paciente pacienteEmMemoria = this.buscarPorCodigo(codigo);
-        pacienteEmMemoria.setNome(paciente.getNome());
         pacienteEmMemoria.setId(paciente.getId());
-        pacienteEmMemoria.setSenha(paciente.getSenha());
+        pacienteEmMemoria.setNome(paciente.getNome());
+        pacienteEmMemoria.setNascimento(paciente.getNascimento());
+        pacienteEmMemoria.setEntrada(paciente.getEntrada());
+        pacienteEmMemoria.setCondMental(paciente.getCondMental());
+        pacienteEmMemoria.setCondFisica(paciente.getCondFisica());
     }
 
     @Override
@@ -45,3 +48,4 @@ public class PacienteRepositoryImpl implements PacienteRepository {
     public void remover(int codigo) {
         pacientes.removeIf(l -> l.getId() == codigo);
     }
+}
