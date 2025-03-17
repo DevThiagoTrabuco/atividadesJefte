@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/medicamentos/")
+@RequestMapping("/medicamentos")
 @RestController
 public class MedicamentosController {
     private final MedicamentosFacade medicamentosFacade;
@@ -15,34 +15,40 @@ public class MedicamentosController {
     @Autowired
     public MedicamentosController(MedicamentosFacade medicamentosFacade) {
         this.medicamentosFacade = medicamentosFacade;
-
     }
 
     @GetMapping("")
-    public List<Admin> buscar(){return medicamentosFacade.buscar();}
-    public List<Medicamentos> listar(){
+    public List<Medicamentos> listar() {
         return medicamentosFacade.listar();
     }
 
     @GetMapping("/{codigo}")
-    public Medicamentos listarPorCodigo(@PathVariable int codigo){
+    public Medicamentos listarPorCodigo(@PathVariable int codigo) {
         return medicamentosFacade.listarPorCodigo(codigo);
     }
 
     @PostMapping("")
-    public void registrar(@RequestBody Medicamentos medicamentos){
+    public void registrar(@RequestBody Medicamentos medicamentos) {
         medicamentosFacade.registrar(medicamentos);
     }
 
     @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody Medicamentos medicamentos){
+    public void atualizar(@PathVariable int codigo, @RequestBody Medicamentos medicamentos) {
         medicamentosFacade.atualizar(codigo, medicamentos);
     }
 
     @DeleteMapping("/{codigo}")
-    public void remover(@PathVariable int codigo){
+    public void remover(@PathVariable int codigo) {
         medicamentosFacade.remover(codigo);
     }
 
+    @PutMapping("/{codigo}/reduzir")
+    public void reduzirEstoque(@PathVariable int codigo, @RequestParam int quantidade) {
+        medicamentosFacade.reduzirEstoque(codigo, quantidade);
+    }
 
+    @PutMapping("/{codigo}/reabastecer")
+    public void reabastecerEstoque(@PathVariable int codigo, @RequestParam int quantidade) {
+        medicamentosFacade.reabastecerEstoque(codigo, quantidade);
+    }
 }
