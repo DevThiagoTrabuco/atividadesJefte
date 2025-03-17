@@ -1,7 +1,5 @@
 package com.geriaTeam.geriatricare.facade;
 
-package com.geriaTeam.geriatricare.facade;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
