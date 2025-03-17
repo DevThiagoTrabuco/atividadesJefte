@@ -1,7 +1,5 @@
 package com.geriaTeam.geriatricare.controller;
 
-package com.geriaTeam.geriatricare.controller;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,33 +22,33 @@ public class FuncionarioController {
 
     @Autowired
     public FuncionarioController(FuncionarioFacade funcionarioFacade) {
-        this.FuncionarioFacade = FuncionarioFacade;
+        this.funcionarioFacade = funcionarioFacade;
 
     }
 
     @GetMapping("")
     public List<Funcionario> buscar(){
-        return FuncionarioFacade.buscar();
+        return funcionarioFacade.buscar();
     }
 
     @GetMapping("/{codigo}")
     public Funcionario buscarPorCodigo(@PathVariable int codigo){
-        return FuncionarioFacade.buscarPorCodigo(codigo);
+        return funcionarioFacade.buscarPorCodigo(codigo);
     }
 
     @PostMapping("")
     public void adicionar(@RequestBody Funcionario funcionario){
-        FuncionarioFacade.adicionar(Funcionario);
+        funcionarioFacade.adicionar(funcionario);
     }
 
     @PutMapping("/{codigo}")
     public void atualizar(@PathVariable int codigo, @RequestBody Funcionario funcionario){
-        FuncionarioFacade.atualizar(codigo, Funcionario);
+        funcionarioFacade.atualizar(codigo, funcionario);
     }
 
     @DeleteMapping("/{codigo}")
     public void remover(@PathVariable int codigo){
-        FuncionarioFacade.remover(codigo);
+        funcionarioFacade.remover(codigo);
     }
 }
 

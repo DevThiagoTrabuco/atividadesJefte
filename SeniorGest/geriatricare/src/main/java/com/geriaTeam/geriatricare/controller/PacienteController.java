@@ -1,7 +1,5 @@
 package com.geriaTeam.geriatricare.controller;
 
-package com.geriaTeam.geriatricare.controller;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
