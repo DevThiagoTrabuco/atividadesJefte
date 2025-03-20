@@ -12,7 +12,7 @@ public class Medicamentos {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name = "medicamentos_id")
-    private int medicamentos_id;
+    private int medicamentosId;
 
     @Column(name = "nome")
     private String nome;
