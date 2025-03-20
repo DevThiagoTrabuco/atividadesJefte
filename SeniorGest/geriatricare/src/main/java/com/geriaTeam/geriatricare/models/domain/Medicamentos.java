@@ -11,8 +11,8 @@ import lombok.Setter;
 public class Medicamentos {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "medicamentos_id")
+    private int medicamentos_id;
 
     @Column(name = "nome")
     private String nome;
