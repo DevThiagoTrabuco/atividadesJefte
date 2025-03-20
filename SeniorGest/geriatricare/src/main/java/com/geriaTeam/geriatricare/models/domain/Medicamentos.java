@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Medicamentos {
-    private int id;
+    private int medicamentos_id;
 
     private String nome;
 
