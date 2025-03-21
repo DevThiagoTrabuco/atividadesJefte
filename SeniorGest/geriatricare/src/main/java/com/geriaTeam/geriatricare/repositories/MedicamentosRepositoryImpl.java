@@ -20,7 +20,7 @@ public class MedicamentosRepositoryImpl implements MedicamentosRepository {
     public void atualizar(int codigo, Medicamentos medicamentos) {
         Medicamentos medicamentosEmMemoria = this.buscarPorCodigo(codigo);
         medicamentosEmMemoria.setNome(medicamentos.getNome());
-        medicamentosEmMemoria.setId(medicamentos.getId());
+        medicamentosEmMemoria.setMedicamentosId(medicamentos.getMedicamentosId());
     }
 
     @Override
@@ -32,7 +32,7 @@ public class MedicamentosRepositoryImpl implements MedicamentosRepository {
     public Medicamentos buscarPorCodigo(int codigo) {
         Medicamentos medicamentos = medicamentoss
                 .stream()
-                .filter(l -> l.getId() == codigo)
+                .filter(l -> l.getMedicamentosId() == codigo)
                 .findFirst()
                 .get();
 
@@ -41,7 +41,7 @@ public class MedicamentosRepositoryImpl implements MedicamentosRepository {
 
     @Override
     public void remover(int codigo) {
-        medicamentoss.removeIf(l -> l.getId() == codigo);
+        medicamentoss.removeIf(l -> l.getMedicamentosId() == codigo);
     }
 }
 
