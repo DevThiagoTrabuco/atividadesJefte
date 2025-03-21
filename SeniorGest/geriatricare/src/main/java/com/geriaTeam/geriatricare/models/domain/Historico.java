@@ -16,5 +16,5 @@ public class Historico {
     private int id;
 
     @Column(name = "historicos_data_alteracao")
-    private Date dataAletracao;
+    private Date dataAlteracao;
 }

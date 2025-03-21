@@ -21,7 +21,7 @@ public class HistoricoRepositoryImpl implements HistoricoRepository {
     public void atualizar(int codigo, Historico historico) {
         Historico historicoEmMemoria = this.buscarPorCodigo(codigo);
         historicoEmMemoria.setId(historico.getId());
-        historicoEmMemoria.setDataAletracao(historico.getDataAletracao());
+        historicoEmMemoria.setDataAlteracao(historico.getDataAlteracao());
     }
 
     @Override
