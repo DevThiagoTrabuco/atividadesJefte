@@ -1,24 +1,25 @@
 package com.geriaTeam.geriatricare.models.domain;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@Table(name="Sinais_Vitais")
+@Table(name="sinais_vitais")
 public class SinaisVitais {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column(name = "Sinais_Viatis_id")
+    @Column(name = "sinais_vitais_id")
     private int id;
 
-    @Column(name = "Sinais_Vitais_batimento")
+    @Column(name = "sinais_vitais_batimento")
     private int batimentos;
 
-    @Column(name = "Sinais_Vitais_oximetria")
+    @Column(name = "sinais_vitais_oximetria")
     private int oximetria;
 
-    @Column(name = "Sinais_Vitais_temperatura")
+    @Column(name = "sinais_vitais_temperatura")
     private int temperatura;
 }

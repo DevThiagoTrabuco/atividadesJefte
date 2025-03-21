@@ -24,7 +24,6 @@ public class SinaisVitaisRepositoryImpl implements SinaisVitaisRepository {
         sinaisvitaisEmMemoria.setBatimentos(sinaisvitais.getBatimentos());
         sinaisvitaisEmMemoria.setOximetria(sinaisvitais.getOximetria());
         sinaisvitaisEmMemoria.setTemperatura(sinaisvitais.getTemperatura());
-        sinaisvitaisEmMemoria.setIdPaciente(sinaisvitais.getIdPaciente());
     }
 
     @Override
