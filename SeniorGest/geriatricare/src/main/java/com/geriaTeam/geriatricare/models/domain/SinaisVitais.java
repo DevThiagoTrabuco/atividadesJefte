@@ -6,21 +6,19 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="SinaisVitais")
+@Table(name="Sinais_Vitais")
 public class SinaisVitais {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "batimento")
+    @Column(name = "Sinais_Vitais_batimento")
     private int batimentos;
 
-    @Column(name = "oximetria")
+    @Column(name = "Sinais_Vitais_oximetria")
     private int oximetria;
 
-    @Column(name = "temperatura")
+    @Column(name = "Sinais_Vitais_temperatura")
     private int temperatura;
-
-    private int idPaciente;
 }
