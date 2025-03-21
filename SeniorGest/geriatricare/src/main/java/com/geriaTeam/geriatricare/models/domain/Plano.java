@@ -16,6 +16,6 @@ public class Plano {
     @Column(name = "planos_nome")
     private String nome;
 
-    @Column(name = "planos_tipoPlano")
+    @Column(name = "planos_tipo")
     private String tipoPlano;
 }
