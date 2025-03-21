@@ -1,14 +1,21 @@
 package com.geriaTeam.geriatricare.models.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Getter
 @Setter
+@Entity
+@Table(name = "planos")
 public class Plano {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "planos_id")
     private int id;
 
+    @Column(name = "planos_nome")
     private String nome;
 
+    @Column(name = "planos_tipo")
     private String tipoPlano;
 }
