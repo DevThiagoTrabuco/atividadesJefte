@@ -13,7 +13,7 @@ public class SinaisVitais {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "batimentos")
+    @Column(name = "batimento")
     private int batimentos;
 
     @Column(name = "oximetria")
