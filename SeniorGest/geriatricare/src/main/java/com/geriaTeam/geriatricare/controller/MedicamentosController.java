@@ -1,7 +1,6 @@
 package com.geriaTeam.geriatricare.controller;
 
 import com.geriaTeam.geriatricare.facade.MedicamentosFacade;
-import com.geriaTeam.geriatricare.models.domain.Admin;
 import com.geriaTeam.geriatricare.models.domain.Medicamentos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
