@@ -5,6 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@Entity
+@Table(name="SinaisVitais")
 public class SinaisVitais {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -20,6 +22,5 @@ public class SinaisVitais {
     @Column(name = "temperatura")
     private int temperatura;
 
-    @Column(name = "idPaciente")
     private int idPaciente;
 }
