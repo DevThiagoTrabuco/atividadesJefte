@@ -10,7 +10,7 @@ import lombok.Setter;
 public class SinaisVitais {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "Sinais_Viatis_id")
     private int id;
 
     @Column(name = "Sinais_Vitais_batimento")
