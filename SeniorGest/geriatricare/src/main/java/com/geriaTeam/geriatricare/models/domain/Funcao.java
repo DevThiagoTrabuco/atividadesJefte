@@ -14,6 +14,6 @@ public class Funcao {
     @Column(name = "funcoes_id")
     private int id;
 
-    @Column(name = "nome")
+    @Column(name = "funcoes_nome")
     private String nome;
 }
