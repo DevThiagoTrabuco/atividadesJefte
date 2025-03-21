@@ -25,9 +25,9 @@ public class Paciente {
     @Column(name = "pacientes_entrada")
     private LocalDateTime entrada;
 
-    @Column(name = "pacientes_condMental")
+    @Column(name = "pacientes_cond_mental")
     private String condMental;
 
-    @Column(name = "pacientes_condFisica")
+    @Column(name = "pacientes_cond_fisica")
     private String condFisica;
 }
