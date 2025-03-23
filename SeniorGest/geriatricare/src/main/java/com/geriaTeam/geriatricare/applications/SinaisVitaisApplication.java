@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SinaisVitaisApplication {
-    private SinaisVitaisRepositoryImpl sinaisvitaisRepository;
+    private SinaisVitaisRepository sinaisvitaisRepository;
 
 
     @Autowired
-    public SinaisVitaisApplication(SinaisVitaisRepositoryImpl sinaisvitaisRepository) {
+    public SinaisVitaisApplication(SinaisVitaisRepository sinaisvitaisRepository) {
         this.sinaisvitaisRepository = sinaisvitaisRepository;
     }
 
