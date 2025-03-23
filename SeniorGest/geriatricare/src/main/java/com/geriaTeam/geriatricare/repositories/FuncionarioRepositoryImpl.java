@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.geriaTeam.geriatricare.Interfaces.FuncionarioRepository;
-import org.springframework.stereotype.Repository;
 import com.geriaTeam.geriatricare.models.domain.Funcionario;
 
-@Repository
+
 public class FuncionarioRepositoryImpl implements FuncionarioRepository {
     private List<Funcionario> funcionarios = new ArrayList<>();
 
@@ -24,7 +23,6 @@ public class FuncionarioRepositoryImpl implements FuncionarioRepository {
         funcionarioEmMemoria.setEmail(Funcionario.getEmail());
         funcionarioEmMemoria.setTelefone(Funcionario.getTelefone());
         funcionarioEmMemoria.setNascimento(Funcionario.getNascimento());
-        funcionarioEmMemoria.setFuncao(Funcionario.getFuncao());
     }
 
     @Override

@@ -3,12 +3,10 @@ package com.geriaTeam.geriatricare.repositories;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
 import com.geriaTeam.geriatricare.Interfaces.PacienteRepository;
 import com.geriaTeam.geriatricare.models.domain.Paciente;
 
-@Repository
+
 public class PacienteRepositoryImpl implements PacienteRepository {
     private List<Paciente> pacientes = new ArrayList<>();
 

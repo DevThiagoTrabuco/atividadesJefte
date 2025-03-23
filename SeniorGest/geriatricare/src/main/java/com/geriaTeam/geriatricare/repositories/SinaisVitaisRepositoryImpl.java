@@ -8,42 +8,47 @@ import org.springframework.stereotype.Repository;
 import com.geriaTeam.geriatricare.Interfaces.SinaisVitaisRepository;
 import com.geriaTeam.geriatricare.models.domain.SinaisVitais;
 
-
+@Repository
 public class SinaisVitaisRepositoryImpl implements SinaisVitaisRepository {
-    private List<SinaisVitais> sinaisVitaiss = new ArrayList<>();
+    private List<SinaisVitais> sinaisvitaiss = new ArrayList<>();
 
     @Override
-    public void adicionar(SinaisVitais sinaisVitais) {
-        sinaisVitaiss.add(sinaisVitais);
+    public void adicionar(SinaisVitais sinaisvitais) {
+        sinaisvitaiss.add(sinaisvitais);
     }
 
     @Override
-    public void atualizar(int codigo, SinaisVitais sinaisVitais) {
-        SinaisVitais sinaisVitaisEmMemoria = this.buscarPorCodigo(codigo);
-        sinaisVitaisEmMemoria.setSinaisVitaisId(sinaisVitais.getSinaisVitaisId());
-        sinaisVitaisEmMemoria.setDataAlteracao(sinaisVitais.getDataAlteracao());
+    public void atualizar(int codigo, SinaisVitais sinaisvitais) {
+        SinaisVitais sinaisvitaisEmMemoria = this.buscarPorCodigo(codigo);
+        sinaisvitaisEmMemoria.setId(sinaisvitais.getId());
+        sinaisvitaisEmMemoria.setBatimentos(sinaisvitais.getBatimentos());
+        sinaisvitaisEmMemoria.setOximetria(sinaisvitais.getOximetria());
+        sinaisvitaisEmMemoria.setTemperatura(sinaisvitais.getTemperatura());
     }
 
     @Override
-    public List<Historico> buscar() {
-        return historicos;
+    public List<SinaisVitais> buscar() {
+        return sinaisvitaiss;
     }
 
     @Override
-    public Historico buscarPorCodigo(int codigo) {
-        Historico historico = historicos
-        .stream()
-        .filter(l -> l.getHistoricoId() == codigo)
-        .findFirst()
-        .get();
+    public SinaisVitais buscarPorCodigo(int codigo) {
+        SinaisVitais sinaisvitais = sinaisvitaiss
+                .stream()
+                .filter(l -> l.getId() == codigo)
+                .findFirst()
+                .get();
 
-        return historico;
+        return sinaisvitais;
     }
 
     @Override
     public void remover(int codigo) {
-        historicos.removeIf(l -> l.getHistoricoId() == codigo);
+        sinaisvitaiss.removeIf(l -> l.getId() == codigo);
     }
 
-    
+
 }
+
+
+
