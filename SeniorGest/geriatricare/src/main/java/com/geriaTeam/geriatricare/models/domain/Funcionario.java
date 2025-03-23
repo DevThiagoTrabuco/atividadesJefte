@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "funcionarios")
 public class Funcionario {
     @Id
