@@ -13,8 +13,21 @@ public class Historico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "historicos_id")
-    private int id;
+    private int historicoId;
 
     @Column(name = "historicos_data_alteracao")
     private Date dataAlteracao;
+
+    public Historico() {
+
+    }
+
+    public Historico(Date dataAlteracao) {
+        this.dataAlteracao = dataAlteracao;
+    }
+
+    public Historico(int historicoId, Date dataAlteracao) {
+        this.historicoId = historicoId;
+        this.dataAlteracao = dataAlteracao;
+    }
 }
