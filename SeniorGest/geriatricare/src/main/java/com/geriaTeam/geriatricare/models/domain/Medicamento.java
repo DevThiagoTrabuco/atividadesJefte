@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "medicamentos")
-public class Medicamentos {
+public class Medicamento {
     @Id
     @Column(name = "medicamentos_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,16 +20,16 @@ public class Medicamentos {
     @Column(name = "medicamentos_qtd")
     private int qtdMedicamentos;
 
-    public Medicamentos() {
+    public Medicamento() {
 
     }
 
-    public Medicamentos(String nome, int qtdMedicamentos) {
+    public Medicamento(String nome, int qtdMedicamentos) {
         this.nome = nome;
         this.qtdMedicamentos = qtdMedicamentos;
     }
 
-    public Medicamentos(int medicamentosId, String nome, int qtdMedicamentos) {
+    public Medicamento(int medicamentosId, String nome, int qtdMedicamentos) {
         this.medicamentosId = medicamentosId;
         this.nome = nome;
         this.qtdMedicamentos = qtdMedicamentos;
