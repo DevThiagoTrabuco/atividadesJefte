@@ -24,7 +24,6 @@ public class FuncionarioRepositoryImpl implements FuncionarioRepository {
         funcionarioEmMemoria.setEmail(Funcionario.getEmail());
         funcionarioEmMemoria.setTelefone(Funcionario.getTelefone());
         funcionarioEmMemoria.setNascimento(Funcionario.getNascimento());
-        funcionarioEmMemoria.setFuncao(Funcionario.getFuncao());
     }
 
     @Override

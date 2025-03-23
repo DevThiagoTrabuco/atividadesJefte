@@ -2,7 +2,6 @@ package com.geriaTeam.geriatricare.repositories;
 
 import com.geriaTeam.geriatricare.Interfaces.MedicamentosRepository;
 import com.geriaTeam.geriatricare.models.domain.Medicamentos;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;

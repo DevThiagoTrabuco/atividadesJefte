@@ -27,7 +27,4 @@ public class Funcionario {
 
     @Column(name = "funcionarios_email")
     private String email;
-
-    @Column(name = "funcionarios_funcao")
-    private int funcao;
 }

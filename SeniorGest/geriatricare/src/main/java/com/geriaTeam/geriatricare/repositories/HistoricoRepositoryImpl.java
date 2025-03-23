@@ -3,8 +3,6 @@ package com.geriaTeam.geriatricare.repositories;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
 import com.geriaTeam.geriatricare.Interfaces.HistoricoRepository;
 import com.geriaTeam.geriatricare.models.domain.Historico;
 
