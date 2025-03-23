@@ -19,4 +19,19 @@ public class Medicamentos {
 
     @Column(name = "medicamentos_qtd")
     private int qtdMedicamentos;
+
+    public Medicamentos() {
+
+    }
+
+    public Medicamentos(String nome, int qtdMedicamentos) {
+        this.nome = nome;
+        this.qtdMedicamentos = qtdMedicamentos;
+    }
+
+    public Medicamentos(int medicamentosId, String nome, int qtdMedicamentos) {
+        this.medicamentosId = medicamentosId;
+        this.nome = nome;
+        this.qtdMedicamentos = qtdMedicamentos;
+    }
 }

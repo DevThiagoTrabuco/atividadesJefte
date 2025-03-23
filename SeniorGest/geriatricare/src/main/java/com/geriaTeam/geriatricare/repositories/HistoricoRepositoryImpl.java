@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.geriaTeam.geriatricare.Interfaces.HistoricoRepository;
 import com.geriaTeam.geriatricare.models.domain.Historico;
 
-@Repository
+
 public class HistoricoRepositoryImpl implements HistoricoRepository {
     private List<Historico> historicos = new ArrayList<>();
 
@@ -20,7 +20,7 @@ public class HistoricoRepositoryImpl implements HistoricoRepository {
     @Override
     public void atualizar(int codigo, Historico historico) {
         Historico historicoEmMemoria = this.buscarPorCodigo(codigo);
-        historicoEmMemoria.setId(historico.getId());
+        historicoEmMemoria.setHistoricoId(historico.getHistoricoId());
         historicoEmMemoria.setDataAlteracao(historico.getDataAlteracao());
     }
 
@@ -33,7 +33,7 @@ public class HistoricoRepositoryImpl implements HistoricoRepository {
     public Historico buscarPorCodigo(int codigo) {
         Historico historico = historicos
         .stream()
-        .filter(l -> l.getId() == codigo)
+        .filter(l -> l.getHistoricoId() == codigo)
         .findFirst()
         .get();
 
@@ -42,7 +42,7 @@ public class HistoricoRepositoryImpl implements HistoricoRepository {
 
     @Override
     public void remover(int codigo) {
-        historicos.removeIf(l -> l.getId() == codigo);
+        historicos.removeIf(l -> l.getHistoricoId() == codigo);
     }
 
     

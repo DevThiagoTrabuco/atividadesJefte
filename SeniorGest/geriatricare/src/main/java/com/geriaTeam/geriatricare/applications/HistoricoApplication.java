@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.applications;
 
+import com.geriaTeam.geriatricare.Interfaces.HistoricoRepository;
 import com.geriaTeam.geriatricare.models.domain.Historico;
-import com.geriaTeam.geriatricare.repositories.HistoricoRepositoryImpl;
 
 import java.util.List;
 
@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class HistoricoApplication {
-    private HistoricoRepositoryImpl historicoRepository;
-    
-    
+    private HistoricoRepository historicoRepository;
+
+
     @Autowired
-    public HistoricoApplication(HistoricoRepositoryImpl historicoRepository) {
+    public HistoricoApplication(HistoricoRepository historicoRepository) {
         this.historicoRepository = historicoRepository;
     }
 

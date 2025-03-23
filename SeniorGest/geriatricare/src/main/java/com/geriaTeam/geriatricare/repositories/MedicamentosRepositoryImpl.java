@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+
 public class MedicamentosRepositoryImpl implements MedicamentosRepository {
     private List<Medicamentos> medicamentoss = new ArrayList<>();
 
