@@ -6,9 +6,7 @@ import com.geriaTeam.geriatricare.models.domain.Familiar;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
 
-@Repository
 public class FamiliarRepositoryImpl implements FamiliarRepository {
     private List<Familiar> familiares = new ArrayList<>();
 

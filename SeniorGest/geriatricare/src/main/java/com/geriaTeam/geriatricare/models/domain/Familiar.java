@@ -6,6 +6,8 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "familiares")
 public class Familiar {
     @Id
