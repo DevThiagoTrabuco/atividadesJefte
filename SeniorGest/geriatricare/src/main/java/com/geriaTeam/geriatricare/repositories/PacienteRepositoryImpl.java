@@ -6,7 +6,7 @@ import java.util.List;
 import com.geriaTeam.geriatricare.Interfaces.PacienteRepository;
 import com.geriaTeam.geriatricare.models.domain.Paciente;
 
-@Repository
+
 public class PacienteRepositoryImpl implements PacienteRepository {
     private List<Paciente> pacientes = new ArrayList<>();
 

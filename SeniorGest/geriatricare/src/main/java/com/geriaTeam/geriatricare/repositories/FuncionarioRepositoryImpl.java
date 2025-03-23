@@ -6,7 +6,7 @@ import java.util.List;
 import com.geriaTeam.geriatricare.Interfaces.FuncionarioRepository;
 import com.geriaTeam.geriatricare.models.domain.Funcionario;
 
-@Repository
+
 public class FuncionarioRepositoryImpl implements FuncionarioRepository {
     private List<Funcionario> funcionarios = new ArrayList<>();
 
