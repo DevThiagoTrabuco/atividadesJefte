@@ -42,7 +42,9 @@ public class MedicamentoRepositoryMySQLImpl implements MedicamentoRepository {
         Medicamento medicamentoDb = this.medicamentoJPA.findById(codigo).get();
 
         medicamentoDb.setNome(medicamento.getNome());
-        medicamentoDb.setQtdMedicamentos(medicamento.getQtdMedicamentos());
+        medicamentoDb.setQtd(medicamento.getQtd());
+        medicamentoDb.setLote(medicamento.getLote());
+        medicamentoDb.setVencimento(medicamento.getVencimento());
 
         this.medicamentoJPA.save(medicamentoDb);
     }

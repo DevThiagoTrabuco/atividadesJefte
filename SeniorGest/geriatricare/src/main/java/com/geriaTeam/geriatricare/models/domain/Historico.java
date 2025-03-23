@@ -8,6 +8,8 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "historicos")
 public class Historico {
     @Id
@@ -18,16 +20,4 @@ public class Historico {
     @Column(name = "historicos_data_alteracao")
     private Date dataAlteracao;
 
-    public Historico() {
-
-    }
-
-    public Historico(Date dataAlteracao) {
-        this.dataAlteracao = dataAlteracao;
-    }
-
-    public Historico(int historicoId, Date dataAlteracao) {
-        this.historicoId = historicoId;
-        this.dataAlteracao = dataAlteracao;
-    }
 }
