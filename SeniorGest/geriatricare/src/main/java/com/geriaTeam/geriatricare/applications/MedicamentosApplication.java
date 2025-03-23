@@ -1,8 +1,8 @@
 package com.geriaTeam.geriatricare.applications;
 
 
+import com.geriaTeam.geriatricare.Interfaces.MedicamentosRepository;
 import com.geriaTeam.geriatricare.models.domain.Medicamentos;
-import com.geriaTeam.geriatricare.repositories.MedicamentosRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,11 +10,11 @@ import java.util.List;
 
 @Service
 public class MedicamentosApplication {
-    private MedicamentosRepositoryImpl medicamentosRepository;
+    private MedicamentosRepository medicamentosRepository;
 
 
     @Autowired
-    public MedicamentosApplication(MedicamentosRepositoryImpl medicamentosRepository) {
+    public MedicamentosApplication(MedicamentosRepository medicamentosRepository) {
         this.medicamentosRepository = medicamentosRepository;
     }
 
