@@ -1,10 +1,8 @@
 package com.geriaTeam.geriatricare.models.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import jakarta.persistence.*;
+import lombok.*;
 
 @Getter
 @Setter
@@ -20,7 +18,7 @@ public class Paciente {
     private String nome;
 
     @Column(name = "pacientes_nascimento")
-    private LocalDate nascimento;
+    private LocalDateTime nascimento;
 
     @Column(name = "pacientes_entrada")
     private LocalDateTime entrada;
@@ -30,4 +28,25 @@ public class Paciente {
 
     @Column(name = "pacientes_cond_fisica")
     private String condFisica;
+
+    public Paciente() {
+
+    }
+
+    public Paciente(String nome, LocalDateTime nascimento, LocalDateTime entrada, String condMental, String condFisica) {
+        this.nome = nome;
+        this.nascimento = nascimento;
+        this.entrada = entrada;
+        this.condMental = condMental;
+        this.condFisica = condFisica;
+    }
+
+    public Paciente(int id, String nome, LocalDateTime nascimento, LocalDateTime entrada, String condMental, String condFisica) {
+        this.id = id;
+        this.nome = nome;
+        this.nascimento = nascimento;
+        this.entrada = entrada;
+        this.condMental = condMental;
+        this.condFisica = condFisica;
+    }
 }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.geriaTeam.geriatricare.Interfaces.FuncionarioRepository;
-import org.springframework.stereotype.Repository;
 import com.geriaTeam.geriatricare.models.domain.Funcionario;
 
 @Repository
