@@ -1,12 +1,16 @@
 package com.geriaTeam.geriatricare.models.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.*;
+import lombok.NoArgsConstructor;
+
 
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name="funcoes")
 public class Funcao {
     @Id
