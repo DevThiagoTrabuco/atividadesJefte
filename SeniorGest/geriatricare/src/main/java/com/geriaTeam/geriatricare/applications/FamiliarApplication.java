@@ -2,7 +2,6 @@ package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.FamiliarRepository;
 import com.geriaTeam.geriatricare.models.domain.Familiar;
-import com.geriaTeam.geriatricare.repositories.FamiliarRepositoryImpl;
 
 import java.util.List;
 

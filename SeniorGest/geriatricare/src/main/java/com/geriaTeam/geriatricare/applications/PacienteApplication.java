@@ -2,7 +2,6 @@ package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.PacienteRepository;
 import com.geriaTeam.geriatricare.models.domain.Paciente;
-import com.geriaTeam.geriatricare.repositories.PacienteRepositoryImpl;
 
 import java.util.List;
 

@@ -2,7 +2,6 @@ package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.AdminRepository;
 import com.geriaTeam.geriatricare.models.domain.Admin;
-import com.geriaTeam.geriatricare.repositories.AdminRepositoryImpl;
 
 import java.util.List;
 

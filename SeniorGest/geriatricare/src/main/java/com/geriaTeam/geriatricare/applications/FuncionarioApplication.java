@@ -2,7 +2,6 @@ package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.FuncionarioRepository;
 import com.geriaTeam.geriatricare.models.domain.Funcionario;
-import com.geriaTeam.geriatricare.repositories.FuncionarioRepositoryImpl;
 
 import java.util.List;
 

@@ -2,7 +2,6 @@ package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.IndicadorRepository;
 import com.geriaTeam.geriatricare.models.domain.Indicador;
-import com.geriaTeam.geriatricare.repositories.IndicadorRepositoryImpl;
 
 import java.util.List;
 
