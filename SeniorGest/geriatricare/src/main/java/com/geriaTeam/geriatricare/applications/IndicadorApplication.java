@@ -1,5 +1,6 @@
 package com.geriaTeam.geriatricare.applications;
 
+import com.geriaTeam.geriatricare.Interfaces.IndicadorRepository;
 import com.geriaTeam.geriatricare.models.domain.Indicador;
 import com.geriaTeam.geriatricare.repositories.IndicadorRepositoryImpl;
 
@@ -10,11 +11,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class IndicadorApplication {
-    private IndicadorRepositoryImpl indicadorRepository;
+    private IndicadorRepository indicadorRepository;
 
 
     @Autowired
-    public IndicadorApplication(IndicadorRepositoryImpl indicadorRepository) {
+    public IndicadorApplication(IndicadorRepository indicadorRepository) {
         this.indicadorRepository = indicadorRepository;
     }
 

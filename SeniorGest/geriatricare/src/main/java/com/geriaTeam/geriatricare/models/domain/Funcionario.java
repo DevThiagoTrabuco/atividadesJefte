@@ -31,24 +31,4 @@ public class Funcionario {
     @Column(name = "funcionarios_funcao")
     private int funcao;
 
-    public Funcionario() {
-
-    }
-
-    public Funcionario(String nome, LocalDateTime nascimento, int telefone, String email, int funcao) {
-        this.nome = nome;
-        this.nascimento = nascimento;
-        this.telefone = telefone;
-        this.email = email;
-        this.funcao = funcao;
-    }
-
-    public Funcionario(int id, String nome, LocalDateTime nascimento, int telefone, String email, int funcao) {
-        this.id = id;
-        this.nome = nome;
-        this.nascimento = nascimento;
-        this.telefone = telefone;
-        this.email = email;
-        this.funcao = funcao;
-    }
 }

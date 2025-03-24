@@ -29,7 +29,7 @@ public class PacienteRepositoryMySQLImpl implements PacienteRepository {
 
     @Override
     public void adicionar(Paciente paciente) {
-        this.pacienteJPA.save(Paciente);
+        this.pacienteJPA.save(paciente);
     }
 
     @Override

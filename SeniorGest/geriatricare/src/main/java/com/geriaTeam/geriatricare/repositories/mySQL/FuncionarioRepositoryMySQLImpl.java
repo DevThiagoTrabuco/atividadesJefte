@@ -40,12 +40,12 @@ public class FuncionarioRepositoryMySQLImpl implements FuncionarioRepository {
     @Override
     public void atualizar(int codigo, Funcionario funcionario) {
         Funcionario funcionarioDB = this.funcionarioJPA.findById(codigo).get();
-        
-        funcionarioDB.setNome(Funcionario.getNome());
-        funcionarioDB.setEmail(Funcionario.getEmail());
-        funcionarioDB.setTelefone(Funcionario.getTelefone());
-        funcionarioDB.setNascimento(Funcionario.getNascimento());
-        funcionarioDB.setFuncao(Funcionario.getFuncao());
+
+        funcionarioDB.setNome(funcionario.getNome());
+        funcionarioDB.setEmail(funcionario.getEmail());
+        funcionarioDB.setTelefone(funcionario.getTelefone());
+        funcionarioDB.setNascimento(funcionario.getNascimento());
+        funcionarioDB.setFuncao(funcionario.getFuncao());
 
         this.funcionarioJPA.save(funcionarioDB);
     }
