@@ -6,6 +6,8 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "planos")
 public class Plano {
     @Id

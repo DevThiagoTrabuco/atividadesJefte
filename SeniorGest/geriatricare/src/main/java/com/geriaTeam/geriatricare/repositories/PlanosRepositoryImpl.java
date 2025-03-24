@@ -3,12 +3,11 @@ package com.geriaTeam.geriatricare.repositories;
 
 import com.geriaTeam.geriatricare.Interfaces.PlanoRepository;
 import com.geriaTeam.geriatricare.models.domain.Plano;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+
 public class PlanosRepositoryImpl implements PlanoRepository {
     private List<Plano> planoss = new ArrayList<>();
 
