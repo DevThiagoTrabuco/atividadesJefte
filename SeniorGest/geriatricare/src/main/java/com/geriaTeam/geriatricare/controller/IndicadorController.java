@@ -12,42 +12,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.geriaTeam.geriatricare.facade.AdminFacade;
-import com.geriaTeam.geriatricare.models.domain.Admin;
+import com.geriaTeam.geriatricare.facade.IndicadorFacade;
+import com.geriaTeam.geriatricare.models.domain.Indicador;
 
-@RequestMapping("/api/admin/")
+@RequestMapping("/api/indicador/")
 @RestController
-public class AdminController {
-    private final AdminFacade adminFacade;
+public class IndicadorController {
+    private final IndicadorFacade indicadorFacade;
 
     @Autowired
-    public AdminController(AdminFacade adminFacade) {
-        this.adminFacade = adminFacade;
+    public IndicadorController(IndicadorFacade indicadorFacade) {
+        this.indicadorFacade = indicadorFacade;
 
     }
 
     @GetMapping("")
-    public List<Admin> buscar(){
-        return adminFacade.buscar();
+    public List<Indicador> buscar(){
+        return indicadorFacade.buscar();
     }
 
     @GetMapping("/{codigo}")
-    public Admin buscarPorCodigo(@PathVariable int codigo){
-        return adminFacade.buscarPorCodigo(codigo);
+    public Indicador buscarPorCodigo(@PathVariable int codigo){
+        return indicadorFacade.buscarPorCodigo(codigo);
     }
 
     @PostMapping("")
-    public void adicionar(@RequestBody Admin admin){
-        adminFacade.adicionar(admin);
+    public void adicionar(@RequestBody Indicador indicador){
+        indicadorFacade.adicionar(indicador);
     }
 
     @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody Admin admin){
-        adminFacade.atualizar(codigo, admin);
+    public void atualizar(@PathVariable int codigo, @RequestBody Indicador indicador){
+        indicadorFacade.atualizar(codigo, indicador);
     }
 
     @DeleteMapping("/{codigo}")
     public void remover(@PathVariable int codigo){
-        adminFacade.remover(codigo);
+        indicadorFacade.remover(codigo);
     }
 }

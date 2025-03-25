@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.applications;
 
+import com.geriaTeam.geriatricare.Interfaces.FuncionarioRepository;
 import com.geriaTeam.geriatricare.models.domain.Funcionario;
-import com.geriaTeam.geriatricare.repositories.FuncionarioRepositoryImpl;
 
 import java.util.List;
 
@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class FuncionarioApplication {
-    private FuncionarioRepositoryImpl funcionarioRepository;
+    private FuncionarioRepository funcionarioRepository;
 
 
     @Autowired
-    public FuncionarioApplication(FuncionarioRepositoryImpl funcionarioRepository) {
+    public FuncionarioApplication(FuncionarioRepository funcionarioRepository) {
         this.funcionarioRepository = funcionarioRepository;
     }
 

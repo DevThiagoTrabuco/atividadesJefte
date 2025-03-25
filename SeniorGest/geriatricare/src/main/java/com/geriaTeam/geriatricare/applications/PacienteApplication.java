@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.applications;
 
+import com.geriaTeam.geriatricare.Interfaces.PacienteRepository;
 import com.geriaTeam.geriatricare.models.domain.Paciente;
-import com.geriaTeam.geriatricare.repositories.PacienteRepositoryImpl;
 
 import java.util.List;
 
@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PacienteApplication {
-    private PacienteRepositoryImpl pacienteRepository;
+    private PacienteRepository pacienteRepository;
 
 
     @Autowired
-    public PacienteApplication(PacienteRepositoryImpl pacienteRepository) {
+    public PacienteApplication(PacienteRepository pacienteRepository) {
         this.pacienteRepository = pacienteRepository;
     }
 

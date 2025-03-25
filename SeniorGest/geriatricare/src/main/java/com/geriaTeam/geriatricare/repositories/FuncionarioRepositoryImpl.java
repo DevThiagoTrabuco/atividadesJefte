@@ -4,16 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.geriaTeam.geriatricare.Interfaces.FuncionarioRepository;
-import org.springframework.stereotype.Repository;
 import com.geriaTeam.geriatricare.models.domain.Funcionario;
 
-@Repository
+
 public class FuncionarioRepositoryImpl implements FuncionarioRepository {
-    private List<Funcionario> funcionarios = new ArrayList<>();
+    private List<Funcionario> Funcionarios = new ArrayList<>();
 
     @Override
     public void adicionar(Funcionario funcionario) {
-        funcionarios.add(funcionario);
+        Funcionarios.add(funcionario);
     }
 
     @Override
@@ -24,17 +23,16 @@ public class FuncionarioRepositoryImpl implements FuncionarioRepository {
         funcionarioEmMemoria.setEmail(Funcionario.getEmail());
         funcionarioEmMemoria.setTelefone(Funcionario.getTelefone());
         funcionarioEmMemoria.setNascimento(Funcionario.getNascimento());
-        funcionarioEmMemoria.setFuncao(Funcionario.getFuncao());
     }
 
     @Override
     public List<Funcionario> buscar() {
-        return funcionarios;
+        return Funcionarios;
     }
 
     @Override
     public Funcionario buscarPorCodigo(int codigo) {
-        Funcionario Funcionario = funcionarios
+        Funcionario Funcionario = Funcionarios
                 .stream()
                 .filter(l -> l.getId() == codigo)
                 .findFirst()
@@ -45,7 +43,7 @@ public class FuncionarioRepositoryImpl implements FuncionarioRepository {
 
     @Override
     public void remover(int codigo) {
-        funcionarios.removeIf(l -> l.getId() == codigo);
+        Funcionarios.removeIf(l -> l.getId() == codigo);
     }
 
 

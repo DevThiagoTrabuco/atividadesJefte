@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.geriaTeam.geriatricare.facade.FuncaoFacade;
 import com.geriaTeam.geriatricare.models.domain.Funcao;
 
-@RequestMapping("/funcao/")
+@RequestMapping("/api/funcao/")
 @RestController
 public class FuncaoController {
     private final FuncaoFacade funcaoFacade;

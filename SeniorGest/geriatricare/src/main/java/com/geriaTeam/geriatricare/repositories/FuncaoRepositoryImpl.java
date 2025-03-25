@@ -6,9 +6,6 @@ import com.geriaTeam.geriatricare.models.domain.Funcao;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
-@Repository
 public class FuncaoRepositoryImpl implements FuncaoRepository {
     private List<Funcao> funcoes = new ArrayList<>();
 

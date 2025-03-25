@@ -1,5 +1,7 @@
 package com.geriaTeam.geriatricare.models.domain;
 
+import java.util.Date;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,16 +10,14 @@ import lombok.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "planos")
-public class Plano {
+@Table(name = "historicos")
+public class Historico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "planos_id")
-    private int id;
+    @Column(name = "historicos_id")
+    private int historicoId;
 
-    @Column(name = "planos_nome")
-    private String nome;
+    @Column(name = "historicos_data_alteracao")
+    private Date dataAlteracao;
 
-    @Column(name = "planos_tipo")
-    private String tipoPlano;
 }

@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.applications;
 
+import com.geriaTeam.geriatricare.Interfaces.PlanoRepository;
 import com.geriaTeam.geriatricare.models.domain.Plano;
-import com.geriaTeam.geriatricare.repositories.PlanosRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,11 +9,11 @@ import java.util.List;
 
 @Service
 public class PlanoApplication {
-    private PlanosRepositoryImpl planoRepository;
+    private PlanoRepository planoRepository;
 
 
     @Autowired
-    public PlanoApplication(PlanosRepositoryImpl planoRepository) {
+    public PlanoApplication(PlanoRepository planoRepository) {
         this.planoRepository = planoRepository;
     }
 

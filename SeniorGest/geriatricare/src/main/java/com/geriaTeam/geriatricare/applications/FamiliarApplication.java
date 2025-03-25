@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.applications;
 
+import com.geriaTeam.geriatricare.Interfaces.FamiliarRepository;
 import com.geriaTeam.geriatricare.models.domain.Familiar;
-import com.geriaTeam.geriatricare.repositories.FamiliarRepositoryImpl;
 
 import java.util.List;
 
@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class FamiliarApplication {
-    private FamiliarRepositoryImpl familiarRepository;
+    private FamiliarRepository familiarRepository;
     
     
     @Autowired
-    public FamiliarApplication(FamiliarRepositoryImpl familiarRepository) {
+    public FamiliarApplication(FamiliarRepository familiarRepository) {
         this.familiarRepository = familiarRepository;
     }
 

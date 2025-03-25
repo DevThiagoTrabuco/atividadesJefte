@@ -12,42 +12,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.geriaTeam.geriatricare.facade.AdminFacade;
-import com.geriaTeam.geriatricare.models.domain.Admin;
+import com.geriaTeam.geriatricare.facade.HistoricoFacade;
+import com.geriaTeam.geriatricare.models.domain.Historico;
 
-@RequestMapping("/api/admin/")
+@RequestMapping("/api/historico/")
 @RestController
-public class AdminController {
-    private final AdminFacade adminFacade;
+public class HistoricoController {
+    private final HistoricoFacade historicoFacade;
 
     @Autowired
-    public AdminController(AdminFacade adminFacade) {
-        this.adminFacade = adminFacade;
+    public HistoricoController(HistoricoFacade historicoFacade) {
+        this.historicoFacade = historicoFacade;
 
     }
 
     @GetMapping("")
-    public List<Admin> buscar(){
-        return adminFacade.buscar();
+    public List<Historico> buscar(){
+        return historicoFacade.buscar();
     }
 
     @GetMapping("/{codigo}")
-    public Admin buscarPorCodigo(@PathVariable int codigo){
-        return adminFacade.buscarPorCodigo(codigo);
+    public Historico buscarPorCodigo(@PathVariable int codigo){
+        return historicoFacade.buscarPorCodigo(codigo);
     }
 
     @PostMapping("")
-    public void adicionar(@RequestBody Admin admin){
-        adminFacade.adicionar(admin);
+    public void adicionar(@RequestBody Historico historico){
+        historicoFacade.adicionar(historico);
     }
 
     @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody Admin admin){
-        adminFacade.atualizar(codigo, admin);
+    public void atualizar(@PathVariable int codigo, @RequestBody Historico historico){
+        historicoFacade.atualizar(codigo, historico);
     }
 
     @DeleteMapping("/{codigo}")
     public void remover(@PathVariable int codigo){
-        adminFacade.remover(codigo);
+        historicoFacade.remover(codigo);
     }
 }

@@ -1,17 +1,34 @@
 package com.geriaTeam.geriatricare.models.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Getter
 @Setter
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "pacientes")
 public class Paciente {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pacientes_id")
     private int id;
+
+    @Column(name = "pacientes_nome")
     private String nome;
-    private LocalDate nascimento;
+
+    @Column(name = "pacientes_nascimento")
+    private LocalDateTime nascimento;
+
+    @Column(name = "pacientes_entrada")
     private LocalDateTime entrada;
+
+    @Column(name = "pacientes_cond_mental")
     private String condMental;
+
+    @Column(name = "pacientes_cond_fisica")
     private String condFisica;
+
 }
