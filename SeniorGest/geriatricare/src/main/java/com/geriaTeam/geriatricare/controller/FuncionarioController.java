@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.geriaTeam.geriatricare.facade.FuncionarioFacade;
 import com.geriaTeam.geriatricare.models.domain.Funcionario;
 
-@RequestMapping("/funcionario/")
+@RequestMapping("/api/funcionario/")
 @RestController
 public class FuncionarioController {
     private final FuncionarioFacade funcionarioFacade;

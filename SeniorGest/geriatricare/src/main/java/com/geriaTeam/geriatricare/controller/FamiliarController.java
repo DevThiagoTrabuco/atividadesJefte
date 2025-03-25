@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.geriaTeam.geriatricare.facade.FamiliarFacade;
 import com.geriaTeam.geriatricare.models.domain.Familiar;
 
-@RequestMapping("/familiar/")
+@RequestMapping("/api/familiar/")
 @RestController
 public class FamiliarController {
     private final FamiliarFacade familiarFacade;

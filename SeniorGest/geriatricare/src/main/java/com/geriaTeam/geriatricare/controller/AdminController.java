@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.geriaTeam.geriatricare.facade.AdminFacade;
 import com.geriaTeam.geriatricare.models.domain.Admin;
 
-@RequestMapping("/admin/")
+@RequestMapping("/api/admin/")
 @RestController
 public class AdminController {
     private final AdminFacade adminFacade;

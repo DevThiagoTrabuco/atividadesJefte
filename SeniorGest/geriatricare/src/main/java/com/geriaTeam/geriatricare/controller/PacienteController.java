@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.geriaTeam.geriatricare.facade.PacienteFacade;
 import com.geriaTeam.geriatricare.models.domain.Paciente;
 
-@RequestMapping("/paciente/")
+@RequestMapping("/api/paciente/")
 @RestController
 public class PacienteController {
     private final PacienteFacade pacienteFacade;
