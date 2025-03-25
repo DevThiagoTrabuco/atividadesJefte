@@ -20,4 +20,11 @@ public class Historico {
     @Column(name = "historicos_data_alteracao")
     private Date dataAlteracao;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pacientes_id_fk", referencedColumnName = "pacientes_id")
+    private Paciente paciente;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "funcionarios_id_fk", referencedColumnName = "funcionarios_id")
+    private Funcionario funcionario;
 }

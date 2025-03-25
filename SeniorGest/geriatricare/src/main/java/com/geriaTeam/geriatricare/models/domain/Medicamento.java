@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,4 +32,7 @@ public class Medicamento {
 
     @Column(name="medicamentos_vencimento")
     private Date vencimento;
+
+    @OneToMany(mappedBy = "medicamento", cascade = CascadeType.ALL)
+    private List<PacienteMedicamento> pacienteMedicamento;
 }

@@ -1,6 +1,8 @@
 package com.geriaTeam.geriatricare.models.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,4 +33,6 @@ public class Paciente {
     @Column(name = "pacientes_cond_fisica")
     private String condFisica;
 
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    private List<PacienteMedicamento> pacienteMedicamento;
 }
