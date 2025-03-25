@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.geriaTeam.geriatricare.facade.HistoricoFacade;
 import com.geriaTeam.geriatricare.models.domain.Historico;
 
-@RequestMapping("/historico/")
+@RequestMapping("/api/historico/")
 @RestController
 public class HistoricoController {
     private final HistoricoFacade historicoFacade;

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.geriaTeam.geriatricare.facade.IndicadorFacade;
 import com.geriaTeam.geriatricare.models.domain.Indicador;
 
-@RequestMapping("/indicador/")
+@RequestMapping("/api/indicador/")
 @RestController
 public class IndicadorController {
     private final IndicadorFacade indicadorFacade;
