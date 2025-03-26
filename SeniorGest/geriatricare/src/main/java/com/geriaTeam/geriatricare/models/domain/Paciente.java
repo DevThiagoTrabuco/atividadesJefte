@@ -35,4 +35,11 @@ public class Paciente {
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<PacienteMedicamento> pacienteMedicamento;
+
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    private List<PacienteFamiliar> pacienteFamiliar;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "planos_id_fk", referencedColumnName = "planos_id")
+    private Plano plano;
 }
