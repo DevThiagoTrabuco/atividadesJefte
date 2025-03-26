@@ -23,4 +23,8 @@ public class Indicador {
 
     @Column(name = "indicadores_temperatura")
     private int temperatura;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pacientes_id_fk", referencedColumnName = "pacientes_id")
+    private Paciente paciente;
 }

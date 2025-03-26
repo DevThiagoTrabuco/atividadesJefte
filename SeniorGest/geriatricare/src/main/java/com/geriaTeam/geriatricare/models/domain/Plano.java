@@ -1,5 +1,7 @@
 package com.geriaTeam.geriatricare.models.domain;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,4 +22,7 @@ public class Plano {
 
     @Column(name = "planos_tipo")
     private String tipoPlano;
+
+    @OneToMany(mappedBy = "planos", cascade = CascadeType.ALL)
+    private List<Paciente> pacientes;
 }
