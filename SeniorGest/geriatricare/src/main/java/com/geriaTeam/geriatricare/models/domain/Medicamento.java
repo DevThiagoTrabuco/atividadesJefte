@@ -33,6 +33,6 @@ public class Medicamento {
     @Column(name="medicamentos_vencimento")
     private Date vencimento;
 
-    @OneToMany(mappedBy = "medicamento", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "medicamento", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<PacienteMedicamento> pacienteMedicamento;
 }

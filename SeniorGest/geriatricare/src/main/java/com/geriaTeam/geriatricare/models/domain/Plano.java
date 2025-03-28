@@ -23,6 +23,6 @@ public class Plano {
     @Column(name = "planos_tipo")
     private String tipoPlano;
 
-    @OneToMany(mappedBy = "planos", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "planos", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Paciente> pacientes;
 }

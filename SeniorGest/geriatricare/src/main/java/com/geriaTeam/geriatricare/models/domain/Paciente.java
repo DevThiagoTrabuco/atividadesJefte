@@ -33,13 +33,13 @@ public class Paciente {
     @Column(name = "pacientes_cond_fisica")
     private String condFisica;
 
-    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "paciente", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<PacienteMedicamento> pacienteMedicamento;
 
-    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "paciente", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<PacienteFamiliar> pacienteFamiliar;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "planos_id_fk", referencedColumnName = "planos_id")
     private Plano plano;
 }
