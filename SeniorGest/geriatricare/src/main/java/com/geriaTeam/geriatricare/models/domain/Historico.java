@@ -20,11 +20,11 @@ public class Historico {
     @Column(name = "historicos_data_alteracao")
     private Date dataAlteracao;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType. MERGE})
     @JoinColumn(name = "pacientes_id_fk", referencedColumnName = "pacientes_id")
     private Paciente paciente;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType. MERGE})
     @JoinColumn(name = "funcionarios_id_fk", referencedColumnName = "funcionarios_id")
     private Funcionario funcionario;
 }

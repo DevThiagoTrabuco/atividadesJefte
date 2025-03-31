@@ -26,6 +26,8 @@ public class Familiar {
     @Column(name = "familiares_telefone")
     private String telefone;
 
-    @OneToMany(mappedBy = "familiar", cascade = CascadeType.ALL)
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    @OneToMany(mappedBy = "familiar", cascade = {CascadeType.PERSIST, CascadeType. MERGE})
     private List<PacienteFamiliar> pacienteFamiliar;
 }
