@@ -1,0 +1,98 @@
+{
+  "Admin": {
+    "admin": {
+      "nome": "Exemplo Nome",
+      "senha": "123456"
+    }
+  },
+  "Familiar": {
+    "familiar": {
+      "nome": "Exemplo Nome",
+      "email": "exemplo@email.com",
+      "telefone": "11999999999"
+    }
+  },
+  "Funcionario": {
+    "funcionario": {
+      "nome": "Funcionario Exemplo",
+      "nascimento": "2000-01-01T00:00:00",
+      "telefone": 123456789,
+      "email": "funcionario@email.com",
+      "funcao": {
+        "nome": "Enfermeiro"
+      }
+    }
+  },
+  "Funcao": {
+    "funcao": {
+      "nome": "Enfermeiro"
+    }
+  },
+  "Historico": {
+    "historico": {
+      "dataAlteracao": "2024-06-01",
+      "paciente": {
+        "nome": "Paciente Exemplo"
+      },
+      "funcionario": {
+        "nome": "Funcionario Exemplo"
+      }
+    }
+  },
+  "Indicador": {
+    "indicador": {
+      "batimentos": 80,
+      "oximetria": 98,
+      "temperatura": 36.5,
+      "paciente": {
+        "nome": "Paciente Exemplo"
+      }
+    }
+  },
+  "Medicamento": {
+    "medicamento": {
+      "nome": "Paracetamol",
+      "qtd": 20,
+      "lote": 123456,
+      "vencimento": "2025-12-31"
+    }
+  },
+  "Paciente": {
+    "paciente": {
+      "nome": "Paciente Exemplo",
+      "nascimento": "1950-05-15T00:00:00",
+      "entrada": "2024-01-10T08:00:00",
+      "condMental": "Lúcido",
+      "condFisica": "Dependente parcial",
+      "plano": {
+        "nome": "Plano Ouro"
+      }
+    }
+  },
+  "PacienteFamiliar": {
+    "pacienteFamiliar": {
+      "paciente": {
+        "nome": "Paciente Exemplo"
+      },
+      "familiar": {
+        "nome": "Familiar Exemplo"
+      }
+    }
+  },
+  "PacienteMedicamento": {
+    "pacienteMedicamento": {
+      "paciente": {
+        "nome": "Paciente Exemplo"
+      },
+      "medicamento": {
+        "nome": "Paracetamol"
+      }
+    }
+  },
+  "Plano": {
+    "plano": {
+      "nome": "Plano Ouro",
+      "tipoPlano": "Premium"
+    }
+  }
+}
