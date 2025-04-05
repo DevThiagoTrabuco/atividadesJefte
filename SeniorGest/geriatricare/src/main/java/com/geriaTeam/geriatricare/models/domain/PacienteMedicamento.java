@@ -24,8 +24,6 @@ public class PacienteMedicamento {
     @Column(name = "pacientes_id_fk")
     private int pacienteId;
 
-
-
     @ManyToOne
     @JoinColumn(name = "medicamentos_id_fk", referencedColumnName = "medicamentos_id")
     private Medicamento medicamento;
