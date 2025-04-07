@@ -9,6 +9,7 @@ import com.geriaTeam.geriatricare.applications.FamiliarApplication;
 import com.geriaTeam.geriatricare.models.domain.Familiar;
 
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Component
 @AllArgsConstructor
@@ -16,23 +17,23 @@ public class FamiliarFacade {
     @Autowired
     private FamiliarApplication familiarApplication;
 
+    @GetMapping("")
     public List<Familiar> buscar() {
-        return familiarApplication.buscar();
-    }
+        return this.familiarApplication.getAll();}
 
-    public Familiar buscarPorCodigo(int codigo) {
-        return familiarApplication.buscarPorCodigo(codigo);
+    public Familiar buscarPorCodigo(int id) {
+        return this.familiarApplication.getById(id);
     }
 
     public void adicionar(Familiar familiar) {
-        familiarApplication.adicionar(familiar);
+        this.familiarApplication.save(familiar);
     }
 
-    public void atualizar(int codigo, Familiar familiar) {
-        familiarApplication.atualizar(codigo, familiar);
+    public void atualizar(Familiar familiar) {
+        this.familiarApplication.save(familiar);
     }
 
-    public void remover(int codigo) {
-        familiarApplication.remover(codigo);
+    public void remover(int id) {
+        this.familiarApplication.delete(id);
     }
 }

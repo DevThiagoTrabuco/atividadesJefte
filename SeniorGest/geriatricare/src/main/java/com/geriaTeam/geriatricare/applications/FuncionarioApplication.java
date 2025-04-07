@@ -1,41 +1,47 @@
 package com.geriaTeam.geriatricare.applications;
 
-import com.geriaTeam.geriatricare.Interfaces.FuncionarioRepository;
 import com.geriaTeam.geriatricare.models.domain.Funcionario;
+import com.geriaTeam.geriatricare.repositories.jpa.FuncionarioJPA;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 @Service
+@RestController
+@RequestMapping("/api/funcionario/")
 public class FuncionarioApplication {
-    private FuncionarioRepository funcionarioRepository;
+    private final FuncionarioJPA funcionarioJPA;
 
 
     @Autowired
-    public FuncionarioApplication(FuncionarioRepository funcionarioRepository) {
-        this.funcionarioRepository = funcionarioRepository;
+    public FuncionarioApplication(FuncionarioJPA funcionarioJPA) {
+        this.funcionarioJPA = funcionarioJPA;
     }
 
-    public void adicionar(Funcionario funcionario){
-        this.funcionarioRepository.adicionar(funcionario);
+    @GetMapping("")
+    public List<Funcionario> getAll() {
+        return this.funcionarioJPA.findAll();
     }
 
-    public void atualizar(int codigo, Funcionario funcionario){
-        this.funcionarioRepository.atualizar(codigo, funcionario);
+    @GetMapping("{id}")
+    public Funcionario getById(@PathVariable int id) {
+        return this.funcionarioJPA.findById(id).get();
     }
 
-    public void remover(int codigo){
-        this.funcionarioRepository.remover(codigo);
+    @PostMapping("")
+    public Funcionario save(@RequestBody Funcionario funcionario) {
+        return this.funcionarioJPA.save(funcionario);
     }
 
-    public List<Funcionario> buscar(){
-        return this.funcionarioRepository.buscar();
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable int id) {
+        this.funcionarioJPA.deleteById(id);
     }
 
-    public Funcionario buscarPorCodigo(int codigo){
-        return this.funcionarioRepository.buscarPorCodigo(codigo);
+    @PutMapping
+    public Funcionario getById(@RequestBody Funcionario funcionario) {
+        return this.funcionarioJPA.save(funcionario);
     }
 }
-

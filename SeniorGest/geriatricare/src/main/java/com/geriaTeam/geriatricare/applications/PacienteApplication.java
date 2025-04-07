@@ -1,41 +1,52 @@
 package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.PacienteRepository;
+import com.geriaTeam.geriatricare.models.domain.Medicamento;
 import com.geriaTeam.geriatricare.models.domain.Paciente;
 
 import java.util.List;
 
+import com.geriaTeam.geriatricare.repositories.jpa.MedicamentoJPA;
+import com.geriaTeam.geriatricare.repositories.jpa.PacienteJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
 
 @Service
+@RestController
+@RequestMapping("/api/paciente/")
 public class PacienteApplication {
-    private PacienteRepository pacienteRepository;
+    private final PacienteJPA pacienteJPA;
 
 
     @Autowired
-    public PacienteApplication(PacienteRepository pacienteRepository) {
-        this.pacienteRepository = pacienteRepository;
+    public PacienteApplication(PacienteJPA pacienteJPA) {
+        this.pacienteJPA = pacienteJPA;
     }
 
-    public void adicionar(Paciente paciente){
-        this.pacienteRepository.adicionar(paciente);
+    @GetMapping("")
+    public List<Paciente> getAll() {
+        return this.pacienteJPA.findAll();
     }
 
-    public void atualizar(int codigo, Paciente paciente){
-        this.pacienteRepository.atualizar(codigo, paciente);
+    @GetMapping("{id}")
+    public Paciente getById(@PathVariable int id) {
+        return this.pacienteJPA.findById(id).get();
     }
 
-    public void remover(int codigo){
-        this.pacienteRepository.remover(codigo);
+    @PostMapping("")
+    public Paciente save(@RequestBody Paciente paciente) {
+        return this.pacienteJPA.save(paciente);
     }
 
-    public List<Paciente> buscar(){
-        return this.pacienteRepository.buscar();
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable int id) {
+        this.pacienteJPA.deleteById(id);
     }
 
-    public Paciente buscarPorCodigo(int codigo){
-        return this.pacienteRepository.buscarPorCodigo(codigo);
+    @PutMapping
+    public Paciente getById(@RequestBody Paciente paciente) {
+        return this.pacienteJPA.save(paciente);
     }
 }
 

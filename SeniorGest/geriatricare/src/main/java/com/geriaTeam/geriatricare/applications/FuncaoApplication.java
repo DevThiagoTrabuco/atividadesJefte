@@ -1,40 +1,46 @@
 package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.models.domain.Funcao;
-import com.geriaTeam.geriatricare.Interfaces.FuncaoRepository;
+import com.geriaTeam.geriatricare.repositories.jpa.FuncaoJPA;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-@Service
+@RestController
+@RequestMapping("/api/funcao/")
 public class FuncaoApplication {
-    private FuncaoRepository funcaoRepository;
-    
-    
+    private final FuncaoJPA funcaoJPA;
+
+
     @Autowired
-    public FuncaoApplication(FuncaoRepository funcaoRepository) {
-        this.funcaoRepository = funcaoRepository;
+    public FuncaoApplication(FuncaoJPA funcaoJPA) {
+        this.funcaoJPA = funcaoJPA;
     }
 
-    public void adicionar(Funcao funcao){
-        this.funcaoRepository.adicionar(funcao);
+    @GetMapping("")
+    public List<Funcao> getAll() {
+        return this.funcaoJPA.findAll();
     }
 
-    public void atualizar(int code, Funcao funcao){
-        this.funcaoRepository.atualizar(code, funcao);
+    @GetMapping("{id}")
+    public Funcao getById(@PathVariable int id) {
+        return this.funcaoJPA.findById(id).get();
     }
 
-    public void remover(int code){
-        this.funcaoRepository.remover(code);
+    @PostMapping("")
+    public Funcao save(@RequestBody Funcao funcao) {
+        return this.funcaoJPA.save(funcao);
     }
 
-    public List<Funcao> buscar(){
-        return this.funcaoRepository.buscar();
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable int id) {
+        this.funcaoJPA.deleteById(id);
     }
 
-    public Funcao buscarPorCodigo(int code){
-        return this.funcaoRepository.buscarPorCodigo(code);
+    @PutMapping
+    public Funcao getById(@RequestBody Funcao funcao) {
+        return this.funcaoJPA.save(funcao);
     }
 }
+

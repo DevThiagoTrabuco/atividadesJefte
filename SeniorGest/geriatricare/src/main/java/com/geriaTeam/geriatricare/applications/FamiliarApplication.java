@@ -1,40 +1,46 @@
 package com.geriaTeam.geriatricare.applications;
-
-import com.geriaTeam.geriatricare.Interfaces.FamiliarRepository;
+import com.geriaTeam.geriatricare.repositories.jpa.FamiliarJPA;
 import com.geriaTeam.geriatricare.models.domain.Familiar;
-
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
-@Service
-public class FamiliarApplication {
-    private FamiliarRepository familiarRepository;
-    
-    
-    @Autowired
-    public FamiliarApplication(FamiliarRepository familiarRepository) {
-        this.familiarRepository = familiarRepository;
-    }
 
-    public void adicionar(Familiar familiar){
-        this.familiarRepository.adicionar(familiar);
-    }
+    @Service
+    @RestController
+    @RequestMapping("/api/familiar/")
+    public class FamiliarApplication {
+        private final FamiliarJPA familiarJPA;
 
-    public void atualizar(int codigo, Familiar familiar){
-        this.familiarRepository.atualizar(codigo, familiar);
-    }
 
-    public void remover(int codigo){
-        this.familiarRepository.remover(codigo);
-    }
+        @Autowired
+        public FamiliarApplication(FamiliarJPA familiarJPA) {
+            this.familiarJPA = familiarJPA;
+        }
 
-    public List<Familiar> buscar(){
-        return this.familiarRepository.buscar();
-    }
+        @GetMapping("")
+        public List<Familiar> getAll() {
+            return this.familiarJPA.findAll();
+        }
 
-    public Familiar buscarPorCodigo(int codigo){
-        return this.familiarRepository.buscarPorCodigo(codigo);
-    }
+        @GetMapping("{id}")
+        public Familiar getById(@PathVariable int id) {
+            return this.familiarJPA.findById(id).get();
+        }
+
+        @PostMapping("")
+        public Familiar save(@RequestBody Familiar familiar) {
+            return this.familiarJPA.save(familiar);
+        }
+
+        @DeleteMapping("{id}")
+        public void delete(@PathVariable int id) {
+            this.familiarJPA.deleteById(id);
+        }
+
+        @PutMapping
+        public Familiar getById(@RequestBody Familiar familiar) {
+            return this.familiarJPA.save(familiar);
+        }
 }

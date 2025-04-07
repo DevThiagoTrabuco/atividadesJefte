@@ -1,40 +1,51 @@
 package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.IndicadorRepository;
+import com.geriaTeam.geriatricare.models.domain.Historico;
 import com.geriaTeam.geriatricare.models.domain.Indicador;
 
 import java.util.List;
 
+import com.geriaTeam.geriatricare.repositories.jpa.HistoricoJPA;
+import com.geriaTeam.geriatricare.repositories.jpa.IndicadorJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
 
 @Service
+@RestController
+@RequestMapping("/api/indicador/")
 public class IndicadorApplication {
-    private IndicadorRepository indicadorRepository;
+    private final IndicadorJPA indicadorJPA;
 
 
     @Autowired
-    public IndicadorApplication(IndicadorRepository indicadorRepository) {
-        this.indicadorRepository = indicadorRepository;
+    public IndicadorApplication(IndicadorJPA indicadorJPA) {
+        this.indicadorJPA = indicadorJPA;
     }
 
-    public void adicionar(Indicador indicador){
-        this.indicadorRepository.adicionar(indicador);
+    @GetMapping("")
+    public List<Indicador> getAll() {
+        return this.indicadorJPA.findAll();
     }
 
-    public void atualizar(int codigo, Indicador indicador){
-        this.indicadorRepository.atualizar(codigo, indicador);
+    @GetMapping("{id}")
+    public Indicador getById(@PathVariable int id) {
+        return this.indicadorJPA.findById(id).get();
     }
 
-    public void remover(int codigo){
-        this.indicadorRepository.remover(codigo);
+    @PostMapping("")
+    public Indicador save(@RequestBody Indicador indicador) {
+        return this.indicadorJPA.save(indicador);
     }
 
-    public List<Indicador> buscar(){
-        return this.indicadorRepository.buscar();
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable int id) {
+        this.indicadorJPA.deleteById(id);
     }
 
-    public Indicador buscarPorCodigo(int codigo){
-        return this.indicadorRepository.buscarPorCodigo(codigo);
+    @PutMapping
+    public Indicador getById(@RequestBody Indicador indicador) {
+        return this.indicadorJPA.save(indicador);
     }
 }

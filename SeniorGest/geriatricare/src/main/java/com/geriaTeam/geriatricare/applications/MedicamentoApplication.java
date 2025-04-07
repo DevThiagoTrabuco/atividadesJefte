@@ -2,39 +2,50 @@ package com.geriaTeam.geriatricare.applications;
 
 
 import com.geriaTeam.geriatricare.Interfaces.MedicamentoRepository;
+import com.geriaTeam.geriatricare.models.domain.Indicador;
 import com.geriaTeam.geriatricare.models.domain.Medicamento;
+import com.geriaTeam.geriatricare.repositories.jpa.IndicadorJPA;
+import com.geriaTeam.geriatricare.repositories.jpa.MedicamentoJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Service
+@RestController
+@RequestMapping("/api/medicamento/")
 public class MedicamentoApplication {
-    private MedicamentoRepository medicamentoRepository;
+    private final MedicamentoJPA medicamentoJPA;
 
 
     @Autowired
-    public MedicamentoApplication(MedicamentoRepository medicamentoRepository) {
-        this.medicamentoRepository = medicamentoRepository;
+    public MedicamentoApplication(MedicamentoJPA medicamentoJPA) {
+        this.medicamentoJPA = medicamentoJPA;
     }
 
-    public void adicionar(Medicamento medicamento){
-        this.medicamentoRepository.adicionar(medicamento);
+    @GetMapping("")
+    public List<Medicamento> getAll() {
+        return this.medicamentoJPA.findAll();
     }
 
-    public void atualizar(int code, Medicamento medicamento){
-        this.medicamentoRepository.atualizar(code, medicamento);
+    @GetMapping("{id}")
+    public Medicamento getById(@PathVariable int id) {
+        return this.medicamentoJPA.findById(id).get();
     }
 
-    public void remover(int code){
-        this.medicamentoRepository.remover(code);
+    @PostMapping("")
+    public Medicamento save(@RequestBody Medicamento medicamento) {
+        return this.medicamentoJPA.save(medicamento);
     }
 
-    public List<Medicamento> buscar(){
-        return this.medicamentoRepository.buscar();
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable int id) {
+        this.medicamentoJPA.deleteById(id);
     }
 
-    public Medicamento buscarPorCodigo(int code){
-        return this.medicamentoRepository.buscarPorCodigo(code);
+    @PutMapping
+    public Medicamento getById(@RequestBody Medicamento medicamento) {
+        return this.medicamentoJPA.save(medicamento);
     }
 }

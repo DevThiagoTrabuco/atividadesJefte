@@ -1,40 +1,47 @@
 package com.geriaTeam.geriatricare.applications;
 
-import com.geriaTeam.geriatricare.Interfaces.HistoricoRepository;
 import com.geriaTeam.geriatricare.models.domain.Historico;
-
-import java.util.List;
-
+import com.geriaTeam.geriatricare.repositories.jpa.HistoricoJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
 
 @Service
+@RestController
+@RequestMapping("/api/historico/")
 public class HistoricoApplication {
-    private HistoricoRepository historicoRepository;
+    private final HistoricoJPA historicoJPA;
 
 
     @Autowired
-    public HistoricoApplication(HistoricoRepository historicoRepository) {
-        this.historicoRepository = historicoRepository;
+    public HistoricoApplication(HistoricoJPA historicoJPA) {
+        this.historicoJPA = historicoJPA;
     }
 
-    public void adicionar(Historico historico){
-        this.historicoRepository.adicionar(historico);
+    @GetMapping("")
+    public List<Historico> getAll() {
+        return this.historicoJPA.findAll();
     }
 
-    public void atualizar(int codigo, Historico historico){
-        this.historicoRepository.atualizar(codigo, historico);
+    @GetMapping("{id}")
+    public Historico getById(@PathVariable int id) {
+        return this.historicoJPA.findById(id).get();
     }
 
-    public void remover(int codigo){
-        this.historicoRepository.remover(codigo);
+    @PostMapping("")
+    public Historico save(@RequestBody Historico historico) {
+        return this.historicoJPA.save(historico);
     }
 
-    public List<Historico> buscar(){
-        return this.historicoRepository.buscar();
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable int id) {
+        this.historicoJPA.deleteById(id);
     }
 
-    public Historico buscarPorCodigo(int codigo){
-        return this.historicoRepository.buscarPorCodigo(codigo);
+    @PutMapping
+    public Historico getById(@RequestBody Historico historico) {
+        return this.historicoJPA.save(historico);
     }
 }
