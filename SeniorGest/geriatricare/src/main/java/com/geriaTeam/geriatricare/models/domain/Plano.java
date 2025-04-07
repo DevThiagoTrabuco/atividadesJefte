@@ -1,5 +1,6 @@
 package com.geriaTeam.geriatricare.models.domain;
 
+
 import jakarta.persistence.*;
 import lombok.*;
 

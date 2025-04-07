@@ -1,6 +1,8 @@
 package com.geriaTeam.geriatricare.models.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,4 +33,17 @@ public class Paciente {
     @Column(name = "pacientes_cond_fisica")
     private String condFisica;
 
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    @OneToMany(mappedBy = "paciente", cascade = {CascadeType.PERSIST, CascadeType. MERGE})
+    private List<PacienteMedicamento> pacienteMedicamento;
+
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    @OneToMany(mappedBy = "paciente", cascade = {CascadeType.PERSIST, CascadeType. MERGE})
+    private List<PacienteFamiliar> pacienteFamiliar;
+
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType. MERGE})
+    @JoinColumn(name = "planos_id_fk", referencedColumnName = "planos_id")
+    private Plano plano;
 }

@@ -28,7 +28,7 @@ public class Funcionario {
     @Column(name = "funcionarios_email")
     private String email;
 
-    @Column(name = "funcionarios_funcao")
-    private int funcao;
-
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType. MERGE})
+    @JoinColumn(name = "funcoes_id_fk", referencedColumnName = "funcoes_id")
+    private Funcao funcao;
 }

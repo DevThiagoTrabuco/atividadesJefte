@@ -1,5 +1,7 @@
 package com.geriaTeam.geriatricare.models.domain;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,4 +25,9 @@ public class Familiar {
 
     @Column(name = "familiares_telefone")
     private String telefone;
+
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    @OneToMany(mappedBy = "familiar", cascade = {CascadeType.PERSIST, CascadeType. MERGE})
+    private List<PacienteFamiliar> pacienteFamiliar;
 }

@@ -1,12 +1,14 @@
 package com.geriaTeam.geriatricare.models.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,4 +33,9 @@ public class Medicamento {
 
     @Column(name="medicamentos_vencimento")
     private Date vencimento;
+
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    @OneToMany(mappedBy = "medicamento", cascade = {CascadeType.PERSIST, CascadeType. MERGE})
+    private List<PacienteMedicamento> pacienteMedicamento;
 }
