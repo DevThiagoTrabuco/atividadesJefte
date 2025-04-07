@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.controller;
 
+import com.geriaTeam.geriatricare.facade.PacienteMedicamentoFacade;
 import com.geriaTeam.geriatricare.models.domain.PacienteMedicamento;
-import com.geriaTeam.geriatricare.repositories.jpa.PacienteMedicamentoJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,36 +10,37 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/pacienteMedicamento/")
 public class PacienteMedicamentoController {
-    private final PacienteMedicamentoJPA pacienteMedicamentoJPA;
+    private final PacienteMedicamentoFacade pacienteMedicamentoFacade;
 
     @Autowired
-    public PacienteMedicamentoController(PacienteMedicamentoJPA pacienteMedicamentoJPA) {
-        this.pacienteMedicamentoJPA = pacienteMedicamentoJPA;
+    public PacienteMedicamentoController(PacienteMedicamentoFacade pacienteMedicamentoFacade) {
+        this.pacienteMedicamentoFacade = pacienteMedicamentoFacade;
+
     }
 
     @GetMapping("")
-    public List<PacienteMedicamento> getAll() {
-        return this.pacienteMedicamentoJPA.findAll();
+    public List<PacienteMedicamento> buscar(){
+        return pacienteMedicamentoFacade.buscar();
     }
 
-    @GetMapping("{id}")
-    public PacienteMedicamento getById(@PathVariable int id) {
-        return this.pacienteMedicamentoJPA.findById(id).get();
+    @GetMapping("/{codigo}")
+    public PacienteMedicamento buscarPorCodigo(@PathVariable int codigo){
+        return pacienteMedicamentoFacade.buscarPorCodigo(codigo);
     }
 
     @PostMapping("")
-    public PacienteMedicamento save(@RequestBody PacienteMedicamento pacienteMedicamento) {
-        return this.pacienteMedicamentoJPA.save(pacienteMedicamento);
+    public void adicionar(@RequestBody PacienteMedicamento pacienteMedicamento){
+        pacienteMedicamentoFacade.adicionar(pacienteMedicamento);
     }
 
-    @DeleteMapping("{id}")
-    public void delete(@PathVariable int id) {
-        this.pacienteMedicamentoJPA.deleteById(id);
+    @PutMapping("/{codigo}")
+    public void atualizar(@PathVariable int codigo, @RequestBody PacienteMedicamento pacienteMedicamento){
+        pacienteMedicamentoFacade.atualizar(pacienteMedicamento);
     }
 
-    @PutMapping
-    public PacienteMedicamento getById(@RequestBody PacienteMedicamento pacienteMedicamento) {
-        return this.pacienteMedicamentoJPA.save(pacienteMedicamento);
+    @DeleteMapping("/{codigo}")
+    public void remover(@PathVariable int codigo){
+        pacienteMedicamentoFacade.remover(codigo);
     }
     
 }

@@ -23,7 +23,6 @@ public class AdminController {
     @Autowired
     public AdminController(AdminFacade adminFacade) {
         this.adminFacade = adminFacade;
-
     }
 
     @GetMapping("")
@@ -43,7 +42,7 @@ public class AdminController {
 
     @PutMapping("/{codigo}")
     public void atualizar(@PathVariable int codigo, @RequestBody Admin admin){
-        adminFacade.atualizar(codigo, admin);
+        adminFacade.atualizar(admin);
     }
 
     @DeleteMapping("/{codigo}")

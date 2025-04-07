@@ -10,5 +10,5 @@ public interface MedicamentoRepository {
     public List<Medicamento> buscar();
     public void adicionar(Medicamento medicamento);
     public void remover(int codigo);
-    public void atualizar(int codigo, Medicamento medicamento);
+    public void atualizar(Medicamento medicamento);
 }

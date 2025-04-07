@@ -38,9 +38,7 @@ public class FuncaoMySQLImpl implements FuncaoRepository {
     }
 
     @Override
-    public void atualizar(int codigo, Funcao funcao){
-        Funcao funcaoDB = this.funcaoJPA.findById(codigo).get();
-
-        funcaoDB.setNome(funcao.getNome());
+    public void atualizar(Funcao funcao){
+        this.funcaoJPA.save(funcao);
     }
 }

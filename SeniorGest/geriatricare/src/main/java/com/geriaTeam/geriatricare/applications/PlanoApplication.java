@@ -21,8 +21,8 @@ public class PlanoApplication {
         this.planoRepository.adicionar(plano);
     }
 
-    public void atualizar(int codigo, Plano plano){
-        this.planoRepository.atualizar(codigo, plano);
+    public void atualizar(Plano plano){
+        this.planoRepository.atualizar(plano);
     }
 
     public void remover(int codigo){

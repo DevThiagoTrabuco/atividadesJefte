@@ -9,5 +9,5 @@ public interface HistoricoRepository {
     public List<Historico> buscar();
     public void adicionar(Historico historico);
     public void remover(int codigo);
-    public void atualizar(int codigo, Historico historico);
+    public void atualizar(Historico historico);
 }

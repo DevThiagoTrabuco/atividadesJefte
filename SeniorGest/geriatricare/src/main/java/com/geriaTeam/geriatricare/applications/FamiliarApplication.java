@@ -22,8 +22,8 @@ public class FamiliarApplication {
         this.familiarRepository.adicionar(familiar);
     }
 
-    public void atualizar(int codigo, Familiar familiar){
-        this.familiarRepository.atualizar(codigo, familiar);
+    public void atualizar(Familiar familiar){
+        this.familiarRepository.atualizar(familiar);
     }
 
     public void remover(int codigo){

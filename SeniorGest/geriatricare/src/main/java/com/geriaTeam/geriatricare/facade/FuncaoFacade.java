@@ -28,8 +28,8 @@ public class FuncaoFacade {
         funcaoApplication.adicionar(funcao);
     }
 
-    public void atualizar(int codigo, Funcao funcao) {
-        funcaoApplication.atualizar(codigo, funcao);
+    public void atualizar(Funcao funcao) {
+        funcaoApplication.atualizar(funcao);
     }
 
     public void remover(int codigo) {

@@ -43,7 +43,7 @@ public class FamiliarController {
 
     @PutMapping("/{codigo}")
     public void atualizar(@PathVariable int codigo, @RequestBody Familiar familiar){
-        familiarFacade.atualizar(codigo, familiar);
+        familiarFacade.atualizar(familiar);
     }
 
     @DeleteMapping("/{codigo}")

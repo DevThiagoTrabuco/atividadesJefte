@@ -38,12 +38,7 @@ public class PlanoMySQLImpl implements PlanoRepository {
     }
 
     @Override
-    public void atualizar(int codigo, Plano plano){
-        Plano planoDB = this.planoJPA.findById(codigo).get();
-
-        planoDB.setNome(plano.getNome());
-        planoDB.setTipoPlano(plano.getTipoPlano());
-
-        this.planoJPA.save(planoDB);
+    public void atualizar(Plano plano){
+        this.planoJPA.save(plano);
     }
 }

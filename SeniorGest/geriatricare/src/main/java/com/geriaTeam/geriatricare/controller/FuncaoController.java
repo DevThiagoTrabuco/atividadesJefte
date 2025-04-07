@@ -43,7 +43,7 @@ public class FuncaoController {
 
     @PutMapping("/{codigo}")
     public void atualizar(@PathVariable int codigo, @RequestBody Funcao funcao){
-        funcaoFacade.atualizar(codigo, funcao);
+        funcaoFacade.atualizar(funcao);
     }
 
     @DeleteMapping("/{codigo}")

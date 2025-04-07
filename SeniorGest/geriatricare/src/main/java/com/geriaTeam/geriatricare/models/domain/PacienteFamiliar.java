@@ -18,7 +18,13 @@ public class PacienteFamiliar {
     @JoinColumn(name = "pacientes_id_fk", referencedColumnName = "pacientes_id")
     private Paciente paciente;
 
+    @Column(name = "pacientes_id_fk", insertable = false, updatable = false)
+    private int pacienteId;
+
     @ManyToOne
     @JoinColumn(name = "familiares_id_fk", referencedColumnName = "familiares_id")
     private Familiar familiar;
+
+    @Column(name = "familiares_id_fk", insertable = false, updatable = false)
+    private int familiarId;
 }

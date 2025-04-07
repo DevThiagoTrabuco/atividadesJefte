@@ -43,7 +43,7 @@ public class HistoricoController {
 
     @PutMapping("/{codigo}")
     public void atualizar(@PathVariable int codigo, @RequestBody Historico historico){
-        historicoFacade.atualizar(codigo, historico);
+        historicoFacade.atualizar(historico);
     }
 
     @DeleteMapping("/{codigo}")

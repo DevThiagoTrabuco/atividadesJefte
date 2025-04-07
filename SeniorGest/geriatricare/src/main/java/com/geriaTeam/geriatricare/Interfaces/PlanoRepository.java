@@ -9,5 +9,5 @@ public interface PlanoRepository {
     public List<Plano> buscar();
     public void adicionar(Plano plano);
     public void remover(int codigo);
-    public void atualizar(int codigo, Plano plano);
+    public void atualizar(Plano plano);
 }

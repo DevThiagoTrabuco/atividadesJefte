@@ -22,8 +22,8 @@ public class FuncionarioApplication {
         this.funcionarioRepository.adicionar(funcionario);
     }
 
-    public void atualizar(int codigo, Funcionario funcionario){
-        this.funcionarioRepository.atualizar(codigo, funcionario);
+    public void atualizar(Funcionario funcionario){
+        this.funcionarioRepository.atualizar(funcionario);
     }
 
     public void remover(int codigo){

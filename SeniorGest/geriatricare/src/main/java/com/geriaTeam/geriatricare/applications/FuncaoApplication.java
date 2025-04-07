@@ -22,8 +22,8 @@ public class FuncaoApplication {
         this.funcaoRepository.adicionar(funcao);
     }
 
-    public void atualizar(int code, Funcao funcao){
-        this.funcaoRepository.atualizar(code, funcao);
+    public void atualizar(Funcao funcao){
+        this.funcaoRepository.atualizar(funcao);
     }
 
     public void remover(int code){

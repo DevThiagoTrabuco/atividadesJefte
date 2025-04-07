@@ -9,5 +9,5 @@ public interface AdminRepository {
     public List<Admin> buscar();
     public void adicionar(Admin admin);
     public void remover(int codigo);
-    public void atualizar(int codigo, Admin admin);
+    public void atualizar(Admin admin);
 }

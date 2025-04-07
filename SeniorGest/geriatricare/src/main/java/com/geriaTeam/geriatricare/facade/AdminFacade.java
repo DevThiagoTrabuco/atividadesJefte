@@ -27,8 +27,8 @@ public class AdminFacade {
         adminApplication.adicionar(admin);
     }
 
-    public void atualizar(int codigo, Admin admin) {
-        adminApplication.atualizar(codigo, admin);
+    public void atualizar(Admin admin) {
+        adminApplication.atualizar(admin);
     }
 
     public void remover(int codigo) {

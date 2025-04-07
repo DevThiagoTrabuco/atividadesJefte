@@ -20,7 +20,7 @@ public class PlanosFacade {
 
     public void adicionar(Plano plano) {planoApplication.adicionar(plano);}
 
-    public void atualizar(int codigo, Plano plano) {planoApplication.atualizar(codigo, plano);}
+    public void atualizar(Plano plano) {planoApplication.atualizar(plano);}
 
     public void remover(int codigo) {planoApplication.remover(codigo);}
 

@@ -9,5 +9,5 @@ public interface FuncionarioRepository {
     public List<Funcionario> buscar();
     public void adicionar(Funcionario funcionario);
     public void remover(int codigo);
-    public void atualizar(int codigo, Funcionario funcionario);
+    public void atualizar(Funcionario funcionario);
 }

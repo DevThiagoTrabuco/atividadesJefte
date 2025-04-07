@@ -38,14 +38,7 @@ public class MedicamentoRepositoryMySQLImpl implements MedicamentoRepository {
     }
 
     @Override
-    public void atualizar(int codigo, Medicamento medicamento) {
-        Medicamento medicamentoDb = this.medicamentoJPA.findById(codigo).get();
-
-        medicamentoDb.setNome(medicamento.getNome());
-        medicamentoDb.setQtd(medicamento.getQtd());
-        medicamentoDb.setLote(medicamento.getLote());
-        medicamentoDb.setVencimento(medicamento.getVencimento());
-
-        this.medicamentoJPA.save(medicamentoDb);
+    public void atualizar(Medicamento medicamento) {
+        this.medicamentoJPA.save(medicamento);
     }
 }

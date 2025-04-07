@@ -27,8 +27,8 @@ public class PacienteFacade {
         pacienteApplication.adicionar(paciente);
     }
 
-    public void atualizar(int codigo, Paciente paciente) {
-        pacienteApplication.atualizar(codigo, paciente);
+    public void atualizar(Paciente paciente) {
+        pacienteApplication.atualizar(paciente);
     }
 
     public void remover(int codigo) {

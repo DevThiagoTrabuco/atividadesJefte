@@ -43,7 +43,7 @@ public class PacienteController {
 
     @PutMapping("/{codigo}")
     public void atualizar(@PathVariable int codigo, @RequestBody Paciente paciente){
-        pacienteFacade.atualizar(codigo, paciente);
+        pacienteFacade.atualizar(paciente);
     }
 
     @DeleteMapping("/{codigo}")

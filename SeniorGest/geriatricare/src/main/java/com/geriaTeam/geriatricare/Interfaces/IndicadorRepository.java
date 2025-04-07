@@ -9,5 +9,5 @@ public interface IndicadorRepository {
     public List<Indicador> buscar();
     public void adicionar(Indicador indicador);
     public void remover(int codigo);
-    public void atualizar(int codigo, Indicador indicador);
+    public void atualizar(Indicador indicador);
 }

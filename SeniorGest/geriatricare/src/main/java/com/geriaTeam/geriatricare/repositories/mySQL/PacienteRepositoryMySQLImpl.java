@@ -38,15 +38,7 @@ public class PacienteRepositoryMySQLImpl implements PacienteRepository {
     }
 
     @Override
-    public void atualizar(int codigo, Paciente paciente) {
-        Paciente pacienteDB = this.pacienteJPA.findById(codigo).get();
-
-        pacienteDB.setNome(paciente.getNome());
-        pacienteDB.setNascimento(paciente.getNascimento());
-        pacienteDB.setEntrada(paciente.getEntrada());
-        pacienteDB.setCondMental(paciente.getCondMental());
-        pacienteDB.setCondFisica(paciente.getCondFisica());
-        
-        this.pacienteJPA.save(pacienteDB);
+    public void atualizar(Paciente paciente) {
+        this.pacienteJPA.save(paciente);
     }
 }

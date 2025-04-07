@@ -22,8 +22,8 @@ public class IndicadorApplication {
         this.indicadorRepository.adicionar(indicador);
     }
 
-    public void atualizar(int codigo, Indicador indicador){
-        this.indicadorRepository.atualizar(codigo, indicador);
+    public void atualizar(Indicador indicador){
+        this.indicadorRepository.atualizar(indicador);
     }
 
     public void remover(int codigo){
