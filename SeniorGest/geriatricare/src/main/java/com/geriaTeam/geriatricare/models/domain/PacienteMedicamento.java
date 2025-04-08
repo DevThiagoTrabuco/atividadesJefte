@@ -28,6 +28,6 @@ public class PacienteMedicamento {
     @JoinColumn(name = "medicamentos_id_fk", referencedColumnName = "medicamentos_id", insertable = false, updatable = false)
     private Medicamento medicamento;
 
-    @Column(name = "pacientes_id_fk")
+    @Column(name = "medicamentos_id_fk")
     private int medicamentoId;
 }
