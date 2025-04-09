@@ -28,8 +28,8 @@ public class FamiliarFacade {
         familiarApplication.adicionar(familiar);
     }
 
-    public void atualizar(int codigo, Familiar familiar) {
-        familiarApplication.atualizar(codigo, familiar);
+    public void atualizar(Familiar familiar) {
+        familiarApplication.atualizar(familiar);
     }
 
     public void remover(int codigo) {

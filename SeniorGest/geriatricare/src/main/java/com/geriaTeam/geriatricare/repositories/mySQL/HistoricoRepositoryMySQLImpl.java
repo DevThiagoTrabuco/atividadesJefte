@@ -38,11 +38,7 @@ public class HistoricoRepositoryMySQLImpl implements HistoricoRepository {
     }
 
     @Override
-    public void atualizar(int codigo, Historico historico) {
-        Historico historicoDB = this.historicoJPA.findById(codigo).get();
-
-        historicoDB.setDataAlteracao(historico.getDataAlteracao());
-
-        this.historicoJPA.save(historicoDB);
+    public void atualizar(Historico historico) {
+        this.historicoJPA.save(historico);
     }
 }

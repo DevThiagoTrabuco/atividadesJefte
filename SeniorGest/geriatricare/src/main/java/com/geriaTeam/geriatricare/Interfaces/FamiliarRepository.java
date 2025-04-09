@@ -9,5 +9,5 @@ public interface FamiliarRepository {
     public List<Familiar> buscar();
     public void adicionar(Familiar familiar);
     public void remover(int codigo);
-    public void atualizar(int codigo, Familiar familiar);
+    public void atualizar(Familiar familiar);
 }

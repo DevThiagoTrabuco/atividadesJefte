@@ -38,13 +38,7 @@ public class FamiliarRepositoryMySQLImpl implements FamiliarRepository {
     }
 
     @Override
-    public void atualizar(int codigo, Familiar familiar) {
-        Familiar familiarDB = this.familiarJPA.findById(codigo).get();
-        
-        familiarDB.setNome(familiar.getNome());
-        familiarDB.setEmail(familiar.getEmail());
-        familiarDB.setTelefone(familiar.getTelefone());
-
-        this.familiarJPA.save(familiarDB);
+    public void atualizar(Familiar familiar) {
+        this.familiarJPA.save(familiar);
     }
 }

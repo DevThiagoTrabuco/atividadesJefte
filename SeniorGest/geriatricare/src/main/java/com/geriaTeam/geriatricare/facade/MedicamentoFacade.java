@@ -26,8 +26,8 @@ public class MedicamentoFacade {
         medicamentoApplication.adicionar(medicamento);
     }
 
-    public void atualizar(int codigo, Medicamento medicamento) {
-        medicamentoApplication.atualizar(codigo, medicamento);
+    public void atualizar(Medicamento medicamento) {
+        medicamentoApplication.atualizar(medicamento);
     }
 
     public void remover(int codigo) {

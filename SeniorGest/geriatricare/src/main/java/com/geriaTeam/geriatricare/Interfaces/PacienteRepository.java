@@ -9,5 +9,5 @@ public interface PacienteRepository {
     public List<Paciente> buscar();
     public void adicionar(Paciente paciente);
     public void remover(int codigo);
-    public void atualizar(int codigo, Paciente paciente);
+    public void atualizar(Paciente paciente);
 }

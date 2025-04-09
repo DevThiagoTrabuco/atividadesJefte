@@ -22,8 +22,8 @@ public class HistoricoApplication {
         this.historicoRepository.adicionar(historico);
     }
 
-    public void atualizar(int codigo, Historico historico){
-        this.historicoRepository.atualizar(codigo, historico);
+    public void atualizar(Historico historico){
+        this.historicoRepository.atualizar(historico);
     }
 
     public void remover(int codigo){

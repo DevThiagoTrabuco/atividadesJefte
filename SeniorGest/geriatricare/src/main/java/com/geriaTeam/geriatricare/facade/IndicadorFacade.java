@@ -28,8 +28,8 @@ public class IndicadorFacade {
         indicadorApplication.adicionar(indicador);
     }
 
-    public void atualizar(int codigo, Indicador indicador) {
-        indicadorApplication.atualizar(codigo, indicador);
+    public void atualizar(Indicador indicador) {
+        indicadorApplication.atualizar(indicador);
     }
 
     public void remover(int codigo) {

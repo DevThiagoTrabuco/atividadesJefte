@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/api/planos/")
+@RequestMapping("/api/plano/")
 @RestController
 public class PlanosController {
     private final PlanosFacade planosFacade;
@@ -28,7 +28,7 @@ public class PlanosController {
     public void adicionar(@RequestBody Plano plano) {planosFacade.adicionar(plano);}
 
     @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody Plano plano) {planosFacade.atualizar(codigo, plano);}
+    public void atualizar(@PathVariable int codigo, @RequestBody Plano plano) {planosFacade.atualizar(plano);}
 
     @DeleteMapping("/{codigo}")
     public void remover(@PathVariable int codigo) {planosFacade.remover(codigo);}

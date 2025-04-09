@@ -22,8 +22,8 @@ public class MedicamentoApplication {
         this.medicamentoRepository.adicionar(medicamento);
     }
 
-    public void atualizar(int code, Medicamento medicamento){
-        this.medicamentoRepository.atualizar(code, medicamento);
+    public void atualizar(Medicamento medicamento){
+        this.medicamentoRepository.atualizar(medicamento);
     }
 
     public void remover(int code){

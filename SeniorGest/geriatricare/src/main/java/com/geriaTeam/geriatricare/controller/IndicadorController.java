@@ -43,7 +43,7 @@ public class IndicadorController {
 
     @PutMapping("/{codigo}")
     public void atualizar(@PathVariable int codigo, @RequestBody Indicador indicador){
-        indicadorFacade.atualizar(codigo, indicador);
+        indicadorFacade.atualizar(indicador);
     }
 
     @DeleteMapping("/{codigo}")

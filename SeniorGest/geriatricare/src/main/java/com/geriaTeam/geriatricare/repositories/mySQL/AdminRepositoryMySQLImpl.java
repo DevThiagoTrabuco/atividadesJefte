@@ -38,12 +38,7 @@ public class AdminRepositoryMySQLImpl implements AdminRepository {
     }
 
     @Override
-    public void atualizar(int codigo, Admin admin) {
-        Admin adminDB = this.adminJPA.findById(codigo).get();
-        
-        adminDB.setNome(admin.getNome());
-        adminDB.setSenha(admin.getSenha());
-
-        this.adminJPA.save(adminDB);
+    public void atualizar(Admin admin) {
+        this.adminJPA.save(admin);
     }
 }

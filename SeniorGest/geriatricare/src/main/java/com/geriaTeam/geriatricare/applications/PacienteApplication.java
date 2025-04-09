@@ -22,8 +22,8 @@ public class PacienteApplication {
         this.pacienteRepository.adicionar(paciente);
     }
 
-    public void atualizar(int codigo, Paciente paciente){
-        this.pacienteRepository.atualizar(codigo, paciente);
+    public void atualizar(Paciente paciente){
+        this.pacienteRepository.atualizar(paciente);
     }
 
     public void remover(int codigo){

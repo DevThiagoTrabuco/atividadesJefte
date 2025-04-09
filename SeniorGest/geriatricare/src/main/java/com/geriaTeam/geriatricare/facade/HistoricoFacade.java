@@ -27,8 +27,8 @@ public class HistoricoFacade {
         historicoApplication.adicionar(historico);
     }
 
-    public void atualizar(int codigo, Historico historico) {
-        historicoApplication.atualizar(codigo, historico);
+    public void atualizar(Historico historico) {
+        historicoApplication.atualizar(historico);
     }
 
     public void remover(int codigo) {

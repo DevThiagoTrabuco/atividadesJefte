@@ -18,15 +18,16 @@ public class PacienteMedicamento {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "pacientes_id_fk", referencedColumnName = "pacientes_id")
+    @JoinColumn(name = "pacientes_id_fk", referencedColumnName = "pacientes_id", insertable = false, updatable = false)
     private Paciente paciente;
 
     @Column(name = "pacientes_id_fk")
     private int pacienteId;
 
-
-
     @ManyToOne
-    @JoinColumn(name = "medicamentos_id_fk", referencedColumnName = "medicamentos_id")
+    @JoinColumn(name = "medicamentos_id_fk", referencedColumnName = "medicamentos_id", insertable = false, updatable = false)
     private Medicamento medicamento;
+
+    @Column(name = "medicamentos_id_fk")
+    private int medicamentoId;
 }

@@ -9,5 +9,5 @@ public interface FuncaoRepository {
     public List<Funcao> buscar();
     public void adicionar(Funcao funcao);
     public void remover(int codigo);
-    public void atualizar(int codigo, Funcao funcao);
+    public void atualizar(Funcao funcao);
 }

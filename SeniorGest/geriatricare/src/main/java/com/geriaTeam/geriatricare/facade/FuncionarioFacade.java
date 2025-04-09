@@ -27,8 +27,8 @@ public class FuncionarioFacade {
         FuncionarioApplication.adicionar(Funcionario);
     }
 
-    public void atualizar(int codigo, Funcionario Funcionario) {
-        FuncionarioApplication.atualizar(codigo, Funcionario);
+    public void atualizar(Funcionario Funcionario) {
+        FuncionarioApplication.atualizar(Funcionario);
     }
 
     public void remover(int codigo) {

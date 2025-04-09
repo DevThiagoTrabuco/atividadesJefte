@@ -35,7 +35,7 @@ public class MedicamentoController {
 
     @PutMapping("/{codigo}")
     public void atualizar(@PathVariable int codigo, @RequestBody Medicamento medicamento){
-        medicamentoFacade.atualizar(codigo, medicamento);
+        medicamentoFacade.atualizar(medicamento);
     }
 
     @DeleteMapping("/{codigo}")

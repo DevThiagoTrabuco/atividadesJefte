@@ -38,13 +38,7 @@ public class IndicadorRepositoryMySQLImpl implements IndicadorRepository {
     }
 
     @Override
-    public void atualizar(int codigo, Indicador indicador) {
-        Indicador indicadorDB = this.indicadorJPA.findById(codigo).get();
-        
-        indicadorDB.setOximetria(indicador.getOximetria());
-        indicadorDB.setBatimentos(indicador.getBatimentos());
-        indicadorDB.setTemperatura(indicador.getTemperatura());
-
-        this.indicadorJPA.save(indicadorDB);
+    public void atualizar(Indicador indicador) {
+        this.indicadorJPA.save(indicador);
     }
 }

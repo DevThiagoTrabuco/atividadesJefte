@@ -22,8 +22,8 @@ public class AdminApplication {
         this.adminRepository.adicionar(admin);
     }
 
-    public void atualizar(int codigo, Admin admin){
-        this.adminRepository.atualizar(codigo, admin);
+    public void atualizar(Admin admin){
+        this.adminRepository.atualizar(admin);
     }
 
     public void remover(int codigo){
