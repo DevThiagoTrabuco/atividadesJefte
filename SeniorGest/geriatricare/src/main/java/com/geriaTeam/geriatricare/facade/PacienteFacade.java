@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.geriaTeam.geriatricare.applications.PacienteApplication;
-import com.geriaTeam.geriatricare.models.domain.Paciente;
+import com.geriaTeam.geriatricare.models.PacienteModels;
 import lombok.AllArgsConstructor;
 
 @Component
@@ -15,20 +15,20 @@ public class PacienteFacade {
     @Autowired
     private PacienteApplication pacienteApplication;
 
-    public List<Paciente> buscar() {
+    public List<PacienteModels> buscar() {
         return pacienteApplication.buscar();
     }
 
-    public Paciente buscarPorCodigo(int codigo) {
+    public PacienteModels buscarPorCodigo(int codigo) {
         return pacienteApplication.buscarPorCodigo(codigo);
     }
 
-    public void adicionar(Paciente paciente) {
-        pacienteApplication.adicionar(paciente);
+    public void adicionar(PacienteModels pacienteModels) {
+        pacienteApplication.adicionar(pacienteModels);
     }
 
-    public void atualizar(Paciente paciente) {
-        pacienteApplication.atualizar(paciente);
+    public void atualizar(PacienteModels pacienteModels) {
+        pacienteApplication.atualizar(pacienteModels);
     }
 
     public void remover(int codigo) {

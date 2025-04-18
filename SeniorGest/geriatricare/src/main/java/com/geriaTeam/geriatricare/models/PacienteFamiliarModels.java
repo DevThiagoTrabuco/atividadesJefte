@@ -1,4 +1,4 @@
-package com.geriaTeam.geriatricare.models.domain;
+package com.geriaTeam.geriatricare.models;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,7 +8,7 @@ import lombok.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class PacienteFamiliar {
+public class PacienteFamiliarModels {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pacientes_familiares_id")
@@ -16,14 +16,14 @@ public class PacienteFamiliar {
 
     @ManyToOne
     @JoinColumn(name = "pacientes_id_fk", referencedColumnName = "pacientes_id")
-    private Paciente paciente;
+    private PacienteModels pacienteModels;
 
     @Column(name = "pacientes_id_fk", insertable = false, updatable = false)
     private int pacienteId;
 
     @ManyToOne
     @JoinColumn(name = "familiares_id_fk", referencedColumnName = "familiares_id")
-    private Familiar familiar;
+    private FamiliarModels familiarModels;
 
     @Column(name = "familiares_id_fk", insertable = false, updatable = false)
     private int familiarId;

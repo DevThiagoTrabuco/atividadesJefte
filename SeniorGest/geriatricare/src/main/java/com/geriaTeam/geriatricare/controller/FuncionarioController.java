@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.geriaTeam.geriatricare.facade.FuncionarioFacade;
-import com.geriaTeam.geriatricare.models.domain.Funcionario;
+import com.geriaTeam.geriatricare.models.FuncionarioModels;
 
 @RequestMapping("/api/funcionario/")
 @RestController
@@ -27,23 +27,23 @@ public class FuncionarioController {
     }
 
     @GetMapping("")
-    public List<Funcionario> buscar(){
+    public List<FuncionarioModels> buscar(){
         return funcionarioFacade.buscar();
     }
 
     @GetMapping("/{codigo}")
-    public Funcionario buscarPorCodigo(@PathVariable int codigo){
+    public FuncionarioModels buscarPorCodigo(@PathVariable int codigo){
         return funcionarioFacade.buscarPorCodigo(codigo);
     }
 
     @PostMapping("")
-    public void adicionar(@RequestBody Funcionario funcionario){
-        funcionarioFacade.adicionar(funcionario);
+    public void adicionar(@RequestBody FuncionarioModels funcionarioModels){
+        funcionarioFacade.adicionar(funcionarioModels);
     }
 
     @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody Funcionario funcionario){
-        funcionarioFacade.atualizar(funcionario);
+    public void atualizar(@PathVariable int codigo, @RequestBody FuncionarioModels funcionarioModels){
+        funcionarioFacade.atualizar(funcionarioModels);
     }
 
     @DeleteMapping("/{codigo}")

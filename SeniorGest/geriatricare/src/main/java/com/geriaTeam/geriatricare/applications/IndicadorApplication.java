@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.IndicadorRepository;
-import com.geriaTeam.geriatricare.models.domain.Indicador;
+import com.geriaTeam.geriatricare.models.IndicadorModels;
 
 import java.util.List;
 
@@ -18,23 +18,23 @@ public class IndicadorApplication {
         this.indicadorRepository = indicadorRepository;
     }
 
-    public void adicionar(Indicador indicador){
-        this.indicadorRepository.adicionar(indicador);
+    public void adicionar(IndicadorModels indicadorModels){
+        this.indicadorRepository.adicionar(indicadorModels);
     }
 
-    public void atualizar(Indicador indicador){
-        this.indicadorRepository.atualizar(indicador);
+    public void atualizar(IndicadorModels indicadorModels){
+        this.indicadorRepository.atualizar(indicadorModels);
     }
 
     public void remover(int codigo){
         this.indicadorRepository.remover(codigo);
     }
 
-    public List<Indicador> buscar(){
+    public List<IndicadorModels> buscar(){
         return this.indicadorRepository.buscar();
     }
 
-    public Indicador buscarPorCodigo(int codigo){
+    public IndicadorModels buscarPorCodigo(int codigo){
         return this.indicadorRepository.buscarPorCodigo(codigo);
     }
 }

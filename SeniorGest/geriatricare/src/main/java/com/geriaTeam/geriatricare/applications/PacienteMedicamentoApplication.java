@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.PacienteMedicamentoRepository;
-import com.geriaTeam.geriatricare.models.domain.PacienteMedicamento;
+import com.geriaTeam.geriatricare.models.PacienteMedicamentoModels;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,23 +10,23 @@ import java.util.List;
 public class PacienteMedicamentoApplication {
     private PacienteMedicamentoRepository pacienteMedicamentoRepository;
 
-    public void adicionar(PacienteMedicamento pacienteMedicamento){
-        this.pacienteMedicamentoRepository.adicionar(pacienteMedicamento);
+    public void adicionar(PacienteMedicamentoModels pacienteMedicamentoModels){
+        this.pacienteMedicamentoRepository.adicionar(pacienteMedicamentoModels);
     }
 
-    public void atualizar(PacienteMedicamento pacienteMedicamento){
-        this.pacienteMedicamentoRepository.atualizar(pacienteMedicamento);
+    public void atualizar(PacienteMedicamentoModels pacienteMedicamentoModels){
+        this.pacienteMedicamentoRepository.atualizar(pacienteMedicamentoModels);
     }
 
     public void remover(int codigo){
         this.pacienteMedicamentoRepository.remover(codigo);
     }
 
-    public List<PacienteMedicamento> buscar(){
+    public List<PacienteMedicamentoModels> buscar(){
         return this.pacienteMedicamentoRepository.buscar();
     }
 
-    public PacienteMedicamento buscarPorCodigo(int codigo){
+    public PacienteMedicamentoModels buscarPorCodigo(int codigo){
         return this.pacienteMedicamentoRepository.buscarPorCodigo(codigo);
     }
 }

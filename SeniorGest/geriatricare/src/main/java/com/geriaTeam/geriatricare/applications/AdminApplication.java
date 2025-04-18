@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.AdminRepository;
-import com.geriaTeam.geriatricare.models.domain.Admin;
+import com.geriaTeam.geriatricare.models.AdminModels;
 
 import java.util.List;
 
@@ -18,23 +18,23 @@ public class AdminApplication {
         this.adminRepository = adminRepository;
     }
 
-    public void adicionar(Admin admin){
-        this.adminRepository.adicionar(admin);
+    public void adicionar(AdminModels adminModels){
+        this.adminRepository.adicionar(adminModels);
     }
 
-    public void atualizar(Admin admin){
-        this.adminRepository.atualizar(admin);
+    public void atualizar(AdminModels adminModels){
+        this.adminRepository.atualizar(adminModels);
     }
 
     public void remover(int codigo){
         this.adminRepository.remover(codigo);
     }
 
-    public List<Admin> buscar(){
+    public List<AdminModels> buscar(){
         return this.adminRepository.buscar();
     }
 
-    public Admin buscarPorCodigo(int codigo){
+    public AdminModels buscarPorCodigo(int codigo){
         return this.adminRepository.buscarPorCodigo(codigo);
     }
 }

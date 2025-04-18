@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.repositories.mySQL;
 
 import com.geriaTeam.geriatricare.Interfaces.AdminRepository;
-import com.geriaTeam.geriatricare.models.domain.Admin;
+import com.geriaTeam.geriatricare.models.AdminModels;
 import com.geriaTeam.geriatricare.repositories.jpa.AdminJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,18 +18,18 @@ public class AdminRepositoryMySQLImpl implements AdminRepository {
     }
 
     @Override
-    public Admin buscarPorCodigo(int codigo) {
+    public AdminModels buscarPorCodigo(int codigo) {
         return this.adminJPA.findById(codigo).get();
     }
 
     @Override
-    public List<Admin> buscar() {
+    public List<AdminModels> buscar() {
         return this.adminJPA.findAll();
     }
 
     @Override
-    public void adicionar(Admin admin) {
-        this.adminJPA.save(admin);
+    public void adicionar(AdminModels adminModels) {
+        this.adminJPA.save(adminModels);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class AdminRepositoryMySQLImpl implements AdminRepository {
     }
 
     @Override
-    public void atualizar(Admin admin) {
-        this.adminJPA.save(admin);
+    public void atualizar(AdminModels adminModels) {
+        this.adminJPA.save(adminModels);
     }
 }

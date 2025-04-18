@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.repositories.mySQL;
 
 import com.geriaTeam.geriatricare.Interfaces.FuncaoRepository;
-import com.geriaTeam.geriatricare.models.domain.Funcao;
+import com.geriaTeam.geriatricare.models.FuncaoModels;
 import com.geriaTeam.geriatricare.repositories.jpa.FuncaoJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,18 +18,18 @@ public class FuncaoMySQLImpl implements FuncaoRepository {
     }
 
     @Override
-    public Funcao buscarPorCodigo(int codigo){
+    public FuncaoModels buscarPorCodigo(int codigo){
         return this.funcaoJPA.findById(codigo).get();
     }
 
     @Override
-    public List<Funcao> buscar(){
+    public List<FuncaoModels> buscar(){
         return this.funcaoJPA.findAll();
     }
 
     @Override
-    public void adicionar(Funcao funcao){
-        this.funcaoJPA.save(funcao);
+    public void adicionar(FuncaoModels funcaoModels){
+        this.funcaoJPA.save(funcaoModels);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class FuncaoMySQLImpl implements FuncaoRepository {
     }
 
     @Override
-    public void atualizar(Funcao funcao){
-        this.funcaoJPA.save(funcao);
+    public void atualizar(FuncaoModels funcaoModels){
+        this.funcaoJPA.save(funcaoModels);
     }
 }

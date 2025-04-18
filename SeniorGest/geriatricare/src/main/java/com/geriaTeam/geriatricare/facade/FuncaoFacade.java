@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.geriaTeam.geriatricare.applications.FuncaoApplication;
-import com.geriaTeam.geriatricare.models.domain.Funcao;
+import com.geriaTeam.geriatricare.models.FuncaoModels;
 
 import lombok.AllArgsConstructor;
 
@@ -16,20 +16,20 @@ public class FuncaoFacade {
     @Autowired
     private FuncaoApplication funcaoApplication;
 
-    public List<Funcao> buscar() {
+    public List<FuncaoModels> buscar() {
         return funcaoApplication.buscar();
     }
 
-    public Funcao buscarPorCodigo(int codigo) {
+    public FuncaoModels buscarPorCodigo(int codigo) {
         return funcaoApplication.buscarPorCodigo(codigo);
     }
 
-    public void adicionar(Funcao funcao) {
-        funcaoApplication.adicionar(funcao);
+    public void adicionar(FuncaoModels funcaoModels) {
+        funcaoApplication.adicionar(funcaoModels);
     }
 
-    public void atualizar(Funcao funcao) {
-        funcaoApplication.atualizar(funcao);
+    public void atualizar(FuncaoModels funcaoModels) {
+        funcaoApplication.atualizar(funcaoModels);
     }
 
     public void remover(int codigo) {

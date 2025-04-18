@@ -1,4 +1,4 @@
-package com.geriaTeam.geriatricare.models.domain;
+package com.geriaTeam.geriatricare.models;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "medicamentos")
-public class Medicamento {
+public class MedicamentoModels {
     @Id
     @Column(name = "medicamentos_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +36,6 @@ public class Medicamento {
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    @OneToMany(mappedBy = "medicamento", cascade = {CascadeType.PERSIST, CascadeType. MERGE})
-    private List<PacienteMedicamento> pacienteMedicamento;
+    @OneToMany(mappedBy = "medicamentoModels", cascade = {CascadeType.PERSIST, CascadeType. MERGE})
+    private List<PacienteMedicamentoModels> pacienteMedicamentoModels;
 }

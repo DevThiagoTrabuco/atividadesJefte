@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.repositories.mySQL;
 
 import com.geriaTeam.geriatricare.Interfaces.PacienteRepository;
-import com.geriaTeam.geriatricare.models.domain.Paciente;
+import com.geriaTeam.geriatricare.models.PacienteModels;
 import com.geriaTeam.geriatricare.repositories.jpa.PacienteJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,18 +18,18 @@ public class PacienteRepositoryMySQLImpl implements PacienteRepository {
     }
 
     @Override
-    public Paciente buscarPorCodigo(int codigo) {
+    public PacienteModels buscarPorCodigo(int codigo) {
         return this.pacienteJPA.findById(codigo).get();
     }
 
     @Override
-    public List<Paciente> buscar() {
+    public List<PacienteModels> buscar() {
         return this.pacienteJPA.findAll();
     }
 
     @Override
-    public void adicionar(Paciente paciente) {
-        this.pacienteJPA.save(paciente);
+    public void adicionar(PacienteModels pacienteModels) {
+        this.pacienteJPA.save(pacienteModels);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class PacienteRepositoryMySQLImpl implements PacienteRepository {
     }
 
     @Override
-    public void atualizar(Paciente paciente) {
-        this.pacienteJPA.save(paciente);
+    public void atualizar(PacienteModels pacienteModels) {
+        this.pacienteJPA.save(pacienteModels);
     }
 }

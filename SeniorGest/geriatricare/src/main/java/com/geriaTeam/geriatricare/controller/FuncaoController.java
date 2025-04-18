@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.geriaTeam.geriatricare.facade.FuncaoFacade;
-import com.geriaTeam.geriatricare.models.domain.Funcao;
+import com.geriaTeam.geriatricare.models.FuncaoModels;
 
 @RequestMapping("/api/funcao/")
 @RestController
@@ -27,23 +27,23 @@ public class FuncaoController {
     }
 
     @GetMapping("")
-    public List<Funcao> buscar(){
+    public List<FuncaoModels> buscar(){
         return funcaoFacade.buscar();
     }
 
     @GetMapping("/{codigo}")
-    public Funcao buscarPorCodigo(@PathVariable int codigo){
+    public FuncaoModels buscarPorCodigo(@PathVariable int codigo){
         return funcaoFacade.buscarPorCodigo(codigo);
     }
 
     @PostMapping("")
-    public void adicionar(@RequestBody Funcao funcao){
-        funcaoFacade.adicionar(funcao);
+    public void adicionar(@RequestBody FuncaoModels funcaoModels){
+        funcaoFacade.adicionar(funcaoModels);
     }
 
     @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody Funcao funcao){
-        funcaoFacade.atualizar(funcao);
+    public void atualizar(@PathVariable int codigo, @RequestBody FuncaoModels funcaoModels){
+        funcaoFacade.atualizar(funcaoModels);
     }
 
     @DeleteMapping("/{codigo}")

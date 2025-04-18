@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.geriaTeam.geriatricare.applications.FuncionarioApplication;
-import com.geriaTeam.geriatricare.models.domain.Funcionario;
+import com.geriaTeam.geriatricare.models.FuncionarioModels;
 import lombok.AllArgsConstructor;
 
 @Component
@@ -15,20 +15,20 @@ public class FuncionarioFacade {
     @Autowired
     private FuncionarioApplication FuncionarioApplication;
 
-    public List<Funcionario> buscar() {
+    public List<FuncionarioModels> buscar() {
         return FuncionarioApplication.buscar();
     }
 
-    public Funcionario buscarPorCodigo(int codigo) {
+    public FuncionarioModels buscarPorCodigo(int codigo) {
         return FuncionarioApplication.buscarPorCodigo(codigo);
     }
 
-    public void adicionar(Funcionario Funcionario) {
-        FuncionarioApplication.adicionar(Funcionario);
+    public void adicionar(FuncionarioModels FuncionarioModels) {
+        FuncionarioApplication.adicionar(FuncionarioModels);
     }
 
-    public void atualizar(Funcionario Funcionario) {
-        FuncionarioApplication.atualizar(Funcionario);
+    public void atualizar(FuncionarioModels FuncionarioModels) {
+        FuncionarioApplication.atualizar(FuncionarioModels);
     }
 
     public void remover(int codigo) {

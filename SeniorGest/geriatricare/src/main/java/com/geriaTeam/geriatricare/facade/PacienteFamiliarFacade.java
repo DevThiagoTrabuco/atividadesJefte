@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.facade;
 
 import com.geriaTeam.geriatricare.applications.PacienteFamiliarApplication;
-import com.geriaTeam.geriatricare.models.domain.PacienteFamiliar;
+import com.geriaTeam.geriatricare.models.PacienteFamiliarModels;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,20 +12,20 @@ public class PacienteFamiliarFacade {
     @Autowired
     private PacienteFamiliarApplication pacienteFamiliarApplication;
 
-    public List<PacienteFamiliar> buscar() {
+    public List<PacienteFamiliarModels> buscar() {
         return pacienteFamiliarApplication.buscar();
     }
 
-    public PacienteFamiliar buscarPorCodigo(int codigo) {
+    public PacienteFamiliarModels buscarPorCodigo(int codigo) {
         return pacienteFamiliarApplication.buscarPorCodigo(codigo);
     }
 
-    public void adicionar(PacienteFamiliar pacienteFamiliar) {
-        pacienteFamiliarApplication.adicionar(pacienteFamiliar);
+    public void adicionar(PacienteFamiliarModels pacienteFamiliarModels) {
+        pacienteFamiliarApplication.adicionar(pacienteFamiliarModels);
     }
 
-    public void atualizar(PacienteFamiliar pacienteFamiliar) {
-        pacienteFamiliarApplication.atualizar(pacienteFamiliar);
+    public void atualizar(PacienteFamiliarModels pacienteFamiliarModels) {
+        pacienteFamiliarApplication.atualizar(pacienteFamiliarModels);
     }
 
     public void remover(int codigo) {

@@ -1,6 +1,6 @@
 package com.geriaTeam.geriatricare.applications;
 
-import com.geriaTeam.geriatricare.models.domain.Funcao;
+import com.geriaTeam.geriatricare.models.FuncaoModels;
 import com.geriaTeam.geriatricare.Interfaces.FuncaoRepository;
 
 import java.util.List;
@@ -18,23 +18,23 @@ public class FuncaoApplication {
         this.funcaoRepository = funcaoRepository;
     }
 
-    public void adicionar(Funcao funcao){
-        this.funcaoRepository.adicionar(funcao);
+    public void adicionar(FuncaoModels funcaoModels){
+        this.funcaoRepository.adicionar(funcaoModels);
     }
 
-    public void atualizar(Funcao funcao){
-        this.funcaoRepository.atualizar(funcao);
+    public void atualizar(FuncaoModels funcaoModels){
+        this.funcaoRepository.atualizar(funcaoModels);
     }
 
     public void remover(int code){
         this.funcaoRepository.remover(code);
     }
 
-    public List<Funcao> buscar(){
+    public List<FuncaoModels> buscar(){
         return this.funcaoRepository.buscar();
     }
 
-    public Funcao buscarPorCodigo(int code){
+    public FuncaoModels buscarPorCodigo(int code){
         return this.funcaoRepository.buscarPorCodigo(code);
     }
 }

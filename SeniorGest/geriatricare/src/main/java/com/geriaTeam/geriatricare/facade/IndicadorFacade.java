@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.geriaTeam.geriatricare.applications.IndicadorApplication;
-import com.geriaTeam.geriatricare.models.domain.Indicador;
+import com.geriaTeam.geriatricare.models.IndicadorModels;
 
 import lombok.AllArgsConstructor;
 
@@ -16,20 +16,20 @@ public class IndicadorFacade {
     @Autowired
     private IndicadorApplication indicadorApplication;
 
-    public List<Indicador> buscar() {
+    public List<IndicadorModels> buscar() {
         return indicadorApplication.buscar();
     }
 
-    public Indicador buscarPorCodigo(int codigo) {
+    public IndicadorModels buscarPorCodigo(int codigo) {
         return indicadorApplication.buscarPorCodigo(codigo);
     }
 
-    public void adicionar(Indicador indicador) {
-        indicadorApplication.adicionar(indicador);
+    public void adicionar(IndicadorModels indicadorModels) {
+        indicadorApplication.adicionar(indicadorModels);
     }
 
-    public void atualizar(Indicador indicador) {
-        indicadorApplication.atualizar(indicador);
+    public void atualizar(IndicadorModels indicadorModels) {
+        indicadorApplication.atualizar(indicadorModels);
     }
 
     public void remover(int codigo) {

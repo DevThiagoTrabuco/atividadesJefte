@@ -1,4 +1,4 @@
-package com.geriaTeam.geriatricare.models.domain;
+package com.geriaTeam.geriatricare.models;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "familiares")
-public class Familiar {
+public class FamiliarModels {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "familiares_id")
@@ -28,6 +28,6 @@ public class Familiar {
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    @OneToMany(mappedBy = "familiar", cascade = {CascadeType.PERSIST, CascadeType. MERGE})
-    private List<PacienteFamiliar> pacienteFamiliar;
+    @OneToMany(mappedBy = "familiarModels", cascade = {CascadeType.PERSIST, CascadeType. MERGE})
+    private List<PacienteFamiliarModels> pacienteFamiliarModels;
 }

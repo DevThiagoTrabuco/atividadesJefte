@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.repositories.mySQL;
 
 import com.geriaTeam.geriatricare.Interfaces.PacienteMedicamentoRepository;
-import com.geriaTeam.geriatricare.models.domain.PacienteMedicamento;
+import com.geriaTeam.geriatricare.models.PacienteMedicamentoModels;
 import com.geriaTeam.geriatricare.repositories.jpa.PacienteMedicamentoJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,18 +19,18 @@ public class PacienteMedicamentoRepositoryMySqQLImpl implements PacienteMedicame
     }
 
     @Override
-    public PacienteMedicamento buscarPorCodigo(int codigo) {
+    public PacienteMedicamentoModels buscarPorCodigo(int codigo) {
         return this.pacienteMedicamentoJPA.findById(codigo).get();
     }
 
     @Override
-    public List<PacienteMedicamento> buscar() {
+    public List<PacienteMedicamentoModels> buscar() {
         return this.pacienteMedicamentoJPA.findAll();
     }
 
     @Override
-    public void adicionar(PacienteMedicamento pacienteMedicamento) {
-        this.pacienteMedicamentoJPA.save(pacienteMedicamento);
+    public void adicionar(PacienteMedicamentoModels pacienteMedicamentoModels) {
+        this.pacienteMedicamentoJPA.save(pacienteMedicamentoModels);
     }
 
     @Override
@@ -39,8 +39,8 @@ public class PacienteMedicamentoRepositoryMySqQLImpl implements PacienteMedicame
     }
 
     @Override
-    public void atualizar(PacienteMedicamento pacienteMedicamento) {
-        this.pacienteMedicamentoJPA.save(pacienteMedicamento);
+    public void atualizar(PacienteMedicamentoModels pacienteMedicamentoModels) {
+        this.pacienteMedicamentoJPA.save(pacienteMedicamentoModels);
     }
 
 

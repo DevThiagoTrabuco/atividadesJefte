@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.geriaTeam.geriatricare.facade.FamiliarFacade;
-import com.geriaTeam.geriatricare.models.domain.Familiar;
+import com.geriaTeam.geriatricare.models.FamiliarModels;
 
 @RequestMapping("/api/familiar/")
 @RestController
@@ -27,23 +27,23 @@ public class FamiliarController {
     }
 
     @GetMapping("")
-    public List<Familiar> buscar(){
+    public List<FamiliarModels> buscar(){
         return familiarFacade.buscar();
     }
 
     @GetMapping("/{codigo}")
-    public Familiar buscarPorCodigo(@PathVariable int codigo){
+    public FamiliarModels buscarPorCodigo(@PathVariable int codigo){
         return familiarFacade.buscarPorCodigo(codigo);
     }
 
     @PostMapping("")
-    public void adicionar(@RequestBody Familiar familiar){
-        familiarFacade.adicionar(familiar);
+    public void adicionar(@RequestBody FamiliarModels familiarModels){
+        familiarFacade.adicionar(familiarModels);
     }
 
     @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody Familiar familiar){
-        familiarFacade.atualizar(familiar);
+    public void atualizar(@PathVariable int codigo, @RequestBody FamiliarModels familiarModels){
+        familiarFacade.atualizar(familiarModels);
     }
 
     @DeleteMapping("/{codigo}")
