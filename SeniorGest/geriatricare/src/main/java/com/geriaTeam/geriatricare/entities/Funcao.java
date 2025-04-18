@@ -19,6 +19,11 @@ public class Funcao {
     private final FuncaoRepository funcaoRepository;
 
     private int id;
+
+    public Funcao(FuncaoRepository funcaoRepository) {
+        this.funcaoRepository = funcaoRepository;
+    }
+
     private String nome;
 
     // 1. Adicionar Funcao

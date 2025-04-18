@@ -23,6 +23,12 @@ public class PacienteMedicamento {
     private final MedicamentoRepository medicamentoRepository;
 
     private int id;
+
+    public PacienteMedicamento(PacienteMedicamentoRepository pacienteMedicamentoRepository, MedicamentoRepository medicamentoRepository) {
+        this.pacienteMedicamentoRepository = pacienteMedicamentoRepository;
+        this.medicamentoRepository = medicamentoRepository;
+    }
+
     private PacienteModels pacienteModels;
     private int pacienteId;
     private MedicamentoModels medicamentoModels;

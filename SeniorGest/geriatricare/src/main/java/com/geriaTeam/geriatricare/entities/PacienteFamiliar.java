@@ -28,6 +28,12 @@ public class PacienteFamiliar {
     private FamiliarRepository familiarRepository;
     private PacienteRepository pacienteRepository;
 
+    public PacienteFamiliar(PacienteFamiliarRepository pacienteFamiliarRepository, FamiliarRepository familiarRepository, PacienteRepository pacienteRepository) {
+        this.pacienteFamiliarRepository = pacienteFamiliarRepository;
+        this.familiarRepository = familiarRepository;
+        this.pacienteRepository = pacienteRepository;
+    }
+
     public void adicionarFamiliar(int pacienteId, int familiarId) {
         FamiliarModels familiar = familiarRepository.buscarPorCodigo(familiarId);
         if (familiar == null) {

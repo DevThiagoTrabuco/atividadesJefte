@@ -13,6 +13,11 @@ import java.util.NoSuchElementException;
 public class CondicaoMental {
     private int id;
     private String nome;
+
+    public CondicaoMental(CondicaoMentalRepository condicaoMentalRepository) {
+        this.condicaoMentalRepository = condicaoMentalRepository;
+    }
+
     private String descricao;
 
     private final CondicaoMentalRepository condicaoMentalRepository;

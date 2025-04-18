@@ -18,6 +18,10 @@ public class CondicaoFisica {
     private String nome;
     private String descricao;
 
+    public CondicaoFisica(CondicaoFisicaRepository condicaoFisicaRepository) {
+        this.condicaoFisicaRepository = condicaoFisicaRepository;
+    }
+
     // O repositório precisa ser passado para cada função
     private CondicaoFisicaRepository condicaoFisicaRepository;
 

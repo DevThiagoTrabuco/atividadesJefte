@@ -36,4 +36,25 @@ public class CondicaoMentalFacade {
     public void remover(int codigo) {
         condicaoMentalApplication.remover(codigo);
     }
+
+    // Complemento com os métodos restantes da Application
+    public void adicionarCondicaoMental(String nome, String descricao) {
+        condicaoMentalApplication.adicionarCondicaoMental(nome, descricao);
+    }
+
+    public void removerCondicaoMental(int codigo) {
+        condicaoMentalApplication.removerCondicaoMental(codigo);
+    }
+
+    public List<CondicaoMentalModels> buscarTodasCondicoes() {
+        return condicaoMentalApplication.buscarTodasCondicoes();
+    }
+
+    public void atualizarCondicaoMental(int codigo, String nome, String descricao) {
+        condicaoMentalApplication.atualizarCondicaoMental(codigo, nome, descricao);
+    }
+
+    public boolean verificarCondicaoMental(int codigo) {
+        return condicaoMentalApplication.verificarCondicaoMental(codigo);
+    }
 }

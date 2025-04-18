@@ -10,6 +10,7 @@ import java.util.List;
 @RequestMapping("/api/condicao-fisica/")
 @RestController
 public class CondicaoFisicaController {
+
     private final CondicaoFisicaFacade condicaoFisicaFacade;
 
     @Autowired
@@ -17,6 +18,7 @@ public class CondicaoFisicaController {
         this.condicaoFisicaFacade = condicaoFisicaFacade;
     }
 
+    // CRUD padrão
     @GetMapping("")
     public List<CondicaoFisicaModels> buscar() {
         return condicaoFisicaFacade.buscar();
@@ -40,5 +42,31 @@ public class CondicaoFisicaController {
     @DeleteMapping("/{codigo}")
     public void remover(@PathVariable int codigo) {
         condicaoFisicaFacade.remover(codigo);
+    }
+
+    // Métodos adicionais para manipulação direta de condições físicas
+
+    @PostMapping("/adicionar")
+    public void adicionarCondicaoFisica(@RequestParam String nome, @RequestParam String descricao) {
+        condicaoFisicaFacade.adicionarCondicaoFisica(nome, descricao);
+    }
+
+    @DeleteMapping("/remover-condicao/{codigo}")
+    public void removerCondicaoFisica(@PathVariable int codigo) {
+        condicaoFisicaFacade.removerCondicaoFisica(codigo);
+    }
+
+    @GetMapping("/todas")
+    public List<CondicaoFisicaModels> buscarTodasCondicoesFisicas() {
+        return condicaoFisicaFacade.buscarCondicoesFisicas();
+    }
+
+    @PutMapping("/atualizar-condicao/{codigo}")
+    public void atualizarCondicaoFisica(
+            @PathVariable int codigo,
+            @RequestParam String novoNome,
+            @RequestParam String novaDescricao
+    ) {
+        condicaoFisicaFacade.atualizarCondicaoFisica(codigo, novoNome, novaDescricao);
     }
 }

@@ -26,15 +26,15 @@ public class MedicamentoApplication {
         this.medicamentoRepository.atualizar(medicamentoModels);
     }
 
-    public void remover(int code){
-        this.medicamentoRepository.remover(code);
+    public void remover(int codigo){
+        this.medicamentoRepository.remover(codigo);
     }
 
     public List<MedicamentoModels> buscar(){
         return this.medicamentoRepository.buscar();
     }
 
-    public MedicamentoModels buscarPorCodigo(int code){
-        return this.medicamentoRepository.buscarPorCodigo(code);
+    public MedicamentoModels buscarPorCodigo(int codigo){
+        return this.medicamentoRepository.buscarPorCodigo(codigo);
     }
 }

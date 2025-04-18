@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/api/condicaomental/")
 @RestController
+@RequestMapping("/api/condicaomental/")
 public class CondicaoMentalController {
 
     private final CondicaoMentalFacade condicaoMentalFacade;
@@ -18,6 +18,7 @@ public class CondicaoMentalController {
         this.condicaoMentalFacade = condicaoMentalFacade;
     }
 
+    // CRUD padrão
     @GetMapping("")
     public List<CondicaoMentalModels> buscar() {
         return condicaoMentalFacade.buscar();
@@ -41,5 +42,36 @@ public class CondicaoMentalController {
     @DeleteMapping("/{codigo}")
     public void remover(@PathVariable int codigo) {
         condicaoMentalFacade.remover(codigo);
+    }
+
+    // Métodos adicionais
+
+    @PostMapping("/adicionar")
+    public void adicionarCondicaoMental(@RequestParam String nome, @RequestParam String descricao) {
+        condicaoMentalFacade.adicionarCondicaoMental(nome, descricao);
+    }
+
+    @DeleteMapping("/remover-condicao/{codigo}")
+    public void removerCondicaoMental(@PathVariable int codigo) {
+        condicaoMentalFacade.removerCondicaoMental(codigo);
+    }
+
+    @GetMapping("/todas")
+    public List<CondicaoMentalModels> buscarTodasCondicoes() {
+        return condicaoMentalFacade.buscarTodasCondicoes();
+    }
+
+    @PutMapping("/atualizar-condicao/{codigo}")
+    public void atualizarCondicaoMental(
+            @PathVariable int codigo,
+            @RequestParam String nome,
+            @RequestParam String descricao
+    ) {
+        condicaoMentalFacade.atualizarCondicaoMental(codigo, nome, descricao);
+    }
+
+    @GetMapping("/verificar/{codigo}")
+    public boolean verificarCondicaoMental(@PathVariable int codigo) {
+        return condicaoMentalFacade.verificarCondicaoMental(codigo);
     }
 }

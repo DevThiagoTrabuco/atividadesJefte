@@ -2,39 +2,66 @@ package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.FamiliarRepository;
 import com.geriaTeam.geriatricare.models.FamiliarModels;
-
-import java.util.List;
-
+import com.geriaTeam.geriatricare.entities.Familiar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FamiliarApplication {
-    private FamiliarRepository familiarRepository;
-    
-    
+    private final Familiar familiar;
+    private final FamiliarRepository familiarRepository;
+
     @Autowired
     public FamiliarApplication(FamiliarRepository familiarRepository) {
         this.familiarRepository = familiarRepository;
+        this.familiar = new Familiar(familiarRepository);
     }
 
-    public void adicionar(FamiliarModels familiarModels){
-        this.familiarRepository.adicionar(familiarModels);
+    // Adicionar Familiar
+    public void adicionarFamiliar(String nome, String email, String telefone) {
+        familiar.adicionarFamiliar(nome, email, telefone);
     }
 
-    public void atualizar(FamiliarModels familiarModels){
-        this.familiarRepository.atualizar(familiarModels);
+    // Remover Familiar
+    public void removerFamiliar(int id) {
+        familiar.removerFamiliar(id);
     }
 
-    public void remover(int codigo){
-        this.familiarRepository.remover(codigo);
+    // Buscar Familiar por ID
+    public FamiliarModels buscarFamiliar(int id) {
+        return familiar.buscarFamiliar(id);
     }
 
-    public List<FamiliarModels> buscar(){
-        return this.familiarRepository.buscar();
+    // Atualizar Familiar
+    public void atualizarFamiliar(int id, String novoNome, String novoEmail, String novoTelefone) {
+        familiar.atualizarFamiliar(id, novoNome, novoEmail, novoTelefone);
     }
 
-    public FamiliarModels buscarPorCodigo(int codigo){
-        return this.familiarRepository.buscarPorCodigo(codigo);
+    // Buscar Todos Familiares
+    public List<FamiliarModels> buscarTodosFamiliares() {
+        return familiar.buscarTodosFamiliares();
+    }
+
+    // Funções adicionais que interagem diretamente com o repositório
+    public void adicionar(FamiliarModels familiarModels) {
+        familiarRepository.adicionar(familiarModels);
+    }
+
+    public void atualizar(FamiliarModels familiarModels) {
+        familiarRepository.atualizar(familiarModels);
+    }
+
+    public void remover(int code) {
+        familiarRepository.remover(code);
+    }
+
+    public List<FamiliarModels> buscar() {
+        return familiarRepository.buscar();
+    }
+
+    public FamiliarModels buscarPorCodigo(int code) {
+        return familiarRepository.buscarPorCodigo(code);
     }
 }
