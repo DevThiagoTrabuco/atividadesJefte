@@ -1,6 +1,7 @@
 package com.geriaTeam.geriatricare.entities;
 
 import com.geriaTeam.geriatricare.models.FamiliarModels;
+import com.geriaTeam.geriatricare.models.PacienteFamiliarModels;
 import com.geriaTeam.geriatricare.models.PacienteModels;
 import com.geriaTeam.geriatricare.Interfaces.PacienteRepository; // Adicionando o repositório de Paciente
 import com.geriaTeam.geriatricare.Interfaces.PacienteFamiliarRepository;
@@ -27,74 +28,60 @@ public class PacienteFamiliar {
     private FamiliarRepository familiarRepository;
     private PacienteRepository pacienteRepository;
 
-    // 1. Adicionar Familiar ao Paciente
     public void adicionarFamiliar(int pacienteId, int familiarId) {
-        PacienteFamiliar pacienteFamiliar = new PacienteFamiliar();
-        pacienteFamiliar.setPacienteId(pacienteId);
-        pacienteFamiliar.setFamiliarId(familiarId);
-
-        // Verificando se o familiar existe
         FamiliarModels familiar = familiarRepository.buscarPorCodigo(familiarId);
         if (familiar == null) {
-            throw new EntityNotFoundException("Familiar não encontrado");
+            throw new RuntimeException("Familiar não encontrado");
         }
 
-        // Verificando se o paciente existe
-        PacienteModels paciente = pacienteRepository.buscarPorCodigo(pacienteId); // Usando o repositório correto para paciente
+        PacienteModels paciente = pacienteRepository.buscarPorCodigo(pacienteId);
         if (paciente == null) {
-            throw new EntityNotFoundException("Paciente não encontrado");
+            throw new RuntimeException("Paciente não encontrado");
         }
 
-        // Adicionando o relacionamento no banco de dados
-        pacienteFamiliarRepository.adicionar(pacienteFamiliar);
+        PacienteFamiliarModels relacionamento = new PacienteFamiliarModels();
+        relacionamento.setPacienteId(pacienteId);
+        relacionamento.setFamiliarId(familiarId);
+
+        pacienteFamiliarRepository.adicionar(relacionamento);
     }
 
-    // 2. Remover Familiar do Paciente
     public void removerFamiliar(int pacienteId, int familiarId) {
-        // Buscando o relacionamento entre paciente e familiar
-        PacienteFamiliar pacienteFamiliar = pacienteFamiliarRepository.buscarPorCodigo(pacienteId, familiarId);
-
-        if (pacienteFamiliar != null) {
-            // Removendo o relacionamento
-            pacienteFamiliarRepository.remover(pacienteFamiliar.getId());
-        } else {
-            throw new EntityNotFoundException("Relacionamento de paciente e familiar não encontrado.");
+        PacienteFamiliarModels relacionamento = pacienteFamiliarRepository.buscarPorCodigo(pacienteId);
+        if (relacionamento == null) {
+            throw new RuntimeException("Relacionamento não encontrado");
         }
+
+        pacienteFamiliarRepository.remover(relacionamento.getId());
     }
 
-    // 3. Buscar Familiar de um Paciente
-    public PacienteFamiliar buscarPorCodigo(int pacienteId, int familiarId) {
-        PacienteFamiliar pacienteFamiliar = pacienteFamiliarRepository.buscarPorCodigo(pacienteId, familiarId);
-
-        if (pacienteFamiliar == null) {
-            throw new EntityNotFoundException("Relacionamento de paciente e familiar não encontrado.");
+    public PacienteFamiliarModels buscarRelacionamento(int pacienteId, int familiarId) {
+        PacienteFamiliarModels relacionamento = pacienteFamiliarRepository.buscarPorCodigo(pacienteId);
+        if (relacionamento == null) {
+            throw new RuntimeException("Relacionamento não encontrado");
         }
-        return pacienteFamiliar;
+
+        return relacionamento;
     }
 
-    // 4. Atualizar o Familiar de um Paciente
     public void atualizarFamiliar(int pacienteId, int familiarId, int novoFamiliarId) {
-        PacienteFamiliar pacienteFamiliar = pacienteFamiliarRepository.buscarPorCodigo(pacienteId, familiarId);
-
-        if (pacienteFamiliar != null) {
-            pacienteFamiliar.setFamiliarId(novoFamiliarId);
-
-            // Verificando se o novo familiar existe
-            FamiliarModels novoFamiliar = familiarRepository.buscarPorCodigo(novoFamiliarId);
-            if (novoFamiliar == null) {
-                throw new EntityNotFoundException("Novo familiar não encontrado");
-            }
-
-            // Atualizando no banco de dados
-            pacienteFamiliarRepository.atualizar(pacienteFamiliar);
-        } else {
-            throw new EntityNotFoundException("Relacionamento de paciente e familiar não encontrado.");
+        PacienteFamiliarModels relacionamento = pacienteFamiliarRepository.buscarPorCodigo(pacienteId);
+        if (relacionamento == null) {
+            throw new RuntimeException("Relacionamento não encontrado");
         }
+
+        FamiliarModels novoFamiliar = familiarRepository.buscarPorCodigo(novoFamiliarId);
+        if (novoFamiliar == null) {
+            throw new RuntimeException("Novo familiar não encontrado");
+        }
+
+        relacionamento.setFamiliarId(novoFamiliarId);
+        pacienteFamiliarRepository.atualizar(relacionamento);
     }
 
-    // 5. Verificar se um paciente tem um determinado familiar
     public boolean verificarFamiliar(int pacienteId, int familiarId) {
-        PacienteFamiliar pacienteFamiliar = pacienteFamiliarRepository.buscarPorCodigo(pacienteId, familiarId);
-        return pacienteFamiliar != null;
+        PacienteFamiliarModels relacionamento = pacienteFamiliarRepository.buscarPorCodigo(pacienteId);
+        return relacionamento != null;
     }
 }
+
