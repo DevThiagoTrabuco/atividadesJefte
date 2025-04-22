@@ -16,28 +16,7 @@ public class CondicaoMentalFacade {
     public CondicaoMentalFacade(CondicaoMentalApplication condicaoMentalApplication) {
         this.condicaoMentalApplication = condicaoMentalApplication;
     }
-
-    public List<CondicaoMentalModels> buscar() {
-        return condicaoMentalApplication.buscar();
-    }
-
-    public CondicaoMentalModels buscarPorCodigo(int codigo) {
-        return condicaoMentalApplication.buscarPorCodigo(codigo);
-    }
-
-    public void adicionar(CondicaoMentalModels condicaoMentalModels) {
-        condicaoMentalApplication.adicionar(condicaoMentalModels);
-    }
-
-    public void atualizar(CondicaoMentalModels condicaoMentalModels) {
-        condicaoMentalApplication.atualizar(condicaoMentalModels);
-    }
-
-    public void remover(int codigo) {
-        condicaoMentalApplication.remover(codigo);
-    }
-
-    // Complemento com os métodos restantes da Application
+    // Métodos da fachada que delegam chamadas para a aplicação
     public void adicionarCondicaoMental(String nome, String descricao) {
         condicaoMentalApplication.adicionarCondicaoMental(nome, descricao);
     }

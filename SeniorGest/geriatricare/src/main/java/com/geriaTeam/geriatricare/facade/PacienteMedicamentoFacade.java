@@ -13,28 +13,6 @@ public class PacienteMedicamentoFacade {
     @Autowired
     private PacienteMedicamentoApplication pacienteMedicamentoApplication;
 
-    // Funções já existentes
-    public List<PacienteMedicamentoModels> buscar() {
-        return pacienteMedicamentoApplication.buscar();
-    }
-
-    public PacienteMedicamentoModels buscarPorCodigo(int codigo) {
-        return pacienteMedicamentoApplication.buscarPorCodigo(codigo);
-    }
-
-    public void adicionar(PacienteMedicamentoModels pacienteMedicamentoModels) {
-        pacienteMedicamentoApplication.adicionar(pacienteMedicamentoModels);
-    }
-
-    public void atualizar(PacienteMedicamentoModels pacienteMedicamentoModels) {
-        pacienteMedicamentoApplication.atualizar(pacienteMedicamentoModels);
-    }
-
-    public void remover(int codigo) {
-        pacienteMedicamentoApplication.remover(codigo);
-    }
-
-    // Novas funções a serem adicionadas
     public void adicionarMedicamento(int pacienteId, int medicamentoId) {
         pacienteMedicamentoApplication.adicionarMedicamento(pacienteId, medicamentoId);
     }

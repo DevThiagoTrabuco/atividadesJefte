@@ -17,27 +17,6 @@ public class FamiliarFacade {
     private FamiliarApplication familiarApplication;
 
     // Funções básicas de CRUD
-    public List<FamiliarModels> buscar() {
-        return familiarApplication.buscar();
-    }
-
-    public FamiliarModels buscarPorCodigo(int codigo) {
-        return familiarApplication.buscarPorCodigo(codigo);
-    }
-
-    public void adicionar(FamiliarModels familiarModels) {
-        familiarApplication.adicionar(familiarModels);
-    }
-
-    public void atualizar(FamiliarModels familiarModels) {
-        familiarApplication.atualizar(familiarModels);
-    }
-
-    public void remover(int codigo) {
-        familiarApplication.remover(codigo);
-    }
-
-    // Novas funções adicionais que chamam diretamente os métodos de FamiliarApplication
     public void adicionarFamiliar(String nome, String email, String telefone) {
         familiarApplication.adicionarFamiliar(nome, email, telefone);
     }

@@ -3,6 +3,7 @@ package com.geriaTeam.geriatricare.applications;
 import com.geriaTeam.geriatricare.Interfaces.FuncaoRepository;
 import com.geriaTeam.geriatricare.models.FuncaoModels;
 import com.geriaTeam.geriatricare.entities.Funcao;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,59 +11,49 @@ import java.util.List;
 
 @Service
 public class FuncaoApplication {
-    private final Funcao funcao;
-
     private final FuncaoRepository funcaoRepository;
 
     @Autowired
     public FuncaoApplication(FuncaoRepository funcaoRepository) {
         this.funcaoRepository = funcaoRepository;
-        this.funcao = new Funcao(funcaoRepository);
     }
 
-    // Adicionar Funcao
     public void adicionarFuncao(String nome) {
-        funcao.adicionarFuncao(nome);
+        FuncaoModels funcao = new FuncaoModels();
+        funcao.setNome(nome);
+
+        // Adicionando a função no banco de dados
+        funcaoRepository.adicionar(funcao);
     }
 
-    // Remover Funcao
     public void removerFuncao(int id) {
-        funcao.removerFuncao(id);
+        FuncaoModels funcao = funcaoRepository.buscarPorCodigo(id);  // Busca a função pelo id
+        if (funcao != null) {
+            funcaoRepository.remover(id);
+        } else {
+            throw new EntityNotFoundException("Função não encontrada.");
+        }
     }
 
-    // Buscar Funcao por ID
     public FuncaoModels buscarFuncao(int id) {
-        return funcao.buscarFuncao(id);
+        FuncaoModels funcao = funcaoRepository.buscarPorCodigo(id);
+        if (funcao == null) {
+            throw new EntityNotFoundException("Função não encontrada.");
+        }
+        return funcao;
     }
 
-    // Atualizar Funcao
     public void atualizarFuncao(int id, String novoNome) {
-        funcao.atualizarFuncao(id, novoNome);
+        FuncaoModels funcao = funcaoRepository.buscarPorCodigo(id);
+        if (funcao != null) {
+            funcao.setNome(novoNome);
+            funcaoRepository.atualizar(funcao);
+        } else {
+            throw new EntityNotFoundException("Função não encontrada.");
+        }
     }
 
-    // Buscar Todas Funções
     public List<FuncaoModels> buscarTodasFuncoes() {
-        return funcao.buscarTodasFuncoes();
-    }
-
-    // Funções adicionais que interagem diretamente com o repositório
-    public void adicionar(FuncaoModels funcaoModels) {
-        funcaoRepository.adicionar(funcaoModels);
-    }
-
-    public void atualizar(FuncaoModels funcaoModels) {
-        funcaoRepository.atualizar(funcaoModels);
-    }
-
-    public void remover(int codigo) {
-        funcaoRepository.remover(codigo);
-    }
-
-    public List<FuncaoModels> buscar() {
         return funcaoRepository.buscar();
-    }
-
-    public FuncaoModels buscarPorCodigo(int codigo) {
-        return funcaoRepository.buscarPorCodigo(codigo);
     }
 }

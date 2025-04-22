@@ -17,27 +17,6 @@ public class FuncaoFacade {
     private FuncaoApplication funcaoApplication;
 
     // Funções básicas de CRUD
-    public List<FuncaoModels> buscar() {
-        return funcaoApplication.buscar();
-    }
-
-    public FuncaoModels buscarPorCodigo(int codigo) {
-        return funcaoApplication.buscarPorCodigo(codigo);
-    }
-
-    public void adicionar(FuncaoModels funcaoModels) {
-        funcaoApplication.adicionar(funcaoModels);
-    }
-
-    public void atualizar(FuncaoModels funcaoModels) {
-        funcaoApplication.atualizar(funcaoModels);
-    }
-
-    public void remover(int codigo) {
-        funcaoApplication.remover(codigo);
-    }
-
-    // Novas funções adicionais que chamam diretamente os métodos de FuncaoApplication
     public void adicionarFuncao(String nome) {
         funcaoApplication.adicionarFuncao(nome);
     }

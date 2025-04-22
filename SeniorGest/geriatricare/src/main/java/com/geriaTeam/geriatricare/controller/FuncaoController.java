@@ -19,32 +19,6 @@ public class FuncaoController {
     }
 
     // CRUD padrão
-    @GetMapping("")
-    public List<FuncaoModels> buscar() {
-        return funcaoFacade.buscar();
-    }
-
-    @GetMapping("/{codigo}")
-    public FuncaoModels buscarPorCodigo(@PathVariable int codigo) {
-        return funcaoFacade.buscarPorCodigo(codigo);
-    }
-
-    @PostMapping("")
-    public void adicionar(@RequestBody FuncaoModels funcaoModels) {
-        funcaoFacade.adicionar(funcaoModels);
-    }
-
-    @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody FuncaoModels funcaoModels) {
-        funcaoFacade.atualizar(funcaoModels);
-    }
-
-    @DeleteMapping("/{codigo}")
-    public void remover(@PathVariable int codigo) {
-        funcaoFacade.remover(codigo);
-    }
-
-    // Funções adicionais
     @PostMapping("/adicionar-nome")
     public void adicionarFuncao(@RequestParam("nome") String nome) {
         funcaoFacade.adicionarFuncao(nome);

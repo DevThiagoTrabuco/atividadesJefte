@@ -11,4 +11,5 @@ public interface PacienteFamiliarRepository {
     public void adicionar(PacienteFamiliarModels pacienteFamiliarModels);
     public void remover(int codigo);
     public void atualizar(PacienteFamiliarModels pacienteFamiliarModels);
+    public PacienteFamiliarModels buscarPorPacienteIdEFamiliarId(int pacienteId, int familiarId);
 }

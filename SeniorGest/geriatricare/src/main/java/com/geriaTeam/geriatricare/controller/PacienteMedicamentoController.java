@@ -18,34 +18,6 @@ public class PacienteMedicamentoController {
     public PacienteMedicamentoController(PacienteMedicamentoFacade pacienteMedicamentoFacade) {
         this.pacienteMedicamentoFacade = pacienteMedicamentoFacade;
     }
-
-    @GetMapping("")
-    public List<PacienteMedicamentoModels> buscar() {
-        return pacienteMedicamentoFacade.buscar();
-    }
-
-    @GetMapping("/{codigo}")
-    public PacienteMedicamentoModels buscarPorCodigo(@PathVariable int codigo) {
-        return pacienteMedicamentoFacade.buscarPorCodigo(codigo);
-    }
-
-    @PostMapping("")
-    public void adicionar(@RequestBody PacienteMedicamentoModels pacienteMedicamentoModels) {
-        pacienteMedicamentoFacade.adicionar(pacienteMedicamentoModels);
-    }
-
-    @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody PacienteMedicamentoModels pacienteMedicamentoModels) {
-        pacienteMedicamentoFacade.atualizar(pacienteMedicamentoModels);
-    }
-
-    @DeleteMapping("/{codigo}")
-    public void remover(@PathVariable int codigo) {
-        pacienteMedicamentoFacade.remover(codigo);
-    }
-
-    // Novas rotas com base na facade
-
     @PostMapping("/adicionar-medicamento")
     public void adicionarMedicamento(@RequestParam int pacienteId, @RequestParam int medicamentoId) {
         pacienteMedicamentoFacade.adicionarMedicamento(pacienteId, medicamentoId);

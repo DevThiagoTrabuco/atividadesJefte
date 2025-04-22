@@ -19,33 +19,6 @@ public class CondicaoFisicaController {
     }
 
     // CRUD padrão
-    @GetMapping("")
-    public List<CondicaoFisicaModels> buscar() {
-        return condicaoFisicaFacade.buscar();
-    }
-
-    @GetMapping("/{codigo}")
-    public CondicaoFisicaModels buscarPorCodigo(@PathVariable int codigo) {
-        return condicaoFisicaFacade.buscarPorCodigo(codigo);
-    }
-
-    @PostMapping("")
-    public void adicionar(@RequestBody CondicaoFisicaModels condicaoFisicaModels) {
-        condicaoFisicaFacade.adicionar(condicaoFisicaModels);
-    }
-
-    @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody CondicaoFisicaModels condicaoFisicaModels) {
-        condicaoFisicaFacade.atualizar(condicaoFisicaModels);
-    }
-
-    @DeleteMapping("/{codigo}")
-    public void remover(@PathVariable int codigo) {
-        condicaoFisicaFacade.remover(codigo);
-    }
-
-    // Métodos adicionais para manipulação direta de condições físicas
-
     @PostMapping("/adicionar")
     public void adicionarCondicaoFisica(@RequestParam String nome, @RequestParam String descricao) {
         condicaoFisicaFacade.adicionarCondicaoFisica(nome, descricao);

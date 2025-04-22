@@ -14,28 +14,7 @@ public class CondicaoFisicaFacade {
 
     @Autowired
     private CondicaoFisicaApplication condicaoFisicaApplication;
-
-    public List<CondicaoFisicaModels> buscar() {
-        return condicaoFisicaApplication.buscar();
-    }
-
-    public CondicaoFisicaModels buscarPorCodigo(int codigo) {
-        return condicaoFisicaApplication.buscarPorCodigo(codigo);
-    }
-
-    public void adicionar(CondicaoFisicaModels condicaoFisicaModels) {
-        condicaoFisicaApplication.adicionar(condicaoFisicaModels);
-    }
-
-    public void atualizar(CondicaoFisicaModels condicaoFisicaModels) {
-        condicaoFisicaApplication.atualizar(condicaoFisicaModels);
-    }
-
-    public void remover(int codigo) {
-        condicaoFisicaApplication.remover(codigo);
-    }
-
-    // ✅ Métodos complementares da camada de domínio
+    // ✅ Métodos da camada de apresentação
     public void adicionarCondicaoFisica(String nome, String descricao) {
         condicaoFisicaApplication.adicionarCondicaoFisica(nome, descricao);
     }

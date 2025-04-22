@@ -56,7 +56,9 @@ public class PacienteFamiliarController {
     }
 
     @GetMapping("/buscar-relacionamento")
-    public PacienteFamiliarModels buscarRelacionamento(@RequestParam int pacienteId, @RequestParam int familiarId) {
+    public PacienteFamiliarModels buscarRelacionamento(
+            @RequestParam("pacienteId") int pacienteId,
+            @RequestParam("familiarId") int familiarId) {
         return pacienteFamiliarFacade.buscarRelacionamento(pacienteId, familiarId);
     }
 

@@ -19,32 +19,6 @@ public class FamiliarController {
     }
 
     // CRUD padrão
-    @GetMapping("")
-    public List<FamiliarModels> buscar() {
-        return familiarFacade.buscar();
-    }
-
-    @GetMapping("/{codigo}")
-    public FamiliarModels buscarPorCodigo(@PathVariable int codigo) {
-        return familiarFacade.buscarPorCodigo(codigo);
-    }
-
-    @PostMapping("")
-    public void adicionar(@RequestBody FamiliarModels familiarModels) {
-        familiarFacade.adicionar(familiarModels);
-    }
-
-    @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody FamiliarModels familiarModels) {
-        familiarFacade.atualizar(familiarModels);
-    }
-
-    @DeleteMapping("/{codigo}")
-    public void remover(@PathVariable int codigo) {
-        familiarFacade.remover(codigo);
-    }
-
-    // Funções adicionais
     @PostMapping("/adicionar")
     public void adicionarFamiliar(@RequestParam String nome, @RequestParam String email, @RequestParam String telefone) {
         familiarFacade.adicionarFamiliar(nome, email, telefone);

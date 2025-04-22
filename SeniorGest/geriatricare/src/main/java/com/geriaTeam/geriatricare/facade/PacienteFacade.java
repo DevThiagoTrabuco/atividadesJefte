@@ -18,13 +18,13 @@ public class PacienteFacade {
     @Autowired
     private PacienteApplication pacienteApplication;
 
-    // Funções já existentes
-    public List<PacienteModels> buscar() {
-        return pacienteApplication.buscar();
+
+    public List<PacienteModels> listarTodos() {
+        return pacienteApplication.listarTodos();
     }
 
-    public PacienteModels buscarPorCodigo(int codigo) {
-        return pacienteApplication.buscarPorCodigo(codigo);
+    public PacienteModels listarPorId(int id) {
+        return pacienteApplication.listarPorId(id);
     }
 
     public void adicionar(PacienteModels pacienteModels) {
@@ -35,32 +35,51 @@ public class PacienteFacade {
         pacienteApplication.atualizar(pacienteModels);
     }
 
-    public void remover(int codigo) {
-        pacienteApplication.remover(codigo);
+    public void remover(int id) {
+        pacienteApplication.remover(id);
     }
 
-    // Novas funções adicionadas
-    public String verificarEstadoSaude(Paciente paciente) {
-        return pacienteApplication.verificarEstadoSaude(paciente);
+    public String verificarEstadoSaude(int id) {
+        return pacienteApplication.verificarEstadoSaude(id);
     }
 
-    public void registrarEntrada(Paciente paciente, LocalDateTime dataEntrada) {
-        pacienteApplication.registrarEntrada(paciente, dataEntrada);
+    public void registrarEntrada(int id) {
+        pacienteApplication.registrarEntrada(id);
     }
 
-    public int calcularIdade(Paciente paciente) {
-        return pacienteApplication.calcularIdade(paciente);
+    public void registrarSaida(int id) {
+        pacienteApplication.registrarSaida(id);
     }
 
-    public List<PacienteMedicamentoModels> verificarHistoricoMedicamentos(Paciente paciente) {
-        return pacienteApplication.verificarHistoricoMedicamentos(paciente);
+    public int calcularIdade(int id) {
+        return pacienteApplication.calcularIdade(id);
     }
 
-    public void adicionarFamiliar(Paciente paciente, PacienteFamiliarModels familiar) {
-        pacienteApplication.adicionarFamiliar(paciente, familiar);
+    public List<PacienteMedicamentoModels> verificarHistoricoMedicamentos(int id) {
+        return pacienteApplication.verificarHistoricoMedicamentos(id);
     }
 
-    public PlanoModels verificarPlanoSaude(Paciente paciente) {
-        return pacienteApplication.verificarPlanoSaude(paciente);
+    public void adicionarFamiliar(int id, PacienteFamiliarModels familiar) {
+        pacienteApplication.adicionarFamiliar(id, familiar);
+    }
+
+    public void removerFamiliar(int id, int idFamiliar) {
+        pacienteApplication.removerFamiliar(id, idFamiliar);
+    }
+
+    public void atualizarPlanoSaude(int id, int idPlano) {
+        pacienteApplication.atualizarPlanoSaude(id, idPlano);
+    }
+
+    public void adicionarMedicamento(int id, PacienteMedicamentoModels medicamento) {
+        pacienteApplication.adicionarMedicamento(id, medicamento);
+    }
+
+    public void removerMedicamento(int id, int idMedicamento) {
+        pacienteApplication.removerMedicamento(id, idMedicamento);
+    }
+
+    public PlanoModels verificarPlanoSaude(int id) {
+        return pacienteApplication.verificarPlanoSaude(id);
     }
 }

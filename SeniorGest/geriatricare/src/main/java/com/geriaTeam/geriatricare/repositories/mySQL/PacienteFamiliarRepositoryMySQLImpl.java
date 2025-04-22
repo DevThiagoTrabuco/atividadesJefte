@@ -42,5 +42,9 @@ public class PacienteFamiliarRepositoryMySQLImpl implements PacienteFamiliarRepo
         this.pacienteFamiliarJPA.save(pacienteFamiliarModels);
     }
 
+    @Override
+    public PacienteFamiliarModels buscarPorPacienteIdEFamiliarId(int pacienteId, int familiarId) {
+        return this.pacienteFamiliarJPA.buscarPorPacienteIdEFamiliarId(pacienteId, familiarId);
+    }
 
 }
