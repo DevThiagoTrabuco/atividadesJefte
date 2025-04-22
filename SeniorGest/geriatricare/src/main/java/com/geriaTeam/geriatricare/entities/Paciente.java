@@ -21,6 +21,20 @@ public class Paciente {
     private List<PacienteFamiliarModels> pacienteFamiliarModels;
     private PlanoModels planoModels;
 
+    // Método para converter a entidade Paciente para PacienteModels
+    public PacienteModels toModel() {
+        PacienteModels pacienteModels = new PacienteModels();
+        pacienteModels.setNome(this.nome);
+        pacienteModels.setNascimento(this.nascimento);
+        pacienteModels.setEntrada(this.entrada);
+        pacienteModels.setCondicaoMental(this.condicaoMental);
+        pacienteModels.setCondicaoFisica(this.condicaoFisica);
+        pacienteModels.setPacienteMedicamentoModels(this.pacienteMedicamentoModels);
+        pacienteModels.setPacienteFamiliarModels(this.pacienteFamiliarModels);
+        pacienteModels.setPlanoModels(this.planoModels);
+        return pacienteModels;
+    }
+
     public String verificarEstadoSaude() {
         if (this.condicaoMental != null && this.condicaoFisica != null) {
             String estadoMental = this.condicaoMental.getNome();

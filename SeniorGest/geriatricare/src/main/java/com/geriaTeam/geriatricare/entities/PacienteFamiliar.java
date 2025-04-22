@@ -24,14 +24,12 @@ public class PacienteFamiliar {
     private FamiliarModels familiarModels;
     private int familiarId;
 
-    private PacienteFamiliarRepository pacienteFamiliarRepository;
-    private FamiliarRepository familiarRepository;
-    private PacienteRepository pacienteRepository;
-
-    public PacienteFamiliar(PacienteFamiliarRepository pacienteFamiliarRepository, FamiliarRepository familiarRepository, PacienteRepository pacienteRepository) {
-        this.pacienteFamiliarRepository = pacienteFamiliarRepository;
-        this.familiarRepository = familiarRepository;
-        this.pacienteRepository = pacienteRepository;
+    // Método para converter a entidade PacienteFamiliar para PacienteFamiliarModels
+    public PacienteFamiliarModels toModel() {
+        PacienteFamiliarModels pacienteFamiliarModels = new PacienteFamiliarModels();
+        pacienteFamiliarModels.setPacienteId(this.pacienteId);
+        pacienteFamiliarModels.setFamiliarId(this.familiarId);
+        return pacienteFamiliarModels;
     }
 
     public void adicionarFamiliar(int pacienteId, int familiarId) {

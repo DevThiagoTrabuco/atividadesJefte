@@ -13,26 +13,23 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class CondicaoFisica {
-
     private int id;
     private String nome;
     private String descricao;
 
-    public CondicaoFisica(CondicaoFisicaRepository condicaoFisicaRepository) {
-        this.condicaoFisicaRepository = condicaoFisicaRepository;
+    // Método para converter a entidade CondicaoFisica para CondicaoFisicaModels
+    public CondicaoFisicaModels toModel() {
+        CondicaoFisicaModels condicaoFisicaModels = new CondicaoFisicaModels();
+        condicaoFisicaModels.setNome(this.nome);
+        condicaoFisicaModels.setDescricao(this.descricao);
+        return condicaoFisicaModels;
     }
-
-    // O repositório precisa ser passado para cada função
-    private CondicaoFisicaRepository condicaoFisicaRepository;
 
     // 1. Função para adicionar uma Condição Física
     public void adicionarCondicaoFisica(String nome, String descricao) {
         CondicaoFisicaModels condicaoFisicaModels = new CondicaoFisicaModels();
         condicaoFisicaModels.setNome(nome);
         condicaoFisicaModels.setDescricao(descricao);
-
-        // Adicionando no repositório
-        condicaoFisicaRepository.adicionar(condicaoFisicaModels);
     }
 
     // 2. Função para buscar todas as Condições Físicas

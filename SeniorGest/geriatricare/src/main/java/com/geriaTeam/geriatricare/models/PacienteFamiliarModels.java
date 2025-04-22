@@ -14,17 +14,21 @@ public class PacienteFamiliarModels {
     @Column(name = "pacientes_familiares_id")
     private int id;
 
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     @ManyToOne
     @JoinColumn(name = "pacientes_id_fk", referencedColumnName = "pacientes_id")
     private PacienteModels pacienteModels;
 
-    @Column(name = "pacientes_id_fk", insertable = false, updatable = false)
-    private int pacienteId;
-
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     @ManyToOne
     @JoinColumn(name = "familiares_id_fk", referencedColumnName = "familiares_id")
     private FamiliarModels familiarModels;
 
     @Column(name = "familiares_id_fk", insertable = false, updatable = false)
     private int familiarId;
+
+    @Column(name = "pacientes_id_fk", insertable = false, updatable = false)
+    private int pacienteId;
 }

@@ -13,14 +13,15 @@ import java.util.NoSuchElementException;
 public class CondicaoMental {
     private int id;
     private String nome;
-
-    public CondicaoMental(CondicaoMentalRepository condicaoMentalRepository) {
-        this.condicaoMentalRepository = condicaoMentalRepository;
-    }
-
     private String descricao;
 
-    private final CondicaoMentalRepository condicaoMentalRepository;
+    // Método para converter a entidade CondicaoMental para CondicaoMentalModels
+    public CondicaoMentalModels toModel() {
+        CondicaoMentalModels condicaoMentalModels = new CondicaoMentalModels();
+        condicaoMentalModels.setNome(this.nome);
+        condicaoMentalModels.setDescricao(this.descricao);
+        return condicaoMentalModels;
+    }
 
     // 1. Adicionar Condição Mental
     public void adicionarCondicaoMental(String nome, String descricao, CondicaoMentalRepository condicaoMentalRepository) {

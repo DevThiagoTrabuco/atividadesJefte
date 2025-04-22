@@ -22,7 +22,12 @@ public class CondicaoFisicaApplication {
 
     // Adicionar Condição Física
     public void adicionarCondicaoFisica(String nome, String descricao) {
+        CondicaoFisicaModels condicaoFisicaModels = new CondicaoFisicaModels();
+        condicaoFisicaModels.setNome(nome);
+        condicaoFisicaModels.setDescricao(descricao);
+
         condicaoFisica.adicionarCondicaoFisica(nome, descricao);
+        condicaoFisicaRepository.adicionar(condicaoFisicaModels);
     }
 
     // Buscar todas as Condições Físicas

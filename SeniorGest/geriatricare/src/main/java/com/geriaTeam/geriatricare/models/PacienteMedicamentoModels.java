@@ -1,10 +1,7 @@
 package com.geriaTeam.geriatricare.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -17,17 +14,21 @@ public class PacienteMedicamentoModels {
     @Column(name = "pacientes_medicamentos_id")
     private int id;
 
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     @ManyToOne
     @JoinColumn(name = "pacientes_id_fk", referencedColumnName = "pacientes_id", insertable = false, updatable = false)
     private PacienteModels pacienteModels;
 
-    @Column(name = "pacientes_id_fk")
-    private int pacienteId;
-
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     @ManyToOne
     @JoinColumn(name = "medicamentos_id_fk", referencedColumnName = "medicamentos_id", insertable = false, updatable = false)
     private MedicamentoModels medicamentoModels;
 
     @Column(name = "medicamentos_id_fk")
     private int medicamentoId;
+
+    @Column(name = "pacientes_id_fk")
+    private int pacienteId;
 }

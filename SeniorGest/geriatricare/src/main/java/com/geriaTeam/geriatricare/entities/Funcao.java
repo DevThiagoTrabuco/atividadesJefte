@@ -15,16 +15,15 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class Funcao {
-
-    private final FuncaoRepository funcaoRepository;
-
     private int id;
-
-    public Funcao(FuncaoRepository funcaoRepository) {
-        this.funcaoRepository = funcaoRepository;
-    }
-
     private String nome;
+
+    // Método para converter a entidade Funcao para FuncaoModels
+    public FuncaoModels toModel() {
+        FuncaoModels funcaoModels = new FuncaoModels();
+        funcaoModels.setNome(this.nome);
+        return funcaoModels;
+    }
 
     // 1. Adicionar Funcao
     public void adicionarFuncao(String nome) {

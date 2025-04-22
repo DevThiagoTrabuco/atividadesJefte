@@ -19,20 +19,19 @@ import java.util.List;
 @AllArgsConstructor
 
 public class PacienteMedicamento {
-    private final PacienteMedicamentoRepository pacienteMedicamentoRepository;
-    private final MedicamentoRepository medicamentoRepository;
-
     private int id;
-
-    public PacienteMedicamento(PacienteMedicamentoRepository pacienteMedicamentoRepository, MedicamentoRepository medicamentoRepository) {
-        this.pacienteMedicamentoRepository = pacienteMedicamentoRepository;
-        this.medicamentoRepository = medicamentoRepository;
-    }
-
     private PacienteModels pacienteModels;
     private int pacienteId;
     private MedicamentoModels medicamentoModels;
     private int medicamentoId;
+
+    // Método para converter a entidade PacienteMedicamento para PacienteMedicamentoModels
+    public PacienteMedicamentoModels toModel() {
+        PacienteMedicamentoModels pacienteMedicamentoModels = new PacienteMedicamentoModels();
+        pacienteMedicamentoModels.setPacienteId(this.pacienteId);
+        pacienteMedicamentoModels.setMedicamentoId(this.medicamentoId);
+        return pacienteMedicamentoModels;
+    }
 
     // 1. Adicionar Medicamento ao Paciente
     public void adicionarMedicamento(int pacienteId, int medicamentoId) {

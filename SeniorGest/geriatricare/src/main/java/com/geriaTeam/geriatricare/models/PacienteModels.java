@@ -35,13 +35,10 @@ public class PacienteModels {
     @JoinColumn(name = "condicoes_fisicas_id_fk", referencedColumnName = "condicoes_fisicas_id")
     private CondicaoFisicaModels condicaoFisica;
 
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
+
     @OneToMany(mappedBy = "pacienteModels", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<PacienteMedicamentoModels> pacienteMedicamentoModels;
 
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "pacienteModels", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<PacienteFamiliarModels> pacienteFamiliarModels;
 

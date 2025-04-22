@@ -16,18 +16,21 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class Familiar {
-
-    private final FamiliarRepository familiarRepository;
-
-    public Familiar(FamiliarRepository familiarRepository) {
-        this.familiarRepository = familiarRepository;
-    }
-
     private int id;
     private String nome;
     private String email;
     private String telefone;
     private List<PacienteFamiliarModels> pacienteFamiliarModels;
+
+    // Método para converter a entidade Familiar para FamiliarModels
+    public FamiliarModels toModel() {
+        FamiliarModels familiarModels = new FamiliarModels();
+        familiarModels.setNome(this.nome);
+        familiarModels.setEmail(this.email);
+        familiarModels.setTelefone(this.telefone);
+        familiarModels.setPacienteFamiliarModels(this.pacienteFamiliarModels);
+        return familiarModels;
+    }
 
     // 1. Adicionar Familiar
     public void adicionarFamiliar(String nome, String email, String telefone) {
