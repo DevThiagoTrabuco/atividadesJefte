@@ -55,6 +55,10 @@ public class PacienteFacade {
         return pacienteApplication.calcularIdade(id);
     }
 
+    public boolean validarPaciente(PacienteModels paciente) {
+        return pacienteApplication.validarPaciente(paciente);
+    }
+
     public List<PacienteMedicamentoModels> verificarHistoricoMedicamentos(int id) {
         return pacienteApplication.verificarHistoricoMedicamentos(id);
     }

@@ -2,6 +2,7 @@ package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.CondicaoFisicaRepository;
 import com.geriaTeam.geriatricare.entities.Paciente;
+import com.geriaTeam.geriatricare.generics.Generics;
 import com.geriaTeam.geriatricare.models.CondicaoFisicaModels;
 import com.geriaTeam.geriatricare.entities.CondicaoFisica;
 import jakarta.persistence.EntityNotFoundException;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.geriaTeam.geriatricare.generics.Generics.*;
 
 @Service
 public class CondicaoFisicaApplication {
@@ -20,7 +23,7 @@ public class CondicaoFisicaApplication {
     }
 
     public void adicionarCondicaoFisica(String nome, String descricao) {
-        CondicaoFisicaModels condicaoFisicaModels = new condicaoFisicaModels();
+        CondicaoFisicaModels condicaoFisicaModels = new CondicaoFisicaModels();
         condicaoFisicaModels.setNome(nome);
         condicaoFisicaModels.setDescricao(descricao);
         condicaoFisicaRepository.adicionar(condicaoFisicaModels);
@@ -64,20 +67,5 @@ public class CondicaoFisicaApplication {
         condicaoFisica.setDescricao(novaDescricao);
 
         condicaoFisicaRepository.atualizar(condicaoFisica);
-    }
-
-    public static boolean validarId(int id) {
-        CondicaoFisica condicaoFisica = new CondicaoFisica();
-        return condicaoFisica.validarId(id);
-    }
-
-    public static boolean validarNome(String nome) {
-        CondicaoFisica condicaoFisica = new CondicaoFisica();
-        return condicaoFisica.validarNome(nome);
-    }
-
-    public static boolean validarDescricao(String descricao) {
-        CondicaoFisica condicaoFisica = new CondicaoFisica();
-        return condicaoFisica.validarDescricao(descricao);
     }
 }

@@ -19,21 +19,6 @@ public class PacienteMedicamento {
     private MedicamentoModels medicamentoModels;
     private int medicamentoId;
 
-    // Método para validar o ID
-    public static boolean validarId(int id) {
-        return id > 0;
-    }
-
-    // Método para validar o pacienteId
-    public static boolean validarPacienteId(int pacienteId) {
-        return pacienteId > 0;
-    }
-
-    // Método para validar o medicamentoId
-    public static boolean validarMedicamentoId(int medicamentoId) {
-        return medicamentoId > 0;
-    }
-
     // Método para converter a entidade PacienteMedicamento para PacienteMedicamentoModels
     public PacienteMedicamentoModels toModel() {
         PacienteMedicamentoModels pacienteMedicamentoModels = new PacienteMedicamentoModels();

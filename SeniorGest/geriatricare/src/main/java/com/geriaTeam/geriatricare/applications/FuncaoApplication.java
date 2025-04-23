@@ -1,6 +1,7 @@
 package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.FuncaoRepository;
+import com.geriaTeam.geriatricare.generics.Generics;
 import com.geriaTeam.geriatricare.models.FuncaoModels;
 import com.geriaTeam.geriatricare.entities.Funcao;
 import jakarta.persistence.EntityNotFoundException;
@@ -76,10 +77,10 @@ public class FuncaoApplication {
     }
 
     private boolean validarId(int id) {
-        return Funcao.validarId(id);
+        return Generics.validarId(id);
     }
 
     private boolean validarNome(String nome) {
-        return Funcao.validarNome(nome);
+        return Generics.validarNome(nome);
     }
 }

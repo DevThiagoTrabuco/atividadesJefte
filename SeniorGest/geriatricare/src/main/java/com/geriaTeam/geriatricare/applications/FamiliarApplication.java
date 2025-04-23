@@ -1,6 +1,7 @@
 package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.FamiliarRepository;
+import com.geriaTeam.geriatricare.generics.Generics;
 import com.geriaTeam.geriatricare.models.FamiliarModels;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,18 @@ public class FamiliarApplication {
         this.familiarRepository = familiarRepository;
     }
 
-    public void adicionarFamiliar(String nome, String email, String telefone) {
+    public void adicionarFamiliar(String nome, String sobrenome, String cpf, String rg, String email, String telefone) {
         if (!validarNome(nome)) {
             throw new IllegalArgumentException("Nome inválido: " + nome);
+        }
+        if (!validarNome(sobrenome)) {
+            throw new IllegalArgumentException("Sobrenome inválido: " + sobrenome);
+        }
+        if (!Generics.validarCpf(cpf)) {
+            throw new IllegalArgumentException("CPF inválido: " + cpf);
+        }
+        if (!Generics.validarRg(rg)) {
+            throw new IllegalArgumentException("RG inválido: " + rg);
         }
         if (!validarEmail(email)) {
             throw new IllegalArgumentException("Email inválido: " + email);
@@ -30,23 +40,31 @@ public class FamiliarApplication {
 
         FamiliarModels familiar = new FamiliarModels();
         familiar.setNome(nome);
+        familiar.setSobrenome(sobrenome);
+        familiar.setCpf(cpf);
+        familiar.setRg(rg);
         familiar.setEmail(email);
         familiar.setTelefone(telefone);
 
         familiarRepository.adicionar(familiar);
     }
 
-    public void atualizarFamiliar(int id, String novoNome, String novoEmail, String novoTelefone) {
-        if (!validarId(id)) {
+    public void atualizarFamiliar(int id, String novoNome,String novoSobrenome,String novoEmail, String novoTelefone) {
+        if (!Generics.validarId(id)) {
             throw new IllegalArgumentException("ID inválido: " + id);
         }
-        if (!validarNome(novoNome)) {
+        if (!Generics.validarNome(novoNome)) {
             throw new IllegalArgumentException("Nome inválido: " + novoNome);
         }
-        if (!validarEmail(novoEmail)) {
+
+        if (!validarNome(novoSobrenome)) {
+            throw new IllegalArgumentException("Sobrenome inválido: " + novoSobrenome);
+        }
+
+        if (!Generics.validarEmail(novoEmail)) {
             throw new IllegalArgumentException("Email inválido: " + novoEmail);
         }
-        if (!validarTelefone(novoTelefone)) {
+        if (!Generics.validarTelefone(novoTelefone)) {
             throw new IllegalArgumentException("Telefone inválido: " + novoTelefone);
         }
 
@@ -86,23 +104,24 @@ public class FamiliarApplication {
         return familiar;
     }
 
+
     public List<FamiliarModels> buscarTodosFamiliares() {
         return familiarRepository.buscar();
     }
 
-    private boolean validarId(int id) {
-        return id > 0;
+    public static boolean validarId(int id) {
+        return Generics.validarId(id);
     }
 
-    private boolean validarNome(String nome) {
-        return nome != null && !nome.isBlank() && nome.length() <= 100;
+    public static boolean validarNome(String nome) {
+        return Generics.validarNome(nome);
     }
 
     private boolean validarEmail(String email) {
-        return email != null && email.contains("@") && email.length() <= 100;
+        return Generics.validarEmail(email);
     }
 
     private boolean validarTelefone(String telefone) {
-        return telefone != null && telefone.matches("\\d{10,15}");
+       return Generics.validarTelefone(telefone);
     }
 }

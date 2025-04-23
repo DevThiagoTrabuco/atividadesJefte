@@ -1,6 +1,7 @@
 package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.CondicaoMentalRepository;
+import com.geriaTeam.geriatricare.generics.Generics;
 import com.geriaTeam.geriatricare.models.CondicaoMentalModels;
 import com.geriaTeam.geriatricare.entities.CondicaoMental;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,17 +70,14 @@ public class CondicaoMentalApplication {
     }
 
     public static boolean validarId(int id) {
-        CondicaoMental condicaoMental = new CondicaoMental();
-        return condicaoMental.validarId(id);
+        return Generics.validarId(id);
     }
 
     public static boolean validarNome(String nome) {
-        CondicaoMental condicaoMental = new CondicaoMental();
-        return condicaoMental.validarNome(nome);
+        return Generics.validarNome(nome);
     }
 
     public static boolean validarDescricao(String descricao) {
-        CondicaoMental condicaoMental = new CondicaoMental();
-        return condicaoMental.validarDescricao(descricao);
+        return Generics.validarDescricao(descricao);
     }
 }

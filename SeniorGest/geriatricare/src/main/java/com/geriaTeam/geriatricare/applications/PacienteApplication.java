@@ -5,7 +5,6 @@ import com.geriaTeam.geriatricare.Interfaces.PlanoRepository;
 import com.geriaTeam.geriatricare.models.PacienteFamiliarModels;
 import com.geriaTeam.geriatricare.models.PacienteMedicamentoModels;
 import com.geriaTeam.geriatricare.models.PacienteModels;
-import com.geriaTeam.geriatricare.entities.Paciente; // Importando a classe Paciente
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,6 +13,8 @@ import com.geriaTeam.geriatricare.models.PlanoModels;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static com.geriaTeam.geriatricare.generics.Generics.*;
 
 @Service
 public class PacienteApplication {
@@ -194,4 +195,44 @@ public class PacienteApplication {
             throw new EntityNotFoundException("Paciente não encontrado.");
         }
     }
+
+    // Método principal para validar os atributos do paciente
+    public boolean validarPaciente(PacienteModels paciente) {
+        return validarId(paciente.getId()) &&
+                validarNome(paciente.getNome()) &&
+                validarDataNascimento(paciente.getNascimento()) &&
+                validarDataEntrada(paciente.getEntrada()) &&
+                validarPlanoSaude(paciente.getPlanoModels()) &&
+                validarRelacionamentos(paciente.getPacienteFamiliarModels()) &&
+                validarMedicamentos(paciente.getPacienteMedicamentoModels());
+    }
+
+    // Verifica se o plano de saúde associado ao paciente é válido
+    public boolean validarPlanoSaude(PlanoModels plano) {
+        return plano != null && validarId(plano.getId()) && validarNome(plano.getNome());
+    }
+
+    // Verifica se os familiares associados ao paciente são válidos
+    public boolean validarRelacionamentos(List<PacienteFamiliarModels> familiares) {
+        if (familiares == null || familiares.isEmpty()) {
+            return true; // Sem familiares é válido
+        }
+        return familiares.stream().allMatch(familiar ->
+                validarId(familiar.getId()) &&
+                        validarNome(pacienteRepository.buscarPorCodigo(familiar.getId()).getNome())
+        );
+    }
+
+    // Verifica se os medicamentos associados ao paciente são válidos
+    public boolean validarMedicamentos(List<PacienteMedicamentoModels> medicamentos) {
+        if (medicamentos == null || medicamentos.isEmpty()) {
+            return true; // Sem medicamentos é válido
+        }
+        return medicamentos.stream().allMatch(medicamento ->
+                validarId(medicamento.getId()) &&
+                        validarNome(pacienteRepository.buscarPorCodigo(medicamento.getId()).getNome())
+        );
+    }
+
+
 }

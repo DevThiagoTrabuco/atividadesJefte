@@ -12,40 +12,29 @@ import java.util.List;
 public class Paciente {
     private int id;
     private String nome;
+    private String sobrenome;
+    private String cpf;
+    private String rg;
     private LocalDateTime nascimento;
     private LocalDateTime entrada;
+    private LocalDateTime saida;
     private CondicaoMentalModels condicaoMental;
     private CondicaoFisicaModels condicaoFisica;
     private List<PacienteMedicamentoModels> pacienteMedicamentoModels;
     private List<PacienteFamiliarModels> pacienteFamiliarModels;
     private PlanoModels planoModels;
 
-    // Método para validar o ID
-    public static boolean validarId(int id) {
-        return id > 0;
-    }
-
-    // Método para validar o nome
-    public static boolean validarNome(String nome) {
-        return nome != null && !nome.isBlank() && nome.length() <= 100;
-    }
-
-    // Método para validar a data de nascimento
-    public static boolean validarNascimento(LocalDateTime nascimento) {
-        return nascimento != null && nascimento.isBefore(LocalDateTime.now());
-    }
-
-    // Método para validar a data de entrada
-    public static boolean validarEntrada(LocalDateTime entrada) {
-        return entrada != null && entrada.isBefore(LocalDateTime.now());
-    }
-
     // Método para converter a entidade Paciente para PacienteModels
     public PacienteModels toModel() {
         PacienteModels pacienteModels = new PacienteModels();
+        pacienteModels.setId(this.id);
         pacienteModels.setNome(this.nome);
+        pacienteModels.setSobrenome(this.sobrenome);
+        pacienteModels.setCpf(this.cpf);
+        pacienteModels.setRg(this.rg);
         pacienteModels.setNascimento(this.nascimento);
         pacienteModels.setEntrada(this.entrada);
+        pacienteModels.setSaida(this.saida);
         pacienteModels.setCondicaoMental(this.condicaoMental);
         pacienteModels.setCondicaoFisica(this.condicaoFisica);
         pacienteModels.setPacienteMedicamentoModels(this.pacienteMedicamentoModels);

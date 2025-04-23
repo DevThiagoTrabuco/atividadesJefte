@@ -20,21 +20,6 @@ public class PacienteFamiliar {
     private FamiliarModels familiarModels;
     private int familiarId;
 
-    // Método para validar o ID
-    public static boolean validarId(int id) {
-        return id > 0;
-    }
-
-    // Método para validar o pacienteId
-    public static boolean validarPacienteId(int pacienteId) {
-        return pacienteId > 0;
-    }
-
-    // Método para validar o familiarId
-    public static boolean validarFamiliarId(int familiarId) {
-        return familiarId > 0;
-    }
-
     // Método para converter a entidade PacienteFamiliar para PacienteFamiliarModels
     public PacienteFamiliarModels toModel() {
         PacienteFamiliarModels pacienteFamiliarModels = new PacienteFamiliarModels();

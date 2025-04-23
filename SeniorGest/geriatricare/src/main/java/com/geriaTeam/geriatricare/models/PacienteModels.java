@@ -21,11 +21,23 @@ public class PacienteModels {
     @Column(name = "pacientes_nome")
     private String nome;
 
+    @Column(name = "pacientes_sobrenome")
+    private String sobrenome;
+
+    @Column(name = "pacientes_CPF")
+    private String cpf;
+
+    @Column(name = "pacientes_RG")
+    private String rg;
+
     @Column(name = "pacientes_nascimento")
     private LocalDateTime nascimento;
 
     @Column(name = "pacientes_entrada")
     private LocalDateTime entrada;
+
+    @Column(name = "pacientes_saida")
+    private LocalDateTime saida;
 
     @ManyToOne
     @JoinColumn(name = "condicoes_mentais_id_fk", referencedColumnName = "condicoes_mentais_id")
