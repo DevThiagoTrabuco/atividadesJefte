@@ -1,6 +1,7 @@
 package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.CondicaoFisicaRepository;
+import com.geriaTeam.geriatricare.entities.Paciente;
 import com.geriaTeam.geriatricare.models.CondicaoFisicaModels;
 import com.geriaTeam.geriatricare.entities.CondicaoFisica;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,20 +19,21 @@ public class CondicaoFisicaApplication {
         this.condicaoFisicaRepository = condicaoFisicaRepository;
     }
 
-    // Adicionar Condição Física
     public void adicionarCondicaoFisica(String nome, String descricao) {
-        CondicaoFisicaModels condicaoFisicaModels = new CondicaoFisicaModels();
+        CondicaoFisicaModels condicaoFisicaModels = new condicaoFisicaModels();
         condicaoFisicaModels.setNome(nome);
         condicaoFisicaModels.setDescricao(descricao);
-
         condicaoFisicaRepository.adicionar(condicaoFisicaModels);
     }
 
     public List<CondicaoFisicaModels> buscarCondicoesFisicas() {
         return condicaoFisicaRepository.buscar();
     }
-    // Buscar Condição Física por código
+
     public CondicaoFisicaModels buscarCondicaoFisicaPorCodigo(int id) {
+        if (!validarId(id)) {
+            throw new IllegalArgumentException("ID inválido: " + id);
+        }
         CondicaoFisicaModels condicaoFisica = condicaoFisicaRepository.buscarPorCodigo(id);
         if (condicaoFisica == null) {
             throw new EntityNotFoundException("Condição Física não encontrada para o ID: " + id);
@@ -39,7 +41,6 @@ public class CondicaoFisicaApplication {
         return condicaoFisica;
     }
 
-    // Remover Condição Física
     public void removerCondicaoFisica(int id) {
         CondicaoFisicaModels condicaoFisica = condicaoFisicaRepository.buscarPorCodigo(id);
         if (condicaoFisica == null) {
@@ -48,9 +49,14 @@ public class CondicaoFisicaApplication {
         condicaoFisicaRepository.remover(id);
     }
 
-    // Atualizar Condição Física
     public void atualizarCondicaoFisica(int id, String novoNome, String novaDescricao) {
         CondicaoFisicaModels condicaoFisica = condicaoFisicaRepository.buscarPorCodigo(id);
+        if (!validarDescricao(novaDescricao)) {
+            throw new IllegalArgumentException("Descrição inválida: " + novaDescricao);
+        }
+        if (!validarNome(novoNome)) {
+            throw new IllegalArgumentException("Nome inválido: " + novoNome);
+        }
         if (condicaoFisica == null) {
             throw new EntityNotFoundException("Condição Física não encontrada para o ID: " + id);
         }
@@ -58,5 +64,20 @@ public class CondicaoFisicaApplication {
         condicaoFisica.setDescricao(novaDescricao);
 
         condicaoFisicaRepository.atualizar(condicaoFisica);
+    }
+
+    public static boolean validarId(int id) {
+        CondicaoFisica condicaoFisica = new CondicaoFisica();
+        return condicaoFisica.validarId(id);
+    }
+
+    public static boolean validarNome(String nome) {
+        CondicaoFisica condicaoFisica = new CondicaoFisica();
+        return condicaoFisica.validarNome(nome);
+    }
+
+    public static boolean validarDescricao(String descricao) {
+        CondicaoFisica condicaoFisica = new CondicaoFisica();
+        return condicaoFisica.validarDescricao(descricao);
     }
 }

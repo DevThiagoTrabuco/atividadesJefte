@@ -2,7 +2,6 @@ package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.FamiliarRepository;
 import com.geriaTeam.geriatricare.models.FamiliarModels;
-import com.geriaTeam.geriatricare.entities.Familiar;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,38 +17,39 @@ public class FamiliarApplication {
         this.familiarRepository = familiarRepository;
     }
 
-    // 1. Adicionar Familiar
     public void adicionarFamiliar(String nome, String email, String telefone) {
+        if (!validarNome(nome)) {
+            throw new IllegalArgumentException("Nome inválido: " + nome);
+        }
+        if (!validarEmail(email)) {
+            throw new IllegalArgumentException("Email inválido: " + email);
+        }
+        if (!validarTelefone(telefone)) {
+            throw new IllegalArgumentException("Telefone inválido: " + telefone);
+        }
+
         FamiliarModels familiar = new FamiliarModels();
         familiar.setNome(nome);
         familiar.setEmail(email);
         familiar.setTelefone(telefone);
 
-        // Adicionando o familiar no banco de dados
         familiarRepository.adicionar(familiar);
     }
 
-    // 2. Remover Familiar
-    public void removerFamiliar(int id) {
-        FamiliarModels familiar = familiarRepository.buscarPorCodigo(id);  // Busca o familiar pelo id
-        if (familiar != null) {
-            familiarRepository.remover(id);
-        } else {
-            throw new EntityNotFoundException("Familiar não encontrado.");
-        }
-    }
-
-    // 3. Buscar Familiar
-    public FamiliarModels buscarFamiliar(int id) {
-        FamiliarModels familiar = familiarRepository.buscarPorCodigo(id);
-        if (familiar == null) {
-            throw new EntityNotFoundException("Familiar não encontrado.");
-        }
-        return familiar;
-    }
-
-    // 4. Atualizar Familiar
     public void atualizarFamiliar(int id, String novoNome, String novoEmail, String novoTelefone) {
+        if (!validarId(id)) {
+            throw new IllegalArgumentException("ID inválido: " + id);
+        }
+        if (!validarNome(novoNome)) {
+            throw new IllegalArgumentException("Nome inválido: " + novoNome);
+        }
+        if (!validarEmail(novoEmail)) {
+            throw new IllegalArgumentException("Email inválido: " + novoEmail);
+        }
+        if (!validarTelefone(novoTelefone)) {
+            throw new IllegalArgumentException("Telefone inválido: " + novoTelefone);
+        }
+
         FamiliarModels familiar = familiarRepository.buscarPorCodigo(id);
         if (familiar != null) {
             familiar.setNome(novoNome);
@@ -61,8 +61,48 @@ public class FamiliarApplication {
         }
     }
 
-    // 5. Buscar Todos Familiares
+    public void removerFamiliar(int id) {
+        if (!validarId(id)) {
+            throw new IllegalArgumentException("ID inválido: " + id);
+        }
+
+        FamiliarModels familiar = familiarRepository.buscarPorCodigo(id);
+        if (familiar != null) {
+            familiarRepository.remover(id);
+        } else {
+            throw new EntityNotFoundException("Familiar não encontrado.");
+        }
+    }
+
+    public FamiliarModels buscarFamiliar(int id) {
+        if (!validarId(id)) {
+            throw new IllegalArgumentException("ID inválido: " + id);
+        }
+
+        FamiliarModels familiar = familiarRepository.buscarPorCodigo(id);
+        if (familiar == null) {
+            throw new EntityNotFoundException("Familiar não encontrado.");
+        }
+        return familiar;
+    }
+
     public List<FamiliarModels> buscarTodosFamiliares() {
         return familiarRepository.buscar();
+    }
+
+    private boolean validarId(int id) {
+        return id > 0;
+    }
+
+    private boolean validarNome(String nome) {
+        return nome != null && !nome.isBlank() && nome.length() <= 100;
+    }
+
+    private boolean validarEmail(String email) {
+        return email != null && email.contains("@") && email.length() <= 100;
+    }
+
+    private boolean validarTelefone(String telefone) {
+        return telefone != null && telefone.matches("\\d{10,15}");
     }
 }

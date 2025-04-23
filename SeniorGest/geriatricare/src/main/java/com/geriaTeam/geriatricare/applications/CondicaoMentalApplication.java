@@ -42,8 +42,18 @@ public class CondicaoMentalApplication {
     }
 
     //Atualizar Condição Mental
-    public void atualizarCondicaoMental(int codigo, String nome, String descricao) {
-        CondicaoMentalModels condicaoMental = condicaoMentalRepository.buscarPorCodigo(codigo);
+    public void atualizarCondicaoMental(int id, String nome, String descricao) {
+        if (!validarId(id)) {
+            throw new IllegalArgumentException("ID inválido: " + id);
+        }
+        if (!validarNome(nome)) {
+            throw new IllegalArgumentException("Nome inválido: " + nome);
+        }
+        if (!validarDescricao(descricao)) {
+            throw new IllegalArgumentException("Descrição inválida: " + descricao);
+        }
+
+        CondicaoMentalModels condicaoMental = condicaoMentalRepository.buscarPorCodigo(id);
         if (condicaoMental != null) {
             condicaoMental.setNome(nome);
             condicaoMental.setDescricao(descricao);
@@ -56,5 +66,20 @@ public class CondicaoMentalApplication {
     //Verificar se a Condição Mental Existe
     public boolean verificarCondicaoMental(int codigo) {
         return condicaoMentalRepository.buscarPorCodigo(codigo) != null;
+    }
+
+    public static boolean validarId(int id) {
+        CondicaoMental condicaoMental = new CondicaoMental();
+        return condicaoMental.validarId(id);
+    }
+
+    public static boolean validarNome(String nome) {
+        CondicaoMental condicaoMental = new CondicaoMental();
+        return condicaoMental.validarNome(nome);
+    }
+
+    public static boolean validarDescricao(String descricao) {
+        CondicaoMental condicaoMental = new CondicaoMental();
+        return condicaoMental.validarDescricao(descricao);
     }
 }
