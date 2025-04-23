@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.facade;
 
 import com.geriaTeam.geriatricare.applications.PlanoApplication;
-import com.geriaTeam.geriatricare.models.domain.Plano;
+import com.geriaTeam.geriatricare.models.PlanoModels;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,13 +14,13 @@ public class PlanosFacade {
     @Autowired
     private PlanoApplication planoApplication;
 
-    public List<Plano> buscar() {return planoApplication.buscar();}
+    public List<PlanoModels> buscar() {return planoApplication.buscar();}
 
-    public Plano buscarPorCodigo(int codigo) {return planoApplication.buscarPorCodigo(codigo);}
+    public PlanoModels buscarPorCodigo(int codigo) {return planoApplication.buscarPorCodigo(codigo);}
 
-    public void adicionar(Plano plano) {planoApplication.adicionar(plano);}
+    public void adicionar(PlanoModels planoModels) {planoApplication.adicionar(planoModels);}
 
-    public void atualizar(int codigo, Plano plano) {planoApplication.atualizar(codigo, plano);}
+    public void atualizar(PlanoModels planoModels) {planoApplication.atualizar(planoModels);}
 
     public void remover(int codigo) {planoApplication.remover(codigo);}
 

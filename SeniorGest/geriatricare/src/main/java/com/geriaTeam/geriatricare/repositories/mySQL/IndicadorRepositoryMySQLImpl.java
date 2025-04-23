@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.repositories.mySQL;
 
 import com.geriaTeam.geriatricare.Interfaces.IndicadorRepository;
-import com.geriaTeam.geriatricare.models.domain.Indicador;
+import com.geriaTeam.geriatricare.models.IndicadorModels;
 import com.geriaTeam.geriatricare.repositories.jpa.IndicadorJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,18 +18,18 @@ public class IndicadorRepositoryMySQLImpl implements IndicadorRepository {
     }
 
     @Override
-    public Indicador buscarPorCodigo(int codigo) {
+    public IndicadorModels buscarPorCodigo(int codigo) {
         return this.indicadorJPA.findById(codigo).get();
     }
 
     @Override
-    public List<Indicador> buscar() {
+    public List<IndicadorModels> buscar() {
         return this.indicadorJPA.findAll();
     }
 
     @Override
-    public void adicionar(Indicador indicador) {
-        this.indicadorJPA.save(indicador);
+    public void adicionar(IndicadorModels indicadorModels) {
+        this.indicadorJPA.save(indicadorModels);
     }
 
     @Override
@@ -38,13 +38,7 @@ public class IndicadorRepositoryMySQLImpl implements IndicadorRepository {
     }
 
     @Override
-    public void atualizar(int codigo, Indicador indicador) {
-        Indicador indicadorDB = this.indicadorJPA.findById(codigo).get();
-        
-        indicadorDB.setOximetria(indicador.getOximetria());
-        indicadorDB.setBatimentos(indicador.getBatimentos());
-        indicadorDB.setTemperatura(indicador.getTemperatura());
-
-        this.indicadorJPA.save(indicadorDB);
+    public void atualizar(IndicadorModels indicadorModels) {
+        this.indicadorJPA.save(indicadorModels);
     }
 }

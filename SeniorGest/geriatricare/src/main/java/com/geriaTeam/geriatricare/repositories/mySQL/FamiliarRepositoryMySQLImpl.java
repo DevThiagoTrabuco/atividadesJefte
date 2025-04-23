@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.repositories.mySQL;
 
 import com.geriaTeam.geriatricare.Interfaces.FamiliarRepository;
-import com.geriaTeam.geriatricare.models.domain.Familiar;
+import com.geriaTeam.geriatricare.models.FamiliarModels;
 import com.geriaTeam.geriatricare.repositories.jpa.FamiliarJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,18 +18,18 @@ public class FamiliarRepositoryMySQLImpl implements FamiliarRepository {
     }
 
     @Override
-    public Familiar buscarPorCodigo(int codigo) {
+    public FamiliarModels buscarPorCodigo(int codigo) {
         return this.familiarJPA.findById(codigo).get();
     }
 
     @Override
-    public List<Familiar> buscar() {
+    public List<FamiliarModels> buscar() {
         return this.familiarJPA.findAll();
     }
 
     @Override
-    public void adicionar(Familiar familiar) {
-        this.familiarJPA.save(familiar);
+    public void adicionar(FamiliarModels familiarModels) {
+        this.familiarJPA.save(familiarModels);
     }
 
     @Override
@@ -38,13 +38,7 @@ public class FamiliarRepositoryMySQLImpl implements FamiliarRepository {
     }
 
     @Override
-    public void atualizar(int codigo, Familiar familiar) {
-        Familiar familiarDB = this.familiarJPA.findById(codigo).get();
-        
-        familiarDB.setNome(familiar.getNome());
-        familiarDB.setEmail(familiar.getEmail());
-        familiarDB.setTelefone(familiar.getTelefone());
-
-        this.familiarJPA.save(familiarDB);
+    public void atualizar(FamiliarModels familiarModels) {
+        this.familiarJPA.save(familiarModels);
     }
 }

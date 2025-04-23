@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.geriaTeam.geriatricare.applications.AdminApplication;
-import com.geriaTeam.geriatricare.models.domain.Admin;
+import com.geriaTeam.geriatricare.models.AdminModels;
 import lombok.AllArgsConstructor;
 
 @Component
@@ -15,20 +15,20 @@ public class AdminFacade {
     @Autowired
     private AdminApplication adminApplication;
 
-    public List<Admin> buscar() {
+    public List<AdminModels> buscar() {
         return adminApplication.buscar();
     }
 
-    public Admin buscarPorCodigo(int codigo) {
+    public AdminModels buscarPorCodigo(int codigo) {
         return adminApplication.buscarPorCodigo(codigo);
     }
 
-    public void adicionar(Admin admin) {
-        adminApplication.adicionar(admin);
+    public void adicionar(AdminModels adminModels) {
+        adminApplication.adicionar(adminModels);
     }
 
-    public void atualizar(int codigo, Admin admin) {
-        adminApplication.atualizar(codigo, admin);
+    public void atualizar(AdminModels adminModels) {
+        adminApplication.atualizar(adminModels);
     }
 
     public void remover(int codigo) {

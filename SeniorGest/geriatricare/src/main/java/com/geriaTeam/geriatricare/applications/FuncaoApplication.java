@@ -1,40 +1,59 @@
 package com.geriaTeam.geriatricare.applications;
 
-import com.geriaTeam.geriatricare.models.domain.Funcao;
 import com.geriaTeam.geriatricare.Interfaces.FuncaoRepository;
-
-import java.util.List;
-
+import com.geriaTeam.geriatricare.models.FuncaoModels;
+import com.geriaTeam.geriatricare.entities.Funcao;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FuncaoApplication {
-    private FuncaoRepository funcaoRepository;
-    
-    
+    private final FuncaoRepository funcaoRepository;
+
     @Autowired
     public FuncaoApplication(FuncaoRepository funcaoRepository) {
         this.funcaoRepository = funcaoRepository;
     }
 
-    public void adicionar(Funcao funcao){
-        this.funcaoRepository.adicionar(funcao);
+    public void adicionarFuncao(String nome) {
+        FuncaoModels funcao = new FuncaoModels();
+        funcao.setNome(nome);
+
+        // Adicionando a função no banco de dados
+        funcaoRepository.adicionar(funcao);
     }
 
-    public void atualizar(int code, Funcao funcao){
-        this.funcaoRepository.atualizar(code, funcao);
+    public void removerFuncao(int id) {
+        FuncaoModels funcao = funcaoRepository.buscarPorCodigo(id);  // Busca a função pelo id
+        if (funcao != null) {
+            funcaoRepository.remover(id);
+        } else {
+            throw new EntityNotFoundException("Função não encontrada.");
+        }
     }
 
-    public void remover(int code){
-        this.funcaoRepository.remover(code);
+    public FuncaoModels buscarFuncao(int id) {
+        FuncaoModels funcao = funcaoRepository.buscarPorCodigo(id);
+        if (funcao == null) {
+            throw new EntityNotFoundException("Função não encontrada.");
+        }
+        return funcao;
     }
 
-    public List<Funcao> buscar(){
-        return this.funcaoRepository.buscar();
+    public void atualizarFuncao(int id, String novoNome) {
+        FuncaoModels funcao = funcaoRepository.buscarPorCodigo(id);
+        if (funcao != null) {
+            funcao.setNome(novoNome);
+            funcaoRepository.atualizar(funcao);
+        } else {
+            throw new EntityNotFoundException("Função não encontrada.");
+        }
     }
 
-    public Funcao buscarPorCodigo(int code){
-        return this.funcaoRepository.buscarPorCodigo(code);
+    public List<FuncaoModels> buscarTodasFuncoes() {
+        return funcaoRepository.buscar();
     }
 }

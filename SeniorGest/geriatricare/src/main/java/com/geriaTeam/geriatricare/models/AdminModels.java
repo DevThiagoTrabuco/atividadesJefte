@@ -1,4 +1,4 @@
-package com.geriaTeam.geriatricare.models.domain;
+package com.geriaTeam.geriatricare.models;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "administradores")
-public class Admin {
+public class AdminModels {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "administradores_id")

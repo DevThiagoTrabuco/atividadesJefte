@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.geriaTeam.geriatricare.applications.HistoricoApplication;
-import com.geriaTeam.geriatricare.models.domain.Historico;
+import com.geriaTeam.geriatricare.models.HistoricoModels;
 import lombok.AllArgsConstructor;
 
 @Component
@@ -15,20 +15,20 @@ public class HistoricoFacade {
     @Autowired
     private HistoricoApplication historicoApplication;
 
-    public List<Historico> buscar() {
+    public List<HistoricoModels> buscar() {
         return historicoApplication.buscar();
     }
 
-    public Historico buscarPorCodigo(int codigo) {
+    public HistoricoModels buscarPorCodigo(int codigo) {
         return historicoApplication.buscarPorCodigo(codigo);
     }
 
-    public void adicionar(Historico historico) {
-        historicoApplication.adicionar(historico);
+    public void adicionar(HistoricoModels historicoModels) {
+        historicoApplication.adicionar(historicoModels);
     }
 
-    public void atualizar(int codigo, Historico historico) {
-        historicoApplication.atualizar(codigo, historico);
+    public void atualizar(HistoricoModels historicoModels) {
+        historicoApplication.atualizar(historicoModels);
     }
 
     public void remover(int codigo) {

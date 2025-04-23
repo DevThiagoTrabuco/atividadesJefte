@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.HistoricoRepository;
-import com.geriaTeam.geriatricare.models.domain.Historico;
+import com.geriaTeam.geriatricare.models.HistoricoModels;
 
 import java.util.List;
 
@@ -18,23 +18,23 @@ public class HistoricoApplication {
         this.historicoRepository = historicoRepository;
     }
 
-    public void adicionar(Historico historico){
-        this.historicoRepository.adicionar(historico);
+    public void adicionar(HistoricoModels historicoModels){
+        this.historicoRepository.adicionar(historicoModels);
     }
 
-    public void atualizar(int codigo, Historico historico){
-        this.historicoRepository.atualizar(codigo, historico);
+    public void atualizar(HistoricoModels historicoModels){
+        this.historicoRepository.atualizar(historicoModels);
     }
 
     public void remover(int codigo){
         this.historicoRepository.remover(codigo);
     }
 
-    public List<Historico> buscar(){
+    public List<HistoricoModels> buscar(){
         return this.historicoRepository.buscar();
     }
 
-    public Historico buscarPorCodigo(int codigo){
+    public HistoricoModels buscarPorCodigo(int codigo){
         return this.historicoRepository.buscarPorCodigo(codigo);
     }
 }

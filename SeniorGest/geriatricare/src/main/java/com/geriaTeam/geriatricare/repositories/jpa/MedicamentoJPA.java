@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.repositories.jpa;
 
-import com.geriaTeam.geriatricare.models.domain.Medicamento;
+import com.geriaTeam.geriatricare.models.MedicamentoModels;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MedicamentoJPA extends JpaRepository<Medicamento, Integer> {
+public interface MedicamentoJPA extends JpaRepository<MedicamentoModels, Integer> {
 }

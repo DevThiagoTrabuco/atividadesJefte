@@ -6,33 +6,80 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.geriaTeam.geriatricare.applications.PacienteApplication;
-import com.geriaTeam.geriatricare.models.domain.Paciente;
-import lombok.AllArgsConstructor;
+import com.geriaTeam.geriatricare.models.PacienteModels;
+import com.geriaTeam.geriatricare.models.PacienteFamiliarModels;
+import com.geriaTeam.geriatricare.models.PacienteMedicamentoModels;
+import com.geriaTeam.geriatricare.models.PlanoModels;
+import com.geriaTeam.geriatricare.entities.Paciente;
+import java.time.LocalDateTime;
 
 @Component
-@AllArgsConstructor
 public class PacienteFacade {
     @Autowired
     private PacienteApplication pacienteApplication;
 
-    public List<Paciente> buscar() {
-        return pacienteApplication.buscar();
+
+    public List<PacienteModels> listarTodos() {
+        return pacienteApplication.listarTodos();
     }
 
-    public Paciente buscarPorCodigo(int codigo) {
-        return pacienteApplication.buscarPorCodigo(codigo);
+    public PacienteModels listarPorId(int id) {
+        return pacienteApplication.listarPorId(id);
     }
 
-    public void adicionar(Paciente paciente) {
-        pacienteApplication.adicionar(paciente);
+    public void adicionar(PacienteModels pacienteModels) {
+        pacienteApplication.adicionar(pacienteModels);
     }
 
-    public void atualizar(int codigo, Paciente paciente) {
-        pacienteApplication.atualizar(codigo, paciente);
+    public void atualizar(PacienteModels pacienteModels) {
+        pacienteApplication.atualizar(pacienteModels);
     }
 
-    public void remover(int codigo) {
-        pacienteApplication.remover(codigo);
+    public void remover(int id) {
+        pacienteApplication.remover(id);
+    }
+
+    public String verificarEstadoSaude(int id) {
+        return pacienteApplication.verificarEstadoSaude(id);
+    }
+
+    public void registrarEntrada(int id) {
+        pacienteApplication.registrarEntrada(id);
+    }
+
+    public void registrarSaida(int id) {
+        pacienteApplication.registrarSaida(id);
+    }
+
+    public int calcularIdade(int id) {
+        return pacienteApplication.calcularIdade(id);
+    }
+
+    public List<PacienteMedicamentoModels> verificarHistoricoMedicamentos(int id) {
+        return pacienteApplication.verificarHistoricoMedicamentos(id);
+    }
+
+    public void adicionarFamiliar(int id, PacienteFamiliarModels familiar) {
+        pacienteApplication.adicionarFamiliar(id, familiar);
+    }
+
+    public void removerFamiliar(int id, int idFamiliar) {
+        pacienteApplication.removerFamiliar(id, idFamiliar);
+    }
+
+    public void atualizarPlanoSaude(int id, int idPlano) {
+        pacienteApplication.atualizarPlanoSaude(id, idPlano);
+    }
+
+    public void adicionarMedicamento(int id, PacienteMedicamentoModels medicamento) {
+        pacienteApplication.adicionarMedicamento(id, medicamento);
+    }
+
+    public void removerMedicamento(int id, int idMedicamento) {
+        pacienteApplication.removerMedicamento(id, idMedicamento);
+    }
+
+    public PlanoModels verificarPlanoSaude(int id) {
+        return pacienteApplication.verificarPlanoSaude(id);
     }
 }
-

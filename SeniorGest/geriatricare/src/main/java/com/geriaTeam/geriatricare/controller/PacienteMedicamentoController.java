@@ -1,45 +1,52 @@
 package com.geriaTeam.geriatricare.controller;
 
-import com.geriaTeam.geriatricare.models.domain.PacienteMedicamento;
-import com.geriaTeam.geriatricare.repositories.jpa.PacienteMedicamentoJPA;
+import com.geriaTeam.geriatricare.facade.PacienteMedicamentoFacade;
+import com.geriaTeam.geriatricare.models.PacienteMedicamentoModels;
+import com.geriaTeam.geriatricare.models.MedicamentoModels;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/pacienteMedicamento/")
+@RequestMapping("/api/paciente-medicamento/")
 public class PacienteMedicamentoController {
-    private final PacienteMedicamentoJPA pacienteMedicamentoJPA;
+
+    private final PacienteMedicamentoFacade pacienteMedicamentoFacade;
 
     @Autowired
-    public PacienteMedicamentoController(PacienteMedicamentoJPA pacienteMedicamentoJPA) {
-        this.pacienteMedicamentoJPA = pacienteMedicamentoJPA;
+    public PacienteMedicamentoController(PacienteMedicamentoFacade pacienteMedicamentoFacade) {
+        this.pacienteMedicamentoFacade = pacienteMedicamentoFacade;
+    }
+    @PostMapping("/adicionar-medicamento")
+    public void adicionarMedicamento(@RequestParam int pacienteId, @RequestParam int medicamentoId) {
+        pacienteMedicamentoFacade.adicionarMedicamento(pacienteId, medicamentoId);
     }
 
-    @GetMapping("")
-    public List<PacienteMedicamento> getAll() {
-        return this.pacienteMedicamentoJPA.findAll();
+    @DeleteMapping("/remover-medicamento")
+    public void removerMedicamento(@RequestParam int pacienteId, @RequestParam int medicamentoId) {
+        pacienteMedicamentoFacade.removerMedicamento(pacienteId, medicamentoId);
     }
 
-    @GetMapping("{id}")
-    public PacienteMedicamento getById(@PathVariable int id) {
-        return this.pacienteMedicamentoJPA.findById(id).get();
+    @GetMapping("/medicamentos/{pacienteId}")
+    public List<MedicamentoModels> buscarMedicamentosPorPaciente(@PathVariable int pacienteId) {
+        return pacienteMedicamentoFacade.buscarMedicamentosPorPaciente(pacienteId);
     }
 
-    @PostMapping("")
-    public PacienteMedicamento save(@RequestBody PacienteMedicamento pacienteMedicamento) {
-        return this.pacienteMedicamentoJPA.save(pacienteMedicamento);
+    @PutMapping("/atualizar-medicamento")
+    public void atualizarMedicamento(
+            @RequestParam int pacienteId,
+            @RequestParam int medicamentoIdAntigo,
+            @RequestParam int medicamentoIdNovo
+    ) {
+        pacienteMedicamentoFacade.atualizarMedicamento(pacienteId, medicamentoIdAntigo, medicamentoIdNovo);
     }
 
-    @DeleteMapping("{id}")
-    public void delete(@PathVariable int id) {
-        this.pacienteMedicamentoJPA.deleteById(id);
+    @GetMapping("/verificar-medicamento")
+    public boolean verificarMedicamento(
+            @RequestParam int pacienteId,
+            @RequestParam int medicamentoId
+    ) {
+        return pacienteMedicamentoFacade.verificarMedicamento(pacienteId, medicamentoId);
     }
-
-    @PutMapping
-    public PacienteMedicamento getById(@RequestBody PacienteMedicamento pacienteMedicamento) {
-        return this.pacienteMedicamentoJPA.save(pacienteMedicamento);
-    }
-    
 }

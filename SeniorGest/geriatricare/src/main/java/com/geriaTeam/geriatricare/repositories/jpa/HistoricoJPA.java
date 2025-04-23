@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.repositories.jpa;
 
-import com.geriaTeam.geriatricare.models.domain.Historico;
+import com.geriaTeam.geriatricare.models.HistoricoModels;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface HistoricoJPA extends JpaRepository<Historico, Integer> {
+public interface HistoricoJPA extends JpaRepository<HistoricoModels, Integer> {
 }

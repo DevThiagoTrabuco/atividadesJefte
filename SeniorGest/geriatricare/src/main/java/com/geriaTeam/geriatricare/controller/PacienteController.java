@@ -3,51 +3,98 @@ package com.geriaTeam.geriatricare.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.geriaTeam.geriatricare.facade.PacienteFacade;
-import com.geriaTeam.geriatricare.models.domain.Paciente;
+import com.geriaTeam.geriatricare.models.PacienteModels;
+import com.geriaTeam.geriatricare.models.PacienteFamiliarModels;
+import com.geriaTeam.geriatricare.models.PacienteMedicamentoModels;
+import com.geriaTeam.geriatricare.models.PlanoModels;
 
-@RequestMapping("/api/paciente/")
 @RestController
+@RequestMapping("/paciente")
 public class PacienteController {
-    private final PacienteFacade pacienteFacade;
 
     @Autowired
-    public PacienteController(PacienteFacade pacienteFacade) {
-        this.pacienteFacade = pacienteFacade;
+    private PacienteFacade pacienteFacade;
 
+    @GetMapping
+    public List<PacienteModels> listarTodos() {
+        return pacienteFacade.listarTodos();
     }
 
-    @GetMapping("")
-    public List<Paciente> buscar(){
-        return pacienteFacade.buscar();
+    @GetMapping("/{id}")
+    public PacienteModels listarPorId(@PathVariable int id) {
+        return pacienteFacade.listarPorId(id);
     }
 
-    @GetMapping("/{codigo}")
-    public Paciente buscarPorCodigo(@PathVariable int codigo){
-        return pacienteFacade.buscarPorCodigo(codigo);
+    @PostMapping
+    public void adicionar(@RequestBody PacienteModels pacienteModels) {
+        pacienteFacade.adicionar(pacienteModels);
     }
 
-    @PostMapping("")
-    public void adicionar(@RequestBody Paciente paciente){
-        pacienteFacade.adicionar(paciente);
+    @PutMapping
+    public void atualizar(@RequestBody PacienteModels pacienteModels) {
+        pacienteFacade.atualizar(pacienteModels);
     }
 
-    @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody Paciente paciente){
-        pacienteFacade.atualizar(codigo, paciente);
+    @DeleteMapping("/{id}")
+    public void remover(@PathVariable int id) {
+        pacienteFacade.remover(id);
     }
 
-    @DeleteMapping("/{codigo}")
-    public void remover(@PathVariable int codigo){
-        pacienteFacade.remover(codigo);
+    @GetMapping("/estado-saude/{id}")
+    public String verificarEstadoSaude(@PathVariable int id) {
+        return pacienteFacade.verificarEstadoSaude(id);
+    }
+
+    @PostMapping("/registrar-entrada/{id}")
+    public void registrarEntrada(@PathVariable int id) {
+        pacienteFacade.registrarEntrada(id);
+    }
+
+    @PostMapping("/registrar-saida/{id}")
+    public void registrarSaida(@PathVariable int id) {
+        pacienteFacade.registrarSaida(id);
+    }
+
+    @GetMapping("/idade/{id}")
+    public int calcularIdade(@PathVariable int id) {
+        return pacienteFacade.calcularIdade(id);
+    }
+
+    @GetMapping("/historico-medicamentos/{id}")
+    public List<PacienteMedicamentoModels> verificarHistoricoMedicamentos(@PathVariable int id) {
+        return pacienteFacade.verificarHistoricoMedicamentos(id);
+    }
+
+    @PostMapping("/{id}/adicionar-familiar")
+    public void adicionarFamiliar(@PathVariable int id, @RequestBody PacienteFamiliarModels familiar) {
+        pacienteFacade.adicionarFamiliar(id, familiar);
+    }
+
+    @DeleteMapping("/{id}/remover-familiar/{idFamiliar}")
+    public void removerFamiliar(@PathVariable int id, @PathVariable int idFamiliar) {
+        pacienteFacade.removerFamiliar(id, idFamiliar);
+    }
+
+    @PutMapping("/{id}/atualizar-plano/{idPlano}")
+    public void atualizarPlanoSaude(@PathVariable int id, @PathVariable int idPlano) {
+        pacienteFacade.atualizarPlanoSaude(id, idPlano);
+    }
+
+    @PostMapping("/{id}/adicionar-medicamento")
+    public void adicionarMedicamento(@PathVariable int id, @RequestBody PacienteMedicamentoModels medicamento) {
+        pacienteFacade.adicionarMedicamento(id, medicamento);
+    }
+
+    @DeleteMapping("/{id}/remover-medicamento/{idMedicamento}")
+    public void removerMedicamento(@PathVariable int id, @PathVariable int idMedicamento) {
+        pacienteFacade.removerMedicamento(id, idMedicamento);
+    }
+
+    @GetMapping("/{id}/plano-saude")
+    public PlanoModels verificarPlanoSaude(@PathVariable int id) {
+        return pacienteFacade.verificarPlanoSaude(id);
     }
 }

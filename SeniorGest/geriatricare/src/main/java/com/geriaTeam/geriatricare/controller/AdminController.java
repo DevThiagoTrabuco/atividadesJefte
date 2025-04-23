@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.geriaTeam.geriatricare.facade.AdminFacade;
-import com.geriaTeam.geriatricare.models.domain.Admin;
+import com.geriaTeam.geriatricare.models.AdminModels;
 
 @RequestMapping("/api/admin/")
 @RestController
@@ -23,27 +23,26 @@ public class AdminController {
     @Autowired
     public AdminController(AdminFacade adminFacade) {
         this.adminFacade = adminFacade;
-
     }
 
     @GetMapping("")
-    public List<Admin> buscar(){
+    public List<AdminModels> buscar(){
         return adminFacade.buscar();
     }
 
     @GetMapping("/{codigo}")
-    public Admin buscarPorCodigo(@PathVariable int codigo){
+    public AdminModels buscarPorCodigo(@PathVariable int codigo){
         return adminFacade.buscarPorCodigo(codigo);
     }
 
     @PostMapping("")
-    public void adicionar(@RequestBody Admin admin){
-        adminFacade.adicionar(admin);
+    public void adicionar(@RequestBody AdminModels adminModels){
+        adminFacade.adicionar(adminModels);
     }
 
     @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody Admin admin){
-        adminFacade.atualizar(codigo, admin);
+    public void atualizar(@PathVariable int codigo, @RequestBody AdminModels adminModels){
+        adminFacade.atualizar(adminModels);
     }
 
     @DeleteMapping("/{codigo}")

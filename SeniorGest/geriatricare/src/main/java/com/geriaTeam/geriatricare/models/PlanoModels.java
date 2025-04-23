@@ -1,4 +1,4 @@
-package com.geriaTeam.geriatricare.models.domain;
+package com.geriaTeam.geriatricare.models;
 
 
 import jakarta.persistence.*;
@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "planos")
-public class Plano {
+public class PlanoModels {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "planos_id")

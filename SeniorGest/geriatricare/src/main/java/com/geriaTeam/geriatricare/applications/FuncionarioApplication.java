@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.FuncionarioRepository;
-import com.geriaTeam.geriatricare.models.domain.Funcionario;
+import com.geriaTeam.geriatricare.models.FuncionarioModels;
 
 import java.util.List;
 
@@ -18,23 +18,23 @@ public class FuncionarioApplication {
         this.funcionarioRepository = funcionarioRepository;
     }
 
-    public void adicionar(Funcionario funcionario){
-        this.funcionarioRepository.adicionar(funcionario);
+    public void adicionar(FuncionarioModels funcionarioModels){
+        this.funcionarioRepository.adicionar(funcionarioModels);
     }
 
-    public void atualizar(int codigo, Funcionario funcionario){
-        this.funcionarioRepository.atualizar(codigo, funcionario);
+    public void atualizar(FuncionarioModels funcionarioModels){
+        this.funcionarioRepository.atualizar(funcionarioModels);
     }
 
     public void remover(int codigo){
         this.funcionarioRepository.remover(codigo);
     }
 
-    public List<Funcionario> buscar(){
+    public List<FuncionarioModels> buscar(){
         return this.funcionarioRepository.buscar();
     }
 
-    public Funcionario buscarPorCodigo(int codigo){
+    public FuncionarioModels buscarPorCodigo(int codigo){
         return this.funcionarioRepository.buscarPorCodigo(codigo);
     }
 }

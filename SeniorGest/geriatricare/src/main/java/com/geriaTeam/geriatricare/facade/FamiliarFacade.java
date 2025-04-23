@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.geriaTeam.geriatricare.applications.FamiliarApplication;
-import com.geriaTeam.geriatricare.models.domain.Familiar;
+import com.geriaTeam.geriatricare.models.FamiliarModels;
 
 import lombok.AllArgsConstructor;
 
@@ -16,23 +16,24 @@ public class FamiliarFacade {
     @Autowired
     private FamiliarApplication familiarApplication;
 
-    public List<Familiar> buscar() {
-        return familiarApplication.buscar();
+    // Funções básicas de CRUD
+    public void adicionarFamiliar(String nome, String email, String telefone) {
+        familiarApplication.adicionarFamiliar(nome, email, telefone);
     }
 
-    public Familiar buscarPorCodigo(int codigo) {
-        return familiarApplication.buscarPorCodigo(codigo);
+    public void removerFamiliar(int id) {
+        familiarApplication.removerFamiliar(id);
     }
 
-    public void adicionar(Familiar familiar) {
-        familiarApplication.adicionar(familiar);
+    public FamiliarModels buscarFamiliar(int id) {
+        return familiarApplication.buscarFamiliar(id);
     }
 
-    public void atualizar(int codigo, Familiar familiar) {
-        familiarApplication.atualizar(codigo, familiar);
+    public void atualizarFamiliar(int id, String novoNome, String novoEmail, String novoTelefone) {
+        familiarApplication.atualizarFamiliar(id, novoNome, novoEmail, novoTelefone);
     }
 
-    public void remover(int codigo) {
-        familiarApplication.remover(codigo);
+    public List<FamiliarModels> buscarTodosFamiliares() {
+        return familiarApplication.buscarTodosFamiliares();
     }
 }

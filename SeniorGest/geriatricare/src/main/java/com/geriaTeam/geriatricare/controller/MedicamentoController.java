@@ -1,13 +1,13 @@
 package com.geriaTeam.geriatricare.controller;
 
 import com.geriaTeam.geriatricare.facade.MedicamentoFacade;
-import com.geriaTeam.geriatricare.models.domain.Medicamento;
+import com.geriaTeam.geriatricare.models.MedicamentoModels;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/api/medicamentos/")
+@RequestMapping("/api/medicamento/")
 @RestController
 public class MedicamentoController {
     private final MedicamentoFacade medicamentoFacade;
@@ -19,23 +19,23 @@ public class MedicamentoController {
     }
 
     @GetMapping("")
-    public List<Medicamento> buscar(){
+    public List<MedicamentoModels> buscar(){
         return medicamentoFacade.buscar();
     }
 
     @GetMapping("/{codigo}")
-    public Medicamento buscarPorCodigo(@PathVariable int codigo){
+    public MedicamentoModels buscarPorCodigo(@PathVariable int codigo){
         return medicamentoFacade.buscarPorCodigo(codigo);
     }
 
     @PostMapping("")
-    public void adicionar(@RequestBody Medicamento medicamento){
-        medicamentoFacade.adicionar(medicamento);
+    public void adicionar(@RequestBody MedicamentoModels medicamentoModels){
+        medicamentoFacade.adicionar(medicamentoModels);
     }
 
     @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody Medicamento medicamento){
-        medicamentoFacade.atualizar(codigo, medicamento);
+    public void atualizar(@PathVariable int codigo, @RequestBody MedicamentoModels medicamentoModels){
+        medicamentoFacade.atualizar(medicamentoModels);
     }
 
     @DeleteMapping("/{codigo}")

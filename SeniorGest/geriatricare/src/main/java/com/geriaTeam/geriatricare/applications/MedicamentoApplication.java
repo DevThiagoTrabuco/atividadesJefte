@@ -2,7 +2,7 @@ package com.geriaTeam.geriatricare.applications;
 
 
 import com.geriaTeam.geriatricare.Interfaces.MedicamentoRepository;
-import com.geriaTeam.geriatricare.models.domain.Medicamento;
+import com.geriaTeam.geriatricare.models.MedicamentoModels;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,23 +18,23 @@ public class MedicamentoApplication {
         this.medicamentoRepository = medicamentoRepository;
     }
 
-    public void adicionar(Medicamento medicamento){
-        this.medicamentoRepository.adicionar(medicamento);
+    public void adicionar(MedicamentoModels medicamentoModels){
+        this.medicamentoRepository.adicionar(medicamentoModels);
     }
 
-    public void atualizar(int code, Medicamento medicamento){
-        this.medicamentoRepository.atualizar(code, medicamento);
+    public void atualizar(MedicamentoModels medicamentoModels){
+        this.medicamentoRepository.atualizar(medicamentoModels);
     }
 
-    public void remover(int code){
-        this.medicamentoRepository.remover(code);
+    public void remover(int codigo){
+        this.medicamentoRepository.remover(codigo);
     }
 
-    public List<Medicamento> buscar(){
+    public List<MedicamentoModels> buscar(){
         return this.medicamentoRepository.buscar();
     }
 
-    public Medicamento buscarPorCodigo(int code){
-        return this.medicamentoRepository.buscarPorCodigo(code);
+    public MedicamentoModels buscarPorCodigo(int codigo){
+        return this.medicamentoRepository.buscarPorCodigo(codigo);
     }
 }

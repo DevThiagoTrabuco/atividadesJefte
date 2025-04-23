@@ -1,13 +1,13 @@
 package com.geriaTeam.geriatricare.controller;
 
 import com.geriaTeam.geriatricare.facade.PlanosFacade;
-import com.geriaTeam.geriatricare.models.domain.Plano;
+import com.geriaTeam.geriatricare.models.PlanoModels;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/api/planos/")
+@RequestMapping("/api/plano/")
 @RestController
 public class PlanosController {
     private final PlanosFacade planosFacade;
@@ -19,16 +19,16 @@ public class PlanosController {
     }
 
     @GetMapping("")
-    public List<Plano> buscar() {return planosFacade.buscar();}
+    public List<PlanoModels> buscar() {return planosFacade.buscar();}
 
     @GetMapping("/{codigo}")
-    public Plano buscarPorCodigo(@PathVariable int codigo) {return planosFacade.buscarPorCodigo(codigo);}
+    public PlanoModels buscarPorCodigo(@PathVariable int codigo) {return planosFacade.buscarPorCodigo(codigo);}
 
     @PostMapping("")
-    public void adicionar(@RequestBody Plano plano) {planosFacade.adicionar(plano);}
+    public void adicionar(@RequestBody PlanoModels planoModels) {planosFacade.adicionar(planoModels);}
 
     @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody Plano plano) {planosFacade.atualizar(codigo, plano);}
+    public void atualizar(@PathVariable int codigo, @RequestBody PlanoModels planoModels) {planosFacade.atualizar(planoModels);}
 
     @DeleteMapping("/{codigo}")
     public void remover(@PathVariable int codigo) {planosFacade.remover(codigo);}

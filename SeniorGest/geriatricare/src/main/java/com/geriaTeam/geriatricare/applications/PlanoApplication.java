@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.PlanoRepository;
-import com.geriaTeam.geriatricare.models.domain.Plano;
+import com.geriaTeam.geriatricare.models.PlanoModels;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,23 +17,23 @@ public class PlanoApplication {
         this.planoRepository = planoRepository;
     }
 
-    public void adicionar(Plano plano){
-        this.planoRepository.adicionar(plano);
+    public void adicionar(PlanoModels planoModels){
+        this.planoRepository.adicionar(planoModels);
     }
 
-    public void atualizar(int codigo, Plano plano){
-        this.planoRepository.atualizar(codigo, plano);
+    public void atualizar(PlanoModels planoModels){
+        this.planoRepository.atualizar(planoModels);
     }
 
     public void remover(int codigo){
         this.planoRepository.remover(codigo);
     }
 
-    public List<Plano> buscar(){
+    public List<PlanoModels> buscar(){
         return this.planoRepository.buscar();
     }
 
-    public Plano buscarPorCodigo(int codigo){
+    public PlanoModels buscarPorCodigo(int codigo){
         return this.planoRepository.buscarPorCodigo(codigo);
     }
 }

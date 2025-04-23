@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.repositories.mySQL;
 
 import com.geriaTeam.geriatricare.Interfaces.PlanoRepository;
-import com.geriaTeam.geriatricare.models.domain.Plano;
+import com.geriaTeam.geriatricare.models.PlanoModels;
 import com.geriaTeam.geriatricare.repositories.jpa.PlanoJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,18 +18,18 @@ public class PlanoMySQLImpl implements PlanoRepository {
     }
 
     @Override
-    public Plano buscarPorCodigo(int codigo){
+    public PlanoModels buscarPorCodigo(int codigo){
         return this.planoJPA.findById(codigo).get();
     }
 
     @Override
-    public List<Plano> buscar(){
+    public List<PlanoModels> buscar(){
         return this.planoJPA.findAll();
     }
 
     @Override
-    public void adicionar(Plano plano){
-        this.planoJPA.save(plano);
+    public void adicionar(PlanoModels planoModels){
+        this.planoJPA.save(planoModels);
     }
 
     @Override
@@ -38,12 +38,7 @@ public class PlanoMySQLImpl implements PlanoRepository {
     }
 
     @Override
-    public void atualizar(int codigo, Plano plano){
-        Plano planoDB = this.planoJPA.findById(codigo).get();
-
-        planoDB.setNome(plano.getNome());
-        planoDB.setTipoPlano(plano.getTipoPlano());
-
-        this.planoJPA.save(planoDB);
+    public void atualizar(PlanoModels planoModels){
+        this.planoJPA.save(planoModels);
     }
 }

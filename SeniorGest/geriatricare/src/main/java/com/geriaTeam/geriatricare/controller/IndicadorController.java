@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.geriaTeam.geriatricare.facade.IndicadorFacade;
-import com.geriaTeam.geriatricare.models.domain.Indicador;
+import com.geriaTeam.geriatricare.models.IndicadorModels;
 
 @RequestMapping("/api/indicador/")
 @RestController
@@ -27,23 +27,23 @@ public class IndicadorController {
     }
 
     @GetMapping("")
-    public List<Indicador> buscar(){
+    public List<IndicadorModels> buscar(){
         return indicadorFacade.buscar();
     }
 
     @GetMapping("/{codigo}")
-    public Indicador buscarPorCodigo(@PathVariable int codigo){
+    public IndicadorModels buscarPorCodigo(@PathVariable int codigo){
         return indicadorFacade.buscarPorCodigo(codigo);
     }
 
     @PostMapping("")
-    public void adicionar(@RequestBody Indicador indicador){
-        indicadorFacade.adicionar(indicador);
+    public void adicionar(@RequestBody IndicadorModels indicadorModels){
+        indicadorFacade.adicionar(indicadorModels);
     }
 
     @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody Indicador indicador){
-        indicadorFacade.atualizar(codigo, indicador);
+    public void atualizar(@PathVariable int codigo, @RequestBody IndicadorModels indicadorModels){
+        indicadorFacade.atualizar(indicadorModels);
     }
 
     @DeleteMapping("/{codigo}")

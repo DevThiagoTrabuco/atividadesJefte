@@ -2,12 +2,12 @@ package com.geriaTeam.geriatricare.Interfaces;
 
 import java.util.List;
 
-import com.geriaTeam.geriatricare.models.domain.Familiar;
+import com.geriaTeam.geriatricare.models.FamiliarModels;
 
 public interface FamiliarRepository {
-    public Familiar buscarPorCodigo(int codigo);
-    public List<Familiar> buscar();
-    public void adicionar(Familiar familiar);
+    public FamiliarModels buscarPorCodigo(int codigo);
+    public List<FamiliarModels> buscar();
+    public void adicionar(FamiliarModels familiarModels);
     public void remover(int codigo);
-    public void atualizar(int codigo, Familiar familiar);
+    public void atualizar(FamiliarModels familiarModels);
 }
