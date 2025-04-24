@@ -17,10 +17,10 @@ public class Familiar {
     private int id;
     private String nome;
     private String sobrenome;
-    private String cpf;
-    private String rg;
-    private String email;
-    private String telefone;
+    private CPF cpf;
+    private RG rg;
+    private Email email;
+    private Telefone telefone;
     private List<PacienteFamiliarModels> pacienteFamiliarModels;
 
     // Método para converter a entidade Familiar para FamiliarModels
@@ -29,10 +29,10 @@ public class Familiar {
         familiarModels.setId(this.id);
         familiarModels.setNome(this.nome);
         familiarModels.setSobrenome(this.sobrenome);
-        familiarModels.setCpf(this.cpf);
-        familiarModels.setRg(this.rg);
-        familiarModels.setEmail(this.email);
-        familiarModels.setTelefone(this.telefone);
+        familiarModels.setCpf(this.cpf != null ? this.cpf.getNumero() : null);
+        familiarModels.setRg(this.rg != null ? this.rg.getNumero() : null);
+        familiarModels.setEmail(this.email != null ? this.email.getEndereco() : null);
+        familiarModels.setTelefone(this.telefone != null ? this.telefone.getNumero() : null);
         familiarModels.setPacienteFamiliarModels(this.pacienteFamiliarModels);
         return familiarModels;
     }

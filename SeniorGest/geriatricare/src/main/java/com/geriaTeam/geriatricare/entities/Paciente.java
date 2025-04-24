@@ -13,8 +13,8 @@ public class Paciente {
     private int id;
     private String nome;
     private String sobrenome;
-    private String cpf;
-    private String rg;
+    private CPF cpf;
+    private RG rg;
     private LocalDateTime nascimento;
     private LocalDateTime entrada;
     private LocalDateTime saida;
@@ -30,13 +30,13 @@ public class Paciente {
         pacienteModels.setId(this.id);
         pacienteModels.setNome(this.nome);
         pacienteModels.setSobrenome(this.sobrenome);
-        pacienteModels.setCpf(this.cpf);
-        pacienteModels.setRg(this.rg);
+        pacienteModels.setCpf(this.cpf != null ? this.cpf.getNumero() : null);
+        pacienteModels.setRg(this.rg != null ? this.rg.getNumero() : null);
         pacienteModels.setNascimento(this.nascimento);
         pacienteModels.setEntrada(this.entrada);
         pacienteModels.setSaida(this.saida);
         pacienteModels.setCondicaoMental(this.condicaoMental);
-        pacienteModels.setCondicaoFisica(this.condicaoFisica);
+        pacienteModels.setCondicaoFisica(this.condicaoFisica != null ? this.condicaoFisica.toModel() : null);
         pacienteModels.setPacienteMedicamentoModels(this.pacienteMedicamentoModels);
         pacienteModels.setPacienteFamiliarModels(this.pacienteFamiliarModels);
         pacienteModels.setPlanoModels(this.planoModels);
