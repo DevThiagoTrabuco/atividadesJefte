@@ -8,6 +8,4 @@ public interface PlanoInterface {
     double getPreco();
     void setPreco(double preco);
     List<String> getBeneficios();
-    boolean possuiBeneficio(String beneficio);
-    boolean validarPlano();
 }

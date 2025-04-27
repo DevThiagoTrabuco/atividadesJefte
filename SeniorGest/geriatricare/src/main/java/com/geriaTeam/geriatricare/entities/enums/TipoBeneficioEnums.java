@@ -1,6 +1,6 @@
 package com.geriaTeam.geriatricare.entities.enums;
 
-public enum TipoBeneficioEnums
+public enum TipoBeneficioEnums{
     ACOMPANHAMENTO_MEDICO,
     ASSISTENCIA_DOMICILIAR,
     REFEICOES_BALANCEADAS,
