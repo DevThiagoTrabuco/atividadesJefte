@@ -2,7 +2,6 @@ package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.FamiliarRepository;
 import com.geriaTeam.geriatricare.models.FamiliarModels;
-import com.geriaTeam.geriatricare.entities.Familiar;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,20 +17,33 @@ public class FamiliarApplication {
         this.familiarRepository = familiarRepository;
     }
 
-    // 1. Adicionar Familiar
-    public void adicionarFamiliar(String nome, String email, String telefone) {
+    public void adicionarFamiliar(String nome, String sobrenome, String cpf, String rg, String email, String telefone) {
         FamiliarModels familiar = new FamiliarModels();
         familiar.setNome(nome);
+        familiar.setSobrenome(sobrenome);
+        familiar.setCpf(cpf);
+        familiar.setRg(rg);
         familiar.setEmail(email);
         familiar.setTelefone(telefone);
 
-        // Adicionando o familiar no banco de dados
         familiarRepository.adicionar(familiar);
     }
 
-    // 2. Remover Familiar
+    public void atualizarFamiliar(int id, String novoNome,String novoSobrenome,String novoEmail, String novoTelefone) {
+        FamiliarModels familiar = familiarRepository.buscarPorCodigo(id);
+        if (familiar != null) {
+            familiar.setNome(novoNome);
+            familiar.setEmail(novoEmail);
+            familiar.setTelefone(novoTelefone);
+            familiar.setSobrenome(novoSobrenome);
+            familiarRepository.atualizar(familiar);
+        } else {
+            throw new EntityNotFoundException("Familiar não encontrado.");
+        }
+    }
+
     public void removerFamiliar(int id) {
-        FamiliarModels familiar = familiarRepository.buscarPorCodigo(id);  // Busca o familiar pelo id
+        FamiliarModels familiar = familiarRepository.buscarPorCodigo(id);
         if (familiar != null) {
             familiarRepository.remover(id);
         } else {
@@ -39,7 +51,6 @@ public class FamiliarApplication {
         }
     }
 
-    // 3. Buscar Familiar
     public FamiliarModels buscarFamiliar(int id) {
         FamiliarModels familiar = familiarRepository.buscarPorCodigo(id);
         if (familiar == null) {
@@ -48,20 +59,7 @@ public class FamiliarApplication {
         return familiar;
     }
 
-    // 4. Atualizar Familiar
-    public void atualizarFamiliar(int id, String novoNome, String novoEmail, String novoTelefone) {
-        FamiliarModels familiar = familiarRepository.buscarPorCodigo(id);
-        if (familiar != null) {
-            familiar.setNome(novoNome);
-            familiar.setEmail(novoEmail);
-            familiar.setTelefone(novoTelefone);
-            familiarRepository.atualizar(familiar);
-        } else {
-            throw new EntityNotFoundException("Familiar não encontrado.");
-        }
-    }
 
-    // 5. Buscar Todos Familiares
     public List<FamiliarModels> buscarTodosFamiliares() {
         return familiarRepository.buscar();
     }

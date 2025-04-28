@@ -2,7 +2,6 @@ package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.FuncaoRepository;
 import com.geriaTeam.geriatricare.models.FuncaoModels;
-import com.geriaTeam.geriatricare.entities.Funcao;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,12 +21,11 @@ public class FuncaoApplication {
         FuncaoModels funcao = new FuncaoModels();
         funcao.setNome(nome);
 
-        // Adicionando a função no banco de dados
         funcaoRepository.adicionar(funcao);
     }
 
     public void removerFuncao(int id) {
-        FuncaoModels funcao = funcaoRepository.buscarPorCodigo(id);  // Busca a função pelo id
+        FuncaoModels funcao = funcaoRepository.buscarPorCodigo(id);
         if (funcao != null) {
             funcaoRepository.remover(id);
         } else {

@@ -1,15 +1,12 @@
 package com.geriaTeam.geriatricare.entities;
 
-import com.geriaTeam.geriatricare.Interfaces.CondicaoMentalRepository;
 import com.geriaTeam.geriatricare.models.CondicaoMentalModels;
 import lombok.*;
-
-import java.util.List;
-import java.util.NoSuchElementException;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class CondicaoMental {
     private int id;
     private String nome;
@@ -22,5 +19,4 @@ public class CondicaoMental {
         condicaoMentalModels.setDescricao(this.descricao);
         return condicaoMentalModels;
     }
-
 }

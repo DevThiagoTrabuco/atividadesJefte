@@ -1,35 +1,39 @@
 package com.geriaTeam.geriatricare.entities;
 
-import com.geriaTeam.geriatricare.Interfaces.FamiliarRepository;
 import com.geriaTeam.geriatricare.models.FamiliarModels;
 import com.geriaTeam.geriatricare.models.PacienteFamiliarModels;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Familiar {
     private int id;
     private String nome;
-    private String email;
-    private String telefone;
+    private String sobrenome;
+    private CPF cpf;
+    private RG rg;
+    private Email email;
+    private Telefone telefone;
     private List<PacienteFamiliarModels> pacienteFamiliarModels;
 
     // Método para converter a entidade Familiar para FamiliarModels
     public FamiliarModels toModel() {
         FamiliarModels familiarModels = new FamiliarModels();
+        familiarModels.setId(this.id);
         familiarModels.setNome(this.nome);
-        familiarModels.setEmail(this.email);
-        familiarModels.setTelefone(this.telefone);
+        familiarModels.setSobrenome(this.sobrenome);
+        familiarModels.setCpf(this.cpf != null ? this.cpf.getNumero() : null);
+        familiarModels.setRg(this.rg != null ? this.rg.getNumero() : null);
+        familiarModels.setEmail(this.email != null ? this.email.getEndereco() : null);
+        familiarModels.setTelefone(this.telefone != null ? this.telefone.getNumero() : null);
         familiarModels.setPacienteFamiliarModels(this.pacienteFamiliarModels);
         return familiarModels;
     }
-
 }

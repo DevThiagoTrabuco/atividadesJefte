@@ -17,8 +17,8 @@ public class FamiliarFacade {
     private FamiliarApplication familiarApplication;
 
     // Funções básicas de CRUD
-    public void adicionarFamiliar(String nome, String email, String telefone) {
-        familiarApplication.adicionarFamiliar(nome, email, telefone);
+    public void adicionarFamiliar(String nome, String sobrenome, String cpf, String rg, String email, String telefone) {
+        familiarApplication.adicionarFamiliar(nome,sobrenome, cpf, rg, email, telefone);
     }
 
     public void removerFamiliar(int id) {
@@ -29,8 +29,8 @@ public class FamiliarFacade {
         return familiarApplication.buscarFamiliar(id);
     }
 
-    public void atualizarFamiliar(int id, String novoNome, String novoEmail, String novoTelefone) {
-        familiarApplication.atualizarFamiliar(id, novoNome, novoEmail, novoTelefone);
+    public void atualizarFamiliar(int id, String novoNome,String novoSobrenome,String novoEmail, String novoTelefone) {
+        familiarApplication.atualizarFamiliar(id, novoNome, novoSobrenome, novoEmail, novoTelefone);
     }
 
     public List<FamiliarModels> buscarTodosFamiliares() {

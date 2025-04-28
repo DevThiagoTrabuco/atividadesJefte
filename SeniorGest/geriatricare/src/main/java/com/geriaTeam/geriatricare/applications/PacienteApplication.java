@@ -5,7 +5,6 @@ import com.geriaTeam.geriatricare.Interfaces.PlanoRepository;
 import com.geriaTeam.geriatricare.models.PacienteFamiliarModels;
 import com.geriaTeam.geriatricare.models.PacienteMedicamentoModels;
 import com.geriaTeam.geriatricare.models.PacienteModels;
-import com.geriaTeam.geriatricare.entities.Paciente; // Importando a classe Paciente
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,6 +13,7 @@ import com.geriaTeam.geriatricare.models.PlanoModels;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class PacienteApplication {
@@ -194,4 +194,7 @@ public class PacienteApplication {
             throw new EntityNotFoundException("Paciente não encontrado.");
         }
     }
+
+    // Método principal para validar os atributos do paciente
+
 }

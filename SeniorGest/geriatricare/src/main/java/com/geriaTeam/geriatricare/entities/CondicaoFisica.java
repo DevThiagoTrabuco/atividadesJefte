@@ -1,17 +1,15 @@
 package com.geriaTeam.geriatricare.entities;
 
 import com.geriaTeam.geriatricare.models.CondicaoFisicaModels;
-import com.geriaTeam.geriatricare.Interfaces.CondicaoFisicaRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class CondicaoFisica {
     private int id;
     private String nome;
@@ -24,10 +22,4 @@ public class CondicaoFisica {
         condicaoFisicaModels.setDescricao(this.descricao);
         return condicaoFisicaModels;
     }
-
-    // 4. Função para remover uma Condição Física pelo ID
-
-
-    // 5. Função para atualizar uma Condição Física
-
 }

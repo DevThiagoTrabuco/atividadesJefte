@@ -1,8 +1,9 @@
 package com.geriaTeam.geriatricare.models;
 
-
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,4 +22,17 @@ public class PlanoModels {
 
     @Column(name = "planos_tipo")
     private String tipoPlano;
+
+    @Column(name = "planos_periodo_mensalidade")
+    int periodoMensalidade;
+
+    @Column(name = "planos_descricao")
+    private String descricao;
+
+    @Column(name = "planos_preco")
+    private double preco;
+
+    @Column(name = "planos_beneficios")
+    String beneficio;
+
 }

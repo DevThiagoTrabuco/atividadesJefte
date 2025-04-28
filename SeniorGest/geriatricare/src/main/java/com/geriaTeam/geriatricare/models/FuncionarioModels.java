@@ -19,6 +19,18 @@ public class FuncionarioModels {
     @Column(name = "funcionarios_nome")
     private String nome;
 
+    @Column(name = "funcionarios_sobrenome")
+    private String sobrenome;
+
+    @Column(name = "funcionarios_CPF")
+    private String cpf;
+
+    @Column(name = "funcionarios_RG")
+    private String rg;
+
+    @Column(name = "funcionarios_CTPS")
+    private String ctps;
+
     @Column(name = "funcionarios_nascimento")
     private LocalDateTime nascimento;
 

@@ -2,7 +2,6 @@ package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.CondicaoMentalRepository;
 import com.geriaTeam.geriatricare.models.CondicaoMentalModels;
-import com.geriaTeam.geriatricare.entities.CondicaoMental;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,8 +41,8 @@ public class CondicaoMentalApplication {
     }
 
     //Atualizar Condição Mental
-    public void atualizarCondicaoMental(int codigo, String nome, String descricao) {
-        CondicaoMentalModels condicaoMental = condicaoMentalRepository.buscarPorCodigo(codigo);
+    public void atualizarCondicaoMental(int id, String nome, String descricao) {
+        CondicaoMentalModels condicaoMental = condicaoMentalRepository.buscarPorCodigo(id);
         if (condicaoMental != null) {
             condicaoMental.setNome(nome);
             condicaoMental.setDescricao(descricao);
