@@ -27,7 +27,7 @@ public class PlanoBeneficioModels {
     @Setter(AccessLevel.NONE)
     @ManyToOne
     @JoinColumn(name = "beneficio_id_fk", referencedColumnName = "beneficio_id")
-    private BeneficioModels beneficio;
+    private BeneficioModel beneficio;
 
     @Column(name = "data_associacao")
     private LocalDateTime dataAssociacao;

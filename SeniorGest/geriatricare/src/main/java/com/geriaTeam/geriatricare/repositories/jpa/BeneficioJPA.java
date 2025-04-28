@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.repositories.jpa;
 
-import com.geriaTeam.geriatricare.models.BeneficioModels;
+import com.geriaTeam.geriatricare.models.BeneficioModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BeneficioJPA extends JpaRepository<BeneficioModels, Integer> {
+public interface BeneficioJPA extends JpaRepository<BeneficioModel, Integer> {
 }

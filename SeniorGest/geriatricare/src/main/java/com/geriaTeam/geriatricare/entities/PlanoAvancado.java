@@ -13,12 +13,11 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PlanoBasico implements PlanoInterface{
+public class PlanoAvancado implements PlanoInterface {
     private int id;
     private String nome;
     private TipoPlanoEnums tipoPlano;
     private String descricao;
     private double preco;
     private List<String> beneficio;
-
 }

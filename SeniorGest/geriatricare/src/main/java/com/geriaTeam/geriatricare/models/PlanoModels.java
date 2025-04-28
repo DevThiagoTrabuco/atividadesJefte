@@ -29,6 +29,6 @@ public class PlanoModels {
     @Column(name = "planos_preco")
     private double preco;
 
-    @OneToMany(mappedBy = "plano", cascade = CascadeType.ALL)
-    private List<PlanoBeneficioModels> planoBeneficioModels;
+    @Column(name = "planos_beneficios")
+    String beneficios;
 }
