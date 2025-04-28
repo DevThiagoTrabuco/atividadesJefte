@@ -23,6 +23,9 @@ public class PlanoModels {
     @Column(name = "planos_tipo")
     private String tipoPlano;
 
+    @Column(name = "planos_periodo_mensalidade")
+    int periodoMensalidade;
+
     @Column(name = "planos_descricao")
     private String descricao;
 
@@ -30,5 +33,6 @@ public class PlanoModels {
     private double preco;
 
     @Column(name = "planos_beneficios")
-    String beneficios;
+    String beneficio;
+
 }

@@ -32,18 +32,21 @@ public class PlanoApplication {
         // Atribui os valores do PlanoModels ao objeto criado
         if (planoCriado instanceof PlanoBasico) {
             PlanoBasico planoBasico = (PlanoBasico) planoCriado;
-            planoModels.setTipoPlano(String.valueOf(planoBasico.getTipoPlano()));
+            planoModels.setTipoPlano(String.valueOf(tipoPlano));
             planoModels.setPreco(planoBasico.getPreco());
+            planoModels.setDescricao(planoBasico.getDescricao());
 
         } else if (planoCriado instanceof PlanoIntermediario) {
             PlanoIntermediario planoIntermediario = (PlanoIntermediario) planoCriado;
             planoModels.setTipoPlano(String.valueOf(planoIntermediario.getTipoPlano()));
             planoModels.setPreco(planoIntermediario.getPreco());
+            planoModels.setDescricao(planoIntermediario.getDescricao());
             // Adicione lógica adicional para PlanoIntermediario, se necessário
         } else if (planoCriado instanceof PlanoAvancado) {
             PlanoAvancado planoAvancado = (PlanoAvancado) planoCriado;
             planoModels.setTipoPlano(String.valueOf(planoAvancado.getTipoPlano()));
             planoModels.setPreco(planoAvancado.getPreco());
+            planoModels.setDescricao(planoAvancado.getDescricao());
             // Adicione lógica adicional para PlanoAvancado, se necessário
         } else {
             throw new IllegalArgumentException("Tipo de plano não suportado: " + tipoPlano);

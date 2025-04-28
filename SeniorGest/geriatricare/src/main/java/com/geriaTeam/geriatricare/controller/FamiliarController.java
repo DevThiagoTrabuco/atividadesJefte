@@ -20,8 +20,8 @@ public class FamiliarController {
 
     // CRUD padrão
     @PostMapping("/adicionar")
-    public void adicionarFamiliar(@RequestParam String nome, @RequestParam String email, @RequestParam String telefone) {
-        familiarFacade.adicionarFamiliar(nome, email, telefone);
+    public void adicionarFamiliar(@RequestParam String nome, @RequestParam String sobrenome, @RequestParam String cpf, @RequestParam String rg, @RequestParam String email, @RequestParam String telefone) {
+        familiarFacade.adicionarFamiliar(nome, sobrenome, cpf, rg, email, telefone);
     }
 
     @DeleteMapping("/remover-familiar/{id}")
@@ -38,10 +38,11 @@ public class FamiliarController {
     public void atualizarFamiliar(
             @PathVariable int id,
             @RequestParam String novoNome,
+            @RequestParam String novoSobrenome,
             @RequestParam String novoEmail,
             @RequestParam String novoTelefone
     ) {
-        familiarFacade.atualizarFamiliar(id, novoNome, novoEmail, novoTelefone);
+        familiarFacade.atualizarFamiliar(id, novoNome,novoSobrenome, novoEmail, novoTelefone);
     }
 
     @GetMapping("/todos")

@@ -1,7 +1,6 @@
 package com.geriaTeam.geriatricare.entities;
 
 import com.geriaTeam.geriatricare.entities.enums.TipoPlanoEnums;
-import com.geriaTeam.geriatricare.models.PlanoBeneficioModels;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

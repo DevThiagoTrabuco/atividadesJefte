@@ -35,6 +35,7 @@ public class FamiliarApplication {
             familiar.setNome(novoNome);
             familiar.setEmail(novoEmail);
             familiar.setTelefone(novoTelefone);
+            familiar.setSobrenome(novoSobrenome);
             familiarRepository.atualizar(familiar);
         } else {
             throw new EntityNotFoundException("Familiar não encontrado.");
