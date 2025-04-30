@@ -11,11 +11,17 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.geriaTeam.geriatricare.entities.enums.TipoPlanoEnums.PLANO_BASICO;
+import static com.geriaTeam.geriatricare.entities.PlanoAvancado.obterBeneficiosPlanoAvancado;
+import static com.geriaTeam.geriatricare.entities.PlanoBasico.obterBeneficiosPlanoBasico;
+import static com.geriaTeam.geriatricare.entities.PlanoIntermediario.obterBeneficiosPlanoIntermediario;
 
 @Service
 public class PlanoApplication {
     private PlanoRepository planoRepository;
+    private static final Double PRECO_BASICO = Double.valueOf("99.90");
+    private static final Double PRECO_INTERMEDIARIO = Double.valueOf("199.90");
+    private static final Double PRECO_AVANCADO = Double.valueOf("299.90");
+
 
     @Autowired
     public PlanoApplication(PlanoRepository planoRepository) {
@@ -23,35 +29,45 @@ public class PlanoApplication {
     }
 
     public void adicionar(PlanoModels planoModels) {
-        // Verifica se o tipo de plano é válido
-        TipoPlanoEnums tipoPlano = TipoPlanoEnums.valueOf(planoModels.getTipoPlano());
-        if (tipoPlano == null) {
-            throw new IllegalArgumentException("Tipo de plano inválido: " + planoModels.getTipoPlano());
+        // Adiciona planos padrão se não existirem
+        if(planoRepository.buscarPorCodigo(0) == null){
+            PlanoFactory planoFactory = new PlanoFactory();
+
+            PlanoInterface planoBasico = planoFactory.criarPlano(TipoPlanoEnums.PLANO_BASICO);
+            PlanoInterface planoIntermediario = planoFactory.criarPlano(TipoPlanoEnums.PLANO_INTERMEDIARIO);
+            PlanoInterface planoAvancado = planoFactory.criarPlano(TipoPlanoEnums.PLANO_AVANCADO);
+
+            //plano basico
+            planoBasico.setId(0);
+            planoBasico.setNome("Plano Básico");
+            planoBasico.setDescricao("Plano Básico com benefícios limitados");
+            planoBasico.setPeriodoMensalidade(30);
+            planoBasico.setTipoPlano(TipoPlanoEnums.PLANO_BASICO);
+            planoBasico.setBeneficio(obterBeneficiosPorPlano(TipoPlanoEnums.PLANO_BASICO));
+            planoBasico.setPreco(obterPreco(TipoPlanoEnums.PLANO_BASICO));
+            //plano basico
+
+            //plano intermediario
+            planoIntermediario.setId(1);
+            planoIntermediario.setNome("Plano Intermediário");
+            planoIntermediario.setDescricao("Plano Intermediário com benefícios intermediários");
+            planoIntermediario.setPeriodoMensalidade(30);
+            planoIntermediario.setTipoPlano(TipoPlanoEnums.PLANO_INTERMEDIARIO);
+            planoIntermediario.setBeneficio(obterBeneficiosPorPlano(TipoPlanoEnums.PLANO_INTERMEDIARIO));
+            planoIntermediario.setPreco(obterPreco(TipoPlanoEnums.PLANO_INTERMEDIARIO));
+            //plano intermediario
+
+            //plano avancado
+            planoAvancado.setId(2);
+            planoAvancado.setNome("Plano Avançado");
+            planoAvancado.setDescricao("Plano Avançado com benefícios completos");
+            planoAvancado.setPeriodoMensalidade(30);
+            planoAvancado.setTipoPlano(TipoPlanoEnums.PLANO_AVANCADO);
+            planoAvancado.setBeneficio(obterBeneficiosPorPlano(TipoPlanoEnums.PLANO_AVANCADO));
+            planoAvancado.setPreco(obterPreco(TipoPlanoEnums.PLANO_AVANCADO));
+            //plano avancado
+
         }
-        PlanoFactory planoFactory = new PlanoFactory();
-        PlanoInterface planoCriado = planoFactory.criarPlano(tipoPlano);
-
-        // Atribui os valores do PlanoModels ao objeto criado
-        if (planoCriado instanceof PlanoBasico) {
-            PlanoBasico planoBasico = (PlanoBasico) planoCriado;
-            //to do
-
-        } else if (planoCriado instanceof PlanoIntermediario) {
-            PlanoIntermediario planoIntermediario = (PlanoIntermediario) planoCriado;
-            planoModels.setTipoPlano(String.valueOf(planoIntermediario.getTipoPlano()));
-            planoModels.setPreco(planoIntermediario.getPreco());
-            planoModels.setDescricao(planoIntermediario.getDescricao());
-            // Adicione lógica adicional para PlanoIntermediario, se necessário
-        } else if (planoCriado instanceof PlanoAvancado) {
-            PlanoAvancado planoAvancado = (PlanoAvancado) planoCriado;
-            planoModels.setTipoPlano(String.valueOf(planoAvancado.getTipoPlano()));
-            planoModels.setPreco(planoAvancado.getPreco());
-            planoModels.setDescricao(planoAvancado.getDescricao());
-            // Adicione lógica adicional para PlanoAvancado, se necessário
-        } else {
-            throw new IllegalArgumentException("Tipo de plano não suportado: " + tipoPlano);
-        }
-
         // Salva o plano no repositório
         this.planoRepository.adicionar(planoModels);
     }
@@ -72,54 +88,6 @@ public class PlanoApplication {
         return this.planoRepository.buscarPorCodigo(codigo);
     }
 
-    public static List<String> obterBeneficiosPlanoBasico() {
-        List<String> beneficios = new ArrayList<>();
-        beneficios.add("Consulta médica básica");
-        beneficios.add("Exames laboratoriais simples");
-        beneficios.add("Atendimento de urgência");
-        beneficios.add("Descontos em farmácias");
-        beneficios.add("Acesso a rede credenciada básica");
-        beneficios.add("Atendimento telefônico 24h");
-        beneficios.add("Orientação nutricional básica");
-        beneficios.add("Acompanhamento de pressão arterial");
-        beneficios.add("Vacinas básicas");
-        beneficios.add("Check-up anual básico");
-
-        // Adicionando mais 5 benefícios
-        beneficios.add("Acesso a palestras de saúde");
-        beneficios.add("Descontos em academias");
-        beneficios.add("Acompanhamento psicológico inicial");
-        beneficios.add("Plano odontológico básico");
-        beneficios.add("Atendimento domiciliar emergencial");
-
-        return beneficios;
-    }
-
-    public static List<String> obterBeneficiosPlanoIntermediario() {
-        List<String> beneficios = obterBeneficiosPlanoBasico();
-
-        // Adicionando mais 5 benefícios exclusivos do plano intermediário
-        beneficios.add("Consultas com especialistas");
-        beneficios.add("Exames de imagem avançados");
-        beneficios.add("Internação em enfermaria");
-        beneficios.add("Acompanhamento fisioterapêutico");
-        beneficios.add("Cobertura para medicamentos específicos");
-
-        return beneficios;
-    }
-
-    public static List<String> obterBeneficiosPlanoAvancado() {
-        List<String> beneficios = obterBeneficiosPlanoIntermediario();
-
-        // Adicionando mais 5 benefícios exclusivos do plano avançado
-        beneficios.add("Internação em apartamento");
-        beneficios.add("Cobertura internacional");
-        beneficios.add("Acompanhamento médico VIP");
-        beneficios.add("Plano odontológico avançado");
-        beneficios.add("Transporte aéreo para emergências");
-
-        return beneficios;
-    }
 
     public static String obterBeneficiosPorPlano(TipoPlanoEnums tipoPlano) {
         List<String> beneficios = new ArrayList<>();
@@ -139,6 +107,19 @@ public class PlanoApplication {
         }
 
         return String.join(", ", beneficios);
+    }
+
+    public static double obterPreco(TipoPlanoEnums tipoPlano) {
+        switch (tipoPlano) {
+            case PLANO_BASICO:
+                return PRECO_BASICO;
+            case PLANO_INTERMEDIARIO:
+                return PRECO_INTERMEDIARIO;
+            case PLANO_AVANCADO:
+                return PRECO_AVANCADO;
+            default:
+                throw new IllegalArgumentException("Tipo de plano inválido: " + tipoPlano);
+        }
     }
 
 }

@@ -5,8 +5,6 @@ import com.geriaTeam.geriatricare.entities.enums.TipoPlanoEnums;
 
 public class PlanoFactory {
     public PlanoInterface criarPlano(TipoPlanoEnums tipoPlano) {
-        BeneficioPlano beneficioPlano = new BeneficioPlano();
-        TabelaPreco tabelaPreco = new TabelaPreco();
         switch (tipoPlano) {
             case PLANO_BASICO:
                 PlanoBasico planoBasico = new PlanoBasico();
