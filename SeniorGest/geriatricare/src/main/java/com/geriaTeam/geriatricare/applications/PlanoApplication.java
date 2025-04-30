@@ -30,7 +30,10 @@ public class PlanoApplication {
 
     public void adicionar(PlanoModels planoModels) {
         // Adiciona planos padrão se não existirem
-        if(planoRepository.buscarPorCodigo(0) == null){
+        if(planoRepository.buscarPorNome("Plano Basico") == null
+                || planoRepository.buscarPorNome("Plano Intermediario") == null
+                || planoRepository.buscarPorNome("Plano Avancado") == null
+                || planoRepository.buscarPorCodigo(0) == null ){
             PlanoFactory planoFactory = new PlanoFactory();
 
             PlanoInterface planoBasico = planoFactory.criarPlano(TipoPlanoEnums.PLANO_BASICO);
@@ -39,7 +42,7 @@ public class PlanoApplication {
 
             //plano basico
             planoBasico.setId(0);
-            planoBasico.setNome("Plano Básico");
+            planoBasico.setNome("Plano Basico");
             planoBasico.setDescricao("Plano Básico com benefícios limitados");
             planoBasico.setPeriodoMensalidade(30);
             planoBasico.setTipoPlano(TipoPlanoEnums.PLANO_BASICO);
@@ -50,7 +53,7 @@ public class PlanoApplication {
 
             //plano intermediario
             planoIntermediario.setId(1);
-            planoIntermediario.setNome("Plano Intermediário");
+            planoIntermediario.setNome("Plano Intermediario");
             planoIntermediario.setDescricao("Plano Intermediário com benefícios intermediários");
             planoIntermediario.setPeriodoMensalidade(30);
             planoIntermediario.setTipoPlano(TipoPlanoEnums.PLANO_INTERMEDIARIO);
@@ -61,7 +64,7 @@ public class PlanoApplication {
 
             //plano avancado
             planoAvancado.setId(2);
-            planoAvancado.setNome("Plano Avançado");
+            planoAvancado.setNome("Plano Avancado");
             planoAvancado.setDescricao("Plano Avançado com benefícios completos");
             planoAvancado.setPeriodoMensalidade(30);
             planoAvancado.setTipoPlano(TipoPlanoEnums.PLANO_AVANCADO);

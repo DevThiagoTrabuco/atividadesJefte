@@ -41,4 +41,9 @@ public class PlanoMySQLImpl implements PlanoRepository {
     public void atualizar(PlanoModels planoModels){
         this.planoJPA.save(planoModels);
     }
+
+    @Override
+    public List<PlanoModels> buscarPorNome(String nome) {
+        return this.planoJPA.findByNome(nome);
+    }
 }

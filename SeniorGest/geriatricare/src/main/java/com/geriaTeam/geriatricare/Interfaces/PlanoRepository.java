@@ -5,9 +5,11 @@ import java.util.List;
 import com.geriaTeam.geriatricare.models.PlanoModels;
 
 public interface PlanoRepository {
-    public PlanoModels buscarPorCodigo(int codigo);
-    public List<PlanoModels> buscar();
-    public void adicionar(PlanoModels planoModels);
-    public void remover(int codigo);
-    public void atualizar(PlanoModels planoModels);
+    PlanoModels buscarPorCodigo(int codigo);
+    List<PlanoModels> buscar();
+    void adicionar(PlanoModels planoModels);
+    void remover(int codigo);
+    void atualizar(PlanoModels planoModels);
+    List<PlanoModels> buscarPorNome(String nome);
+
 }
