@@ -45,6 +45,7 @@ public class PlanoApplication {
             planoBasico.setTipoPlano(TipoPlanoEnums.PLANO_BASICO);
             planoBasico.setBeneficio(obterBeneficiosPorPlano(TipoPlanoEnums.PLANO_BASICO));
             planoBasico.setPreco(obterPreco(TipoPlanoEnums.PLANO_BASICO));
+            this.planoRepository.adicionar(planoBasico.toModel());
             //plano basico
 
             //plano intermediario
@@ -55,6 +56,7 @@ public class PlanoApplication {
             planoIntermediario.setTipoPlano(TipoPlanoEnums.PLANO_INTERMEDIARIO);
             planoIntermediario.setBeneficio(obterBeneficiosPorPlano(TipoPlanoEnums.PLANO_INTERMEDIARIO));
             planoIntermediario.setPreco(obterPreco(TipoPlanoEnums.PLANO_INTERMEDIARIO));
+            this.planoRepository.adicionar(planoIntermediario.toModel());
             //plano intermediario
 
             //plano avancado
@@ -65,6 +67,7 @@ public class PlanoApplication {
             planoAvancado.setTipoPlano(TipoPlanoEnums.PLANO_AVANCADO);
             planoAvancado.setBeneficio(obterBeneficiosPorPlano(TipoPlanoEnums.PLANO_AVANCADO));
             planoAvancado.setPreco(obterPreco(TipoPlanoEnums.PLANO_AVANCADO));
+            this.planoRepository.adicionar(planoAvancado.toModel());
             //plano avancado
 
         }
