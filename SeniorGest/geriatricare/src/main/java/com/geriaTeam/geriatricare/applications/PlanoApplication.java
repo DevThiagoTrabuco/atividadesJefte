@@ -69,7 +69,6 @@ public class PlanoApplication {
             planoAvancado.setPreco(obterPreco(TipoPlanoEnums.PLANO_AVANCADO));
             this.planoRepository.adicionar(planoAvancado.toModel());
             //plano avancado
-
         }
 
         // Salva o plano no repositório
