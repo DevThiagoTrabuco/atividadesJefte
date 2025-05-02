@@ -1,6 +1,7 @@
 package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.FamiliarRepository;
+import com.geriaTeam.geriatricare.entities.*;
 import com.geriaTeam.geriatricare.models.FamiliarModels;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,29 +18,79 @@ public class FamiliarApplication {
         this.familiarRepository = familiarRepository;
     }
 
-    public void adicionarFamiliar(String nome, String sobrenome, String cpf, String rg, String email, String telefone) {
-        FamiliarModels familiar = new FamiliarModels();
-        familiar.setNome(nome);
-        familiar.setSobrenome(sobrenome);
-        familiar.setCpf(cpf);
+    public void adicionarFamiliar(FamiliarModels familiarModels) {
+        Familiar familiar = new Familiar();
+        RG rg = new RG();
+        CPF cpf = new CPF();
+        Email email = new Email();
+        Telefone telefone = new Telefone();
+
+        cpf.setNumero(familiarModels.getCpf());
+        rg.setNumero(familiarModels.getRg());
+        email.setEndereco(familiarModels.getEmail());
+        telefone.setNumero(familiarModels.getTelefone());
+
+        if(!cpf.validarCPF()) {
+            throw new IllegalArgumentException("CPF inválido.");
+        }
+        if(!rg.validarRG()) {
+            throw new IllegalArgumentException("RG inválido.");
+        }
+        if(!email.validarEmail()) {
+            throw new IllegalArgumentException("Email inválido.");
+        }
+        if(!telefone.validarTelefone()) {
+            throw new IllegalArgumentException("Telefone inválido.");
+        }
+
+        familiar.setId(familiarModels.getId());
+        familiar.setNome(familiarModels.getNome());
+        familiar.setSobrenome(familiarModels.getSobrenome());
+        familiar.setPacienteFamiliarModels(familiarModels.getPacienteFamiliarModels());
         familiar.setRg(rg);
+        familiar.setCpf(cpf);
         familiar.setEmail(email);
         familiar.setTelefone(telefone);
 
-        familiarRepository.adicionar(familiar);
+        familiarRepository.adicionar(familiar.toModel());
     }
 
-    public void atualizarFamiliar(int id, String novoNome,String novoSobrenome,String novoEmail, String novoTelefone) {
-        FamiliarModels familiar = familiarRepository.buscarPorCodigo(id);
-        if (familiar != null) {
-            familiar.setNome(novoNome);
-            familiar.setEmail(novoEmail);
-            familiar.setTelefone(novoTelefone);
-            familiar.setSobrenome(novoSobrenome);
-            familiarRepository.atualizar(familiar);
-        } else {
+    public void atualizarFamiliar(FamiliarModels familiarModels) {
+        if(familiarRepository.buscarPorCodigo(familiarModels.getId()) == null) {
             throw new EntityNotFoundException("Familiar não encontrado.");
         }
+        Familiar familiar = new Familiar();
+        RG rg = new RG();
+        CPF cpf = new CPF();
+        Email email = new Email();
+        Telefone telefone = new Telefone();
+
+        cpf.setNumero(familiarModels.getCpf());
+        rg.setNumero(familiarModels.getRg());
+        email.setEndereco(familiarModels.getEmail());
+        telefone.setNumero(familiarModels.getTelefone());
+        if(!cpf.validarCPF()) {
+            throw new IllegalArgumentException("CPF inválido.");
+        }
+        if(!rg.validarRG()) {
+            throw new IllegalArgumentException("RG inválido.");
+        }
+        if(!email.validarEmail()) {
+            throw new IllegalArgumentException("Email inválido.");
+        }
+        if(!telefone.validarTelefone()) {
+            throw new IllegalArgumentException("Telefone inválido.");
+        }
+        familiar.setId(familiarModels.getId());
+        familiar.setNome(familiarModels.getNome());
+        familiar.setSobrenome(familiarModels.getSobrenome());
+        familiar.setPacienteFamiliarModels(familiarModels.getPacienteFamiliarModels());
+        familiar.setRg(rg);
+        familiar.setCpf(cpf);
+        familiar.setEmail(email);
+        familiar.setTelefone(telefone);
+
+        familiarRepository.atualizar(familiar.toModel());
     }
 
     public void removerFamiliar(int id) {
@@ -51,7 +102,7 @@ public class FamiliarApplication {
         }
     }
 
-    public FamiliarModels buscarFamiliar(int id) {
+    public FamiliarModels buscarFamiliarId(int id) {
         FamiliarModels familiar = familiarRepository.buscarPorCodigo(id);
         if (familiar == null) {
             throw new EntityNotFoundException("Familiar não encontrado.");
@@ -59,6 +110,21 @@ public class FamiliarApplication {
         return familiar;
     }
 
+    public FamiliarModels buscarFamiliarCpf(String Cpf) {
+        FamiliarModels familiar = familiarRepository.buscarPorCpf(Cpf);
+        if (familiar == null) {
+            throw new EntityNotFoundException("Familiar não encontrado.");
+        }
+        return familiar;
+    }
+
+    public List<FamiliarModels> buscarPorNome(String nome) {
+        List<FamiliarModels> familiar = familiarRepository.buscarPorNome(nome);
+        if (familiar == null) {
+            throw new EntityNotFoundException("Familiar não encontrado.");
+        }
+        return familiar;
+    }
 
     public List<FamiliarModels> buscarTodosFamiliares() {
         return familiarRepository.buscar();
