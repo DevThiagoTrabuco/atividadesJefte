@@ -3,7 +3,6 @@ package com.geriaTeam.geriatricare.applications;
 import com.geriaTeam.geriatricare.Interfaces.PacienteFamiliarRepository;
 import com.geriaTeam.geriatricare.Interfaces.FamiliarRepository;
 import com.geriaTeam.geriatricare.Interfaces.PacienteRepository;
-import com.geriaTeam.geriatricare.entities.PacienteFamiliar;
 import com.geriaTeam.geriatricare.models.FamiliarModels;
 import com.geriaTeam.geriatricare.models.PacienteFamiliarModels;
 import com.geriaTeam.geriatricare.models.PacienteModels;
@@ -29,7 +28,7 @@ public class PacienteFamiliarApplication {
             throw new RuntimeException("Familiar não encontrado");
         }
 
-        PacienteModels paciente = pacienteRepository.buscarPorCodigo(pacienteId);
+        PacienteModels paciente = pacienteRepository.buscarPacienteId(pacienteId);
         if (paciente == null) {
             throw new RuntimeException("Paciente não encontrado");
         }
@@ -45,7 +44,7 @@ public class PacienteFamiliarApplication {
         paciente.getPacienteFamiliarModels().add(relacionamento);
 
         // Atualiza o paciente no repositório
-        pacienteRepository.atualizar(paciente);
+        pacienteRepository.atualizarPaciente(paciente);
     }
 
     public void removerFamiliar(int pacienteId, int familiarId) {

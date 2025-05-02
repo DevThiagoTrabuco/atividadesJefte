@@ -18,27 +18,27 @@ public class PacienteRepositoryMySQLImpl implements PacienteRepository {
     }
 
     @Override
-    public PacienteModels buscarPorCodigo(int codigo) {
+    public PacienteModels buscarPacienteId(int codigo) {
         return this.pacienteJPA.findById(codigo).get();
     }
 
     @Override
-    public List<PacienteModels> buscar() {
+    public List<PacienteModels> buscarPaciente() {
         return this.pacienteJPA.findAll();
     }
 
     @Override
-    public void adicionar(PacienteModels pacienteModels) {
+    public void adicionarPaciente(PacienteModels pacienteModels) {
         this.pacienteJPA.save(pacienteModels);
     }
 
     @Override
-    public void remover(int codigo) {
+    public void removerPaciente(int codigo) {
         this.pacienteJPA.deleteById(codigo);
     }
 
     @Override
-    public void atualizar(PacienteModels pacienteModels) {
+    public void atualizarPaciente(PacienteModels pacienteModels) {
         this.pacienteJPA.save(pacienteModels);
     }
 }

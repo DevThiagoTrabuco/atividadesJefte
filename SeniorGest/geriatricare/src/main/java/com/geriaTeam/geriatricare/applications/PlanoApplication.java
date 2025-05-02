@@ -33,7 +33,9 @@ public class PlanoApplication {
         if(planoRepository.buscarPorNome("Plano Basico") == null
                 || planoRepository.buscarPorNome("Plano Intermediario") == null
                 || planoRepository.buscarPorNome("Plano Avancado") == null
-                || planoRepository.buscarPorCodigo(0) == null ){
+                || planoRepository.buscarPorCodigo(0) == null
+                || planoRepository.buscarPorCodigo(1) == null
+                || planoRepository.buscarPorCodigo(2) == null) {
             PlanoFactory planoFactory = new PlanoFactory();
 
             PlanoInterface planoBasico = planoFactory.criarPlano(TipoPlanoEnums.PLANO_BASICO);
@@ -73,27 +75,46 @@ public class PlanoApplication {
             this.planoRepository.adicionar(planoAvancado.toModel());
             //plano avancado
         }
-
-        // Salva o plano no repositório
+        if(planoRepository.buscarPorCodigo(planoModels.getId()) == null || planoRepository.buscarPorNome(planoModels.getNome()) == null){
+            throw new IllegalArgumentException("Plano não pode ser nulo.");
+        }
         this.planoRepository.adicionar(planoModels);
     }
 
     public void atualizar(PlanoModels planoModels){
+        if(planoRepository.buscarPorCodigo(planoModels.getId()) == null || planoRepository.buscarPorNome(planoModels.getNome()) == null){
+            throw new IllegalArgumentException("Plano não pode ser nulo.");
+        }
         this.planoRepository.atualizar(planoModels);
     }
 
     public void remover(int codigo){
+        if(codigo < 0){
+            throw new IllegalArgumentException("Código do plano não pode ser negativo.");
+        }
         this.planoRepository.remover(codigo);
     }
 
     public List<PlanoModels> buscar(){
+        if(this.planoRepository.buscar() == null){
+            throw new IllegalArgumentException("Nenhum plano encontrado.");
+        }
         return this.planoRepository.buscar();
     }
 
-    public PlanoModels buscarPorCodigo(int codigo){
+    public PlanoModels buscarPlanoId(int codigo){
+        if(codigo < 0){
+            throw new IllegalArgumentException("Código do plano não pode ser negativo.");
+        }
         return this.planoRepository.buscarPorCodigo(codigo);
     }
 
+    public List <PlanoModels> buscarPlanoNome(String nome){
+        if(nome == null || nome.isEmpty()){
+            throw new IllegalArgumentException("Nome do plano não pode ser nulo ou vazio.");
+        }
+        return this.planoRepository.buscarPorNome(nome);
+    }
 
     public static String obterBeneficiosPorPlano(TipoPlanoEnums tipoPlano) {
         List<String> beneficios = new ArrayList<>();

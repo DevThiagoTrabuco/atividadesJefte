@@ -2,6 +2,7 @@ package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.PacienteRepository;
 import com.geriaTeam.geriatricare.Interfaces.PlanoRepository;
+import com.geriaTeam.geriatricare.entities.*;
 import com.geriaTeam.geriatricare.models.PacienteFamiliarModels;
 import com.geriaTeam.geriatricare.models.PacienteMedicamentoModels;
 import com.geriaTeam.geriatricare.models.PacienteModels;
@@ -27,28 +28,61 @@ public class PacienteApplication {
     }
 
     // Adicionar
-    public void adicionar(PacienteModels paciente) {
-        pacienteRepository.adicionar(paciente);
+    public void adicionarPaciente(PacienteModels pacienteModels) {
+        if (pacienteModels == null || pacienteRepository.buscarPacienteId(pacienteModels.getId()) == null) {
+            pacienteRepository.atualizarPaciente(pacienteModels);
+            throw new EntityNotFoundException("Paciente não é valido.");
+        }
+        Paciente paciente = new Paciente();
+        RG rg = new RG();
+        CPF cpf = new CPF();
+
+
+        cpf.setNumero(pacienteModels.getCpf());
+        rg.setNumero(pacienteModels.getRg());
+        if(!cpf.validarCPF()) {
+            throw new IllegalArgumentException("CPF inválido.");
+        }
+        if(!rg.validarRG()) {
+            throw new IllegalArgumentException("RG inválido.");
+        }
+        paciente.setId(pacienteModels.getId());
+        paciente.setNome(pacienteModels.getNome());
+        paciente.setSobrenome(pacienteModels.getSobrenome());
+        paciente.setPacienteFamiliarModels(pacienteModels.getPacienteFamiliarModels());
+        paciente.setRg(rg);
+        paciente.setCpf(cpf);
+        paciente.setEntrada(null);
+        paciente.setSaida(null);
+        paciente.setCondicaoMental(pacienteModels.getCondicaoMental());
+        paciente.setCondicaoFisica(pacienteModels.getCondicaoFisica());
+        paciente.setPacienteMedicamentoModels(pacienteModels.getPacienteMedicamentoModels());
+        paciente.setPacienteFamiliarModels(pacienteModels.getPacienteFamiliarModels());
+        paciente.setPlanoModels(pacienteModels.getPlanoModels());
+        paciente.setNascimento(pacienteModels.getNascimento());
+
+        pacienteRepository.adicionarPaciente(paciente.toModel());
+        registrarEntradaPaciente(pacienteModels.getId());
     }
 
     // Remover
-    public void remover(int id) {
-        PacienteModels paciente = pacienteRepository.buscarPorCodigo(id);
+    public void removerPaciente(int id) {
+        PacienteModels paciente = pacienteRepository.buscarPacienteId(id);
         if (paciente != null) {
-            pacienteRepository.remover(id);
+            pacienteRepository.removerPaciente(id);
         } else {
             throw new EntityNotFoundException("Paciente não encontrado.");
         }
     }
 
     // Listar Todos
-    public List<PacienteModels> listarTodos() {
-        return pacienteRepository.buscar();
+    public List<PacienteModels> buscarTodosPacientes() {
+        return pacienteRepository.buscarPaciente();
     }
 
     // Listar Por ID
-    public PacienteModels listarPorId(int id) {
-        PacienteModels paciente = pacienteRepository.buscarPorCodigo(id);
+    public PacienteModels buscarPacienteId(int id) {
+        PacienteModels paciente = pacienteRepository.buscarPacienteId(id);
         if (paciente != null) {
             return paciente;
         } else {
@@ -57,17 +91,43 @@ public class PacienteApplication {
     }
 
     // Atualizar
-    public void atualizar(PacienteModels paciente) {
-        PacienteModels existente = pacienteRepository.buscarPorCodigo(paciente.getId());
-        if (existente != null) {
-            pacienteRepository.atualizar(paciente);
-        } else {
-            throw new EntityNotFoundException("Paciente não encontrado.");
+    public void atualizarPaciente(PacienteModels pacienteModels) {
+        if (pacienteModels == null || pacienteRepository.buscarPacienteId(pacienteModels.getId()) == null) {
+            pacienteRepository.atualizarPaciente(pacienteModels);
+            throw new EntityNotFoundException("Paciente não é valido.");
         }
+        Paciente paciente = new Paciente();
+        RG rg = new RG();
+        CPF cpf = new CPF();
+
+        cpf.setNumero(pacienteModels.getCpf());
+        rg.setNumero(pacienteModels.getRg());
+        if(!cpf.validarCPF()) {
+            throw new IllegalArgumentException("CPF inválido.");
+        }
+        if(!rg.validarRG()) {
+            throw new IllegalArgumentException("RG inválido.");
+        }
+        paciente.setId(pacienteModels.getId());
+        paciente.setNome(pacienteModels.getNome());
+        paciente.setSobrenome(pacienteModels.getSobrenome());
+        paciente.setPacienteFamiliarModels(pacienteModels.getPacienteFamiliarModels());
+        paciente.setRg(rg);
+        paciente.setCpf(cpf);
+        paciente.setEntrada(pacienteModels.getEntrada());
+        paciente.setSaida(pacienteModels.getSaida());
+        paciente.setCondicaoMental(pacienteModels.getCondicaoMental());
+        paciente.setCondicaoFisica(pacienteModels.getCondicaoFisica());
+        paciente.setPacienteMedicamentoModels(pacienteModels.getPacienteMedicamentoModels());
+        paciente.setPacienteFamiliarModels(pacienteModels.getPacienteFamiliarModels());
+        paciente.setPlanoModels(pacienteModels.getPlanoModels());
+        paciente.setNascimento(pacienteModels.getNascimento());
+
+        pacienteRepository.atualizarPaciente(paciente.toModel());
     }
 
-    public String verificarEstadoSaude(int id) {
-        PacienteModels pacienteModels = pacienteRepository.buscarPorCodigo(id);
+    public String verificarEstadoSaudePaciente(int id) {
+        PacienteModels pacienteModels = pacienteRepository.buscarPacienteId(id);
         if (pacienteModels.getCondicaoMental() != null && pacienteModels.getCondicaoFisica() != null) {
             String estadoMental = pacienteModels.getCondicaoMental().getNome() ;
             String estadoFisico = pacienteModels.getCondicaoFisica().getNome();
@@ -85,30 +145,30 @@ public class PacienteApplication {
     }
 
 
-    public void registrarEntrada(int id) {
-        PacienteModels pacienteModels = pacienteRepository.buscarPorCodigo(id);
+    public void registrarEntradaPaciente(int id) {
+        PacienteModels pacienteModels = pacienteRepository.buscarPacienteId(id);
         if (pacienteModels != null) {
             pacienteModels.setEntrada(LocalDateTime.now());
-            pacienteRepository.atualizar(pacienteModels);
+            pacienteRepository.atualizarPaciente(pacienteModels);
             // Fazer outras ações como notificar responsáveis ou registrar em algum sistema
         } else {
             throw new EntityNotFoundException("Paciente não encontrado.");
         }
     }
 
-    public void registrarSaida(int id) {
-        PacienteModels pacienteModels = pacienteRepository.buscarPorCodigo(id);
+    public void registrarSaidaPaciente(int id) {
+        PacienteModels pacienteModels = pacienteRepository.buscarPacienteId(id);
         if (pacienteModels != null) {
-            pacienteModels.setEntrada(null);
-            pacienteRepository.atualizar(pacienteModels);
+            pacienteModels.setSaida(LocalDateTime.now());
+            pacienteRepository.atualizarPaciente(pacienteModels);
             // Fazer outras ações como notificar responsáveis ou registrar em algum sistema
         } else {
             throw new EntityNotFoundException("Paciente não encontrado.");
         }
     }
 
-    public int calcularIdade(int id) {
-        PacienteModels pacienteModels = pacienteRepository.buscarPorCodigo(id);
+    public int calcularIdadePaciente(int id) {
+        PacienteModels pacienteModels = pacienteRepository.buscarPacienteId(id);
         if (pacienteModels != null) {
             LocalDateTime agora = LocalDateTime.now();
             return agora.getYear() - pacienteModels.getNascimento().getYear();
@@ -117,8 +177,8 @@ public class PacienteApplication {
         }
     }
 
-    public List<PacienteMedicamentoModels> verificarHistoricoMedicamentos(int id) {
-        PacienteModels pacienteModels = pacienteRepository.buscarPorCodigo(id);
+    public List<PacienteMedicamentoModels> verificarHistoricoMedicamentosPaciente(int id) {
+        PacienteModels pacienteModels = pacienteRepository.buscarPacienteId(id);
         if (pacienteModels != null) {
             return pacienteModels.getPacienteMedicamentoModels();
         } else {
@@ -126,30 +186,30 @@ public class PacienteApplication {
         }
     }
 
-    public void adicionarFamiliar(int id, PacienteFamiliarModels familiar) {
-        PacienteModels pacienteModels = pacienteRepository.buscarPorCodigo(id);
+    public void adicionarFamiliarPaciente(int id, PacienteFamiliarModels familiar) {
+        PacienteModels pacienteModels = pacienteRepository.buscarPacienteId(id);
         if (pacienteModels != null) {
             pacienteModels.getPacienteFamiliarModels().add(familiar);
-            pacienteRepository.atualizar(pacienteModels);
+            pacienteRepository.atualizarPaciente(pacienteModels);
             // Fazer outras ações necessárias como notificar familiar ou registrar em algum sistema
         } else {
             throw new EntityNotFoundException("Paciente não encontrado.");
         }
     }
 
-    public void removerFamiliar(int id, int idFamiliar) {
-        PacienteModels pacienteModels = pacienteRepository.buscarPorCodigo(id);
+    public void removerFamiliarPaciente(int id, int idFamiliar) {
+        PacienteModels pacienteModels = pacienteRepository.buscarPacienteId(id);
         if (pacienteModels != null) {
             pacienteModels.getPacienteFamiliarModels().removeIf(familiar -> familiar.getId() == idFamiliar);
-            pacienteRepository.atualizar(pacienteModels);
+            pacienteRepository.atualizarPaciente(pacienteModels);
             // Fazer outras ações necessárias, como notificar ou registrar a remoção
         } else {
             throw new EntityNotFoundException("Paciente não encontrado.");
         }
     }
 
-    public PlanoModels verificarPlanoSaude(int id) {
-        PacienteModels pacienteModels = pacienteRepository.buscarPorCodigo(id);
+    public PlanoModels verificarPlanoSaudePaciente(int id) {
+        PacienteModels pacienteModels = pacienteRepository.buscarPacienteId(id);
         if (pacienteModels != null) {
             return pacienteModels.getPlanoModels();
         } else {
@@ -157,13 +217,13 @@ public class PacienteApplication {
         }
     }
 
-    public void atualizarPlanoSaude(int id, int idPlano) {
-        PacienteModels pacienteModels = pacienteRepository.buscarPorCodigo(id);
+    public void atualizarPlanoSaudePaciente(int id, int idPlano) {
+        PacienteModels pacienteModels = pacienteRepository.buscarPacienteId(id);
         if (pacienteModels != null) {
             PlanoModels plano = planoRepository.buscarPorCodigo(idPlano); // Verifica se o plano existe
             if (plano != null) {
                 pacienteModels.setPlanoModels(plano);
-                pacienteRepository.atualizar(pacienteModels);
+                pacienteRepository.atualizarPaciente(pacienteModels);
                 // Fazer outras ações necessárias como notificar responsável ou registrar em algum sistema
             } else {
                 throw new EntityNotFoundException("Plano de saúde não encontrado.");
@@ -173,22 +233,22 @@ public class PacienteApplication {
         }
     }
 
-    public void adicionarMedicamento(int id, PacienteMedicamentoModels medicamento) {
-        PacienteModels pacienteModels = pacienteRepository.buscarPorCodigo(id);
+    public void adicionarMedicamentoPaciente(int id, PacienteMedicamentoModels medicamento) {
+        PacienteModels pacienteModels = pacienteRepository.buscarPacienteId(id);
         if (pacienteModels != null) {
             pacienteModels.getPacienteMedicamentoModels().add(medicamento);
-            pacienteRepository.atualizar(pacienteModels);
+            atualizarPaciente(pacienteModels);
             // Fazer outras ações necessárias como notificar responsável ou registrar em algum sistema
         } else {
             throw new EntityNotFoundException("Paciente não encontrado.");
         }
     }
 
-    public void removerMedicamento(int id, int idMedicamento) {
-        PacienteModels pacienteModels = pacienteRepository.buscarPorCodigo(id);
+    public void removerMedicamentoPaciente(int id, int idMedicamento) {
+        PacienteModels pacienteModels = pacienteRepository.buscarPacienteId(id);
         if (pacienteModels != null) {
             pacienteModels.getPacienteMedicamentoModels().removeIf(medicamento -> medicamento.getId() == idMedicamento);
-            pacienteRepository.atualizar(pacienteModels);
+            pacienteRepository.atualizarPaciente(pacienteModels);
             // Fazer outras ações necessárias como notificar responsável ou registrar em algum sistema
         } else {
             throw new EntityNotFoundException("Paciente não encontrado.");

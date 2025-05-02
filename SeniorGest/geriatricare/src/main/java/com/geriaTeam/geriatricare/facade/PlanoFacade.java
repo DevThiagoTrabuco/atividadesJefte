@@ -10,13 +10,13 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
-public class PlanosFacade {
+public class PlanoFacade {
     @Autowired
     private PlanoApplication planoApplication;
 
     public List<PlanoModels> buscar() {return planoApplication.buscar();}
 
-    public PlanoModels buscarPorCodigo(int codigo) {return planoApplication.buscarPorCodigo(codigo);}
+    public PlanoModels buscarPlanoId(int codigo) {return planoApplication.buscarPlanoId(codigo);}
 
     public void adicionar(PlanoModels planoModels) {planoApplication.adicionar(planoModels);}
 
@@ -24,4 +24,7 @@ public class PlanosFacade {
 
     public void remover(int codigo) {planoApplication.remover(codigo);}
 
+    public List <PlanoModels> buscarPlanoNome(String nome){
+        return planoApplication.buscarPlanoNome(nome);
+    }
 }

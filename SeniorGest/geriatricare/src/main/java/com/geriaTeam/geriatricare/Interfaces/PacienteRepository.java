@@ -5,9 +5,9 @@ import com.geriaTeam.geriatricare.models.PacienteModels;
 import java.util.List;
 
 public interface PacienteRepository {
-    public PacienteModels buscarPorCodigo(int codigo);
-    public List<PacienteModels> buscar();
-    public void adicionar(PacienteModels pacienteModels);
-    public void remover(int codigo);
-    public void atualizar(PacienteModels pacienteModels);
+    public PacienteModels buscarPacienteId(int codigo);
+    public List<PacienteModels> buscarPaciente();
+    public void adicionarPaciente(PacienteModels pacienteModels);
+    public void removerPaciente(int codigo);
+    public void atualizarPaciente(PacienteModels pacienteModels);
 }

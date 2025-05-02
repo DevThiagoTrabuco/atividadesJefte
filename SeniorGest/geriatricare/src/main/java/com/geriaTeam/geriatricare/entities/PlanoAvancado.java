@@ -15,27 +15,12 @@ import java.util.List;
 @NoArgsConstructor
 public class PlanoAvancado implements PlanoInterface {
     private int id;
-    private Strings nome;
+    private String nome;
     private int periodoMensalidade;
     private TipoPlanoEnums tipoPlano;
-    private Strings descricao;
+    private String descricao;
     private double preco;
-    private Strings beneficio;
-
-    @Override
-    public void setNome(String nome) {
-        this.nome.setString(nome);
-    }
-
-    @Override
-    public void setDescricao(String descricao) {
-        this.descricao.setString(descricao);
-    }
-
-    @Override
-    public void setBeneficio(String beneficio) {
-        this.beneficio.setString(beneficio);
-    }
+    private String beneficio;
 
     public static List<String> obterBeneficiosPlanoAvancado() {
         PlanoIntermediario planoIntermediario = new PlanoIntermediario();
@@ -54,12 +39,12 @@ public class PlanoAvancado implements PlanoInterface {
     public PlanoModels toModel() {
         PlanoModels planoModels = new PlanoModels();
         planoModels.setId(this.id);
-        planoModels.setNome(this.nome.getString());
+        planoModels.setNome(this.nome);
         planoModels.setTipoPlano(this.tipoPlano != null ? this.tipoPlano.name() : null);
         planoModels.setPeriodoMensalidade(this.periodoMensalidade);
-        planoModels.setDescricao(this.descricao.getString());
+        planoModels.setDescricao(this.descricao);
         planoModels.setPreco(this.preco);
-        planoModels.setBeneficio(this.beneficio != null ? String.join(", ", this.beneficio.getString()) : null);
+        planoModels.setBeneficio(this.beneficio != null ? String.join(", ", this.beneficio) : null);
         return planoModels;
     }
 }

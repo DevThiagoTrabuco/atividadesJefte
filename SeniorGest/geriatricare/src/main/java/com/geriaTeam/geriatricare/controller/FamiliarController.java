@@ -44,7 +44,7 @@ public class FamiliarController {
         return familiarFacade.buscarPorNome(nome);
     }
 
-    @PutMapping("/atualizar-familiar/{id}")
+    @PutMapping("/atualizar-familiar")
     public void atualizarFamiliar(@RequestBody FamiliarModels familiarModels) {
         familiarFacade.atualizarFamiliar(familiarModels);
     }
