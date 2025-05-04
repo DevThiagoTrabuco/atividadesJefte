@@ -23,6 +23,16 @@ public class FamiliarRepositoryMySQLImpl implements FamiliarRepository {
     }
 
     @Override
+    public FamiliarModels buscarPorCpf(String cpf) {
+        return this.familiarJPA.findByCpf(cpf);
+    }
+
+    @Override
+    public List<FamiliarModels> buscarPorNome(String nome) {
+        return this.familiarJPA.findByNomeContaining(nome);
+    }
+
+    @Override
     public List<FamiliarModels> buscar() {
         return this.familiarJPA.findAll();
     }

@@ -20,8 +20,8 @@ public class FamiliarController {
 
     // CRUD padrão
     @PostMapping("/adicionar")
-    public void adicionarFamiliar(@RequestParam String nome, @RequestParam String sobrenome, @RequestParam String cpf, @RequestParam String rg, @RequestParam String email, @RequestParam String telefone) {
-        familiarFacade.adicionarFamiliar(nome, sobrenome, cpf, rg, email, telefone);
+    public void adicionarFamiliar(@RequestBody FamiliarModels familiarModels) {
+        familiarFacade.adicionarFamiliar(familiarModels);
     }
 
     @DeleteMapping("/remover-familiar/{id}")
@@ -29,20 +29,24 @@ public class FamiliarController {
         familiarFacade.removerFamiliar(id);
     }
 
-    @GetMapping("/buscar-familiar/{id}")
-    public FamiliarModels buscarFamiliar(@PathVariable int id) {
-        return familiarFacade.buscarFamiliar(id);
+    @GetMapping("/buscar-familiar-id/{id}")
+    public FamiliarModels buscarFamiliarId(@PathVariable int id) {
+        return familiarFacade.buscarFamiliarId(id);
     }
 
-    @PutMapping("/atualizar-familiar/{id}")
-    public void atualizarFamiliar(
-            @PathVariable int id,
-            @RequestParam String novoNome,
-            @RequestParam String novoSobrenome,
-            @RequestParam String novoEmail,
-            @RequestParam String novoTelefone
-    ) {
-        familiarFacade.atualizarFamiliar(id, novoNome,novoSobrenome, novoEmail, novoTelefone);
+    @GetMapping("/buscar-familiar-cpf/{cpf}")
+    public FamiliarModels buscarFamiliarCpf(@PathVariable String Cpf) {
+        return familiarFacade.buscarFamiliarCpf(Cpf);
+    }
+
+    @GetMapping("/buscar-familiar-nome/{nome}")
+    public List<FamiliarModels> buscarFamiliarNome(@PathVariable String nome) {
+        return familiarFacade.buscarPorNome(nome);
+    }
+
+    @PutMapping("/atualizar-familiar")
+    public void atualizarFamiliar(@RequestBody FamiliarModels familiarModels) {
+        familiarFacade.atualizarFamiliar(familiarModels);
     }
 
     @GetMapping("/todos")

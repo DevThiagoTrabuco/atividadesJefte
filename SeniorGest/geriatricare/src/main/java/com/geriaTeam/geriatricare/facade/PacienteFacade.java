@@ -19,68 +19,68 @@ public class PacienteFacade {
     private PacienteApplication pacienteApplication;
 
 
-    public List<PacienteModels> listarTodos() {
-        return pacienteApplication.listarTodos();
+    public List<PacienteModels> buscarTodosPacientes() {
+        return pacienteApplication.buscarTodosPacientes();
     }
 
-    public PacienteModels listarPorId(int id) {
-        return pacienteApplication.listarPorId(id);
+    public PacienteModels buscarPacienteId(int id) {
+        return pacienteApplication.buscarPacienteId(id);
     }
 
-    public void adicionar(PacienteModels pacienteModels) {
-        pacienteApplication.adicionar(pacienteModels);
+    public void adicionarPaciente(PacienteModels pacienteModels) {
+        pacienteApplication.adicionarPaciente(pacienteModels);
     }
 
-    public void atualizar(PacienteModels pacienteModels) {
-        pacienteApplication.atualizar(pacienteModels);
+    public void atualizarPaciente(PacienteModels pacienteModels) {
+        pacienteApplication.atualizarPaciente(pacienteModels);
     }
 
-    public void remover(int id) {
-        pacienteApplication.remover(id);
+    public void removerPaciente(int id) {
+        pacienteApplication.removerPaciente(id);
     }
 
-    public String verificarEstadoSaude(int id) {
-        return pacienteApplication.verificarEstadoSaude(id);
+    public String verificarEstadoSaudePaciente(int id) {
+        return pacienteApplication.verificarEstadoSaudePaciente(id);
     }
 
-    public void registrarEntrada(int id) {
-        pacienteApplication.registrarEntrada(id);
+    public void registrarEntradaPaciente(int id) {
+        pacienteApplication.registrarEntradaPaciente(id);
     }
 
-    public void registrarSaida(int id) {
-        pacienteApplication.registrarSaida(id);
+    public void registrarSaidaPaciente(int id) {
+        pacienteApplication.registrarSaidaPaciente(id);
     }
 
-    public int calcularIdade(int id) {
-        return pacienteApplication.calcularIdade(id);
+    public int calcularIdadePaciente(int id) {
+        return pacienteApplication.calcularIdadePaciente(id);
     }
 
 
-    public List<PacienteMedicamentoModels> verificarHistoricoMedicamentos(int id) {
-        return pacienteApplication.verificarHistoricoMedicamentos(id);
+    public List<PacienteMedicamentoModels> verificarHistoricoMedicamentosPaciente(int id) {
+        return pacienteApplication.verificarHistoricoMedicamentosPaciente(id);
     }
 
-    public void adicionarFamiliar(int id, PacienteFamiliarModels familiar) {
-        pacienteApplication.adicionarFamiliar(id, familiar);
+    public void adicionarFamiliarPaciente(int id, PacienteFamiliarModels familiar) {
+        pacienteApplication.adicionarFamiliarPaciente(id, familiar);
     }
 
-    public void removerFamiliar(int id, int idFamiliar) {
-        pacienteApplication.removerFamiliar(id, idFamiliar);
+    public void removerFamiliarPaciente(int id, int idFamiliar) {
+        pacienteApplication.removerFamiliarPaciente(id, idFamiliar);
     }
 
-    public void atualizarPlanoSaude(int id, int idPlano) {
-        pacienteApplication.atualizarPlanoSaude(id, idPlano);
+    public void atualizarPlanoSaudePaciente(int id, int idPlano) {
+        pacienteApplication.atualizarPlanoSaudePaciente(id, idPlano);
     }
 
-    public void adicionarMedicamento(int id, PacienteMedicamentoModels medicamento) {
-        pacienteApplication.adicionarMedicamento(id, medicamento);
+    public void adicionarMedicamentoPaciente(int id, PacienteMedicamentoModels medicamento) {
+        pacienteApplication.adicionarMedicamentoPaciente(id, medicamento);
     }
 
-    public void removerMedicamento(int id, int idMedicamento) {
-        pacienteApplication.removerMedicamento(id, idMedicamento);
+    public void removerMedicamentoPaciente(int id, int idMedicamento) {
+        pacienteApplication.removerMedicamentoPaciente(id, idMedicamento);
     }
 
-    public PlanoModels verificarPlanoSaude(int id) {
-        return pacienteApplication.verificarPlanoSaude(id);
+    public PlanoModels verificarPlanoSaudePaciente(int id) {
+        return pacienteApplication.verificarPlanoSaudePaciente(id);
     }
 }
