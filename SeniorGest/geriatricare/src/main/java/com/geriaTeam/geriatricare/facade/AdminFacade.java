@@ -15,23 +15,25 @@ public class AdminFacade {
     @Autowired
     private AdminApplication adminApplication;
 
-    public List<AdminModels> buscar() {
-        return adminApplication.buscar();
+    public List<AdminModels> buscarTodosAdmin() {return adminApplication.buscarTodosAdmin();}
+
+    public AdminModels buscarAdminId(int codigo) {
+        return adminApplication.buscarAdminId(codigo);
     }
 
-    public AdminModels buscarPorCodigo(int codigo) {
-        return adminApplication.buscarPorCodigo(codigo);
+    public void adicionarAdmin(AdminModels adminModels) {
+        adminApplication.adicionarAdmin(adminModels);
     }
 
-    public void adicionar(AdminModels adminModels) {
-        adminApplication.adicionar(adminModels);
+    public void atualizarAdmin(AdminModels adminModels) {
+        adminApplication.atualizarAdmin(adminModels);
     }
 
-    public void atualizar(AdminModels adminModels) {
-        adminApplication.atualizar(adminModels);
+    public void removerAdmin(int codigo) {
+        adminApplication.removerAdmin(codigo);
     }
 
-    public void remover(int codigo) {
-        adminApplication.remover(codigo);
+    public AdminModels autenticarAdmin(String login, String senha) {
+        return adminApplication.autenticarAdmin(login, senha);
     }
 }

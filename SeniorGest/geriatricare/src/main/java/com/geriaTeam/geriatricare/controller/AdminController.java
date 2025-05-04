@@ -15,38 +15,41 @@ import org.springframework.web.bind.annotation.RestController;
 import com.geriaTeam.geriatricare.facade.AdminFacade;
 import com.geriaTeam.geriatricare.models.AdminModels;
 
-@RequestMapping("/api/admin/")
+@RequestMapping("/admin")
 @RestController
 public class AdminController {
-    private final AdminFacade adminFacade;
 
     @Autowired
-    public AdminController(AdminFacade adminFacade) {
-        this.adminFacade = adminFacade;
+    private AdminFacade adminFacade;
+
+    @GetMapping
+    public List<AdminModels> buscarTodosAdmin(){
+        return adminFacade.buscarTodosAdmin();
     }
 
-    @GetMapping("")
-    public List<AdminModels> buscar(){
-        return adminFacade.buscar();
+    @GetMapping("/buscarAdminId/{id}")
+    public AdminModels buscarAdminId(@PathVariable int id){
+        return adminFacade.buscarAdminId(id);
     }
 
-    @GetMapping("/{codigo}")
-    public AdminModels buscarPorCodigo(@PathVariable int codigo){
-        return adminFacade.buscarPorCodigo(codigo);
+    @PostMapping("/adicionarAdmin")
+    public void adicionarAdmin(@RequestBody AdminModels adminModels){
+        adminFacade.adicionarAdmin(adminModels);
     }
 
-    @PostMapping("")
-    public void adicionar(@RequestBody AdminModels adminModels){
-        adminFacade.adicionar(adminModels);
+    @PutMapping("/atualizarAdmin/{id}")
+    public void atualizarAdmin(@PathVariable int id, @RequestBody AdminModels adminModels){
+        adminFacade.atualizarAdmin(adminModels);
     }
 
-    @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody AdminModels adminModels){
-        adminFacade.atualizar(adminModels);
+    @DeleteMapping("/removerAdmin/{id}")
+    public void removerAdmin(@PathVariable int id){
+        adminFacade.removerAdmin(id);
     }
 
-    @DeleteMapping("/{codigo}")
-    public void remover(@PathVariable int codigo){
-        adminFacade.remover(codigo);
+    //Testar apenas
+    @GetMapping("/autenticarAdmin")
+    public AdminModels autenticarAdmin(@RequestBody AdminModels adminModels){
+        return adminFacade.autenticarAdmin(adminModels.getLogin(), adminModels.getSenha());
     }
 }

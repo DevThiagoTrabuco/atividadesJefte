@@ -18,6 +18,9 @@ public class AdminModels {
     @Column(name = "administradores_nome")
     private String nome;
 
+    @Column(name = "administradores_login")
+    private String login;
+
     @Column(name = "administradores_senha")
     private String senha;
 }
