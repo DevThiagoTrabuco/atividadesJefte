@@ -1,5 +1,6 @@
 package com.geriaTeam.geriatricare.models;
 
+import com.geriaTeam.geriatricare.entities.Paciente;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,5 +27,5 @@ public class IndicadorModels {
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType. MERGE})
     @JoinColumn(name = "pacientes_id_fk", referencedColumnName = "pacientes_id")
-    private PacienteModels pacienteModels;
+    private Paciente paciente;
 }

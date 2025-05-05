@@ -1,40 +1,57 @@
 package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.IndicadorRepository;
+import com.geriaTeam.geriatricare.entities.Indicador;
 import com.geriaTeam.geriatricare.models.IndicadorModels;
 
 import java.util.List;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class IndicadorApplication {
+    @Autowired
     private IndicadorRepository indicadorRepository;
 
 
-    @Autowired
-    public IndicadorApplication(IndicadorRepository indicadorRepository) {
-        this.indicadorRepository = indicadorRepository;
+    public void adicionarIndicador(IndicadorModels model) {
+        Indicador indicador = new Indicador();
+        indicador.setId(model.getId());
+        indicador.setBatimentos(model.getBatimentos());
+        indicador.setOximetria(model.getOximetria());
+        indicador.setTemperatura(model.getTemperatura());
+        indicador.setPaciente(model.getPaciente());
+
+        indicadorRepository.adicionarIndicador(indicador.toModel());
     }
 
-    public void adicionar(IndicadorModels indicadorModels){
-        this.indicadorRepository.adicionar(indicadorModels);
+    public void atualizarIndicador(IndicadorModels model) {
+        IndicadorModels existente = indicadorRepository.buscarIndicadorId(model.getId());
+        if (existente == null) {
+            throw new EntityNotFoundException("Indicador não encontrado.");
+        }
+        indicadorRepository.atualizarIndicador(model);
     }
 
-    public void atualizar(IndicadorModels indicadorModels){
-        this.indicadorRepository.atualizar(indicadorModels);
+    public void removerIndicador(int codigo) {
+        IndicadorModels existente = indicadorRepository.buscarIndicadorId(codigo);
+        if (existente == null) {
+            throw new EntityNotFoundException("Indicador não encontrado.");
+        }
+        indicadorRepository.removerIndicador(codigo);
     }
 
-    public void remover(int codigo){
-        this.indicadorRepository.remover(codigo);
+    public List<IndicadorModels> buscarTodosIndicador() {
+        return indicadorRepository.buscarIndicador();
     }
 
-    public List<IndicadorModels> buscar(){
-        return this.indicadorRepository.buscar();
-    }
-
-    public IndicadorModels buscarPorCodigo(int codigo){
-        return this.indicadorRepository.buscarPorCodigo(codigo);
+    public IndicadorModels buscarIndicadorId(int codigo) {
+        IndicadorModels indicador = indicadorRepository.buscarIndicadorId(codigo);
+        if (indicador == null) {
+            throw new EntityNotFoundException("Indicador não encontrado.");
+        }
+        return indicador;
     }
 }
