@@ -23,8 +23,8 @@ public class AdminController {
     private AdminFacade adminFacade;
 
     @GetMapping
-    public List<AdminModels> buscarTodosAdmin(){
-        return adminFacade.buscarTodosAdmin();
+    public List<AdminModels> buscarAdmin(){
+        return adminFacade.buscarAdmin();
     }
 
     @GetMapping("/buscarAdminId/{id}")
@@ -50,6 +50,6 @@ public class AdminController {
     //Testar apenas
     @GetMapping("/autenticarAdmin")
     public AdminModels autenticarAdmin(@RequestBody AdminModels adminModels){
-        return adminFacade.autenticarAdmin(adminModels.getLogin(), adminModels.getSenha());
+        return adminFacade.autenticarAdmin(adminModels.getLogin().toString(), adminModels.getSenha().toString());
     }
 }

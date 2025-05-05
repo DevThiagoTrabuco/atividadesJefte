@@ -15,7 +15,7 @@ public class AdminFacade {
     @Autowired
     private AdminApplication adminApplication;
 
-    public List<AdminModels> buscarTodosAdmin() {return adminApplication.buscarTodosAdmin();}
+    public List<AdminModels> buscarAdmin() {return adminApplication.buscarAdmin();}
 
     public AdminModels buscarAdminId(int codigo) {
         return adminApplication.buscarAdminId(codigo);

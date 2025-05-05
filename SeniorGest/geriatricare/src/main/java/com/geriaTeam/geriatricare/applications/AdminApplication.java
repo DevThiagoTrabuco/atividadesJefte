@@ -22,8 +22,8 @@ public class AdminApplication {
     }
 
     public void adicionarAdmin(AdminModels model) {
-        Login login = new Login(model.getLogin());
-        Senha senha = new Senha(model.getSenha());
+        Login login = new Login(model.getLogin().toString());
+        Senha senha = new Senha(model.getSenha().toString());
 
         if (!login.validarLogin()) {
             throw new IllegalArgumentException("Login inválido. Utilize um e-mail válido.");
@@ -71,7 +71,7 @@ public class AdminApplication {
         adminRepository.removerAdmin(id);
     }
 
-    public List<AdminModels> buscarTodosAdmin() {
+    public List<AdminModels> buscarAdmin() {
         return adminRepository.buscarAdmin();
     }
 

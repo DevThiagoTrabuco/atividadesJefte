@@ -1,5 +1,7 @@
 package com.geriaTeam.geriatricare.models;
 
+import com.geriaTeam.geriatricare.entities.Login;
+import com.geriaTeam.geriatricare.entities.Senha;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,8 +21,8 @@ public class AdminModels {
     private String nome;
 
     @Column(name = "administradores_login")
-    private String login;
+    private Login login;
 
     @Column(name = "administradores_senha")
-    private String senha;
+    private Senha senha;
 }

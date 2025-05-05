@@ -21,8 +21,8 @@ public class Admin {
         AdminModels adminModels = new AdminModels();
         adminModels.setId(this.id);
         adminModels.setNome(this.nome);
-        adminModels.setLogin(this.login != null ? this.login.toString() : null);
-        adminModels.setSenha(this.senha != null ? this.senha.toString() : null);
+        adminModels.setLogin(this.login != null ? this.login : null);
+        adminModels.setSenha(this.senha != null ? this.senha : null);
         return adminModels;
     }
 }
