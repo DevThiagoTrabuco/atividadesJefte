@@ -9,7 +9,7 @@ public interface PlanoInterface {
 
     void setId(int id);
 
-    Strings getNome();
+    String getNome();
 
     void setNome(String nome);
 
@@ -21,7 +21,7 @@ public interface PlanoInterface {
 
     void setTipoPlano(TipoPlanoEnums tipoPlano);
 
-    Strings getDescricao();
+    String getDescricao();
 
     void setDescricao(String descricao);
 
@@ -29,7 +29,7 @@ public interface PlanoInterface {
 
     void setPreco(double preco);
 
-    Strings getBeneficio();
+    String getBeneficio();
 
     void setBeneficio(String beneficio);
 
