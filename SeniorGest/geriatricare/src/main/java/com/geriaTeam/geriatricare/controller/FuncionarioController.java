@@ -3,52 +3,41 @@ package com.geriaTeam.geriatricare.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.geriaTeam.geriatricare.facade.FuncionarioFacade;
 import com.geriaTeam.geriatricare.models.FuncionarioModels;
 
-@RequestMapping("/api/funcionario/")
+@RequestMapping("/funcionario")
 @RestController
 public class FuncionarioController {
-    private final FuncionarioFacade funcionarioFacade;
-
     @Autowired
-    public FuncionarioController(FuncionarioFacade funcionarioFacade) {
-        this.funcionarioFacade = funcionarioFacade;
+    private FuncionarioFacade funcionarioFacade;
 
+    @GetMapping
+    public List<FuncionarioModels> buscarTodosFuncionario() {
+        return funcionarioFacade.buscarTodosFuncionario();
     }
 
-    @GetMapping("")
-    public List<FuncionarioModels> buscar(){
-        return funcionarioFacade.buscar();
+    @GetMapping("/buscarFuncionarioId/{id}")
+    public FuncionarioModels buscarFuncionarioId(@PathVariable int id) {
+        return funcionarioFacade.buscarFuncionarioId(id);
     }
 
-    @GetMapping("/{codigo}")
-    public FuncionarioModels buscarPorCodigo(@PathVariable int codigo){
-        return funcionarioFacade.buscarPorCodigo(codigo);
+    @PostMapping("/adicionarFuncionario")
+    public void adicionarFuncionario(@RequestBody FuncionarioModels funcionarioModels, @RequestParam String adminLogin, @RequestParam String adminSenha) {
+        funcionarioFacade.adicionarFuncionario(funcionarioModels, adminLogin, adminSenha);
     }
 
-    @PostMapping("")
-    public void adicionar(@RequestBody FuncionarioModels funcionarioModels){
-        funcionarioFacade.adicionar(funcionarioModels);
+    @PutMapping("/atualizarFuncionario/{id}")
+    public void atualizarFuncionario(@PathVariable int id, @RequestBody FuncionarioModels funcionarioModels, @RequestParam String adminLogin, @RequestParam String adminSenha) {
+        funcionarioModels.setId(id);
+        funcionarioFacade.atualizarFuncionario(funcionarioModels, adminLogin, adminSenha);
     }
 
-    @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody FuncionarioModels funcionarioModels){
-        funcionarioFacade.atualizar(funcionarioModels);
-    }
-
-    @DeleteMapping("/{codigo}")
-    public void remover(@PathVariable int codigo){
-        funcionarioFacade.remover(codigo);
+    @DeleteMapping("/removerFuncionario/{id}")
+    public void removerFuncionario(@PathVariable int id, @RequestParam String adminLogin, @RequestParam String adminSenha) {
+        funcionarioFacade.removerFuncionario(id, adminLogin, adminSenha);
     }
 }
 

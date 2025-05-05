@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,6 +18,7 @@ public class Funcionario {
     private int id;
     private String nome;
     private String sobrenome;
+    private LocalDateTime dataNascimento;
     private Login login;
     private Senha senha;
     private Funcao funcao;
@@ -31,9 +34,10 @@ public class Funcionario {
         funcionarioModels.setId(this.id);
         funcionarioModels.setNome(this.nome);
         funcionarioModels.setSobrenome(this.sobrenome);
+        funcionarioModels.setDataNascimento(this.dataNascimento);
         funcionarioModels.setLogin(this.login);
         funcionarioModels.setSenha(this.senha);
-        funcionarioModels.setFuncaoModels(this.funcao.toModel());
+        funcionarioModels.setFuncao(this.funcao);
         funcionarioModels.setCpf(this.cpf);
         funcionarioModels.setRg(this.rg);
         funcionarioModels.setCtps(this.ctps);

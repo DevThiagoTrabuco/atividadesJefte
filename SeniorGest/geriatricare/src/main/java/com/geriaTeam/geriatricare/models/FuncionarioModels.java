@@ -23,6 +23,9 @@ public class FuncionarioModels {
     @Column(name = "funcionarios_sobrenome")
     private String sobrenome;
 
+    @Column(name = "funcionarios_data_nascimento")
+    private LocalDateTime dataNascimento;
+
     @Column(name = "funcionarios_CPF")
     private CPF cpf;
 
@@ -49,5 +52,5 @@ public class FuncionarioModels {
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType. MERGE})
     @JoinColumn(name = "funcoes_id_fk", referencedColumnName = "funcoes_id")
-    private FuncaoModels funcaoModels;
+    private Funcao funcao;
 }

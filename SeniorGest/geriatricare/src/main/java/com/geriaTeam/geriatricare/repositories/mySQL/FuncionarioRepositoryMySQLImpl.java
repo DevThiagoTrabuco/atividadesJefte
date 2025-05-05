@@ -10,35 +10,31 @@ import java.util.List;
 
 @Repository
 public class FuncionarioRepositoryMySQLImpl implements FuncionarioRepository {
-    private final FuncionarioJPA funcionarioJPA;
-
     @Autowired
-    public FuncionarioRepositoryMySQLImpl(FuncionarioJPA funcionarioJPA) {
-        this.funcionarioJPA = funcionarioJPA;
-    }
+    private FuncionarioJPA funcionarioJPA;
 
     @Override
-    public FuncionarioModels buscarPorCodigo(int codigo) {
+    public FuncionarioModels buscarFuncionarioId(int codigo) {
         return this.funcionarioJPA.findById(codigo).get();
     }
 
     @Override
-    public List<FuncionarioModels> buscar() {
+    public List<FuncionarioModels> buscarFuncionario() {
         return this.funcionarioJPA.findAll();
     }
 
     @Override
-    public void adicionar(FuncionarioModels funcionarioModels) {
+    public void adicionarFuncionario(FuncionarioModels funcionarioModels) {
         this.funcionarioJPA.save(funcionarioModels);
     }
 
     @Override
-    public void remover(int codigo) {
+    public void removerFuncionario(int codigo) {
         this.funcionarioJPA.deleteById(codigo);
     }
 
     @Override
-    public void atualizar(FuncionarioModels funcionarioModels) {
+    public void atualizarFuncionario(FuncionarioModels funcionarioModels) {
         this.funcionarioJPA.save(funcionarioModels);
     }
 }
