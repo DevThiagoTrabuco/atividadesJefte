@@ -16,23 +16,23 @@ public class IndicadorFacade {
     @Autowired
     private IndicadorApplication indicadorApplication;
 
-    public List<IndicadorModels> buscar() {
-        return indicadorApplication.buscar();
+    public List<IndicadorModels> buscarTodosIndicador() {
+        return indicadorApplication.buscarTodosIndicador();
     }
 
-    public IndicadorModels buscarPorCodigo(int codigo) {
-        return indicadorApplication.buscarPorCodigo(codigo);
+    public IndicadorModels buscarIndicadorId(int codigo) {
+        return indicadorApplication.buscarIndicadorId(codigo);
     }
 
-    public void adicionar(IndicadorModels indicadorModels) {
-        indicadorApplication.adicionar(indicadorModels);
+    public void adicionarIndicador(IndicadorModels indicadorModels) {
+        indicadorApplication.adicionarIndicador(indicadorModels);
     }
 
-    public void atualizar(IndicadorModels indicadorModels) {
-        indicadorApplication.atualizar(indicadorModels);
+    public void atualizarIndicador(IndicadorModels indicadorModels) {
+        indicadorApplication.atualizarIndicador(indicadorModels);
     }
 
-    public void remover(int codigo) {
-        indicadorApplication.remover(codigo);
+    public void removerIndicador(int codigo) {
+        indicadorApplication.removerIndicador(codigo);
     }
 }

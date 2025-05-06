@@ -10,35 +10,32 @@ import java.util.List;
 
 @Repository
 public class MedicamentoRepositoryMySQLImpl implements MedicamentoRepository {
-    private final MedicamentoJPA medicamentoJPA;
 
     @Autowired
-    public MedicamentoRepositoryMySQLImpl(MedicamentoJPA medicamentoJPA) {
-        this.medicamentoJPA = medicamentoJPA;
-    }
+    private MedicamentoJPA medicamentoJPA;
 
     @Override
-    public MedicamentoModels buscarPorCodigo(int codigo) {
+    public MedicamentoModels buscarMedicamentoId(int codigo) {
         return this.medicamentoJPA.findById(codigo).get();
     }
 
     @Override
-    public List<MedicamentoModels> buscar() {
+    public List<MedicamentoModels> buscarMedicamento() {
         return this.medicamentoJPA.findAll();
     }
 
     @Override
-    public void adicionar(MedicamentoModels medicamentoModels) {
+    public void adicionarMedicamento(MedicamentoModels medicamentoModels) {
         this.medicamentoJPA.save(medicamentoModels);
     }
 
     @Override
-    public void remover(int codigo) {
+    public void removerMedicamento(int codigo) {
         this.medicamentoJPA.deleteById(codigo);
     }
 
     @Override
-    public void atualizar(MedicamentoModels medicamentoModels) {
+    public void atualizarMedicamento(MedicamentoModels medicamentoModels) {
         this.medicamentoJPA.save(medicamentoModels);
     }
 }
