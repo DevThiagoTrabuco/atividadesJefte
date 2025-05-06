@@ -14,23 +14,23 @@ public class MedicamentoFacade {
     @Autowired
     private MedicamentoApplication medicamentoApplication;
 
-    public List<MedicamentoModels> buscar() {
-        return medicamentoApplication.buscar();
+    public List<MedicamentoModels> buscarTodosMedicamento() {
+        return medicamentoApplication.buscarTodosMedicamento();
     }
 
-    public MedicamentoModels buscarPorCodigo(int codigo) {
-        return medicamentoApplication.buscarPorCodigo(codigo);
+    public MedicamentoModels buscarMedicamentoId(int codigo) {
+        return medicamentoApplication.buscarMedicamentoId(codigo);
     }
 
-    public void adicionar(MedicamentoModels medicamentoModels) {
-        medicamentoApplication.adicionar(medicamentoModels);
+    public void adicionarMedicamento(MedicamentoModels medicamentoModels) {
+        medicamentoApplication.adicionarMedicamento(medicamentoModels);
     }
 
-    public void atualizar(MedicamentoModels medicamentoModels) {
-        medicamentoApplication.atualizar(medicamentoModels);
+    public void atualizarMedicamento(MedicamentoModels medicamentoModels) {
+        medicamentoApplication.atualizarMedicamento(medicamentoModels);
     }
 
-    public void remover(int codigo) {
-        medicamentoApplication.remover(codigo);
+    public void removerMedicamento(int codigo) {
+        medicamentoApplication.removerMedicamento(codigo);
     }
 }

@@ -1,40 +1,56 @@
 package com.geriaTeam.geriatricare.applications;
 
-
 import com.geriaTeam.geriatricare.Interfaces.MedicamentoRepository;
+import com.geriaTeam.geriatricare.entities.Medicamento;
 import com.geriaTeam.geriatricare.models.MedicamentoModels;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 @Service
 public class MedicamentoApplication {
+    @Autowired
     private MedicamentoRepository medicamentoRepository;
 
+    public void adicionarMedicamento(MedicamentoModels model) {
+        Medicamento medicamento = new Medicamento();
+        medicamento.setId(model.getId());
+        medicamento.setNome(model.getNome());
+        medicamento.setLote(model.getLote());
+        medicamento.setQuantidade(model.getQuantidade());
+        medicamento.setVencimento(model.getVencimento());
 
-    @Autowired
-    public MedicamentoApplication(MedicamentoRepository medicamentoRepository) {
-        this.medicamentoRepository = medicamentoRepository;
+        medicamentoRepository.adicionarMedicamento(medicamento.toModel());
     }
 
-    public void adicionar(MedicamentoModels medicamentoModels){
-        this.medicamentoRepository.adicionar(medicamentoModels);
+    public void atualizarMedicamento(MedicamentoModels model) {
+        MedicamentoModels existente = medicamentoRepository.buscarMedicamentoId(model.getId());
+        if (existente == null) {
+            throw new EntityNotFoundException("Medicamento não encontrado.");
+        }
+        medicamentoRepository.atualizarMedicamento(model);
     }
 
-    public void atualizar(MedicamentoModels medicamentoModels){
-        this.medicamentoRepository.atualizar(medicamentoModels);
+    public void removerMedicamento(int codigo) {
+        MedicamentoModels existente = medicamentoRepository.buscarMedicamentoId(codigo);
+        if (existente == null) {
+            throw new EntityNotFoundException("Medicamento não encontrado.");
+        }
+        medicamentoRepository.removerMedicamento(codigo);
     }
 
-    public void remover(int codigo){
-        this.medicamentoRepository.remover(codigo);
+    public List<MedicamentoModels> buscarTodosMedicamento() {
+        return medicamentoRepository.buscarMedicamento();
     }
 
-    public List<MedicamentoModels> buscar(){
-        return this.medicamentoRepository.buscar();
-    }
-
-    public MedicamentoModels buscarPorCodigo(int codigo){
-        return this.medicamentoRepository.buscarPorCodigo(codigo);
+    public MedicamentoModels buscarMedicamentoId(int codigo) {
+        MedicamentoModels medicamento = medicamentoRepository.buscarMedicamentoId(codigo);
+        if (medicamento == null) {
+            throw new EntityNotFoundException("Medicamento não encontrado.");
+        }
+        return medicamento;
     }
 }
