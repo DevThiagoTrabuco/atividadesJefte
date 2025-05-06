@@ -27,30 +27,30 @@ public class FuncionarioModels {
     private LocalDateTime dataNascimento;
 
     @Column(name = "funcionarios_CPF")
-    private CPF cpf;
+    private String cpf;
 
     @Column(name = "funcionarios_RG")
-    private RG rg;
+    private String rg;
 
     @Column(name = "funcionarios_CTPS")
-    private CTPS ctps;
+    private String ctps;
 
     @Column(name = "funcionarios_nascimento")
     private LocalDateTime nascimento;
 
     @Column(name = "funcionarios_telefone")
-    private Telefone telefone;
+    private String telefone;
 
     @Column(name = "funcionarios_email")
-    private Email email;
+    private String email;
 
     @Column(name = "funcionarios_login")
-    private Login login;
+    private String login;
 
     @Column(name = "funcionarios_senha")
-    private Senha senha;
+    private String senha;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType. MERGE})
     @JoinColumn(name = "funcoes_id_fk", referencedColumnName = "funcoes_id")
-    private Funcao funcao;
+    private FuncaoModels funcaoModels;
 }

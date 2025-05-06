@@ -1,6 +1,7 @@
 package com.geriaTeam.geriatricare.entities;
 
 import com.geriaTeam.geriatricare.models.IndicadorModels;
+import com.geriaTeam.geriatricare.models.PacienteModels;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ public class Indicador {
     private int batimentos;
     private int oximetria;
     private int temperatura;
-    private Paciente paciente;
+    private PacienteModels pacienteModels;
 
     // Método para converter a entidade Indicador para IndicadorModels
     public IndicadorModels toModel() {
@@ -24,7 +25,7 @@ public class Indicador {
         indicadorModels.setBatimentos(this.batimentos);
         indicadorModels.setOximetria(this.oximetria);
         indicadorModels.setTemperatura(this.temperatura);
-        indicadorModels.setPaciente(this.paciente != null ? this.paciente : null);
+        indicadorModels.setPacienteModels(this.pacienteModels != null ? this.pacienteModels : null);
         return indicadorModels;
     }
 }

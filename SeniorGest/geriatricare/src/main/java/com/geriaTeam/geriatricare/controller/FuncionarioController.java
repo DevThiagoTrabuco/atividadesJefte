@@ -25,19 +25,19 @@ public class FuncionarioController {
     }
 
     @PostMapping("/adicionarFuncionario")
-    public void adicionarFuncionario(@RequestBody FuncionarioModels funcionarioModels, @RequestParam String adminLogin, @RequestParam String adminSenha) {
-        funcionarioFacade.adicionarFuncionario(funcionarioModels, adminLogin, adminSenha);
+    public void adicionarFuncionario(@RequestBody FuncionarioModels funcionarioModels) {
+        funcionarioFacade.adicionarFuncionario(funcionarioModels);
     }
 
     @PutMapping("/atualizarFuncionario/{id}")
-    public void atualizarFuncionario(@PathVariable int id, @RequestBody FuncionarioModels funcionarioModels, @RequestParam String adminLogin, @RequestParam String adminSenha) {
+    public void atualizarFuncionario(@PathVariable int id, @RequestBody FuncionarioModels funcionarioModels) {
         funcionarioModels.setId(id);
-        funcionarioFacade.atualizarFuncionario(funcionarioModels, adminLogin, adminSenha);
+        funcionarioFacade.atualizarFuncionario(funcionarioModels);
     }
 
     @DeleteMapping("/removerFuncionario/{id}")
-    public void removerFuncionario(@PathVariable int id, @RequestParam String adminLogin, @RequestParam String adminSenha) {
-        funcionarioFacade.removerFuncionario(id, adminLogin, adminSenha);
+    public void removerFuncionario(@PathVariable int id) {
+        funcionarioFacade.removerFuncionario(id);
     }
 }
 

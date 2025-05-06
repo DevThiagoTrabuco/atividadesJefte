@@ -16,18 +16,8 @@ import org.springframework.stereotype.Service;
 public class FuncionarioApplication {
     @Autowired
     private FuncionarioRepository funcionarioRepository;
-    @Autowired
-    private AdminApplication adminApplication;
 
-
-    private void validarAdmin(String login, String senha) {
-        if (adminApplication.autenticarAdmin(login, senha) == null) {
-            throw new SecurityException("Acesso negado. Apenas administradores podem executar esta ação.");
-        }
-    }
-
-    public void adicionarFuncionario(FuncionarioModels model, String adminLogin, String adminSenha) {
-        validarAdmin(adminLogin, adminSenha);
+    public void adicionarFuncionario(FuncionarioModels model) {
 
         Login login = new Login(model.getLogin().toString());
         Senha senha = new Senha(model.getSenha().toString());
@@ -69,8 +59,7 @@ public class FuncionarioApplication {
         throw new SecurityException("Login ou senha inválidos.");
     }
 
-    public void atualizarFuncionario(FuncionarioModels model, String adminLogin, String adminSenha) {
-        validarAdmin(adminLogin, adminSenha);
+    public void atualizarFuncionario(FuncionarioModels model) {
 
         FuncionarioModels existente = funcionarioRepository.buscarFuncionarioId(model.getId());
         if (existente == null) {
@@ -79,8 +68,7 @@ public class FuncionarioApplication {
         funcionarioRepository.atualizarFuncionario(model);
     }
 
-    public void removerFuncionario(int id, String adminLogin, String adminSenha) {
-        validarAdmin(adminLogin, adminSenha);
+    public void removerFuncionario(int id) {
 
         funcionarioRepository.removerFuncionario(id);
     }

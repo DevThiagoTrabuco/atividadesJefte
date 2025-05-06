@@ -21,8 +21,8 @@ public class AdminModels {
     private String nome;
 
     @Column(name = "administradores_login")
-    private Login login;
+    private String login;
 
     @Column(name = "administradores_senha")
-    private Senha senha;
+    private String senha;
 }

@@ -23,16 +23,16 @@ public class FuncionarioFacade {
         return funcionarioApplication.buscarFuncionarioId(codigo);
     }
 
-    public void adicionarFuncionario(FuncionarioModels funcionarioModels, String adminLogin, String adminSenha) {
-        funcionarioApplication.adicionarFuncionario(funcionarioModels, adminLogin, adminSenha);
+    public void adicionarFuncionario(FuncionarioModels funcionarioModels) {
+        funcionarioApplication.adicionarFuncionario(funcionarioModels);
     }
 
-    public void atualizarFuncionario(FuncionarioModels funcionarioModels, String adminLogin, String adminSenha) {
-        funcionarioApplication.atualizarFuncionario(funcionarioModels, adminLogin, adminSenha);
+    public void atualizarFuncionario(FuncionarioModels funcionarioModels) {
+        funcionarioApplication.atualizarFuncionario(funcionarioModels);
     }
 
-    public void removerFuncionario(int codigo, String adminLogin, String adminSenha) {
-        funcionarioApplication.removerFuncionario(codigo, adminLogin, adminSenha);
+    public void removerFuncionario(int codigo) {
+        funcionarioApplication.removerFuncionario(codigo);
     }
 }
 
