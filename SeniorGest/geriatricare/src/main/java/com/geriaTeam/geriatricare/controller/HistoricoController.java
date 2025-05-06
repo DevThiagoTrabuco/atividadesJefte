@@ -15,34 +15,39 @@ import org.springframework.web.bind.annotation.RestController;
 import com.geriaTeam.geriatricare.facade.HistoricoFacade;
 import com.geriaTeam.geriatricare.models.HistoricoModels;
 
-@RequestMapping("/historico")
+@RequestMapping("/api/historico/")
 @RestController
 public class HistoricoController {
+    private final HistoricoFacade historicoFacade;
+
     @Autowired
-    private HistoricoFacade historicoFacade;
+    public HistoricoController(HistoricoFacade historicoFacade) {
+        this.historicoFacade = historicoFacade;
 
-    @GetMapping
-    public List<HistoricoModels> buscarHistorico(){
-        return historicoFacade.buscarHistorico();
     }
 
-    @GetMapping("/buscarHistoricoId/{id}")
-    public HistoricoModels buscarHistoricoId(@PathVariable int id){
-        return historicoFacade.buscarHistoricoId(id);
+    @GetMapping("")
+    public List<HistoricoModels> buscar(){
+        return historicoFacade.buscar();
     }
 
-    @PostMapping("/adicionarHistorico")
-    public void adicionarHistorico(@RequestBody HistoricoModels historicoModels){
-        historicoFacade.adicionarHistorico(historicoModels);
+    @GetMapping("/{codigo}")
+    public HistoricoModels buscarPorCodigo(@PathVariable int codigo){
+        return historicoFacade.buscarPorCodigo(codigo);
     }
 
-    @PutMapping("/atualizarHistorico/{id}")
-    public void atualizarHistorico(@PathVariable int id, @RequestBody HistoricoModels historicoModels){
-        historicoFacade.atualizarHistorico(historicoModels);
+    @PostMapping("")
+    public void adicionar(@RequestBody HistoricoModels historicoModels){
+        historicoFacade.adicionar(historicoModels);
     }
 
-    @DeleteMapping("/removerHistorico/{id}")
-    public void removerHistorico(@PathVariable int id){
-        historicoFacade.removerHistorico(id);
+    @PutMapping("/{codigo}")
+    public void atualizar(@PathVariable int codigo, @RequestBody HistoricoModels historicoModels){
+        historicoFacade.atualizar(historicoModels);
+    }
+
+    @DeleteMapping("/{codigo}")
+    public void remover(@PathVariable int codigo){
+        historicoFacade.remover(codigo);
     }
 }

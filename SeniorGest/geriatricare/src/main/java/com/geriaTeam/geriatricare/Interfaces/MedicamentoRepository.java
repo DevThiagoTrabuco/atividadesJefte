@@ -6,9 +6,9 @@ import com.geriaTeam.geriatricare.models.MedicamentoModels;
 import java.util.List;
 
 public interface MedicamentoRepository {
-    public MedicamentoModels buscarMedicamentoId(int codigo);
-    public List<MedicamentoModels> buscarMedicamento();
-    public void adicionarMedicamento(MedicamentoModels medicamentoModels);
-    public void removerMedicamento(int codigo);
-    public void atualizarMedicamento(MedicamentoModels medicamentoModels);
+    public MedicamentoModels buscarPorCodigo(int codigo);
+    public List<MedicamentoModels> buscar();
+    public void adicionar(MedicamentoModels medicamentoModels);
+    public void remover(int codigo);
+    public void atualizar(MedicamentoModels medicamentoModels);
 }

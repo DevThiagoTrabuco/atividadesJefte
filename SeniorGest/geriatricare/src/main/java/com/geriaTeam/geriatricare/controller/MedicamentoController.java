@@ -7,35 +7,40 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/medicamento")
+@RequestMapping("/api/medicamento/")
 @RestController
 public class MedicamentoController {
+    private final MedicamentoFacade medicamentoFacade;
+
     @Autowired
-    private MedicamentoFacade medicamentoFacade;
+    public MedicamentoController(MedicamentoFacade medicamentoFacade) {
+        this.medicamentoFacade = medicamentoFacade;
 
-    @GetMapping
-    public List<MedicamentoModels> buscarTodosMedicamento(){
-        return medicamentoFacade.buscarTodosMedicamento();
     }
 
-    @GetMapping("/buscarMedicamentoId/{id}")
-    public MedicamentoModels buscarMedicamentoId(@PathVariable int id){
-        return medicamentoFacade.buscarMedicamentoId(id);
+    @GetMapping("")
+    public List<MedicamentoModels> buscar(){
+        return medicamentoFacade.buscar();
     }
 
-    @PostMapping("/adicionarMedicamento")
-    public void adicionarMedicamento(@RequestBody MedicamentoModels medicamentoModels){
-        medicamentoFacade.adicionarMedicamento(medicamentoModels);
+    @GetMapping("/{codigo}")
+    public MedicamentoModels buscarPorCodigo(@PathVariable int codigo){
+        return medicamentoFacade.buscarPorCodigo(codigo);
     }
 
-    @PutMapping("/atualizarMedicamento/{id}")
-    public void atualizar(@PathVariable int id, @RequestBody MedicamentoModels medicamentoModels){
-        medicamentoFacade.atualizarMedicamento(medicamentoModels);
+    @PostMapping("")
+    public void adicionar(@RequestBody MedicamentoModels medicamentoModels){
+        medicamentoFacade.adicionar(medicamentoModels);
     }
 
-    @DeleteMapping("/removerMedicamento/{id}")
-    public void remover(@PathVariable int id){
-        medicamentoFacade.removerMedicamento(id);
+    @PutMapping("/{codigo}")
+    public void atualizar(@PathVariable int codigo, @RequestBody MedicamentoModels medicamentoModels){
+        medicamentoFacade.atualizar(medicamentoModels);
+    }
+
+    @DeleteMapping("/{codigo}")
+    public void remover(@PathVariable int codigo){
+        medicamentoFacade.remover(codigo);
     }
 
 

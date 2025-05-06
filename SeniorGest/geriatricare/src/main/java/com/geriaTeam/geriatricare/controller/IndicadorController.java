@@ -15,34 +15,39 @@ import org.springframework.web.bind.annotation.RestController;
 import com.geriaTeam.geriatricare.facade.IndicadorFacade;
 import com.geriaTeam.geriatricare.models.IndicadorModels;
 
-@RequestMapping("/indicador")
+@RequestMapping("/api/indicador/")
 @RestController
 public class IndicadorController {
+    private final IndicadorFacade indicadorFacade;
+
     @Autowired
-    private IndicadorFacade indicadorFacade;
+    public IndicadorController(IndicadorFacade indicadorFacade) {
+        this.indicadorFacade = indicadorFacade;
 
-    @GetMapping()
-    public List<IndicadorModels> buscarTodosIndicador(){
-        return indicadorFacade.buscarTodosIndicador();
     }
 
-    @GetMapping("/buscarIndicadorId/{id}")
-    public IndicadorModels buscarIndicadorId(@PathVariable int id){
-        return indicadorFacade.buscarIndicadorId(id);
+    @GetMapping("")
+    public List<IndicadorModels> buscar(){
+        return indicadorFacade.buscar();
     }
 
-    @PostMapping("/adicionarIndicador")
+    @GetMapping("/{codigo}")
+    public IndicadorModels buscarPorCodigo(@PathVariable int codigo){
+        return indicadorFacade.buscarPorCodigo(codigo);
+    }
+
+    @PostMapping("")
     public void adicionar(@RequestBody IndicadorModels indicadorModels){
-        indicadorFacade.adicionarIndicador(indicadorModels);
+        indicadorFacade.adicionar(indicadorModels);
     }
 
-    @PutMapping("/atualizarIndicador/{id}")
-    public void atualizar(@PathVariable int id, @RequestBody IndicadorModels indicadorModels){
-        indicadorFacade.atualizarIndicador(indicadorModels);
+    @PutMapping("/{codigo}")
+    public void atualizar(@PathVariable int codigo, @RequestBody IndicadorModels indicadorModels){
+        indicadorFacade.atualizar(indicadorModels);
     }
 
-    @DeleteMapping("/removerIndicador/{id}")
-    public void remover(@PathVariable int id){
-        indicadorFacade.removerIndicador(id);
+    @DeleteMapping("/{codigo}")
+    public void remover(@PathVariable int codigo){
+        indicadorFacade.remover(codigo);
     }
 }

@@ -10,32 +10,35 @@ import java.util.List;
 
 @Repository
 public class AdminRepositoryMySQLImpl implements AdminRepository {
-    @Autowired
-    private AdminJPA adminJPA;
+    private final AdminJPA adminJPA;
 
-    @Override
-    public AdminModels buscarAdminId(int codigo) {
-        return this.adminJPA.findById(codigo).orElse(null);
+    @Autowired
+    public AdminRepositoryMySQLImpl(AdminJPA adminJPA) {
+        this.adminJPA = adminJPA;
     }
 
     @Override
-    public List<AdminModels> buscarAdmin() {
+    public AdminModels buscarPorCodigo(int codigo) {
+        return this.adminJPA.findById(codigo).get();
+    }
+
+    @Override
+    public List<AdminModels> buscar() {
         return this.adminJPA.findAll();
     }
 
     @Override
-    public void adicionarAdmin(AdminModels adminModels) {
+    public void adicionar(AdminModels adminModels) {
         this.adminJPA.save(adminModels);
     }
 
     @Override
-    public void removerAdmin(int codigo) {
+    public void remover(int codigo) {
         this.adminJPA.deleteById(codigo);
     }
 
     @Override
-    public void atualizarAdmin(AdminModels adminModels) {
+    public void atualizar(AdminModels adminModels) {
         this.adminJPA.save(adminModels);
     }
-
 }

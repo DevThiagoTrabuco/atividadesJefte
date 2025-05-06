@@ -10,31 +10,35 @@ import java.util.List;
 
 @Repository
 public class HistoricoRepositoryMySQLImpl implements HistoricoRepository {
+    private final HistoricoJPA historicoJPA;
+
     @Autowired
-    private HistoricoJPA historicoJPA;
+    public HistoricoRepositoryMySQLImpl(HistoricoJPA historicoJPA) {
+        this.historicoJPA = historicoJPA;
+    }
 
     @Override
-    public HistoricoModels buscarHistoricoId(int codigo) {
+    public HistoricoModels buscarPorCodigo(int codigo) {
         return this.historicoJPA.findById(codigo).get();
     }
 
     @Override
-    public List<HistoricoModels> buscarHistorico() {
+    public List<HistoricoModels> buscar() {
         return this.historicoJPA.findAll();
     }
 
     @Override
-    public void adicionarHistorico(HistoricoModels historicoModels) {
+    public void adicionar(HistoricoModels historicoModels) {
         this.historicoJPA.save(historicoModels);
     }
 
     @Override
-    public void removerHistorico(int codigo) {
+    public void remover(int codigo) {
         this.historicoJPA.deleteById(codigo);
     }
 
     @Override
-    public void atualizarHistorico(HistoricoModels historicoModels) {
+    public void atualizar(HistoricoModels historicoModels) {
         this.historicoJPA.save(historicoModels);
     }
 }
