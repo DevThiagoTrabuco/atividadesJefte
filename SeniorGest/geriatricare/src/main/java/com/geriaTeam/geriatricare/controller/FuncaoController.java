@@ -19,7 +19,7 @@ public class FuncaoController {
     }
 
     // CRUD padrão
-    @PostMapping("/adicionar-nome")
+    @PostMapping("/adicionar-funcao")
     public void adicionarFuncao(@RequestParam("nome") String nome) {
         funcaoFacade.adicionarFuncao(nome);
     }
@@ -39,7 +39,7 @@ public class FuncaoController {
         funcaoFacade.atualizarFuncao(id, novoNome);
     }
 
-    @GetMapping("/todas")
+    @GetMapping("/buscar-todas-funcao")
     public List<FuncaoModels> buscarTodasFuncoes() {
         return funcaoFacade.buscarTodasFuncoes();
     }

@@ -17,34 +17,12 @@ public class PacienteFamiliarController {
     public PacienteFamiliarController(PacienteFamiliarFacade pacienteFamiliarFacade) {
         this.pacienteFamiliarFacade = pacienteFamiliarFacade;
     }
-
-    @GetMapping("")
-    public List<PacienteFamiliarModels> buscar() {
-        return pacienteFamiliarFacade.buscar();
+    
+    @GetMapping("/buscar-todos")
+    public List<PacienteFamiliarModels> buscarTodosFamiliar() {
+        return pacienteFamiliarFacade.buscarTodosPacienteFamiliar();
     }
-
-    @GetMapping("/{codigo}")
-    public PacienteFamiliarModels buscarPorCodigo(@PathVariable int codigo) {
-        return pacienteFamiliarFacade.buscarPorCodigo(codigo);
-    }
-
-    @PostMapping("")
-    public void adicionar(@RequestBody PacienteFamiliarModels pacienteFamiliarModels) {
-        pacienteFamiliarFacade.adicionar(pacienteFamiliarModels);
-    }
-
-    @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody PacienteFamiliarModels pacienteFamiliarModels) {
-        pacienteFamiliarFacade.atualizar(pacienteFamiliarModels);
-    }
-
-    @DeleteMapping("/{codigo}")
-    public void remover(@PathVariable int codigo) {
-        pacienteFamiliarFacade.remover(codigo);
-    }
-
-    // Novas rotas
-
+    
     @PostMapping("/adicionar-familiar")
     public void adicionarFamiliar(@RequestParam int pacienteId, @RequestParam int familiarId) {
         pacienteFamiliarFacade.adicionarFamiliar(pacienteId, familiarId);

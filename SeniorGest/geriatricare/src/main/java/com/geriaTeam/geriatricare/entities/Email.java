@@ -15,4 +15,9 @@ public class Email {
     public boolean validarEmail() {
         return endereco != null && endereco.matches("^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
     }
+
+    @Override
+    public String toString() {
+        return endereco;
+    }
 }

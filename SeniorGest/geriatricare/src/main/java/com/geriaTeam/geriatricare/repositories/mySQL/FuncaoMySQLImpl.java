@@ -18,27 +18,27 @@ public class FuncaoMySQLImpl implements FuncaoRepository {
     }
 
     @Override
-    public FuncaoModels buscarPorCodigo(int codigo){
+    public FuncaoModels buscarFuncaoId(int codigo){
         return this.funcaoJPA.findById(codigo).get();
     }
 
     @Override
-    public List<FuncaoModels> buscar(){
+    public List<FuncaoModels> buscarFuncao(){
         return this.funcaoJPA.findAll();
     }
 
     @Override
-    public void adicionar(FuncaoModels funcaoModels){
+    public void adicionarFuncao(FuncaoModels funcaoModels){
         this.funcaoJPA.save(funcaoModels);
     }
 
     @Override
-    public void remover(int codigo){
+    public void removerFuncao(int codigo){
         this.funcaoJPA.deleteById(codigo);
     }
 
     @Override
-    public void atualizar(FuncaoModels funcaoModels){
+    public void atualizarFuncao(FuncaoModels funcaoModels){
         this.funcaoJPA.save(funcaoModels);
     }
 }

@@ -18,27 +18,27 @@ public class CondicaoFisicaRepositoryMySQLImpl implements CondicaoFisicaReposito
     }
 
     @Override
-    public CondicaoFisicaModels buscarPorCodigo(int codigo) {
+    public CondicaoFisicaModels buscarCondicaoFisicaId(int codigo) {
         return condicaoFisicaJPA.findById(codigo).get();
     }
 
     @Override
-    public List<CondicaoFisicaModels> buscar() {
+    public List<CondicaoFisicaModels> buscarCondicaoFisica() {
         return condicaoFisicaJPA.findAll();
     }
 
     @Override
-    public void adicionar(CondicaoFisicaModels condicaoFisicaModels) {
+    public void adicionarCondicaoFisica(CondicaoFisicaModels condicaoFisicaModels) {
         condicaoFisicaJPA.save(condicaoFisicaModels);
     }
 
     @Override
-    public void remover(int codigo) {
+    public void removerCondicaoFisica(int codigo) {
         condicaoFisicaJPA.deleteById(codigo);
     }
 
     @Override
-    public void atualizar(CondicaoFisicaModels condicaoFisicaModels) {
+    public void atualizarCondicaoFisica(CondicaoFisicaModels condicaoFisicaModels) {
         condicaoFisicaJPA.save(condicaoFisicaModels);
     }
 }

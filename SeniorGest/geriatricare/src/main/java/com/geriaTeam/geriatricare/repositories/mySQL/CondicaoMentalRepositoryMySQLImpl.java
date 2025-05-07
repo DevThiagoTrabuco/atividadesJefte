@@ -19,27 +19,27 @@ public class CondicaoMentalRepositoryMySQLImpl implements CondicaoMentalReposito
     }
 
     @Override
-    public CondicaoMentalModels buscarPorCodigo(int codigo) {
+    public CondicaoMentalModels buscarCondicaoMental(int codigo) {
         return this.condicaoMentalJPA.findById(codigo).get();
     }
 
     @Override
-    public List<CondicaoMentalModels> buscar() {
+    public List<CondicaoMentalModels> buscarCondicaoMental() {
         return this.condicaoMentalJPA.findAll();
     }
 
     @Override
-    public void adicionar(CondicaoMentalModels condicaoMentalModels) {
+    public void adicionarCondicaoMental(CondicaoMentalModels condicaoMentalModels) {
         this.condicaoMentalJPA.save(condicaoMentalModels);
     }
 
     @Override
-    public void remover(int codigo) {
+    public void removerCondicaoMental(int codigo) {
         this.condicaoMentalJPA.deleteById(codigo);
     }
 
     @Override
-    public void atualizar(CondicaoMentalModels condicaoMentalModels) {
+    public void atualizarCondicaoMental(CondicaoMentalModels condicaoMentalModels) {
         this.condicaoMentalJPA.save(condicaoMentalModels);
     }
 }

@@ -5,11 +5,11 @@ import java.util.List;
 import com.geriaTeam.geriatricare.models.FamiliarModels;
 
 public interface FamiliarRepository {
-    FamiliarModels buscarPorCodigo(int codigo);
-    FamiliarModels buscarPorCpf(String cpf);
-    List<FamiliarModels> buscarPorNome(String nome);
-    List<FamiliarModels> buscar();
-    void adicionar(FamiliarModels familiarModels);
-    void remover(int codigo);
-    void atualizar(FamiliarModels familiarModels);
+    FamiliarModels buscarFamiliarId(int codigo);
+    FamiliarModels buscarFamiliarCpf(String cpf);
+    List<FamiliarModels> buscarFamiliarNome(String nomeCompleto);
+    List<FamiliarModels> buscarFamiliar();
+    void adicionarFamiliar(FamiliarModels familiarModels);
+    void removerFamiliar(int codigo);
+    void atualizarFamiliar(FamiliarModels familiarModels);
 }

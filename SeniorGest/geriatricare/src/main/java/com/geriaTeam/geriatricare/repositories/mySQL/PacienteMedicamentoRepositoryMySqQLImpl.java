@@ -19,27 +19,27 @@ public class PacienteMedicamentoRepositoryMySqQLImpl implements PacienteMedicame
     }
 
     @Override
-    public PacienteMedicamentoModels buscarPorCodigo(int codigo) {
+    public PacienteMedicamentoModels buscarPacienteMedicamentoId(int codigo) {
         return this.pacienteMedicamentoJPA.findById(codigo).get();
     }
 
     @Override
-    public List<PacienteMedicamentoModels> buscar() {
+    public List<PacienteMedicamentoModels> buscarPacienteMedicamento() {
         return this.pacienteMedicamentoJPA.findAll();
     }
 
     @Override
-    public void adicionar(PacienteMedicamentoModels pacienteMedicamentoModels) {
+    public void adicionarPacienteMedicamento(PacienteMedicamentoModels pacienteMedicamentoModels) {
         this.pacienteMedicamentoJPA.save(pacienteMedicamentoModels);
     }
 
     @Override
-    public void remover(int codigo) {
+    public void removerPacienteMedicamento(int codigo) {
         this.pacienteMedicamentoJPA.deleteById(codigo);
     }
 
     @Override
-    public void atualizar(PacienteMedicamentoModels pacienteMedicamentoModels) {
+    public void atualizarPacienteMedicamento(PacienteMedicamentoModels pacienteMedicamentoModels) {
         this.pacienteMedicamentoJPA.save(pacienteMedicamentoModels);
     }
 

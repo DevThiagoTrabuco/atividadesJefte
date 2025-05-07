@@ -22,14 +22,14 @@ public class CondicaoMentalApplication {
         CondicaoMentalModels condicaoMentalModels = new CondicaoMentalModels();
         condicaoMentalModels.setNome(nome);
         condicaoMentalModels.setDescricao(descricao);
-        condicaoMentalRepository.adicionar(condicaoMentalModels);
+        condicaoMentalRepository.adicionarCondicaoMental(condicaoMentalModels);
     }
 
     //Remover Condição Mental
     public void removerCondicaoMental(int codigo) {
-        CondicaoMentalModels condicaoMental = condicaoMentalRepository.buscarPorCodigo(codigo);
+        CondicaoMentalModels condicaoMental = condicaoMentalRepository.buscarCondicaoMental(codigo);
         if (condicaoMental != null) {
-            condicaoMentalRepository.remover(codigo);
+            condicaoMentalRepository.removerCondicaoMental(codigo);
         } else {
             throw new NoSuchElementException("Condição mental não encontrada.");
         }
@@ -37,23 +37,19 @@ public class CondicaoMentalApplication {
 
     //Buscar todas as Condições Mentais
     public List<CondicaoMentalModels> buscarTodasCondicoes() {
-        return condicaoMentalRepository.buscar();
+        return condicaoMentalRepository.buscarCondicaoMental();
     }
 
     //Atualizar Condição Mental
     public void atualizarCondicaoMental(int id, String nome, String descricao) {
-        CondicaoMentalModels condicaoMental = condicaoMentalRepository.buscarPorCodigo(id);
+        CondicaoMentalModels condicaoMental = condicaoMentalRepository.buscarCondicaoMental(id);
         if (condicaoMental != null) {
             condicaoMental.setNome(nome);
             condicaoMental.setDescricao(descricao);
-            condicaoMentalRepository.atualizar(condicaoMental);
+            condicaoMentalRepository.atualizarCondicaoMental(condicaoMental);
         } else {
             throw new NoSuchElementException("Condição mental não encontrada.");
         }
     }
 
-    //Verificar se a Condição Mental Existe
-    public boolean verificarCondicaoMental(int codigo) {
-        return condicaoMentalRepository.buscarPorCodigo(codigo) != null;
-    }
 }

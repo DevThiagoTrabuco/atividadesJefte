@@ -12,88 +12,93 @@ import com.geriaTeam.geriatricare.models.PacienteMedicamentoModels;
 import com.geriaTeam.geriatricare.models.PlanoModels;
 
 @RestController
-@RequestMapping("/paciente")
+@RequestMapping("/api/paciente/")
 public class PacienteController {
 
     @Autowired
     private PacienteFacade pacienteFacade;
 
-    @GetMapping
+    @GetMapping("/buscar-todos-paciente")
     public List<PacienteModels> buscarTodosPacientes() {
         return pacienteFacade.buscarTodosPacientes();
     }
 
-    @GetMapping("/buscar-id/{id}")
+    @GetMapping("/buscar-paciente-id/{id}")
     public PacienteModels buscarPacienteId(@PathVariable int id) {
         return pacienteFacade.buscarPacienteId(id);
     }
 
-    @PostMapping("adicionar")
+    @GetMapping("/buscar-paciente-nome/{nome}/{sobrenome}")
+    public List<PacienteModels> buscarPacienteNome(@PathVariable String nome, @PathVariable String sobrenome) {
+        return pacienteFacade.buscarPacienteNome(nome, sobrenome);
+    }
+
+    @PostMapping("/adicionar-paciente")
     public void adicionarPaciente(@RequestBody PacienteModels pacienteModels) {
         pacienteFacade.adicionarPaciente(pacienteModels);
     }
 
-    @PutMapping("atalizar")
+    @PutMapping("/atualizar-paciente")
     public void atualizarPaciente(@RequestBody PacienteModels pacienteModels) {
         pacienteFacade.atualizarPaciente(pacienteModels);
     }
 
-    @DeleteMapping("/remover/{id}")
+    @DeleteMapping("/remover-paciente/{id}")
     public void removerPaciente(@PathVariable int id) {
         pacienteFacade.removerPaciente(id);
     }
 
-    @GetMapping("/estado-saude/{id}")
+    @GetMapping("/estado-saude-paciente/{id}")
     public String verificarEstadoSaudePaciente(@PathVariable int id) {
         return pacienteFacade.verificarEstadoSaudePaciente(id);
     }
 
-    @PostMapping("/registrar-entrada/{id}")
+    @PostMapping("/registrar-entrada-paciente/{id}")
     public void registrarEntradaPaciente(@PathVariable int id) {
         pacienteFacade.registrarEntradaPaciente(id);
     }
 
-    @PostMapping("/registrar-saida/{id}")
+    @PostMapping("/registrar-saida-paciente/{id}")
     public void registrarSaidaPaciente(@PathVariable int id) {
         pacienteFacade.registrarSaidaPaciente(id);
     }
 
-    @GetMapping("/idade/{id}")
+    @GetMapping("/idade-paciente/{id}")
     public int calcularIdadePaciente(@PathVariable int id) {
         return pacienteFacade.calcularIdadePaciente(id);
     }
 
-    @GetMapping("/historico-medicamentos/{id}")
+    @GetMapping("/historico-medicamentos-paciente/{id}")
     public List<PacienteMedicamentoModels> verificarHistoricoMedicamentosPaciente(@PathVariable int id) {
         return pacienteFacade.verificarHistoricoMedicamentosPaciente(id);
     }
 
-    @PostMapping("/{id}/adicionar-familiar")
+    @PostMapping("/adicionar-familiar-paciente/{id}")
     public void adicionarFamiliarPaciente(@PathVariable int id, @RequestBody PacienteFamiliarModels familiar) {
         pacienteFacade.adicionarFamiliarPaciente(id, familiar);
     }
 
-    @DeleteMapping("/{id}/remover-familiar/{idFamiliar}")
+    @DeleteMapping("/remover-familiar-paciente/{id}/{idFamiliar}")
     public void removerFamiliarPaciente(@PathVariable int id, @PathVariable int idFamiliar) {
         pacienteFacade.removerFamiliarPaciente(id, idFamiliar);
     }
 
-    @PutMapping("/{id}/atualizar-plano/{idPlano}")
+    @PutMapping("/atualizar-plano-paciente/{id}/{idPlano}")
     public void atualizarPlanoSaudePaciente(@PathVariable int id, @PathVariable int idPlano) {
         pacienteFacade.atualizarPlanoSaudePaciente(id, idPlano);
     }
 
-    @PostMapping("/{id}/adicionar-medicamento")
+    @PostMapping("/adicionar-medicamento-paciente/{id}")
     public void adicionarMedicamentoPaciente(@PathVariable int id, @RequestBody PacienteMedicamentoModels medicamento) {
         pacienteFacade.adicionarMedicamentoPaciente(id, medicamento);
     }
 
-    @DeleteMapping("/{id}/remover-medicamento/{idMedicamento}")
+    @DeleteMapping("/remover-medicamento/{id}/{idMedicamento}")
     public void removerMedicamentoPaciente(@PathVariable int id, @PathVariable int idMedicamento) {
         pacienteFacade.removerMedicamentoPaciente(id, idMedicamento);
     }
 
-    @GetMapping("/{id}/plano-saude")
+    @GetMapping("/plano-saude/{id}")
     public PlanoModels verificarPlanoSaudePaciente(@PathVariable int id) {
         return pacienteFacade.verificarPlanoSaudePaciente(id);
     }

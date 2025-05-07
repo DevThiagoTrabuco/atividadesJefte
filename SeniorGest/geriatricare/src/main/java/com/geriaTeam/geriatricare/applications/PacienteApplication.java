@@ -29,8 +29,7 @@ public class PacienteApplication {
 
     // Adicionar
     public void adicionarPaciente(PacienteModels pacienteModels) {
-        if (pacienteModels == null || pacienteRepository.buscarPacienteId(pacienteModels.getId()) == null) {
-            pacienteRepository.atualizarPaciente(pacienteModels);
+        if (pacienteModels == null) {
             throw new EntityNotFoundException("Paciente não é valido.");
         }
         Paciente paciente = new Paciente();
@@ -62,7 +61,6 @@ public class PacienteApplication {
         paciente.setNascimento(pacienteModels.getNascimento());
 
         pacienteRepository.adicionarPaciente(paciente.toModel());
-        registrarEntradaPaciente(pacienteModels.getId());
     }
 
     // Remover
@@ -89,7 +87,10 @@ public class PacienteApplication {
             throw new EntityNotFoundException("Paciente não encontrado.");
         }
     }
-
+    public List<PacienteModels> buscarPacienteNome(String nome, String sobrenome) {
+        String nomeCompleto = nome + " " + sobrenome;
+        return pacienteRepository.buscarPacienteNome(nomeCompleto);
+    }
     // Atualizar
     public void atualizarPaciente(PacienteModels pacienteModels) {
         if (pacienteModels == null || pacienteRepository.buscarPacienteId(pacienteModels.getId()) == null) {
@@ -220,7 +221,7 @@ public class PacienteApplication {
     public void atualizarPlanoSaudePaciente(int id, int idPlano) {
         PacienteModels pacienteModels = pacienteRepository.buscarPacienteId(id);
         if (pacienteModels != null) {
-            PlanoModels plano = planoRepository.buscarPorCodigo(idPlano); // Verifica se o plano existe
+            PlanoModels plano = planoRepository.buscarPlanoId(idPlano); // Verifica se o plano existe
             if (plano != null) {
                 pacienteModels.setPlanoModels(plano);
                 pacienteRepository.atualizarPaciente(pacienteModels);

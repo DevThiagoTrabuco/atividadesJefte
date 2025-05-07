@@ -15,4 +15,9 @@ public class Telefone {
     public boolean validarTelefone() {
         return numero != null && numero.matches("\\(\\d{2}\\)\\d{4,5}-\\d{4}");
     }
+
+    @Override
+    public String toString() {
+        return numero;
+    }
 }

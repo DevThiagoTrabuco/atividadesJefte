@@ -33,8 +33,8 @@ public class FamiliarFacade {
         return familiarApplication.buscarFamiliarCpf(Cpf);
     }
 
-    public List<FamiliarModels> buscarPorNome(String nome) {
-        return familiarApplication.buscarPorNome(nome);
+    public List<FamiliarModels> buscarPorNome(String nome, String sobrenome) {
+        return familiarApplication.buscarPorNome(nome, sobrenome);
     }
 
     public void atualizarFamiliar(FamiliarModels familiarModels) {

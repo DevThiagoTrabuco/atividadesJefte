@@ -4,9 +4,9 @@ import java.util.List;
 import com.geriaTeam.geriatricare.models.CondicaoFisicaModels;
 
 public interface CondicaoFisicaRepository {
-    CondicaoFisicaModels buscarPorCodigo(int codigo);
-    List<CondicaoFisicaModels> buscar();
-    void adicionar(CondicaoFisicaModels condicaoFisicaModels);
-    void remover(int codigo);
-    void atualizar(CondicaoFisicaModels condicaoFisicaModels);
+    CondicaoFisicaModels buscarCondicaoFisicaId(int codigo);
+    List<CondicaoFisicaModels> buscarCondicaoFisica();
+    void adicionarCondicaoFisica(CondicaoFisicaModels condicaoFisicaModels);
+    void removerCondicaoFisica(int codigo);
+    void atualizarCondicaoFisica(CondicaoFisicaModels condicaoFisicaModels);
 }
