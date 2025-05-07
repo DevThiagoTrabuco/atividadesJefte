@@ -29,7 +29,7 @@ public class PacienteController {
     }
 
     @GetMapping("/buscar-paciente-nome/{nome}/{sobrenome}")
-    public List<PacienteModels> buscarPacienteNome(@PathVariable String nome, @PathVariable String sobrenome) {
+    public List<PacienteModels> buscarPacienteNome(@PathVariable String nome, @PathVariable String sobrenome){
         return pacienteFacade.buscarPacienteNome(nome, sobrenome);
     }
 

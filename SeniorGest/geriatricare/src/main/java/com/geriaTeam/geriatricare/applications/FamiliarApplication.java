@@ -119,7 +119,7 @@ public class FamiliarApplication {
     }
 
     public List<FamiliarModels> buscarPorNome(String nome, String sobrenome) {
-        String nomeCompleto = nome + " " + sobrenome;
+        String nomeCompleto = nome + sobrenome;
         return familiarRepository.buscarFamiliarNome(nomeCompleto);
     }
 

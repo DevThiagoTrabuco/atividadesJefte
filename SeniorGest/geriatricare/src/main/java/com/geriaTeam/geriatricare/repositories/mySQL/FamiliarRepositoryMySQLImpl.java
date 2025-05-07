@@ -29,7 +29,7 @@ public class FamiliarRepositoryMySQLImpl implements FamiliarRepository {
 
     @Override
     public List<FamiliarModels> buscarFamiliarNome(String nomeCompleto) {
-        return this.familiarJPA.findByNomeContaining(nomeCompleto);
+        return this.familiarJPA.findByNomeCompleto(nomeCompleto);
     }
 
     @Override

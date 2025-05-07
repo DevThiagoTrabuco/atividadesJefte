@@ -7,7 +7,7 @@ import com.geriaTeam.geriatricare.models.FamiliarModels;
 public interface FamiliarRepository {
     FamiliarModels buscarFamiliarId(int codigo);
     FamiliarModels buscarFamiliarCpf(String cpf);
-    List<FamiliarModels> buscarFamiliarNome(String nomeCompleto);
+    List<FamiliarModels> buscarFamiliarNome(String nome);
     List<FamiliarModels> buscarFamiliar();
     void adicionarFamiliar(FamiliarModels familiarModels);
     void removerFamiliar(int codigo);

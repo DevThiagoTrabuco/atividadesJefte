@@ -29,8 +29,9 @@ public class PacienteRepositoryMySQLImpl implements PacienteRepository {
 
     @Override
     public List<PacienteModels> buscarPacienteNome(String nomeCompleto) {
-        return this.pacienteJPA.findByNomeContainingIgnoreCase(nomeCompleto);
+        return this.pacienteJPA.findByNomeCompleto(nomeCompleto);
     }
+
 
     @Override
     public void adicionarPaciente(PacienteModels pacienteModels) {
