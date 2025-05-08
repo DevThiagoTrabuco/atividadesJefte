@@ -23,34 +23,34 @@ public class PacienteFamiliarController {
         return pacienteFamiliarFacade.buscarTodosPacienteFamiliar();
     }
     
-    @PostMapping("/adicionar-familiar")
-    public void adicionarFamiliar(@RequestParam int pacienteId, @RequestParam int familiarId) {
+    @PostMapping("/adicionar-familiar/{pacienteId}/{familiarId}")
+    public void adicionarFamiliar(@PathVariable int pacienteId, @PathVariable int familiarId) {
         pacienteFamiliarFacade.adicionarFamiliar(pacienteId, familiarId);
     }
 
-    @DeleteMapping("/remover-familiar")
-    public void removerFamiliar(@RequestParam int pacienteId, @RequestParam int familiarId) {
+    @DeleteMapping("/remover-familiar/{pacienteId}/{familiarId}")
+    public void removerFamiliar(@PathVariable int pacienteId, @PathVariable int familiarId) {
         pacienteFamiliarFacade.removerFamiliar(pacienteId, familiarId);
     }
 
-    @GetMapping("/buscar-relacionamento")
+    @GetMapping("/buscar-relacionamento/{pacienteId}/{familiarId}")
     public PacienteFamiliarModels buscarRelacionamento(
-            @RequestParam("pacienteId") int pacienteId,
-            @RequestParam("familiarId") int familiarId) {
+            @PathVariable("pacienteId") int pacienteId,
+            @PathVariable("familiarId") int familiarId) {
         return pacienteFamiliarFacade.buscarRelacionamento(pacienteId, familiarId);
     }
 
-    @PutMapping("/atualizar-familiar")
+    @PutMapping("/atualizar-familiar/{pacienteId}/{familiarId}/{novoFamiliarId}")
     public void atualizarFamiliar(
-            @RequestParam int pacienteId,
-            @RequestParam int familiarId,
-            @RequestParam int novoFamiliarId
+            @PathVariable int pacienteId,
+            @PathVariable int familiarId,
+            @PathVariable int novoFamiliarId
     ) {
         pacienteFamiliarFacade.atualizarFamiliar(pacienteId, familiarId, novoFamiliarId);
     }
 
-    @GetMapping("/verificar-familiar")
-    public boolean verificarFamiliar(@RequestParam int pacienteId, @RequestParam int familiarId) {
+    @GetMapping("/verificar-familiar/{pacienteId}/{familiarId}")
+    public boolean verificarFamiliar(@PathVariable int pacienteId, @PathVariable int familiarId) {
         return pacienteFamiliarFacade.verificarFamiliar(pacienteId, familiarId);
     }
 }
