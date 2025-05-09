@@ -22,6 +22,10 @@ public class PacienteFamiliarApplication {
         this.pacienteRepository = pacienteRepository;
     }
 
+    public void adicionarPacienteFamiliar(PacienteFamiliarModels pacienteFamiliarModels) {
+        pacienteFamiliarRepository.adicionarPacienteFamiliar(pacienteFamiliarModels);
+    }
+
     public void adicionarFamiliar(int pacienteId, int familiarId) {
         FamiliarModels familiar = familiarRepository.buscarFamiliarId(familiarId);
         if (familiar == null) {
@@ -37,14 +41,18 @@ public class PacienteFamiliarApplication {
         PacienteFamiliarModels relacionamento = new PacienteFamiliarModels();
         relacionamento.setPacienteId(pacienteId);
         relacionamento.setFamiliarId(familiarId);
-        relacionamento.setPacienteId(pacienteId);
-        relacionamento.setFamiliarId(familiarId);
-
-        // Adiciona o relacionamento à lista de familiares do paciente
-        paciente.getPacienteFamiliarModels().add(relacionamento);
 
         // Atualiza o paciente no repositório
-        pacienteRepository.atualizarPaciente(paciente);
+        pacienteFamiliarRepository.adicionarPacienteFamiliar(relacionamento);
+    }
+
+    public void removerPacienteFamiliar(int id){
+        PacienteFamiliarModels relacionamento = pacienteFamiliarRepository.buscarPacienteFamiliarId(id);
+        if (relacionamento == null) {
+            throw new RuntimeException("Relacionamento não encontrado");
+        }
+
+        pacienteFamiliarRepository.removerPacienteFamiliar(id);
     }
 
     public void removerFamiliar(int pacienteId, int familiarId) {

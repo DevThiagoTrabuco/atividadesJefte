@@ -12,6 +12,9 @@ public class PacienteFamiliarFacade {
     @Autowired
     private PacienteFamiliarApplication pacienteFamiliarApplication;
 
+    public void adicionarPacienteFamiliar(PacienteFamiliarModels pacienteFamiliarModels) {
+        pacienteFamiliarApplication.adicionarPacienteFamiliar(pacienteFamiliarModels);
+    }
 
     public void adicionarFamiliar(int pacienteId, int familiarId) {
         pacienteFamiliarApplication.adicionarFamiliar(pacienteId, familiarId);
@@ -19,6 +22,10 @@ public class PacienteFamiliarFacade {
 
     public void removerFamiliar(int pacienteId, int familiarId) {
         pacienteFamiliarApplication.removerFamiliar(pacienteId, familiarId);
+    }
+
+    public void removerPacienteFamiliar(int id){
+        pacienteFamiliarApplication.removerPacienteFamiliar(id);
     }
 
     public PacienteFamiliarModels buscarRelacionamento(int pacienteId, int familiarId) {

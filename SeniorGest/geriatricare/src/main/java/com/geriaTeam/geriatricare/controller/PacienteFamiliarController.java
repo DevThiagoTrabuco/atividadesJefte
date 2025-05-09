@@ -22,7 +22,12 @@ public class PacienteFamiliarController {
     public List<PacienteFamiliarModels> buscarTodosFamiliar() {
         return pacienteFamiliarFacade.buscarTodosPacienteFamiliar();
     }
-    
+
+    @PostMapping("/adicionar-paciente-familiar")
+    public void adicionarPacienteFamiliar(@RequestBody PacienteFamiliarModels pacienteFamiliarModels) {
+        pacienteFamiliarFacade.adicionarPacienteFamiliar(pacienteFamiliarModels);
+    }
+
     @PostMapping("/adicionar-familiar/{pacienteId}/{familiarId}")
     public void adicionarFamiliar(@PathVariable int pacienteId, @PathVariable int familiarId) {
         pacienteFamiliarFacade.adicionarFamiliar(pacienteId, familiarId);
@@ -31,6 +36,11 @@ public class PacienteFamiliarController {
     @DeleteMapping("/remover-familiar/{pacienteId}/{familiarId}")
     public void removerFamiliar(@PathVariable int pacienteId, @PathVariable int familiarId) {
         pacienteFamiliarFacade.removerFamiliar(pacienteId, familiarId);
+    }
+
+    @DeleteMapping("/remover-paciente-familiar/{id}")
+    public void removerPacienteFamiliar(@PathVariable int id){
+        pacienteFamiliarFacade.removerPacienteFamiliar(id);
     }
 
     @GetMapping("/buscar-relacionamento/{pacienteId}/{familiarId}")

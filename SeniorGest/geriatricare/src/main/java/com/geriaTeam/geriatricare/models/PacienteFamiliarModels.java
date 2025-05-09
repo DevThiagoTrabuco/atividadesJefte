@@ -17,18 +17,18 @@ public class PacienteFamiliarModels {
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     @ManyToOne
-    @JoinColumn(name = "pacientes_id_fk", referencedColumnName = "pacientes_id")
+    @JoinColumn(name = "pacientes_id_fk", referencedColumnName = "pacientes_id", insertable = false, updatable = false)
     private PacienteModels pacienteModels;
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     @ManyToOne
-    @JoinColumn(name = "familiares_id_fk", referencedColumnName = "familiares_id")
+    @JoinColumn(name = "familiares_id_fk", referencedColumnName = "familiares_id", insertable = false, updatable = false)
     private FamiliarModels familiarModels;
 
-    @Column(name = "familiares_id_fk", insertable = false, updatable = false)
+    @Column(name = "familiares_id_fk")
     private int familiarId;
 
-    @Column(name = "pacientes_id_fk", insertable = false, updatable = false)
+    @Column(name = "pacientes_id_fk")
     private int pacienteId;
 }
