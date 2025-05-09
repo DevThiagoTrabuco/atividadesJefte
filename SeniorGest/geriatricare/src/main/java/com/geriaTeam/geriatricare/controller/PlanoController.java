@@ -25,17 +25,19 @@ public class PlanoController {
     public PlanoModels buscarPlanoId(@PathVariable int codigo) {return planoFacade.buscarPlanoId(codigo);}
 
     @GetMapping("/buscar-plano-nome/{nome}")
-    public List <PlanoModels> buscarPlanoNome(String nome){
+    public List <PlanoModels> buscarPlanoNome(@PathVariable String nome){
         return planoFacade.buscarPlanoNome(nome);
     }
 
     @PostMapping("/adicionar-plano")
     public void adicionar(@RequestBody PlanoModels planoModels) {
-        planoFacade.adicionar(planoModels);}
+        planoFacade.adicionar(planoModels);
+    }
 
     @PutMapping("/atualizar-plano/{codigo}")
     public void atualizar(@RequestBody PlanoModels planoModels) {
-        planoFacade.atualizar(planoModels);}
+        planoFacade.atualizar(planoModels);
+    }
 
     @DeleteMapping("/remover-plano/{codigo}")
     public void remover(@PathVariable int codigo) {
