@@ -18,32 +18,32 @@ public class PlanoMySQLImpl implements PlanoRepository {
     }
 
     @Override
-    public PlanoModels buscarPorCodigo(int codigo){
+    public PlanoModels buscarPlanoId(int codigo){
         return this.planoJPA.findById(codigo).get();
     }
 
     @Override
-    public List<PlanoModels> buscar(){
+    public List<PlanoModels> buscarPlano(){
         return this.planoJPA.findAll();
     }
 
     @Override
-    public void adicionar(PlanoModels planoModels){
+    public void adicionarPlano(PlanoModels planoModels){
         this.planoJPA.save(planoModels);
     }
 
     @Override
-    public void remover(int codigo){
+    public void removerPlano(int codigo){
         this.planoJPA.deleteById(codigo);
     }
 
     @Override
-    public void atualizar(PlanoModels planoModels){
+    public void atualizarPlano(PlanoModels planoModels){
         this.planoJPA.save(planoModels);
     }
 
     @Override
-    public List<PlanoModels> buscarPorNome(String nome) {
+    public List<PlanoModels> buscarPlanoNome(String nome) {
         return this.planoJPA.findByNome(nome);
     }
 }

@@ -10,31 +10,35 @@ import java.util.List;
 
 @Repository
 public class IndicadorRepositoryMySQLImpl implements IndicadorRepository {
+    private final IndicadorJPA indicadorJPA;
+
     @Autowired
-    private IndicadorJPA indicadorJPA;
+    public IndicadorRepositoryMySQLImpl(IndicadorJPA indicadorJPA) {
+        this.indicadorJPA = indicadorJPA;
+    }
 
     @Override
-    public IndicadorModels buscarIndicadorId(int codigo) {
+    public IndicadorModels buscarPorCodigo(int codigo) {
         return this.indicadorJPA.findById(codigo).get();
     }
 
     @Override
-    public List<IndicadorModels> buscarIndicador() {
+    public List<IndicadorModels> buscar() {
         return this.indicadorJPA.findAll();
     }
 
     @Override
-    public void adicionarIndicador(IndicadorModels indicadorModels) {
+    public void adicionar(IndicadorModels indicadorModels) {
         this.indicadorJPA.save(indicadorModels);
     }
 
     @Override
-    public void removerIndicador(int codigo) {
+    public void remover(int codigo) {
         this.indicadorJPA.deleteById(codigo);
     }
 
     @Override
-    public void atualizarIndicador(IndicadorModels indicadorModels) {
+    public void atualizar(IndicadorModels indicadorModels) {
         this.indicadorJPA.save(indicadorModels);
     }
 }

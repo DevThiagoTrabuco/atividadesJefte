@@ -18,37 +18,37 @@ public class FamiliarRepositoryMySQLImpl implements FamiliarRepository {
     }
 
     @Override
-    public FamiliarModels buscarPorCodigo(int codigo) {
+    public FamiliarModels buscarFamiliarId(int codigo) {
         return this.familiarJPA.findById(codigo).get();
     }
 
     @Override
-    public FamiliarModels buscarPorCpf(String cpf) {
+    public FamiliarModels buscarFamiliarCpf(String cpf) {
         return this.familiarJPA.findByCpf(cpf);
     }
 
     @Override
-    public List<FamiliarModels> buscarPorNome(String nome) {
-        return this.familiarJPA.findByNomeContaining(nome);
+    public List<FamiliarModels> buscarFamiliarNome(String nomeCompleto) {
+        return this.familiarJPA.findByNomeCompleto(nomeCompleto);
     }
 
     @Override
-    public List<FamiliarModels> buscar() {
+    public List<FamiliarModels> buscarFamiliar() {
         return this.familiarJPA.findAll();
     }
 
     @Override
-    public void adicionar(FamiliarModels familiarModels) {
+    public void adicionarFamiliar(FamiliarModels familiarModels) {
         this.familiarJPA.save(familiarModels);
     }
 
     @Override
-    public void remover(int codigo) {
+    public void removerFamiliar(int codigo) {
         this.familiarJPA.deleteById(codigo);
     }
 
     @Override
-    public void atualizar(FamiliarModels familiarModels) {
+    public void atualizarFamiliar(FamiliarModels familiarModels) {
         this.familiarJPA.save(familiarModels);
     }
 }

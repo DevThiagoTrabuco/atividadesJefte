@@ -17,4 +17,9 @@ public class CTPS {
         return numero != null && numero.matches("\\d{7}") &&
                 serie != null && serie.matches("\\d{4}");
     }
+
+    @Override
+    public String toString() {
+        return numero;
+    }
 }

@@ -47,7 +47,6 @@ public class PacienteModels {
     @JoinColumn(name = "condicoes_fisicas_id_fk", referencedColumnName = "condicoes_fisicas_id")
     private CondicaoFisicaModels condicaoFisica;
 
-
     @OneToMany(mappedBy = "pacienteModels", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<PacienteMedicamentoModels> pacienteMedicamentoModels;
 

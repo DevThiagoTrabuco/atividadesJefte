@@ -17,4 +17,9 @@ public class RG {
     public boolean validarRG() {
         return numero != null && numero.matches("\\d{9}");
     }
+
+    @Override
+    public String toString() {
+        return numero;
+    }
 }

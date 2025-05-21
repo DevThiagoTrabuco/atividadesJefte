@@ -1,16 +1,14 @@
 package com.geriaTeam.geriatricare.applications;
 
+import com.geriaTeam.geriatricare.Interfaces.FamiliarRepository;
 import com.geriaTeam.geriatricare.Interfaces.PacienteRepository;
 import com.geriaTeam.geriatricare.Interfaces.PlanoRepository;
 import com.geriaTeam.geriatricare.entities.*;
-import com.geriaTeam.geriatricare.models.PacienteFamiliarModels;
-import com.geriaTeam.geriatricare.models.PacienteMedicamentoModels;
-import com.geriaTeam.geriatricare.models.PacienteModels;
+import com.geriaTeam.geriatricare.models.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.geriaTeam.geriatricare.models.PlanoModels;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,17 +18,17 @@ import org.springframework.stereotype.Service;
 public class PacienteApplication {
     private PacienteRepository pacienteRepository;
     private PlanoRepository planoRepository;
-
+    private FamiliarRepository familiarRepository;
     @Autowired
-    public PacienteApplication(PacienteRepository pacienteRepository, PlanoRepository planoRepository) {
+    public PacienteApplication(PacienteRepository pacienteRepository, PlanoRepository planoRepository, FamiliarRepository familiarRepository) {
         this.pacienteRepository = pacienteRepository;
         this.planoRepository = planoRepository;
+        this.familiarRepository = familiarRepository;
     }
 
     // Adicionar
     public void adicionarPaciente(PacienteModels pacienteModels) {
-        if (pacienteModels == null || pacienteRepository.buscarPacienteId(pacienteModels.getId()) == null) {
-            pacienteRepository.atualizarPaciente(pacienteModels);
+        if (pacienteModels == null) {
             throw new EntityNotFoundException("Paciente não é valido.");
         }
         Paciente paciente = new Paciente();
@@ -62,7 +60,6 @@ public class PacienteApplication {
         paciente.setNascimento(pacienteModels.getNascimento());
 
         pacienteRepository.adicionarPaciente(paciente.toModel());
-        registrarEntradaPaciente(pacienteModels.getId());
     }
 
     // Remover
@@ -88,6 +85,10 @@ public class PacienteApplication {
         } else {
             throw new EntityNotFoundException("Paciente não encontrado.");
         }
+    }
+    public List<PacienteModels> buscarPacienteNome(String nome, String sobrenome) {
+        String nomeCompleto = nome + sobrenome;
+        return pacienteRepository.buscarPacienteNome(nomeCompleto);
     }
 
     // Atualizar
@@ -189,6 +190,10 @@ public class PacienteApplication {
     public void adicionarFamiliarPaciente(int id, PacienteFamiliarModels familiar) {
         PacienteModels pacienteModels = pacienteRepository.buscarPacienteId(id);
         if (pacienteModels != null) {
+            FamiliarModels familiarModels = familiarRepository.buscarFamiliarId(familiar.getFamiliarId());
+            if (familiarModels == null) {
+                throw new EntityNotFoundException("Familiar não encontrado.");
+            }
             pacienteModels.getPacienteFamiliarModels().add(familiar);
             pacienteRepository.atualizarPaciente(pacienteModels);
             // Fazer outras ações necessárias como notificar familiar ou registrar em algum sistema
@@ -220,7 +225,7 @@ public class PacienteApplication {
     public void atualizarPlanoSaudePaciente(int id, int idPlano) {
         PacienteModels pacienteModels = pacienteRepository.buscarPacienteId(id);
         if (pacienteModels != null) {
-            PlanoModels plano = planoRepository.buscarPorCodigo(idPlano); // Verifica se o plano existe
+            PlanoModels plano = planoRepository.buscarPlanoId(idPlano); // Verifica se o plano existe
             if (plano != null) {
                 pacienteModels.setPlanoModels(plano);
                 pacienteRepository.atualizarPaciente(pacienteModels);

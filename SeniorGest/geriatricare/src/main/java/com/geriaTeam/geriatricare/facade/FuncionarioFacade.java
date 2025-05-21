@@ -13,26 +13,26 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class FuncionarioFacade {
     @Autowired
-    private FuncionarioApplication funcionarioApplication;
+    private FuncionarioApplication FuncionarioApplication;
 
-    public List<FuncionarioModels> buscarTodosFuncionario() {
-        return funcionarioApplication.buscarTodosFuncionario();
+    public List<FuncionarioModels> buscar() {
+        return FuncionarioApplication.buscar();
     }
 
-    public FuncionarioModels buscarFuncionarioId(int codigo) {
-        return funcionarioApplication.buscarFuncionarioId(codigo);
+    public FuncionarioModels buscarPorCodigo(int codigo) {
+        return FuncionarioApplication.buscarPorCodigo(codigo);
     }
 
-    public void adicionarFuncionario(FuncionarioModels funcionarioModels) {
-        funcionarioApplication.adicionarFuncionario(funcionarioModels);
+    public void adicionar(FuncionarioModels FuncionarioModels) {
+        FuncionarioApplication.adicionar(FuncionarioModels);
     }
 
-    public void atualizarFuncionario(FuncionarioModels funcionarioModels) {
-        funcionarioApplication.atualizarFuncionario(funcionarioModels);
+    public void atualizar(FuncionarioModels FuncionarioModels) {
+        FuncionarioApplication.atualizar(FuncionarioModels);
     }
 
-    public void removerFuncionario(int codigo) {
-        funcionarioApplication.removerFuncionario(codigo);
+    public void remover(int codigo) {
+        FuncionarioApplication.remover(codigo);
     }
 }
 

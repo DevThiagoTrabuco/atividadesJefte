@@ -18,27 +18,27 @@ public class PacienteFamiliarRepositoryMySQLImpl implements PacienteFamiliarRepo
     }
 
     @Override
-    public PacienteFamiliarModels buscarPorCodigo(int codigo) {
+    public PacienteFamiliarModels buscarPacienteFamiliarId(int codigo) {
         return this.pacienteFamiliarJPA.findById(codigo).get();
     }
 
     @Override
-    public List<PacienteFamiliarModels> buscar() {
+    public List<PacienteFamiliarModels> buscarPacienteFamiliar() {
         return this.pacienteFamiliarJPA.findAll();
     }
 
     @Override
-    public void adicionar(PacienteFamiliarModels pacienteFamiliarModels) {
+    public void adicionarPacienteFamiliar(PacienteFamiliarModels pacienteFamiliarModels) {
         this.pacienteFamiliarJPA.save(pacienteFamiliarModels);
     }
 
     @Override
-    public void remover(int codigo) {
+    public void removerPacienteFamiliar(int codigo) {
         this.pacienteFamiliarJPA.deleteById(codigo);
     }
 
     @Override
-    public void atualizar(PacienteFamiliarModels pacienteFamiliarModels) {
+    public void atualizarPacienteFamiliar(PacienteFamiliarModels pacienteFamiliarModels) {
         this.pacienteFamiliarJPA.save(pacienteFamiliarModels);
     }
 

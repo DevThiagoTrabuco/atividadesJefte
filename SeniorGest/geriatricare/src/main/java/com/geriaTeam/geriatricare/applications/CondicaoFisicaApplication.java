@@ -23,15 +23,15 @@ public class CondicaoFisicaApplication {
         CondicaoFisicaModels condicaoFisicaModels = new CondicaoFisicaModels();
         condicaoFisicaModels.setNome(nome);
         condicaoFisicaModels.setDescricao(descricao);
-        condicaoFisicaRepository.adicionar(condicaoFisicaModels);
+        condicaoFisicaRepository.adicionarCondicaoFisica(condicaoFisicaModels);
     }
 
     public List<CondicaoFisicaModels> buscarCondicoesFisicas() {
-        return condicaoFisicaRepository.buscar();
+        return condicaoFisicaRepository.buscarCondicaoFisica();
     }
 
     public CondicaoFisicaModels buscarCondicaoFisicaPorCodigo(int id) {
-        CondicaoFisicaModels condicaoFisica = condicaoFisicaRepository.buscarPorCodigo(id);
+        CondicaoFisicaModels condicaoFisica = condicaoFisicaRepository.buscarCondicaoFisicaId(id);
         if (condicaoFisica == null) {
             throw new EntityNotFoundException("Condição Física não encontrada para o ID: " + id);
         }
@@ -39,21 +39,21 @@ public class CondicaoFisicaApplication {
     }
 
     public void removerCondicaoFisica(int id) {
-        CondicaoFisicaModels condicaoFisica = condicaoFisicaRepository.buscarPorCodigo(id);
+        CondicaoFisicaModels condicaoFisica = condicaoFisicaRepository.buscarCondicaoFisicaId(id);
         if (condicaoFisica == null) {
             throw new EntityNotFoundException("Condição Física não encontrada para o ID: " + id);
         }
-        condicaoFisicaRepository.remover(id);
+        condicaoFisicaRepository.removerCondicaoFisica(id);
     }
 
     public void atualizarCondicaoFisica(int id, String novoNome, String novaDescricao) {
-        CondicaoFisicaModels condicaoFisica = condicaoFisicaRepository.buscarPorCodigo(id);
+        CondicaoFisicaModels condicaoFisica = condicaoFisicaRepository.buscarCondicaoFisicaId(id);
         if (condicaoFisica == null) {
             throw new EntityNotFoundException("Condição Física não encontrada para o ID: " + id);
         }
         condicaoFisica.setNome(novoNome);
         condicaoFisica.setDescricao(novaDescricao);
 
-        condicaoFisicaRepository.atualizar(condicaoFisica);
+        condicaoFisicaRepository.atualizarCondicaoFisica(condicaoFisica);
     }
 }

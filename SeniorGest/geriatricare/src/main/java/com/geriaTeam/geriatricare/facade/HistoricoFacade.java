@@ -15,23 +15,23 @@ public class HistoricoFacade {
     @Autowired
     private HistoricoApplication historicoApplication;
 
-    public List<HistoricoModels> buscarHistorico() {
-        return historicoApplication.buscarHistorico();
+    public List<HistoricoModels> buscar() {
+        return historicoApplication.buscar();
     }
 
-    public HistoricoModels buscarHistoricoId(int codigo) {
-        return historicoApplication.buscarHistoricoId(codigo);
+    public HistoricoModels buscarPorCodigo(int codigo) {
+        return historicoApplication.buscarPorCodigo(codigo);
     }
 
-    public void adicionarHistorico(HistoricoModels historicoModels) {
-        historicoApplication.adicionarHistorico(historicoModels);
+    public void adicionar(HistoricoModels historicoModels) {
+        historicoApplication.adicionar(historicoModels);
     }
 
-    public void atualizarHistorico(HistoricoModels historicoModels) {
-        historicoApplication.atualizarHistorico(historicoModels);
+    public void atualizar(HistoricoModels historicoModels) {
+        historicoApplication.atualizar(historicoModels);
     }
 
-    public void removerHistorico(int codigo) {
-        historicoApplication.removerHistorico(codigo);
+    public void remover(int codigo) {
+        historicoApplication.remover(codigo);
     }
 }

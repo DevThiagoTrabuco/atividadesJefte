@@ -33,7 +33,4 @@ public class CondicaoMentalFacade {
         condicaoMentalApplication.atualizarCondicaoMental(codigo, nome, descricao);
     }
 
-    public boolean verificarCondicaoMental(int codigo) {
-        return condicaoMentalApplication.verificarCondicaoMental(codigo);
-    }
 }

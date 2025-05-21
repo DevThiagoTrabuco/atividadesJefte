@@ -13,6 +13,11 @@ public class Telefone {
     private String numero;
 
     public boolean validarTelefone() {
-        return numero != null && numero.matches("\\(\\d{2}\\)\\d{4,5}-\\d{4}");
+        return numero != null && numero.matches("\\d{10,11}");
+    }
+
+    @Override
+    public String toString() {
+        return numero;
     }
 }

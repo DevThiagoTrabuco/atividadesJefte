@@ -1,6 +1,5 @@
 package com.geriaTeam.geriatricare.models;
 
-import com.geriaTeam.geriatricare.entities.*;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -23,9 +22,6 @@ public class FuncionarioModels {
     @Column(name = "funcionarios_sobrenome")
     private String sobrenome;
 
-    @Column(name = "funcionarios_data_nascimento")
-    private LocalDateTime dataNascimento;
-
     @Column(name = "funcionarios_CPF")
     private String cpf;
 
@@ -39,16 +35,11 @@ public class FuncionarioModels {
     private LocalDateTime nascimento;
 
     @Column(name = "funcionarios_telefone")
-    private String telefone;
+    private int telefone;
 
     @Column(name = "funcionarios_email")
     private String email;
 
-    @Column(name = "funcionarios_login")
-    private String login;
-
-    @Column(name = "funcionarios_senha")
-    private String senha;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType. MERGE})
     @JoinColumn(name = "funcoes_id_fk", referencedColumnName = "funcoes_id")

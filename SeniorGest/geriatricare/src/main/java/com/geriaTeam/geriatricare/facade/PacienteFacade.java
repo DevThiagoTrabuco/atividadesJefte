@@ -27,6 +27,10 @@ public class PacienteFacade {
         return pacienteApplication.buscarPacienteId(id);
     }
 
+    public List<PacienteModels> buscarPacienteNome(String nome, String sobrenome) {
+        return pacienteApplication.buscarPacienteNome(nome, sobrenome);
+    }
+
     public void adicionarPaciente(PacienteModels pacienteModels) {
         pacienteApplication.adicionarPaciente(pacienteModels);
     }

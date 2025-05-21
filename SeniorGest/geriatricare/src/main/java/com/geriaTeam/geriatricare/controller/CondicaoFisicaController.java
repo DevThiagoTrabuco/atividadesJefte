@@ -19,22 +19,22 @@ public class CondicaoFisicaController {
     }
 
     // CRUD padrão
-    @PostMapping("/adicionar")
+    @PostMapping("/adicionar-condicao-fisica")
     public void adicionarCondicaoFisica(@RequestParam String nome, @RequestParam String descricao) {
         condicaoFisicaFacade.adicionarCondicaoFisica(nome, descricao);
     }
 
-    @DeleteMapping("/remover-condicao/{codigo}")
+    @DeleteMapping("/remover-condicao-fisica/{codigo}")
     public void removerCondicaoFisica(@PathVariable int codigo) {
         condicaoFisicaFacade.removerCondicaoFisica(codigo);
     }
 
-    @GetMapping("/todas")
+    @GetMapping("/buscar-todas-condicao-fisica")
     public List<CondicaoFisicaModels> buscarTodasCondicoesFisicas() {
         return condicaoFisicaFacade.buscarCondicoesFisicas();
     }
 
-    @PutMapping("/atualizar-condicao/{codigo}")
+        @PutMapping("/atualizar-condicao-fisica/{codigo}")
     public void atualizarCondicaoFisica(
             @PathVariable int codigo,
             @RequestParam String novoNome,

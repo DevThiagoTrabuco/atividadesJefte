@@ -28,7 +28,7 @@ public class PacienteMedicamentoController {
         pacienteMedicamentoFacade.removerMedicamento(pacienteId, medicamentoId);
     }
 
-    @GetMapping("/medicamentos/{pacienteId}")
+    @GetMapping("/todos-medicamentos/{pacienteId}")
     public List<MedicamentoModels> buscarMedicamentosPorPaciente(@PathVariable int pacienteId) {
         return pacienteMedicamentoFacade.buscarMedicamentosPorPaciente(pacienteId);
     }

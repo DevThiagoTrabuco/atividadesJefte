@@ -28,14 +28,14 @@ public class PlanoApplication {
         this.planoRepository = planoRepository;
     }
 
-    public void adicionar(PlanoModels planoModels) {
+    public void adicionarPlano(PlanoModels planoModels) {
         // Adiciona planos padrão se não existirem
-        if(planoRepository.buscarPorNome("Plano Basico") == null
-                || planoRepository.buscarPorNome("Plano Intermediario") == null
-                || planoRepository.buscarPorNome("Plano Avancado") == null
-                || planoRepository.buscarPorCodigo(0) == null
-                || planoRepository.buscarPorCodigo(1) == null
-                || planoRepository.buscarPorCodigo(2) == null) {
+        if(planoRepository.buscarPlanoNome("Plano Basico") == null
+                || planoRepository.buscarPlanoNome("Plano Intermediario") == null
+                || planoRepository.buscarPlanoNome("Plano Avancado") == null
+                || planoRepository.buscarPlanoId(0) == null
+                || planoRepository.buscarPlanoId(1) == null
+                || planoRepository.buscarPlanoId(2) == null) {
             PlanoFactory planoFactory = new PlanoFactory();
 
             PlanoInterface planoBasico = planoFactory.criarPlano(TipoPlanoEnums.PLANO_BASICO);
@@ -50,7 +50,7 @@ public class PlanoApplication {
             planoBasico.setTipoPlano(TipoPlanoEnums.PLANO_BASICO);
             planoBasico.setBeneficio(obterBeneficiosPorPlano(TipoPlanoEnums.PLANO_BASICO));
             planoBasico.setPreco(obterPreco(TipoPlanoEnums.PLANO_BASICO));
-            this.planoRepository.adicionar(planoBasico.toModel());
+            this.planoRepository.adicionarPlano(planoBasico.toModel());
             //plano basico
 
             //plano intermediario
@@ -61,7 +61,7 @@ public class PlanoApplication {
             planoIntermediario.setTipoPlano(TipoPlanoEnums.PLANO_INTERMEDIARIO);
             planoIntermediario.setBeneficio(obterBeneficiosPorPlano(TipoPlanoEnums.PLANO_INTERMEDIARIO));
             planoIntermediario.setPreco(obterPreco(TipoPlanoEnums.PLANO_INTERMEDIARIO));
-            this.planoRepository.adicionar(planoIntermediario.toModel());
+            this.planoRepository.adicionarPlano(planoIntermediario.toModel());
             //plano intermediario
 
             //plano avancado
@@ -72,48 +72,48 @@ public class PlanoApplication {
             planoAvancado.setTipoPlano(TipoPlanoEnums.PLANO_AVANCADO);
             planoAvancado.setBeneficio(obterBeneficiosPorPlano(TipoPlanoEnums.PLANO_AVANCADO));
             planoAvancado.setPreco(obterPreco(TipoPlanoEnums.PLANO_AVANCADO));
-            this.planoRepository.adicionar(planoAvancado.toModel());
+            this.planoRepository.adicionarPlano(planoAvancado.toModel());
             //plano avancado
         }
-        if(planoRepository.buscarPorCodigo(planoModels.getId()) == null || planoRepository.buscarPorNome(planoModels.getNome()) == null){
+        if(planoRepository.buscarPlanoId(planoModels.getId()) == null || planoRepository.buscarPlanoNome(planoModels.getNome()) == null){
             throw new IllegalArgumentException("Plano não pode ser nulo.");
         }
-        this.planoRepository.adicionar(planoModels);
+        this.planoRepository.adicionarPlano(planoModels);
     }
 
-    public void atualizar(PlanoModels planoModels){
-        if(planoRepository.buscarPorCodigo(planoModels.getId()) == null || planoRepository.buscarPorNome(planoModels.getNome()) == null){
+    public void atualizarPlano(PlanoModels planoModels){
+        if(planoRepository.buscarPlanoId(planoModels.getId()) == null || planoRepository.buscarPlanoNome(planoModels.getNome()) == null){
             throw new IllegalArgumentException("Plano não pode ser nulo.");
         }
-        this.planoRepository.atualizar(planoModels);
+        this.planoRepository.atualizarPlano(planoModels);
     }
 
-    public void remover(int codigo){
+    public void removerPlano(int codigo){
         if(codigo < 0){
             throw new IllegalArgumentException("Código do plano não pode ser negativo.");
         }
-        this.planoRepository.remover(codigo);
+        this.planoRepository.removerPlano(codigo);
     }
 
     public List<PlanoModels> buscar(){
-        if(this.planoRepository.buscar() == null){
+        if(this.planoRepository.buscarPlano() == null){
             throw new IllegalArgumentException("Nenhum plano encontrado.");
         }
-        return this.planoRepository.buscar();
+        return this.planoRepository.buscarPlano();
     }
 
     public PlanoModels buscarPlanoId(int codigo){
         if(codigo < 0){
             throw new IllegalArgumentException("Código do plano não pode ser negativo.");
         }
-        return this.planoRepository.buscarPorCodigo(codigo);
+        return this.planoRepository.buscarPlanoId(codigo);
     }
 
     public List <PlanoModels> buscarPlanoNome(String nome){
         if(nome == null || nome.isEmpty()){
             throw new IllegalArgumentException("Nome do plano não pode ser nulo ou vazio.");
         }
-        return this.planoRepository.buscarPorNome(nome);
+        return this.planoRepository.buscarPlanoNome(nome);
     }
 
     public static String obterBeneficiosPorPlano(TipoPlanoEnums tipoPlano) {

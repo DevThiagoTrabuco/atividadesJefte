@@ -18,26 +18,28 @@ public class PlanoController {
 
     }
 
-    @GetMapping("")
+    @GetMapping("/todos-plano")
     public List<PlanoModels> buscar() {return planoFacade.buscar();}
 
-    @GetMapping("buscar-id/{codigo}")
+    @GetMapping("buscar-plano-id/{codigo}")
     public PlanoModels buscarPlanoId(@PathVariable int codigo) {return planoFacade.buscarPlanoId(codigo);}
 
-    @GetMapping("/buscar-nome/{nome}")
-    public List <PlanoModels> buscarPlanoNome(String nome){
+    @GetMapping("/buscar-plano-nome/{nome}")
+    public List <PlanoModels> buscarPlanoNome(@PathVariable String nome){
         return planoFacade.buscarPlanoNome(nome);
     }
 
-    @PostMapping("")
+    @PostMapping("/adicionar-plano")
     public void adicionar(@RequestBody PlanoModels planoModels) {
-        planoFacade.adicionar(planoModels);}
+        planoFacade.adicionar(planoModels);
+    }
 
-    @PutMapping("/{codigo}")
+    @PutMapping("/atualizar-plano/{codigo}")
     public void atualizar(@RequestBody PlanoModels planoModels) {
-        planoFacade.atualizar(planoModels);}
+        planoFacade.atualizar(planoModels);
+    }
 
-    @DeleteMapping("/{codigo}")
+    @DeleteMapping("/remover-plano/{codigo}")
     public void remover(@PathVariable int codigo) {
         planoFacade.remover(codigo);}
 

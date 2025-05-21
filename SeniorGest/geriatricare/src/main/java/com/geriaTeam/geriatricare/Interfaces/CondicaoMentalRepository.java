@@ -4,9 +4,9 @@ import java.util.List;
 import com.geriaTeam.geriatricare.models.CondicaoMentalModels;
 
 public interface CondicaoMentalRepository {
-    public CondicaoMentalModels buscarPorCodigo(int codigo);
-    public List<CondicaoMentalModels> buscar();
-    public void adicionar(CondicaoMentalModels condicaoMentalModels);
-    public void remover(int codigo);
-    public void atualizar(CondicaoMentalModels condicaoMentalModels);
+    public CondicaoMentalModels buscarCondicaoMental(int codigo);
+    public List<CondicaoMentalModels> buscarCondicaoMental();
+    public void adicionarCondicaoMental(CondicaoMentalModels condicaoMentalModels);
+    public void removerCondicaoMental(int codigo);
+    public void atualizarCondicaoMental(CondicaoMentalModels condicaoMentalModels);
 }

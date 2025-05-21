@@ -17,62 +17,50 @@ public class PacienteFamiliarController {
     public PacienteFamiliarController(PacienteFamiliarFacade pacienteFamiliarFacade) {
         this.pacienteFamiliarFacade = pacienteFamiliarFacade;
     }
-
-    @GetMapping("")
-    public List<PacienteFamiliarModels> buscar() {
-        return pacienteFamiliarFacade.buscar();
+    
+    @GetMapping("/buscar-todos")
+    public List<PacienteFamiliarModels> buscarTodosFamiliar() {
+        return pacienteFamiliarFacade.buscarTodosPacienteFamiliar();
     }
 
-    @GetMapping("/{codigo}")
-    public PacienteFamiliarModels buscarPorCodigo(@PathVariable int codigo) {
-        return pacienteFamiliarFacade.buscarPorCodigo(codigo);
+    @PostMapping("/adicionar-paciente-familiar")
+    public void adicionarPacienteFamiliar(@RequestBody PacienteFamiliarModels pacienteFamiliarModels) {
+        pacienteFamiliarFacade.adicionarPacienteFamiliar(pacienteFamiliarModels);
     }
 
-    @PostMapping("")
-    public void adicionar(@RequestBody PacienteFamiliarModels pacienteFamiliarModels) {
-        pacienteFamiliarFacade.adicionar(pacienteFamiliarModels);
-    }
-
-    @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody PacienteFamiliarModels pacienteFamiliarModels) {
-        pacienteFamiliarFacade.atualizar(pacienteFamiliarModels);
-    }
-
-    @DeleteMapping("/{codigo}")
-    public void remover(@PathVariable int codigo) {
-        pacienteFamiliarFacade.remover(codigo);
-    }
-
-    // Novas rotas
-
-    @PostMapping("/adicionar-familiar")
-    public void adicionarFamiliar(@RequestParam int pacienteId, @RequestParam int familiarId) {
+    @PostMapping("/adicionar-familiar/{pacienteId}/{familiarId}")
+    public void adicionarFamiliar(@PathVariable int pacienteId, @PathVariable int familiarId) {
         pacienteFamiliarFacade.adicionarFamiliar(pacienteId, familiarId);
     }
 
-    @DeleteMapping("/remover-familiar")
-    public void removerFamiliar(@RequestParam int pacienteId, @RequestParam int familiarId) {
+    @DeleteMapping("/remover-familiar/{pacienteId}/{familiarId}")
+    public void removerFamiliar(@PathVariable int pacienteId, @PathVariable int familiarId) {
         pacienteFamiliarFacade.removerFamiliar(pacienteId, familiarId);
     }
 
-    @GetMapping("/buscar-relacionamento")
+    @DeleteMapping("/remover-paciente-familiar/{id}")
+    public void removerPacienteFamiliar(@PathVariable int id){
+        pacienteFamiliarFacade.removerPacienteFamiliar(id);
+    }
+
+    @GetMapping("/buscar-relacionamento/{pacienteId}/{familiarId}")
     public PacienteFamiliarModels buscarRelacionamento(
-            @RequestParam("pacienteId") int pacienteId,
-            @RequestParam("familiarId") int familiarId) {
+            @PathVariable("pacienteId") int pacienteId,
+            @PathVariable("familiarId") int familiarId) {
         return pacienteFamiliarFacade.buscarRelacionamento(pacienteId, familiarId);
     }
 
-    @PutMapping("/atualizar-familiar")
+    @PutMapping("/atualizar-familiar/{pacienteId}/{familiarId}/{novoFamiliarId}")
     public void atualizarFamiliar(
-            @RequestParam int pacienteId,
-            @RequestParam int familiarId,
-            @RequestParam int novoFamiliarId
+            @PathVariable int pacienteId,
+            @PathVariable int familiarId,
+            @PathVariable int novoFamiliarId
     ) {
         pacienteFamiliarFacade.atualizarFamiliar(pacienteId, familiarId, novoFamiliarId);
     }
 
-    @GetMapping("/verificar-familiar")
-    public boolean verificarFamiliar(@RequestParam int pacienteId, @RequestParam int familiarId) {
+    @GetMapping("/verificar-familiar/{pacienteId}/{familiarId}")
+    public boolean verificarFamiliar(@PathVariable int pacienteId, @PathVariable int familiarId) {
         return pacienteFamiliarFacade.verificarFamiliar(pacienteId, familiarId);
     }
 }

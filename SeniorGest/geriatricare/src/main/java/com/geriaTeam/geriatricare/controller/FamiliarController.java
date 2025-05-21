@@ -19,7 +19,7 @@ public class FamiliarController {
     }
 
     // CRUD padrão
-    @PostMapping("/adicionar")
+    @PostMapping("/adicionar-familiar")
     public void adicionarFamiliar(@RequestBody FamiliarModels familiarModels) {
         familiarFacade.adicionarFamiliar(familiarModels);
     }
@@ -39,9 +39,9 @@ public class FamiliarController {
         return familiarFacade.buscarFamiliarCpf(Cpf);
     }
 
-    @GetMapping("/buscar-familiar-nome/{nome}")
-    public List<FamiliarModels> buscarFamiliarNome(@PathVariable String nome) {
-        return familiarFacade.buscarPorNome(nome);
+    @GetMapping("/buscar-familiar-nome/{nome}/{sobrenome}")
+    public List<FamiliarModels> buscarFamiliarNome(@PathVariable String nome, @PathVariable String sobrenome) {
+        return familiarFacade.buscarPorNome(nome, sobrenome);
     }
 
     @PutMapping("/atualizar-familiar")
@@ -49,7 +49,7 @@ public class FamiliarController {
         familiarFacade.atualizarFamiliar(familiarModels);
     }
 
-    @GetMapping("/todos")
+    @GetMapping("/buscar-todos-familiar")
     public List<FamiliarModels> buscarTodosFamiliares() {
         return familiarFacade.buscarTodosFamiliares();
     }

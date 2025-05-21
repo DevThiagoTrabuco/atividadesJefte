@@ -12,34 +12,20 @@ public class PacienteFamiliarFacade {
     @Autowired
     private PacienteFamiliarApplication pacienteFamiliarApplication;
 
-    // Funções já existentes
-    public List<PacienteFamiliarModels> buscar() {
-        return pacienteFamiliarApplication.buscar();
+    public void adicionarPacienteFamiliar(PacienteFamiliarModels pacienteFamiliarModels) {
+        pacienteFamiliarApplication.adicionarPacienteFamiliar(pacienteFamiliarModels);
     }
 
-    public PacienteFamiliarModels buscarPorCodigo(int codigo) {
-        return pacienteFamiliarApplication.buscarPorCodigo(codigo);
-    }
-
-    public void adicionar(PacienteFamiliarModels pacienteFamiliarModels) {
-        pacienteFamiliarApplication.adicionar(pacienteFamiliarModels);
-    }
-
-    public void atualizar(PacienteFamiliarModels pacienteFamiliarModels) {
-        pacienteFamiliarApplication.atualizar(pacienteFamiliarModels);
-    }
-
-    public void remover(int codigo) {
-        pacienteFamiliarApplication.remover(codigo);
-    }
-
-    // Novas funções a serem adicionadas
     public void adicionarFamiliar(int pacienteId, int familiarId) {
         pacienteFamiliarApplication.adicionarFamiliar(pacienteId, familiarId);
     }
 
     public void removerFamiliar(int pacienteId, int familiarId) {
         pacienteFamiliarApplication.removerFamiliar(pacienteId, familiarId);
+    }
+
+    public void removerPacienteFamiliar(int id){
+        pacienteFamiliarApplication.removerPacienteFamiliar(id);
     }
 
     public PacienteFamiliarModels buscarRelacionamento(int pacienteId, int familiarId) {
@@ -52,5 +38,9 @@ public class PacienteFamiliarFacade {
 
     public boolean verificarFamiliar(int pacienteId, int familiarId) {
         return pacienteFamiliarApplication.verificarFamiliar(pacienteId, familiarId);
+    }
+
+    public List<PacienteFamiliarModels> buscarTodosPacienteFamiliar() {
+        return pacienteFamiliarApplication.buscarTodosPacienteFamiliar();
     }
 }

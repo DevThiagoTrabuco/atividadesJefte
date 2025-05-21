@@ -33,4 +33,9 @@ public class CPF {
 
         return numero.equals(numero.substring(0, 9) + primeiroDigito + segundoDigito);
     }
+
+    @Override
+    public String toString() {
+        return numero;
+    }
 }

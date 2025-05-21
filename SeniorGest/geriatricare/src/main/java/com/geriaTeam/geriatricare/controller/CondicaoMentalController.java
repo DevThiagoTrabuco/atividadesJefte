@@ -19,22 +19,22 @@ public class CondicaoMentalController {
     }
     // Métodos de controle
 
-    @PostMapping("/adicionar")
+    @PostMapping("/adicionar-condicao-mental")
     public void adicionarCondicaoMental(@RequestParam String nome, @RequestParam String descricao) {
         condicaoMentalFacade.adicionarCondicaoMental(nome, descricao);
     }
 
-    @DeleteMapping("/remover-condicao/{codigo}")
+    @DeleteMapping("/remover-condicao-mental/{codigo}")
     public void removerCondicaoMental(@PathVariable int id) {
         condicaoMentalFacade.removerCondicaoMental(id);
     }
 
-    @GetMapping("/todas")
+    @GetMapping("/buscar-todas-condicao-mental")
     public List<CondicaoMentalModels> buscarTodasCondicoes() {
         return condicaoMentalFacade.buscarTodasCondicoes();
     }
 
-    @PutMapping("/atualizar-condicao/{codigo}")
+    @PutMapping("/atualizar-condicao-mental/{codigo}")
     public void atualizarCondicaoMental(
             @PathVariable int id,
             @RequestParam String nome,
@@ -43,8 +43,4 @@ public class CondicaoMentalController {
         condicaoMentalFacade.atualizarCondicaoMental(id, nome, descricao);
     }
 
-    @GetMapping("/verificar/{codigo}")
-    public boolean verificarCondicaoMental(@PathVariable int id) {
-        return condicaoMentalFacade.verificarCondicaoMental(id);
-    }
 }

@@ -22,8 +22,12 @@ public class PacienteFamiliarApplication {
         this.pacienteRepository = pacienteRepository;
     }
 
+    public void adicionarPacienteFamiliar(PacienteFamiliarModels pacienteFamiliarModels) {
+        pacienteFamiliarRepository.adicionarPacienteFamiliar(pacienteFamiliarModels);
+    }
+
     public void adicionarFamiliar(int pacienteId, int familiarId) {
-        FamiliarModels familiar = familiarRepository.buscarPorCodigo(familiarId);
+        FamiliarModels familiar = familiarRepository.buscarFamiliarId(familiarId);
         if (familiar == null) {
             throw new RuntimeException("Familiar não encontrado");
         }
@@ -37,14 +41,18 @@ public class PacienteFamiliarApplication {
         PacienteFamiliarModels relacionamento = new PacienteFamiliarModels();
         relacionamento.setPacienteId(pacienteId);
         relacionamento.setFamiliarId(familiarId);
-        relacionamento.setPacienteId(pacienteId);
-        relacionamento.setFamiliarId(familiarId);
-
-        // Adiciona o relacionamento à lista de familiares do paciente
-        paciente.getPacienteFamiliarModels().add(relacionamento);
 
         // Atualiza o paciente no repositório
-        pacienteRepository.atualizarPaciente(paciente);
+        pacienteFamiliarRepository.adicionarPacienteFamiliar(relacionamento);
+    }
+
+    public void removerPacienteFamiliar(int id){
+        PacienteFamiliarModels relacionamento = pacienteFamiliarRepository.buscarPacienteFamiliarId(id);
+        if (relacionamento == null) {
+            throw new RuntimeException("Relacionamento não encontrado");
+        }
+
+        pacienteFamiliarRepository.removerPacienteFamiliar(id);
     }
 
     public void removerFamiliar(int pacienteId, int familiarId) {
@@ -53,11 +61,11 @@ public class PacienteFamiliarApplication {
             throw new RuntimeException("Relacionamento não encontrado");
         }
 
-        pacienteFamiliarRepository.remover(relacionamento.getId());
+        pacienteFamiliarRepository.removerPacienteFamiliar(relacionamento.getId());
     }
 
     public PacienteFamiliarModels buscarRelacionamento(int pacienteId, int familiarId) {
-        PacienteFamiliarModels relacionamento = pacienteFamiliarRepository.buscarPorCodigo(pacienteId);
+        PacienteFamiliarModels relacionamento = pacienteFamiliarRepository.buscarPorPacienteIdEFamiliarId(pacienteId, familiarId);
         if (relacionamento == null) {
             throw new RuntimeException("Relacionamento não encontrado");
         }
@@ -66,47 +74,30 @@ public class PacienteFamiliarApplication {
     }
 
     public void atualizarFamiliar(int pacienteId, int familiarId, int novoFamiliarId) {
-        PacienteFamiliarModels relacionamento = pacienteFamiliarRepository.buscarPorCodigo(pacienteId);
+        PacienteFamiliarModels relacionamento = pacienteFamiliarRepository.buscarPorPacienteIdEFamiliarId(pacienteId, familiarId);
         if (relacionamento == null) {
             throw new RuntimeException("Relacionamento não encontrado");
         }
 
-        FamiliarModels novoFamiliar = familiarRepository.buscarPorCodigo(novoFamiliarId);
+        FamiliarModels novoFamiliar = familiarRepository.buscarFamiliarId(novoFamiliarId);
         if (novoFamiliar == null) {
             throw new RuntimeException("Novo familiar não encontrado");
         }
 
         relacionamento.setFamiliarId(novoFamiliarId);
-        pacienteFamiliarRepository.atualizar(relacionamento);
+        pacienteFamiliarRepository.atualizarPacienteFamiliar(relacionamento);
     }
 
     public boolean verificarFamiliar(int pacienteId, int familiarId) {
-        PacienteFamiliarModels relacionamento = pacienteFamiliarRepository.buscarPorCodigo(pacienteId);
+        PacienteFamiliarModels relacionamento = pacienteFamiliarRepository.buscarPorPacienteIdEFamiliarId(pacienteId, familiarId);
         return relacionamento != null;
     }
 
-    // 6. Adicionar novo relacionamento paciente-familiar
-    public void adicionar(PacienteFamiliarModels pacienteFamiliarModels) {
-        pacienteFamiliarRepository.adicionar(pacienteFamiliarModels);
-    }
-
-    // 7. Atualizar relacionamento paciente-familiar
-    public void atualizar(PacienteFamiliarModels pacienteFamiliarModels) {
-        pacienteFamiliarRepository.atualizar(pacienteFamiliarModels);
-    }
-
-    // 8. Remover relacionamento paciente-familiar
-    public void remover(int codigo) {
-        pacienteFamiliarRepository.remover(codigo);
-    }
-
-    // 9. Buscar todos os relacionamentos
-    public List<PacienteFamiliarModels> buscar() {
-        return pacienteFamiliarRepository.buscar();
-    }
-
-    // 10. Buscar relacionamento específico por código
-    public PacienteFamiliarModels buscarPorCodigo(int codigo) {
-        return pacienteFamiliarRepository.buscarPorCodigo(codigo);
+    public List<PacienteFamiliarModels> buscarTodosPacienteFamiliar() {
+        List<PacienteFamiliarModels> lista = pacienteFamiliarRepository.buscarPacienteFamiliar();
+        if (lista.isEmpty()) {
+            throw new RuntimeException("Nenhum relacionamento encontrado");
+        }
+        return lista;
     }
 }

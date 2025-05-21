@@ -21,20 +21,20 @@ public class FuncaoApplication {
         FuncaoModels funcao = new FuncaoModels();
         funcao.setNome(nome);
 
-        funcaoRepository.adicionar(funcao);
+        funcaoRepository.adicionarFuncao(funcao);
     }
 
     public void removerFuncao(int id) {
-        FuncaoModels funcao = funcaoRepository.buscarPorCodigo(id);
+        FuncaoModels funcao = funcaoRepository.buscarFuncaoId(id);
         if (funcao != null) {
-            funcaoRepository.remover(id);
+            funcaoRepository.removerFuncao(id);
         } else {
             throw new EntityNotFoundException("Função não encontrada.");
         }
     }
 
     public FuncaoModels buscarFuncao(int id) {
-        FuncaoModels funcao = funcaoRepository.buscarPorCodigo(id);
+        FuncaoModels funcao = funcaoRepository.buscarFuncaoId(id);
         if (funcao == null) {
             throw new EntityNotFoundException("Função não encontrada.");
         }
@@ -42,16 +42,16 @@ public class FuncaoApplication {
     }
 
     public void atualizarFuncao(int id, String novoNome) {
-        FuncaoModels funcao = funcaoRepository.buscarPorCodigo(id);
+        FuncaoModels funcao = funcaoRepository.buscarFuncaoId(id);
         if (funcao != null) {
             funcao.setNome(novoNome);
-            funcaoRepository.atualizar(funcao);
+            funcaoRepository.atualizarFuncao(funcao);
         } else {
             throw new EntityNotFoundException("Função não encontrada.");
         }
     }
 
     public List<FuncaoModels> buscarTodasFuncoes() {
-        return funcaoRepository.buscar();
+        return funcaoRepository.buscarFuncao();
     }
 }

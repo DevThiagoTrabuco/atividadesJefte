@@ -1,6 +1,5 @@
 package com.geriaTeam.geriatricare.models;
 
-import com.geriaTeam.geriatricare.entities.Paciente;
 import jakarta.persistence.*;
 import lombok.*;
 

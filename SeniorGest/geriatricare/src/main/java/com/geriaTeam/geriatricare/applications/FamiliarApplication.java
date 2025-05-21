@@ -52,11 +52,11 @@ public class FamiliarApplication {
         familiar.setEmail(email);
         familiar.setTelefone(telefone);
 
-        familiarRepository.adicionar(familiar.toModel());
+        familiarRepository.adicionarFamiliar(familiar.toModel());
     }
 
     public void atualizarFamiliar(FamiliarModels familiarModels) {
-        if(familiarRepository.buscarPorCodigo(familiarModels.getId()) == null) {
+        if(familiarRepository.buscarFamiliarId(familiarModels.getId()) == null) {
             throw new EntityNotFoundException("Familiar não encontrado.");
         }
         Familiar familiar = new Familiar();
@@ -90,20 +90,20 @@ public class FamiliarApplication {
         familiar.setEmail(email);
         familiar.setTelefone(telefone);
 
-        familiarRepository.atualizar(familiar.toModel());
+        familiarRepository.atualizarFamiliar(familiar.toModel());
     }
 
     public void removerFamiliar(int id) {
-        FamiliarModels familiar = familiarRepository.buscarPorCodigo(id);
+        FamiliarModels familiar = familiarRepository.buscarFamiliarId(id);
         if (familiar != null) {
-            familiarRepository.remover(id);
+            familiarRepository.removerFamiliar(id);
         } else {
             throw new EntityNotFoundException("Familiar não encontrado.");
         }
     }
 
     public FamiliarModels buscarFamiliarId(int id) {
-        FamiliarModels familiar = familiarRepository.buscarPorCodigo(id);
+        FamiliarModels familiar = familiarRepository.buscarFamiliarId(id);
         if (familiar == null) {
             throw new EntityNotFoundException("Familiar não encontrado.");
         }
@@ -111,22 +111,19 @@ public class FamiliarApplication {
     }
 
     public FamiliarModels buscarFamiliarCpf(String Cpf) {
-        FamiliarModels familiar = familiarRepository.buscarPorCpf(Cpf);
+        FamiliarModels familiar = familiarRepository.buscarFamiliarCpf(Cpf);
         if (familiar == null) {
             throw new EntityNotFoundException("Familiar não encontrado.");
         }
         return familiar;
     }
 
-    public List<FamiliarModels> buscarPorNome(String nome) {
-        List<FamiliarModels> familiar = familiarRepository.buscarPorNome(nome);
-        if (familiar == null) {
-            throw new EntityNotFoundException("Familiar não encontrado.");
-        }
-        return familiar;
+    public List<FamiliarModels> buscarPorNome(String nome, String sobrenome) {
+        String nomeCompleto = nome + sobrenome;
+        return familiarRepository.buscarFamiliarNome(nomeCompleto);
     }
 
     public List<FamiliarModels> buscarTodosFamiliares() {
-        return familiarRepository.buscar();
+        return familiarRepository.buscarFamiliar();
     }
 }

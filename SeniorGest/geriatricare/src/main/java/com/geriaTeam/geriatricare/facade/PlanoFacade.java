@@ -18,11 +18,11 @@ public class PlanoFacade {
 
     public PlanoModels buscarPlanoId(int codigo) {return planoApplication.buscarPlanoId(codigo);}
 
-    public void adicionar(PlanoModels planoModels) {planoApplication.adicionar(planoModels);}
+    public void adicionar(PlanoModels planoModels) {planoApplication.adicionarPlano(planoModels);}
 
-    public void atualizar(PlanoModels planoModels) {planoApplication.atualizar(planoModels);}
+    public void atualizar(PlanoModels planoModels) {planoApplication.atualizarPlano(planoModels);}
 
-    public void remover(int codigo) {planoApplication.remover(codigo);}
+    public void remover(int codigo) {planoApplication.removerPlano(codigo);}
 
     public List <PlanoModels> buscarPlanoNome(String nome){
         return planoApplication.buscarPlanoNome(nome);
