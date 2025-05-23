@@ -35,7 +35,7 @@ public class FuncionarioModels {
     private LocalDateTime nascimento;
 
     @Column(name = "funcionarios_telefone")
-    private int telefone;
+    private String telefone;
 
     @Column(name = "funcionarios_email")
     private String email;

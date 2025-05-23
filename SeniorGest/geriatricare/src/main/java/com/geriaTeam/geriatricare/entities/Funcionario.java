@@ -19,8 +19,6 @@ public class Funcionario {
     private String nome;
     private String sobrenome;
     private LocalDateTime dataNascimento;
-    private String login;
-    private String senha;
     private FuncaoModels funcaoModels;
     private String cpf;
     private String rg;
@@ -34,9 +32,7 @@ public class Funcionario {
         funcionarioModels.setId(this.id);
         funcionarioModels.setNome(this.nome);
         funcionarioModels.setSobrenome(this.sobrenome);
-        funcionarioModels.setDataNascimento(this.dataNascimento);
-        funcionarioModels.setLogin(this.login);
-        funcionarioModels.setSenha(this.senha);
+        funcionarioModels.setNascimento(this.dataNascimento);
         funcionarioModels.setFuncaoModels(this.funcaoModels);
         funcionarioModels.setCpf(this.cpf);
         funcionarioModels.setRg(this.rg);

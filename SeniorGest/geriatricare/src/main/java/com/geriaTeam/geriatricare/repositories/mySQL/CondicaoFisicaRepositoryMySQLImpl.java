@@ -23,6 +23,11 @@ public class CondicaoFisicaRepositoryMySQLImpl implements CondicaoFisicaReposito
     }
 
     @Override
+    public List <CondicaoFisicaModels> buscarCondicaoFisicaPorNome(String nome) {
+        return condicaoFisicaJPA.findByNome(nome);
+    }
+
+    @Override
     public List<CondicaoFisicaModels> buscarCondicaoFisica() {
         return condicaoFisicaJPA.findAll();
     }

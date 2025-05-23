@@ -35,8 +35,8 @@ public class PlanoController {
     }
 
     @PutMapping("/atualizar-plano/{codigo}")
-    public void atualizar(@RequestBody PlanoModels planoModels) {
-        planoFacade.atualizar(planoModels);
+    public void atualizar(@PathVariable int codigo, @RequestBody PlanoModels planoModels) {
+        planoFacade.atualizar(codigo, planoModels);
     }
 
     @DeleteMapping("/remover-plano/{codigo}")

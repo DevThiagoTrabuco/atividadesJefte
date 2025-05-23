@@ -22,9 +22,18 @@ public class AdminApplication {
         this.adminRepository.adicionar(adminModels);
     }
 
-    public void atualizar(AdminModels adminModels){
-        this.adminRepository.atualizar(adminModels);
+    public void atualizarAdmin(int codigo, AdminModels adminAtualizado) {
+        AdminModels adminExistente = adminRepository.buscarPorCodigo(codigo);
+        if (adminExistente == null) {
+            throw new IllegalArgumentException("Admin com ID " + codigo + " não encontrado.");
+        }
+
+        if (adminAtualizado.getNome() != null) adminExistente.setNome(adminAtualizado.getNome());
+        if (adminAtualizado.getSenha() != null) adminExistente.setSenha(adminAtualizado.getSenha());
+
+        adminRepository.atualizar(adminExistente);
     }
+
 
     public void remover(int codigo){
         this.adminRepository.remover(codigo);

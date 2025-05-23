@@ -15,8 +15,8 @@ public class CondicaoFisicaFacade {
     @Autowired
     private CondicaoFisicaApplication condicaoFisicaApplication;
     // ✅ Métodos da camada de apresentação
-    public void adicionarCondicaoFisica(String nome, String descricao) {
-        condicaoFisicaApplication.adicionarCondicaoFisica(nome, descricao);
+    public void adicionarCondicaoFisica(CondicaoFisicaModels condicaoFisicaModels) {
+        condicaoFisicaApplication.adicionarCondicaoFisica(condicaoFisicaModels);
     }
 
     public List<CondicaoFisicaModels> buscarCondicoesFisicas() {
@@ -27,11 +27,15 @@ public class CondicaoFisicaFacade {
         return condicaoFisicaApplication.buscarCondicaoFisicaPorCodigo(id);
     }
 
+    public List<CondicaoFisicaModels> buscarCondicaoFisicaPorNome(String nome) {
+        return condicaoFisicaApplication.buscarCondicaoFisicaPorNome(nome);
+    }
+
     public void removerCondicaoFisica(int id) {
         condicaoFisicaApplication.removerCondicaoFisica(id);
     }
 
-    public void atualizarCondicaoFisica(int id, String novoNome, String novaDescricao) {
-        condicaoFisicaApplication.atualizarCondicaoFisica(id, novoNome, novaDescricao);
+    public void atualizarCondicaoFisica(int id, CondicaoFisicaModels condicaoFisicaModels) {
+        condicaoFisicaApplication.atualizarCondicaoFisica(id, condicaoFisicaModels);
     }
 }

@@ -19,10 +19,8 @@ public class CondicaoFisicaApplication {
         this.condicaoFisicaRepository = condicaoFisicaRepository;
     }
 
-    public void adicionarCondicaoFisica(String nome, String descricao) {
-        CondicaoFisicaModels condicaoFisicaModels = new CondicaoFisicaModels();
-        condicaoFisicaModels.setNome(nome);
-        condicaoFisicaModels.setDescricao(descricao);
+    public void adicionarCondicaoFisica(CondicaoFisicaModels condicaoFisicaModels) {
+
         condicaoFisicaRepository.adicionarCondicaoFisica(condicaoFisicaModels);
     }
 
@@ -38,6 +36,14 @@ public class CondicaoFisicaApplication {
         return condicaoFisica;
     }
 
+    public List<CondicaoFisicaModels> buscarCondicaoFisicaPorNome(String nome) {
+        List<CondicaoFisicaModels> condicaoFisica = condicaoFisicaRepository.buscarCondicaoFisicaPorNome(nome);
+        if (condicaoFisica == null) {
+            throw new EntityNotFoundException("Condição Física não encontrada para o nome: " + nome);
+        }
+        return condicaoFisica;
+    }
+
     public void removerCondicaoFisica(int id) {
         CondicaoFisicaModels condicaoFisica = condicaoFisicaRepository.buscarCondicaoFisicaId(id);
         if (condicaoFisica == null) {
@@ -46,14 +52,22 @@ public class CondicaoFisicaApplication {
         condicaoFisicaRepository.removerCondicaoFisica(id);
     }
 
-    public void atualizarCondicaoFisica(int id, String novoNome, String novaDescricao) {
-        CondicaoFisicaModels condicaoFisica = condicaoFisicaRepository.buscarCondicaoFisicaId(id);
-        if (condicaoFisica == null) {
+    public void atualizarCondicaoFisica(int id, CondicaoFisicaModels condicaoAtualizada) {
+        CondicaoFisicaModels condicaoExistente = condicaoFisicaRepository.buscarCondicaoFisicaId(id);
+
+        if (condicaoExistente == null) {
             throw new EntityNotFoundException("Condição Física não encontrada para o ID: " + id);
         }
-        condicaoFisica.setNome(novoNome);
-        condicaoFisica.setDescricao(novaDescricao);
 
-        condicaoFisicaRepository.atualizarCondicaoFisica(condicaoFisica);
+        if (condicaoAtualizada.getNome() != null) {
+            condicaoExistente.setNome(condicaoAtualizada.getNome());
+        }
+
+        if (condicaoAtualizada.getDescricao() != null) {
+            condicaoExistente.setDescricao(condicaoAtualizada.getDescricao());
+        }
+
+        condicaoFisicaRepository.atualizarCondicaoFisica(condicaoExistente);
     }
+
 }

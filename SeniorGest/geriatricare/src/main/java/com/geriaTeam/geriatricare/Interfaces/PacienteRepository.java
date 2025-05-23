@@ -5,10 +5,10 @@ import com.geriaTeam.geriatricare.models.PacienteModels;
 import java.util.List;
 
 public interface PacienteRepository {
-    public PacienteModels buscarPacienteId(int codigo);
-    public List<PacienteModels> buscarPaciente();
-    public List<PacienteModels> buscarPacienteNome(String nome);
-    public void adicionarPaciente(PacienteModels pacienteModels);
-    public void removerPaciente(int codigo);
-    public void atualizarPaciente(PacienteModels pacienteModels);
+    PacienteModels buscarPacienteId(int codigo);
+    List<PacienteModels> buscarPaciente();
+    List<PacienteModels> buscarPacienteNome(String nome);
+    void adicionarPaciente(PacienteModels pacienteModels);
+    void removerPaciente(int codigo);
+    void atualizarPaciente(PacienteModels pacienteModels);
 }

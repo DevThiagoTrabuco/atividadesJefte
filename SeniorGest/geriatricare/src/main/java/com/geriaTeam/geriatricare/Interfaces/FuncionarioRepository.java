@@ -5,9 +5,9 @@ import com.geriaTeam.geriatricare.models.FuncionarioModels;
 import java.util.List;
 
 public interface FuncionarioRepository {
-    public FuncionarioModels buscarPorCodigo(int codigo);
-    public List<FuncionarioModels> buscar();
-    public void adicionar(FuncionarioModels funcionarioModels);
-    public void remover(int codigo);
-    public void atualizar(FuncionarioModels funcionarioModels);
+    FuncionarioModels buscarPorCodigo(int codigo);
+    List<FuncionarioModels> buscar();
+    void adicionar(FuncionarioModels funcionarioModels);
+    void remover(int codigo);
+    void atualizar(FuncionarioModels funcionarioModels);
 }
