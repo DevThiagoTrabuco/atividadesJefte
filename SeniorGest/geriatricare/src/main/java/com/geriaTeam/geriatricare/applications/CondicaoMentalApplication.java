@@ -1,6 +1,7 @@
 package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.CondicaoMentalRepository;
+import com.geriaTeam.geriatricare.entities.CondicaoMental;
 import com.geriaTeam.geriatricare.models.CondicaoMentalModels;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,10 +19,7 @@ public class CondicaoMentalApplication {
     }
 
     //Adicionar Condição Mental
-    public void adicionarCondicaoMental(String nome, String descricao) {
-        CondicaoMentalModels condicaoMentalModels = new CondicaoMentalModels();
-        condicaoMentalModels.setNome(nome);
-        condicaoMentalModels.setDescricao(descricao);
+    public void adicionarCondicaoMental(CondicaoMentalModels condicaoMentalModels) {
         condicaoMentalRepository.adicionarCondicaoMental(condicaoMentalModels);
     }
 
@@ -41,15 +39,21 @@ public class CondicaoMentalApplication {
     }
 
     //Atualizar Condição Mental
-    public void atualizarCondicaoMental(int id, String nome, String descricao) {
-        CondicaoMentalModels condicaoMental = condicaoMentalRepository.buscarCondicaoMental(id);
-        if (condicaoMental != null) {
-            condicaoMental.setNome(nome);
-            condicaoMental.setDescricao(descricao);
-            condicaoMentalRepository.atualizarCondicaoMental(condicaoMental);
-        } else {
+    public void atualizarCondicaoMental(CondicaoMentalModels condicaoAtualizada) {
+        CondicaoMentalModels condicaoExistente = condicaoMentalRepository.buscarCondicaoMental(condicaoAtualizada.getId());
+        if (condicaoExistente == null) {
             throw new NoSuchElementException("Condição mental não encontrada.");
         }
+
+        if (condicaoAtualizada.getNome() != null && !condicaoAtualizada.getNome().isEmpty()) {
+            condicaoExistente.setNome(condicaoAtualizada.getNome());
+        }
+
+        if (condicaoAtualizada.getDescricao() != null && !condicaoAtualizada.getDescricao().isEmpty()) {
+            condicaoExistente.setDescricao(condicaoAtualizada.getDescricao());
+        }
+
+        condicaoMentalRepository.atualizarCondicaoMental(condicaoExistente);
     }
 
 }

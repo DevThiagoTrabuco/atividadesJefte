@@ -34,8 +34,8 @@ public class AdminController {
     }
 
     @PutMapping("/{codigo}")
-    public void atualizarAdmin(@PathVariable int codigo, @RequestBody AdminModels adminModels){
-        adminFacade.atualizarAdmin(codigo, adminModels);
+    public void atualizarAdmin(@RequestBody AdminModels adminModels){
+        adminFacade.atualizarAdmin(adminModels);
     }
 
     @DeleteMapping("/{codigo}")

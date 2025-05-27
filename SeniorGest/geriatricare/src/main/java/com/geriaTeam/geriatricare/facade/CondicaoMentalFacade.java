@@ -17,8 +17,8 @@ public class CondicaoMentalFacade {
         this.condicaoMentalApplication = condicaoMentalApplication;
     }
     // Métodos da fachada que delegam chamadas para a aplicação
-    public void adicionarCondicaoMental(String nome, String descricao) {
-        condicaoMentalApplication.adicionarCondicaoMental(nome, descricao);
+    public void adicionarCondicaoMental(CondicaoMentalModels condicaoMental) {
+        condicaoMentalApplication.adicionarCondicaoMental(condicaoMental);
     }
 
     public void removerCondicaoMental(int codigo) {
@@ -29,8 +29,8 @@ public class CondicaoMentalFacade {
         return condicaoMentalApplication.buscarTodasCondicoes();
     }
 
-    public void atualizarCondicaoMental(int codigo, String nome, String descricao) {
-        condicaoMentalApplication.atualizarCondicaoMental(codigo, nome, descricao);
+    public void atualizarCondicaoMental(CondicaoMentalModels condicaoMental) {
+        condicaoMentalApplication.atualizarCondicaoMental(condicaoMental);
     }
 
 }

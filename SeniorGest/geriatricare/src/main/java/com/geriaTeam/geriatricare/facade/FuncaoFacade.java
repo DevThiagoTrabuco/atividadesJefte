@@ -17,8 +17,8 @@ public class FuncaoFacade {
     private FuncaoApplication funcaoApplication;
 
     // Funções básicas de CRUD
-    public void adicionarFuncao(String nome) {
-        funcaoApplication.adicionarFuncao(nome);
+    public void adicionarFuncao(FuncaoModels funcaoModels) {
+        funcaoApplication.adicionarFuncao(funcaoModels);
     }
 
     public void removerFuncao(int id) {
@@ -29,8 +29,8 @@ public class FuncaoFacade {
         return funcaoApplication.buscarFuncao(id);
     }
 
-    public void atualizarFuncao(int id, String novoNome) {
-        funcaoApplication.atualizarFuncao(id, novoNome);
+    public void atualizarFuncao(FuncaoModels funcaoModels) {
+        funcaoApplication.atualizarFuncao(funcaoModels);
     }
 
     public List<FuncaoModels> buscarTodasFuncoes() {

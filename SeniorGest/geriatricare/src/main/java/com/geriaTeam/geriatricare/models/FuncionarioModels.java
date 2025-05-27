@@ -32,13 +32,16 @@ public class FuncionarioModels {
     private String ctps;
 
     @Column(name = "funcionarios_nascimento")
-    private LocalDateTime nascimento;
+    private LocalDateTime dataNascimento;
 
     @Column(name = "funcionarios_telefone")
     private String telefone;
 
     @Column(name = "funcionarios_email")
     private String email;
+
+    @Column(name = "funcionarios_senha")
+    private String senha;
 
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType. MERGE})

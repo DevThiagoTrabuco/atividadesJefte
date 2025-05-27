@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.entities;
 
 
-import com.geriaTeam.geriatricare.entities.enums.TipoPlanoEnums;
+import com.geriaTeam.geriatricare.enums.TipoPlanoEnums;
 import com.geriaTeam.geriatricare.models.PlanoModels;
 
 public interface PlanoInterface {

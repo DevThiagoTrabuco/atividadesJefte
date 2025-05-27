@@ -2,7 +2,7 @@ package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.PlanoRepository;
 import com.geriaTeam.geriatricare.entities.PlanoInterface;
-import com.geriaTeam.geriatricare.entities.enums.TipoPlanoEnums;
+import com.geriaTeam.geriatricare.enums.TipoPlanoEnums;
 import com.geriaTeam.geriatricare.factories.PlanoFactory;
 import com.geriaTeam.geriatricare.models.PlanoModels;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,10 +48,10 @@ public class PlanoApplication {
         planoRepository.adicionarPlano(planoModels);
     }
 
-    public void atualizarPlano(int codigo, PlanoModels planoAtualizado) {
-        Optional<PlanoModels> planoExistente = planoRepository.buscarPlanoId(codigo);
+    public void atualizarPlano(PlanoModels planoAtualizado) {
+        Optional<PlanoModels> planoExistente = planoRepository.buscarPlanoId(planoAtualizado.getId());
         if (planoExistente.isEmpty()) {
-            throw new IllegalArgumentException("Plano com ID " + codigo + " não encontrado.");
+            throw new IllegalArgumentException("Plano com ID " + planoAtualizado.getId() + " não encontrado.");
         }
 
         if (planoAtualizado.getNome() != null) planoExistente.get().setNome(planoAtualizado.getNome());

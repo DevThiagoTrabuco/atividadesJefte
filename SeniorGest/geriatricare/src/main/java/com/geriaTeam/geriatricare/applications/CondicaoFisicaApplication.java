@@ -52,11 +52,11 @@ public class CondicaoFisicaApplication {
         condicaoFisicaRepository.removerCondicaoFisica(id);
     }
 
-    public void atualizarCondicaoFisica(int id, CondicaoFisicaModels condicaoAtualizada) {
-        CondicaoFisicaModels condicaoExistente = condicaoFisicaRepository.buscarCondicaoFisicaId(id);
+    public void atualizarCondicaoFisica(CondicaoFisicaModels condicaoAtualizada) {
+        CondicaoFisicaModels condicaoExistente = condicaoFisicaRepository.buscarCondicaoFisicaId(condicaoAtualizada.getId());
 
         if (condicaoExistente == null) {
-            throw new EntityNotFoundException("Condição Física não encontrada para o ID: " + id);
+            throw new EntityNotFoundException("Condição Física não encontrada para o ID: " + condicaoAtualizada.getId());
         }
 
         if (condicaoAtualizada.getNome() != null) {

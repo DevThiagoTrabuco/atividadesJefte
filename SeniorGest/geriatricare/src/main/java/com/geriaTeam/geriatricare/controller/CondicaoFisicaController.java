@@ -45,7 +45,7 @@ public class CondicaoFisicaController {
     }
 
         @PutMapping("/atualizar-condicao-fisica/{codigo}")
-    public void atualizarCondicaoFisica( @PathVariable int codigo, @RequestBody CondicaoFisicaModels condicaoFisicaModels) {
-        condicaoFisicaFacade.atualizarCondicaoFisica(codigo, condicaoFisicaModels);
+    public void atualizarCondicaoFisica(@RequestBody CondicaoFisicaModels condicaoFisicaModels) {
+        condicaoFisicaFacade.atualizarCondicaoFisica(condicaoFisicaModels);
     }
 }

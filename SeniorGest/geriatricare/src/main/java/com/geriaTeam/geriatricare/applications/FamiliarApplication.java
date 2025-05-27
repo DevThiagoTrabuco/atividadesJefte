@@ -56,41 +56,54 @@ public class FamiliarApplication {
     }
 
     public void atualizarFamiliar(FamiliarModels familiarModels) {
-        if(familiarRepository.buscarFamiliarId(familiarModels.getId()) == null) {
+        FamiliarModels familiarExistente = familiarRepository.buscarFamiliarId(familiarModels.getId());
+        if (familiarExistente == null) {
             throw new EntityNotFoundException("Familiar não encontrado.");
         }
-        Familiar familiar = new Familiar();
-        RG rg = new RG();
-        CPF cpf = new CPF();
-        Email email = new Email();
-        Telefone telefone = new Telefone();
 
-        cpf.setNumero(familiarModels.getCpf());
-        rg.setNumero(familiarModels.getRg());
-        email.setEndereco(familiarModels.getEmail());
-        telefone.setNumero(familiarModels.getTelefone());
-        if(!cpf.validarCPF()) {
-            throw new IllegalArgumentException("CPF inválido.");
+        if (familiarModels.getNome() != null && !familiarModels.getNome().isEmpty()) {
+            familiarExistente.setNome(familiarModels.getNome());
         }
-        if(!rg.validarRG()) {
-            throw new IllegalArgumentException("RG inválido.");
+        if (familiarModels.getSobrenome() != null && !familiarModels.getSobrenome().isEmpty()) {
+            familiarExistente.setSobrenome(familiarModels.getSobrenome());
         }
-        if(!email.validarEmail()) {
-            throw new IllegalArgumentException("Email inválido.");
+        if (familiarModels.getCpf() != null && !familiarModels.getCpf().isEmpty()) {
+            CPF cpf = new CPF();
+            cpf.setNumero(familiarModels.getCpf());
+            if (!cpf.validarCPF()) {
+                throw new IllegalArgumentException("CPF inválido.");
+            }
+            familiarExistente.setCpf(familiarModels.getCpf());
         }
-        if(!telefone.validarTelefone()) {
-            throw new IllegalArgumentException("Telefone inválido.");
+        if (familiarModels.getRg() != null && !familiarModels.getRg().isEmpty()) {
+            RG rg = new RG();
+            rg.setNumero(familiarModels.getRg());
+            if (!rg.validarRG()) {
+                throw new IllegalArgumentException("RG inválido.");
+            }
+            familiarExistente.setRg(familiarModels.getRg());
         }
-        familiar.setId(familiarModels.getId());
-        familiar.setNome(familiarModels.getNome());
-        familiar.setSobrenome(familiarModels.getSobrenome());
-        familiar.setPacienteFamiliarModels(familiarModels.getPacienteFamiliarModels());
-        familiar.setRg(rg);
-        familiar.setCpf(cpf);
-        familiar.setEmail(email);
-        familiar.setTelefone(telefone);
+        if (familiarModels.getEmail() != null && !familiarModels.getEmail().isEmpty()) {
+            Email email = new Email();
+            email.setEndereco(familiarModels.getEmail());
+            if (!email.validarEmail()) {
+                throw new IllegalArgumentException("Email inválido.");
+            }
+            familiarExistente.setEmail(familiarModels.getEmail());
+        }
+        if (familiarModels.getTelefone() != null && !familiarModels.getTelefone().isEmpty()) {
+            Telefone telefone = new Telefone();
+            telefone.setNumero(familiarModels.getTelefone());
+            if (!telefone.validarTelefone()) {
+                throw new IllegalArgumentException("Telefone inválido.");
+            }
+            familiarExistente.setTelefone(familiarModels.getTelefone());
+        }
+        if (familiarModels.getPacienteFamiliarModels() != null) {
+            familiarExistente.setPacienteFamiliarModels(familiarModels.getPacienteFamiliarModels());
+        }
 
-        familiarRepository.atualizarFamiliar(familiar.toModel());
+        familiarRepository.atualizarFamiliar(familiarExistente);
     }
 
     public void removerFamiliar(int id) {

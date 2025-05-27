@@ -1,4 +1,4 @@
-package com.geriaTeam.geriatricare.entities.enums;
+package com.geriaTeam.geriatricare.enums;
 
 public enum TipoPlanoEnums{
     PLANO_BASICO,

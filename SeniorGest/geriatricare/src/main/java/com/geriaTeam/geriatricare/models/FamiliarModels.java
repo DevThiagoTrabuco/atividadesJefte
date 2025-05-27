@@ -32,6 +32,9 @@ public class FamiliarModels {
     @Column(name = "familiares_email")
     private String email;
 
+    @Column(name = "familiares_senha")
+    private String senha;
+
     @Column(name = "familiares_telefone")
     private String telefone;
 

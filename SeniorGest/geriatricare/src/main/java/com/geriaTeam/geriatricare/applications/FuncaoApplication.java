@@ -17,9 +17,7 @@ public class FuncaoApplication {
         this.funcaoRepository = funcaoRepository;
     }
 
-    public void adicionarFuncao(String nome) {
-        FuncaoModels funcao = new FuncaoModels();
-        funcao.setNome(nome);
+    public void adicionarFuncao(FuncaoModels funcao) {
 
         funcaoRepository.adicionarFuncao(funcao);
     }
@@ -41,14 +39,17 @@ public class FuncaoApplication {
         return funcao;
     }
 
-    public void atualizarFuncao(int id, String novoNome) {
-        FuncaoModels funcao = funcaoRepository.buscarFuncaoId(id);
-        if (funcao != null) {
-            funcao.setNome(novoNome);
-            funcaoRepository.atualizarFuncao(funcao);
-        } else {
+    public void atualizarFuncao(FuncaoModels funcaoAtualizada) {
+        FuncaoModels funcaoExistente = funcaoRepository.buscarFuncaoId(funcaoAtualizada.getId());
+        if (funcaoExistente == null) {
             throw new EntityNotFoundException("Função não encontrada.");
         }
+
+        if (funcaoAtualizada.getNome() != null && !funcaoAtualizada.getNome().isEmpty()) {
+            funcaoExistente.setNome(funcaoAtualizada.getNome());
+        }
+
+        funcaoRepository.atualizarFuncao(funcaoExistente);
     }
 
     public List<FuncaoModels> buscarTodasFuncoes() {

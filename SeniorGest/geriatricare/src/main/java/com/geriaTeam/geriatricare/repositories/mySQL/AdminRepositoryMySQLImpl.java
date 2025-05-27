@@ -28,6 +28,11 @@ public class AdminRepositoryMySQLImpl implements AdminRepository {
     }
 
     @Override
+    public List<AdminModels> buscarPorEmail(String email) {
+        return this.adminJPA.buscarPorEmail(email);
+    }
+
+    @Override
     public void adicionar(AdminModels adminModels) {
         this.adminJPA.save(adminModels);
     }

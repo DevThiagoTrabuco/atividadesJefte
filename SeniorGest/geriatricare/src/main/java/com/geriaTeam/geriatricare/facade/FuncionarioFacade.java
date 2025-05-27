@@ -23,12 +23,12 @@ public class FuncionarioFacade {
         return FuncionarioApplication.buscarPorCodigo(codigo);
     }
 
-    public void adicionar(FuncionarioModels FuncionarioModels) {
-        FuncionarioApplication.adicionar(FuncionarioModels);
+    public void adicionarFuncionario(FuncionarioModels FuncionarioModels) {
+        FuncionarioApplication.adicionarFuncionario(FuncionarioModels);
     }
 
-    public void atualizar(FuncionarioModels FuncionarioModels) {
-        FuncionarioApplication.atualizar(FuncionarioModels);
+    public void atualizarFuncionario(FuncionarioModels FuncionarioModels) {
+        FuncionarioApplication.atualizarFuncionario(FuncionarioModels);
     }
 
     public void remover(int codigo) {

@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.factories;
 
 import com.geriaTeam.geriatricare.entities.*;
-import com.geriaTeam.geriatricare.entities.enums.TipoPlanoEnums;
+import com.geriaTeam.geriatricare.enums.TipoPlanoEnums;
 
 public class PlanoFactory {
     public PlanoInterface criarPlano(TipoPlanoEnums tipoPlano) {

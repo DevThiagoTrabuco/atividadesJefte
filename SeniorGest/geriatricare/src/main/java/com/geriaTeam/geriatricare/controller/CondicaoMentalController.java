@@ -20,8 +20,8 @@ public class CondicaoMentalController {
     // Métodos de controle
 
     @PostMapping("/adicionar-condicao-mental")
-    public void adicionarCondicaoMental(@RequestParam String nome, @RequestParam String descricao) {
-        condicaoMentalFacade.adicionarCondicaoMental(nome, descricao);
+    public void adicionarCondicaoMental(@RequestBody CondicaoMentalModels condicaoMental) {
+        condicaoMentalFacade.adicionarCondicaoMental(condicaoMental);
     }
 
     @DeleteMapping("/remover-condicao-mental/{codigo}")
@@ -35,12 +35,8 @@ public class CondicaoMentalController {
     }
 
     @PutMapping("/atualizar-condicao-mental/{codigo}")
-    public void atualizarCondicaoMental(
-            @PathVariable int id,
-            @RequestParam String nome,
-            @RequestParam String descricao
-    ) {
-        condicaoMentalFacade.atualizarCondicaoMental(id, nome, descricao);
+    public void atualizarCondicaoMental(@RequestBody CondicaoMentalModels condicaoMental) {
+        condicaoMentalFacade.atualizarCondicaoMental(condicaoMental);
     }
 
 }

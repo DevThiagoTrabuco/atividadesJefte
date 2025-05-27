@@ -35,7 +35,7 @@ public class CondicaoFisicaFacade {
         condicaoFisicaApplication.removerCondicaoFisica(id);
     }
 
-    public void atualizarCondicaoFisica(int id, CondicaoFisicaModels condicaoFisicaModels) {
-        condicaoFisicaApplication.atualizarCondicaoFisica(id, condicaoFisicaModels);
+    public void atualizarCondicaoFisica(CondicaoFisicaModels condicaoFisicaModels) {
+        condicaoFisicaApplication.atualizarCondicaoFisica(condicaoFisicaModels);
     }
 }

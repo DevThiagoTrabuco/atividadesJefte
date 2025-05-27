@@ -20,11 +20,12 @@ public class Funcionario {
     private String sobrenome;
     private LocalDateTime dataNascimento;
     private FuncaoModels funcaoModels;
-    private String cpf;
-    private String rg;
-    private String ctps;
-    private String telefone;
-    private String email;
+    private CPF cpf;
+    private RG rg;
+    private CTPS ctps;
+    private Telefone telefone;
+    private Email email;
+    private String senha;
 
     // Método para converter a entidade Funcionario para FuncionarioModels
     public FuncionarioModels toModel() {
@@ -32,13 +33,14 @@ public class Funcionario {
         funcionarioModels.setId(this.id);
         funcionarioModels.setNome(this.nome);
         funcionarioModels.setSobrenome(this.sobrenome);
-        funcionarioModels.setNascimento(this.dataNascimento);
+        funcionarioModels.setDataNascimento(this.dataNascimento);
         funcionarioModels.setFuncaoModels(this.funcaoModels);
-        funcionarioModels.setCpf(this.cpf);
-        funcionarioModels.setRg(this.rg);
-        funcionarioModels.setCtps(this.ctps);
-        funcionarioModels.setTelefone(this.telefone);
-        funcionarioModels.setEmail(this.email);
+        funcionarioModels.setCpf(this.cpf.toString());
+        funcionarioModels.setRg(this.rg.toString());
+        funcionarioModels.setCtps(this.ctps.toString());
+        funcionarioModels.setTelefone(this.telefone.toString());
+        funcionarioModels.setEmail(this.email.toString());
+        funcionarioModels.setSenha(this.senha);
         return funcionarioModels;
     }
 }

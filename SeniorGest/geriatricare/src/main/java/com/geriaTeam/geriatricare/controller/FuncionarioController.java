@@ -37,13 +37,13 @@ public class FuncionarioController {
     }
 
     @PostMapping("")
-    public void adicionar(@RequestBody FuncionarioModels funcionarioModels){
-        funcionarioFacade.adicionar(funcionarioModels);
+    public void adicionarFuncionario(@RequestBody FuncionarioModels funcionarioModels){
+        funcionarioFacade.adicionarFuncionario(funcionarioModels);
     }
 
     @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody FuncionarioModels funcionarioModels){
-        funcionarioFacade.atualizar(funcionarioModels);
+    public void atualizarFuncionario(@RequestBody FuncionarioModels funcionarioModels){
+        funcionarioFacade.atualizarFuncionario(funcionarioModels);
     }
 
     @DeleteMapping("/{codigo}")

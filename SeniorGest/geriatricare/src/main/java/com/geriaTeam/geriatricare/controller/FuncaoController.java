@@ -20,8 +20,8 @@ public class FuncaoController {
 
     // CRUD padrão
     @PostMapping("/adicionar-funcao")
-    public void adicionarFuncao(@RequestParam("nome") String nome) {
-        funcaoFacade.adicionarFuncao(nome);
+    public void adicionarFuncao(@RequestBody FuncaoModels funcaoModels) {
+        funcaoFacade.adicionarFuncao(funcaoModels);
     }
 
     @DeleteMapping("/remover-funcao/{id}")
@@ -35,8 +35,8 @@ public class FuncaoController {
     }
 
     @PutMapping("/atualizar-funcao/{id}")
-    public void atualizarFuncao(@PathVariable int id, @RequestParam("novoNome") String novoNome) {
-        funcaoFacade.atualizarFuncao(id, novoNome);
+    public void atualizarFuncao(@RequestBody FuncaoModels funcaoModels) {
+        funcaoFacade.atualizarFuncao(funcaoModels);
     }
 
     @GetMapping("/buscar-todas-funcao")

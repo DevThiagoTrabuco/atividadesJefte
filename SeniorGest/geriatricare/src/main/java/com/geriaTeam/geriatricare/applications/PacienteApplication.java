@@ -96,39 +96,58 @@ public class PacienteApplication {
 
     // Atualizar
     public void atualizarPaciente(PacienteModels pacienteModels) {
-        if (pacienteModels == null || pacienteRepository.buscarPacienteId(pacienteModels.getId()) == null) {
-            throw new EntityNotFoundException("Paciente não é válido.");
-        }
-        Paciente paciente = new Paciente();
-        RG rg = new RG();
-        CPF cpf = new CPF();
-
-        cpf.setNumero(pacienteModels.getCpf());
-        rg.setNumero(pacienteModels.getRg());
-
-        if(!cpf.validarCPF()) {
-            throw new IllegalArgumentException("CPF inválido.");
-        }
-        if(!rg.validarRG()) {
-            throw new IllegalArgumentException("RG inválido.");
+        PacienteModels pacienteExistente = pacienteRepository.buscarPacienteId(pacienteModels.getId());
+        if (pacienteModels == null || pacienteExistente == null) {
+            throw new EntityNotFoundException("Paciente não encontrado.");
         }
 
-        paciente.setId(pacienteModels.getId());
-        paciente.setNome(pacienteModels.getNome());
-        paciente.setSobrenome(pacienteModels.getSobrenome());
-        paciente.setPacienteFamiliarModels(pacienteModels.getPacienteFamiliarModels());
-        paciente.setRg(rg);
-        paciente.setCpf(cpf);
-        paciente.setEntrada(pacienteModels.getEntrada());
-        paciente.setSaida(pacienteModels.getSaida());
-        paciente.setCondicaoMental(pacienteModels.getCondicaoMental());
-        paciente.setCondicaoFisica(pacienteModels.getCondicaoFisica());
-        paciente.setPacienteMedicamentoModels(pacienteModels.getPacienteMedicamentoModels());
-        paciente.setPacienteFamiliarModels(pacienteModels.getPacienteFamiliarModels());
-        paciente.setPlanoModels(pacienteModels.getPlanoModels());
-        paciente.setNascimento(pacienteModels.getNascimento());
+        if (pacienteModels.getNome() != null && !pacienteModels.getNome().isEmpty()) {
+            pacienteExistente.setNome(pacienteModels.getNome());
+        }
+        if (pacienteModels.getSobrenome() != null && !pacienteModels.getSobrenome().isEmpty()) {
+            pacienteExistente.setSobrenome(pacienteModels.getSobrenome());
+        }
+        if (pacienteModels.getCpf() != null && !pacienteModels.getCpf().isEmpty()) {
+            CPF cpf = new CPF(pacienteModels.getCpf());
+            if (!cpf.validarCPF()) {
+                throw new IllegalArgumentException("CPF inválido.");
+            }
+            pacienteExistente.setCpf(String.valueOf(cpf));
+        }
+        if (pacienteModels.getRg() != null && !pacienteModels.getRg().isEmpty()) {
+            RG rg = new RG();
+            rg.setNumero(pacienteModels.getRg());
+            if (!rg.validarRG()) {
+                throw new IllegalArgumentException("RG inválido.");
+            }
+            pacienteExistente.setRg(rg.getNumero());
+        }
+        if (pacienteModels.getCondicaoMental() != null) {
+            pacienteExistente.setCondicaoMental(pacienteModels.getCondicaoMental());
+        }
+        if (pacienteModels.getCondicaoFisica() != null) {
+            pacienteExistente.setCondicaoFisica(pacienteModels.getCondicaoFisica());
+        }
+        if (pacienteModels.getPacienteMedicamentoModels() != null) {
+            pacienteExistente.setPacienteMedicamentoModels(pacienteModels.getPacienteMedicamentoModels());
+        }
+        if (pacienteModels.getPacienteFamiliarModels() != null) {
+            pacienteExistente.setPacienteFamiliarModels(pacienteModels.getPacienteFamiliarModels());
+        }
+        if (pacienteModels.getPlanoModels() != null) {
+            pacienteExistente.setPlanoModels(pacienteModels.getPlanoModels());
+        }
+        if (pacienteModels.getNascimento() != null) {
+            pacienteExistente.setNascimento(pacienteModels.getNascimento());
+        }
+        if (pacienteModels.getEntrada() != null) {
+            pacienteExistente.setEntrada(pacienteModels.getEntrada());
+        }
+        if (pacienteModels.getSaida() != null) {
+            pacienteExistente.setSaida(pacienteModels.getSaida());
+        }
 
-        pacienteRepository.atualizarPaciente(paciente.toModel());
+        pacienteRepository.atualizarPaciente(pacienteExistente);
     }
 
     public String verificarEstadoSaudePaciente(int id) {

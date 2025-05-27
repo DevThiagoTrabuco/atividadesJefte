@@ -28,6 +28,11 @@ public class FuncionarioRepositoryMySQLImpl implements FuncionarioRepository {
     }
 
     @Override
+    public List<FuncionarioModels> buscarPorEmail(String email) {
+        return funcionarioJPA.buscarPorEmail(email);
+    }
+
+    @Override
     public void adicionar(FuncionarioModels funcionarioModels) {
         this.funcionarioJPA.save(funcionarioModels);
     }
