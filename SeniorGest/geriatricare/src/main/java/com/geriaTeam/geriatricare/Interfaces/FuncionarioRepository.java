@@ -1,13 +1,15 @@
 package com.geriaTeam.geriatricare.Interfaces;
 
-import com.geriaTeam.geriatricare.models.domain.Funcionario;
+import com.geriaTeam.geriatricare.models.AdminModels;
+import com.geriaTeam.geriatricare.models.FuncionarioModels;
 
 import java.util.List;
 
 public interface FuncionarioRepository {
-    public Funcionario buscarPorCodigo(int codigo);
-    public List<Funcionario> buscar();
-    public void adicionar(Funcionario funcionario);
-    public void remover(int codigo);
-    public void atualizar(Funcionario funcionario);
+    FuncionarioModels buscarPorCodigo(int codigo);
+    List<FuncionarioModels> buscar();
+    List<FuncionarioModels> buscarPorEmail(String email);
+    void adicionar(FuncionarioModels funcionarioModels);
+    void remover(int codigo);
+    void atualizar(FuncionarioModels funcionarioModels);
 }

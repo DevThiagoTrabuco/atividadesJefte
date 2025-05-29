@@ -1,53 +1,59 @@
 package com.geriaTeam.geriatricare.controller;
 
+import com.geriaTeam.geriatricare.facade.FamiliarFacade;
+import com.geriaTeam.geriatricare.models.FamiliarModels;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.geriaTeam.geriatricare.facade.FamiliarFacade;
-import com.geriaTeam.geriatricare.models.domain.Familiar;
-
-@RequestMapping("/api/familiar/")
 @RestController
+@RequestMapping("/api/familiar/")
 public class FamiliarController {
+
     private final FamiliarFacade familiarFacade;
 
     @Autowired
     public FamiliarController(FamiliarFacade familiarFacade) {
         this.familiarFacade = familiarFacade;
-
     }
 
-    @GetMapping("")
-    public List<Familiar> buscar(){
-        return familiarFacade.buscar();
+    // CRUD padrão
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/adicionar-familiar")
+    public void adicionarFamiliar(@RequestBody FamiliarModels familiarModels) {
+        familiarFacade.adicionarFamiliar(familiarModels);
     }
 
-    @GetMapping("/{codigo}")
-    public Familiar buscarPorCodigo(@PathVariable int codigo){
-        return familiarFacade.buscarPorCodigo(codigo);
+    @DeleteMapping("/remover-familiar/{id}")
+    public void removerFamiliar(@PathVariable int id) {
+        familiarFacade.removerFamiliar(id);
     }
 
-    @PostMapping("")
-    public void adicionar(@RequestBody Familiar familiar){
-        familiarFacade.adicionar(familiar);
+    @GetMapping("/buscar-familiar-id/{id}")
+    public FamiliarModels buscarFamiliarId(@PathVariable int id) {
+        return familiarFacade.buscarFamiliarId(id);
     }
 
-    @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody Familiar familiar){
-        familiarFacade.atualizar(familiar);
+    @GetMapping("/buscar-familiar-cpf/{cpf}")
+    public FamiliarModels buscarFamiliarCpf(@PathVariable String Cpf) {
+        return familiarFacade.buscarFamiliarCpf(Cpf);
     }
 
-    @DeleteMapping("/{codigo}")
-    public void remover(@PathVariable int codigo){
-        familiarFacade.remover(codigo);
+    @GetMapping("/buscar-familiar-nome/{nome}/{sobrenome}")
+    public List<FamiliarModels> buscarFamiliarNome(@PathVariable String nome, @PathVariable String sobrenome) {
+        return familiarFacade.buscarPorNome(nome, sobrenome);
+    }
+
+    @PutMapping("/atualizar-familiar")
+    public void atualizarFamiliar(@RequestBody FamiliarModels familiarModels) {
+        familiarFacade.atualizarFamiliar(familiarModels);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/buscar-todos-familiar")
+    public List<FamiliarModels> buscarTodosFamiliares() {
+        return familiarFacade.buscarTodosFamiliares();
     }
 }

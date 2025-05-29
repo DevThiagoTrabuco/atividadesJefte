@@ -2,12 +2,12 @@ package com.geriaTeam.geriatricare.Interfaces;
 
 import java.util.List;
 
-import com.geriaTeam.geriatricare.models.domain.Historico;
+import com.geriaTeam.geriatricare.models.HistoricoModels;
 
 public interface HistoricoRepository {
-    public Historico buscarPorCodigo(int codigo);
-    public List<Historico> buscar();
-    public void adicionar(Historico historico);
-    public void remover(int codigo);
-    public void atualizar(Historico historico);
+    HistoricoModels buscarPorCodigo(int codigo);
+    List<HistoricoModels> buscar();
+    void adicionar(HistoricoModels historicoModels);
+    void remover(int codigo);
+    void atualizar(HistoricoModels historicoModels);
 }

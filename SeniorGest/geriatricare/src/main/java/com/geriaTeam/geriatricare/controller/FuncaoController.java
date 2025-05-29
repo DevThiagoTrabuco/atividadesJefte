@@ -1,53 +1,46 @@
 package com.geriaTeam.geriatricare.controller;
 
+import com.geriaTeam.geriatricare.facade.FuncaoFacade;
+import com.geriaTeam.geriatricare.models.FuncaoModels;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.geriaTeam.geriatricare.facade.FuncaoFacade;
-import com.geriaTeam.geriatricare.models.domain.Funcao;
-
-@RequestMapping("/api/funcao/")
 @RestController
+@RequestMapping("/api/funcao/")
 public class FuncaoController {
+
     private final FuncaoFacade funcaoFacade;
 
     @Autowired
     public FuncaoController(FuncaoFacade funcaoFacade) {
         this.funcaoFacade = funcaoFacade;
-
     }
 
-    @GetMapping("")
-    public List<Funcao> buscar(){
-        return funcaoFacade.buscar();
+    // CRUD padrão
+    @PostMapping("/adicionar-funcao")
+    public void adicionarFuncao(@RequestBody FuncaoModels funcaoModels) {
+        funcaoFacade.adicionarFuncao(funcaoModels);
     }
 
-    @GetMapping("/{codigo}")
-    public Funcao buscarPorCodigo(@PathVariable int codigo){
-        return funcaoFacade.buscarPorCodigo(codigo);
+    @DeleteMapping("/remover-funcao/{id}")
+    public void removerFuncao(@PathVariable int id) {
+        funcaoFacade.removerFuncao(id);
     }
 
-    @PostMapping("")
-    public void adicionar(@RequestBody Funcao funcao){
-        funcaoFacade.adicionar(funcao);
+    @GetMapping("/buscar-funcao/{id}")
+    public FuncaoModels buscarFuncao(@PathVariable int id) {
+        return funcaoFacade.buscarFuncao(id);
     }
 
-    @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody Funcao funcao){
-        funcaoFacade.atualizar(funcao);
+    @PutMapping("/atualizar-funcao/{id}")
+    public void atualizarFuncao(@RequestBody FuncaoModels funcaoModels) {
+        funcaoFacade.atualizarFuncao(funcaoModels);
     }
 
-    @DeleteMapping("/{codigo}")
-    public void remover(@PathVariable int codigo){
-        funcaoFacade.remover(codigo);
+    @GetMapping("/buscar-todas-funcao")
+    public List<FuncaoModels> buscarTodasFuncoes() {
+        return funcaoFacade.buscarTodasFuncoes();
     }
 }

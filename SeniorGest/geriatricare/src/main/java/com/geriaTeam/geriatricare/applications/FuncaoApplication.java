@@ -1,40 +1,58 @@
 package com.geriaTeam.geriatricare.applications;
 
-import com.geriaTeam.geriatricare.models.domain.Funcao;
 import com.geriaTeam.geriatricare.Interfaces.FuncaoRepository;
-
-import java.util.List;
-
+import com.geriaTeam.geriatricare.models.FuncaoModels;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FuncaoApplication {
-    private FuncaoRepository funcaoRepository;
-    
-    
+    private final FuncaoRepository funcaoRepository;
+
     @Autowired
     public FuncaoApplication(FuncaoRepository funcaoRepository) {
         this.funcaoRepository = funcaoRepository;
     }
 
-    public void adicionar(Funcao funcao){
-        this.funcaoRepository.adicionar(funcao);
+    public void adicionarFuncao(FuncaoModels funcao) {
+
+        funcaoRepository.adicionarFuncao(funcao);
     }
 
-    public void atualizar(Funcao funcao){
-        this.funcaoRepository.atualizar(funcao);
+    public void removerFuncao(int id) {
+        FuncaoModels funcao = funcaoRepository.buscarFuncaoId(id);
+        if (funcao != null) {
+            funcaoRepository.removerFuncao(id);
+        } else {
+            throw new EntityNotFoundException("Função não encontrada.");
+        }
     }
 
-    public void remover(int code){
-        this.funcaoRepository.remover(code);
+    public FuncaoModels buscarFuncao(int id) {
+        FuncaoModels funcao = funcaoRepository.buscarFuncaoId(id);
+        if (funcao == null) {
+            throw new EntityNotFoundException("Função não encontrada.");
+        }
+        return funcao;
     }
 
-    public List<Funcao> buscar(){
-        return this.funcaoRepository.buscar();
+    public void atualizarFuncao(FuncaoModels funcaoAtualizada) {
+        FuncaoModels funcaoExistente = funcaoRepository.buscarFuncaoId(funcaoAtualizada.getId());
+        if (funcaoExistente == null) {
+            throw new EntityNotFoundException("Função não encontrada.");
+        }
+
+        if (funcaoAtualizada.getNome() != null && !funcaoAtualizada.getNome().isEmpty()) {
+            funcaoExistente.setNome(funcaoAtualizada.getNome());
+        }
+
+        funcaoRepository.atualizarFuncao(funcaoExistente);
     }
 
-    public Funcao buscarPorCodigo(int code){
-        return this.funcaoRepository.buscarPorCodigo(code);
+    public List<FuncaoModels> buscarTodasFuncoes() {
+        return funcaoRepository.buscarFuncao();
     }
 }

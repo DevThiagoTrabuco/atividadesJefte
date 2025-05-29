@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.facade;
 
 import com.geriaTeam.geriatricare.applications.PacienteFamiliarApplication;
-import com.geriaTeam.geriatricare.models.domain.PacienteFamiliar;
+import com.geriaTeam.geriatricare.models.PacienteFamiliarModels;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,23 +12,35 @@ public class PacienteFamiliarFacade {
     @Autowired
     private PacienteFamiliarApplication pacienteFamiliarApplication;
 
-    public List<PacienteFamiliar> buscar() {
-        return pacienteFamiliarApplication.buscar();
+    public void adicionarPacienteFamiliar(PacienteFamiliarModels pacienteFamiliarModels) {
+        pacienteFamiliarApplication.adicionarPacienteFamiliar(pacienteFamiliarModels);
     }
 
-    public PacienteFamiliar buscarPorCodigo(int codigo) {
-        return pacienteFamiliarApplication.buscarPorCodigo(codigo);
+    public void adicionarFamiliar(int pacienteId, int familiarId) {
+        pacienteFamiliarApplication.adicionarFamiliar(pacienteId, familiarId);
     }
 
-    public void adicionar(PacienteFamiliar pacienteFamiliar) {
-        pacienteFamiliarApplication.adicionar(pacienteFamiliar);
+    public void removerFamiliar(int pacienteId, int familiarId) {
+        pacienteFamiliarApplication.removerFamiliar(pacienteId, familiarId);
     }
 
-    public void atualizar(PacienteFamiliar pacienteFamiliar) {
-        pacienteFamiliarApplication.atualizar(pacienteFamiliar);
+    public void removerPacienteFamiliar(int id){
+        pacienteFamiliarApplication.removerPacienteFamiliar(id);
     }
 
-    public void remover(int codigo) {
-        pacienteFamiliarApplication.remover(codigo);
+    public PacienteFamiliarModels buscarRelacionamento(int pacienteId, int familiarId) {
+        return pacienteFamiliarApplication.buscarRelacionamento(pacienteId, familiarId);
+    }
+
+    public void atualizarFamiliar(int pacienteId, int familiarId, int novoFamiliarId) {
+        pacienteFamiliarApplication.atualizarFamiliar(pacienteId, familiarId, novoFamiliarId);
+    }
+
+    public boolean verificarFamiliar(int pacienteId, int familiarId) {
+        return pacienteFamiliarApplication.verificarFamiliar(pacienteId, familiarId);
+    }
+
+    public List<PacienteFamiliarModels> buscarTodosPacienteFamiliar() {
+        return pacienteFamiliarApplication.buscarTodosPacienteFamiliar();
     }
 }

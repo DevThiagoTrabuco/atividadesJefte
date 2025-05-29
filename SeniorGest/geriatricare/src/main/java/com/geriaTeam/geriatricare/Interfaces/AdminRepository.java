@@ -2,12 +2,13 @@ package com.geriaTeam.geriatricare.Interfaces;
 
 import java.util.List;
 
-import com.geriaTeam.geriatricare.models.domain.Admin;
+import com.geriaTeam.geriatricare.models.AdminModels;
 
 public interface AdminRepository {
-    public Admin buscarPorCodigo(int codigo);
-    public List<Admin> buscar();
-    public void adicionar(Admin admin);
-    public void remover(int codigo);
-    public void atualizar(Admin admin);
+    AdminModels buscarPorCodigo(int codigo);
+    List<AdminModels> buscar();
+    List<AdminModels> buscarPorEmail(String email);
+    void adicionar(AdminModels adminModels);
+    void remover(int codigo);
+    void atualizar(AdminModels adminModels);
 }

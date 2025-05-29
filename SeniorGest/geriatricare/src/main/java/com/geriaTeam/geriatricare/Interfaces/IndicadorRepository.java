@@ -2,12 +2,12 @@ package com.geriaTeam.geriatricare.Interfaces;
 
 import java.util.List;
 
-import com.geriaTeam.geriatricare.models.domain.Indicador;
+import com.geriaTeam.geriatricare.models.IndicadorModels;
 
 public interface IndicadorRepository {
-    public Indicador buscarPorCodigo(int codigo);
-    public List<Indicador> buscar();
-    public void adicionar(Indicador indicador);
-    public void remover(int codigo);
-    public void atualizar(Indicador indicador);
+    IndicadorModels buscarPorCodigo(int codigo);
+    List<IndicadorModels> buscar();
+    void adicionar(IndicadorModels indicadorModels);
+    void remover(int codigo);
+    void atualizar(IndicadorModels indicadorModels);
 }

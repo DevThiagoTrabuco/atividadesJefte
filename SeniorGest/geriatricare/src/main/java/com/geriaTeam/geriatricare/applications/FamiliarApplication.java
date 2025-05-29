@@ -1,40 +1,148 @@
 package com.geriaTeam.geriatricare.applications;
 
 import com.geriaTeam.geriatricare.Interfaces.FamiliarRepository;
-import com.geriaTeam.geriatricare.models.domain.Familiar;
-
-import java.util.List;
-
+import com.geriaTeam.geriatricare.entities.*;
+import com.geriaTeam.geriatricare.models.FamiliarModels;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FamiliarApplication {
-    private FamiliarRepository familiarRepository;
-    
-    
+    private final FamiliarRepository familiarRepository;
+
     @Autowired
     public FamiliarApplication(FamiliarRepository familiarRepository) {
         this.familiarRepository = familiarRepository;
     }
 
-    public void adicionar(Familiar familiar){
-        this.familiarRepository.adicionar(familiar);
+    public void adicionarFamiliar(FamiliarModels familiarModels) {
+        // Verifica se o paciente já existe pelo CPF
+        FamiliarModels familiarExistente = familiarRepository.buscarFamiliarCpf(familiarModels.getCpf());
+        if (familiarExistente != null) {
+            throw new IllegalArgumentException("Familiar já cadastrado com o CPF informado.");
+        }
+
+        Familiar familiar = new Familiar();
+        RG rg = new RG();
+        CPF cpf = new CPF();
+        Email email = new Email();
+        Telefone telefone = new Telefone();
+
+        cpf.setNumero(familiarModels.getCpf());
+        rg.setNumero(familiarModels.getRg());
+        email.setEndereco(familiarModels.getEmail());
+        telefone.setNumero(familiarModels.getTelefone());
+
+        if (!cpf.validarCPF()) {
+            throw new IllegalArgumentException("CPF inválido.");
+        }
+        if (!rg.validarRG()) {
+            throw new IllegalArgumentException("RG inválido.");
+        }
+        if (!email.validarEmail()) {
+            throw new IllegalArgumentException("Email inválido.");
+        }
+        if (!telefone.validarTelefone()) {
+            throw new IllegalArgumentException("Telefone inválido.");
+        }
+
+        familiar.setId(familiarModels.getId());
+        familiar.setNome(familiarModels.getNome());
+        familiar.setSobrenome(familiarModels.getSobrenome());
+        familiar.setPacienteFamiliarModels(familiarModels.getPacienteFamiliarModels());
+        familiar.setRg(rg);
+        familiar.setCpf(cpf);
+        familiar.setEmail(email);
+        familiar.setTelefone(telefone);
+
+        familiarRepository.adicionarFamiliar(familiar.toModel());
     }
 
-    public void atualizar(Familiar familiar){
-        this.familiarRepository.atualizar(familiar);
+    public void atualizarFamiliar(FamiliarModels familiarModels) {
+        FamiliarModels familiarExistente = familiarRepository.buscarFamiliarId(familiarModels.getId());
+        if (familiarExistente == null) {
+            throw new EntityNotFoundException("Familiar não encontrado.");
+        }
+
+        if (familiarModels.getNome() != null && !familiarModels.getNome().isEmpty()) {
+            familiarExistente.setNome(familiarModels.getNome());
+        }
+        if (familiarModels.getSobrenome() != null && !familiarModels.getSobrenome().isEmpty()) {
+            familiarExistente.setSobrenome(familiarModels.getSobrenome());
+        }
+        if (familiarModels.getCpf() != null && !familiarModels.getCpf().isEmpty()) {
+            CPF cpf = new CPF();
+            cpf.setNumero(familiarModels.getCpf());
+            if (!cpf.validarCPF()) {
+                throw new IllegalArgumentException("CPF inválido.");
+            }
+            familiarExistente.setCpf(familiarModels.getCpf());
+        }
+        if (familiarModels.getRg() != null && !familiarModels.getRg().isEmpty()) {
+            RG rg = new RG();
+            rg.setNumero(familiarModels.getRg());
+            if (!rg.validarRG()) {
+                throw new IllegalArgumentException("RG inválido.");
+            }
+            familiarExistente.setRg(familiarModels.getRg());
+        }
+        if (familiarModels.getEmail() != null && !familiarModels.getEmail().isEmpty()) {
+            Email email = new Email();
+            email.setEndereco(familiarModels.getEmail());
+            if (!email.validarEmail()) {
+                throw new IllegalArgumentException("Email inválido.");
+            }
+            familiarExistente.setEmail(familiarModels.getEmail());
+        }
+        if (familiarModels.getTelefone() != null && !familiarModels.getTelefone().isEmpty()) {
+            Telefone telefone = new Telefone();
+            telefone.setNumero(familiarModels.getTelefone());
+            if (!telefone.validarTelefone()) {
+                throw new IllegalArgumentException("Telefone inválido.");
+            }
+            familiarExistente.setTelefone(familiarModels.getTelefone());
+        }
+        if (familiarModels.getPacienteFamiliarModels() != null) {
+            familiarExistente.setPacienteFamiliarModels(familiarModels.getPacienteFamiliarModels());
+        }
+
+        familiarRepository.atualizarFamiliar(familiarExistente);
     }
 
-    public void remover(int codigo){
-        this.familiarRepository.remover(codigo);
+    public void removerFamiliar(int id) {
+        FamiliarModels familiar = familiarRepository.buscarFamiliarId(id);
+        if (familiar != null) {
+            familiarRepository.removerFamiliar(id);
+        } else {
+            throw new EntityNotFoundException("Familiar não encontrado.");
+        }
     }
 
-    public List<Familiar> buscar(){
-        return this.familiarRepository.buscar();
+    public FamiliarModels buscarFamiliarId(int id) {
+        FamiliarModels familiar = familiarRepository.buscarFamiliarId(id);
+        if (familiar == null) {
+            throw new EntityNotFoundException("Familiar não encontrado.");
+        }
+        return familiar;
     }
 
-    public Familiar buscarPorCodigo(int codigo){
-        return this.familiarRepository.buscarPorCodigo(codigo);
+    public FamiliarModels buscarFamiliarCpf(String Cpf) {
+        FamiliarModels familiar = familiarRepository.buscarFamiliarCpf(Cpf);
+        if (familiar == null) {
+            throw new EntityNotFoundException("Familiar não encontrado.");
+        }
+        return familiar;
+    }
+
+    public List<FamiliarModels> buscarPorNome(String nome, String sobrenome) {
+        String nomeCompleto = nome + sobrenome;
+        return familiarRepository.buscarFamiliarNome(nomeCompleto);
+    }
+
+    public List<FamiliarModels> buscarTodosFamiliares() {
+        return familiarRepository.buscarFamiliar();
     }
 }

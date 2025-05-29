@@ -1,12 +1,13 @@
 package com.geriaTeam.geriatricare.repositories.mySQL;
 
 import com.geriaTeam.geriatricare.Interfaces.PlanoRepository;
-import com.geriaTeam.geriatricare.models.domain.Plano;
+import com.geriaTeam.geriatricare.models.PlanoModels;
 import com.geriaTeam.geriatricare.repositories.jpa.PlanoJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class PlanoMySQLImpl implements PlanoRepository {
@@ -18,27 +19,32 @@ public class PlanoMySQLImpl implements PlanoRepository {
     }
 
     @Override
-    public Plano buscarPorCodigo(int codigo){
-        return this.planoJPA.findById(codigo).get();
+    public Optional<PlanoModels> buscarPlanoId(int codigo){
+        return this.planoJPA.findById(codigo);
     }
 
     @Override
-    public List<Plano> buscar(){
+    public List<PlanoModels> buscarPlano(){
         return this.planoJPA.findAll();
     }
 
     @Override
-    public void adicionar(Plano plano){
-        this.planoJPA.save(plano);
+    public void adicionarPlano(PlanoModels planoModels){
+        this.planoJPA.save(planoModels);
     }
 
     @Override
-    public void remover(int codigo){
+    public void removerPlano(int codigo){
         this.planoJPA.deleteById(codigo);
     }
 
     @Override
-    public void atualizar(Plano plano){
-        this.planoJPA.save(plano);
+    public void atualizarPlano(PlanoModels planoModels){
+        this.planoJPA.save(planoModels);
+    }
+
+    @Override
+    public List<PlanoModels> buscarPlanoNome(String nome) {
+        return this.planoJPA.findByNome(nome);
     }
 }

@@ -1,13 +1,14 @@
 package com.geriaTeam.geriatricare.Interfaces;
 
-import com.geriaTeam.geriatricare.models.domain.PacienteMedicamento;
+import com.geriaTeam.geriatricare.models.PacienteMedicamentoModels;
 
 import java.util.List;
 
 public interface PacienteMedicamentoRepository {
-    public PacienteMedicamento buscarPorCodigo(int codigo);
-    public List<PacienteMedicamento> buscar();
-    public void adicionar(PacienteMedicamento pacienteMedicamento);
-    public void remover(int codigo);
-    public void atualizar(PacienteMedicamento pacienteMedicamento);
+    PacienteMedicamentoModels buscarPacienteMedicamentoId(int codigo);
+    List<PacienteMedicamentoModels> buscarPacienteMedicamento();
+    void adicionarPacienteMedicamento(PacienteMedicamentoModels pacienteMedicamentoModels);
+    void removerPacienteMedicamento(int codigo);
+    void atualizarPacienteMedicamento(PacienteMedicamentoModels pacienteMedicamentoModels);
+
 }
