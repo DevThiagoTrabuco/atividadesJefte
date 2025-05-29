@@ -3,6 +3,7 @@ package com.geriaTeam.geriatricare.controller;
 import com.geriaTeam.geriatricare.facade.FamiliarFacade;
 import com.geriaTeam.geriatricare.models.FamiliarModels;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class FamiliarController {
     }
 
     // CRUD padrão
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/adicionar-familiar")
     public void adicionarFamiliar(@RequestBody FamiliarModels familiarModels) {
         familiarFacade.adicionarFamiliar(familiarModels);
@@ -49,6 +51,7 @@ public class FamiliarController {
         familiarFacade.atualizarFamiliar(familiarModels);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/buscar-todos-familiar")
     public List<FamiliarModels> buscarTodosFamiliares() {
         return familiarFacade.buscarTodosFamiliares();

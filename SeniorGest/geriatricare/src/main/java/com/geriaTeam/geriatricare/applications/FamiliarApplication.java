@@ -19,6 +19,12 @@ public class FamiliarApplication {
     }
 
     public void adicionarFamiliar(FamiliarModels familiarModels) {
+        // Verifica se o paciente já existe pelo CPF
+        FamiliarModels familiarExistente = familiarRepository.buscarFamiliarCpf(familiarModels.getCpf());
+        if (familiarExistente != null) {
+            throw new IllegalArgumentException("Familiar já cadastrado com o CPF informado.");
+        }
+
         Familiar familiar = new Familiar();
         RG rg = new RG();
         CPF cpf = new CPF();
@@ -30,16 +36,16 @@ public class FamiliarApplication {
         email.setEndereco(familiarModels.getEmail());
         telefone.setNumero(familiarModels.getTelefone());
 
-        if(!cpf.validarCPF()) {
+        if (!cpf.validarCPF()) {
             throw new IllegalArgumentException("CPF inválido.");
         }
-        if(!rg.validarRG()) {
+        if (!rg.validarRG()) {
             throw new IllegalArgumentException("RG inválido.");
         }
-        if(!email.validarEmail()) {
+        if (!email.validarEmail()) {
             throw new IllegalArgumentException("Email inválido.");
         }
-        if(!telefone.validarTelefone()) {
+        if (!telefone.validarTelefone()) {
             throw new IllegalArgumentException("Telefone inválido.");
         }
 
