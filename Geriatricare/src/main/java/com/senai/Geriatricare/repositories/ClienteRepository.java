@@ -1,8 +1,8 @@
 package com.senai.Geriatricare.repositories;
 
-import com.senai.Geriatricare.entities.Cliente;
+import com.senai.Geriatricare.entities.ClienteEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
+public interface ClienteRepository extends JpaRepository<ClienteEntity, Integer> {
     boolean existsByCnpj(String cnpj);
 }

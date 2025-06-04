@@ -1,7 +1,7 @@
 package com.senai.Geriatricare.repositories;
 
-import com.senai.Geriatricare.entities.Familiar;
+import com.senai.Geriatricare.entities.FamiliarEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface FamiliarRepository extends JpaRepository<Familiar, Integer> {
+public interface FamiliarRepository extends JpaRepository<FamiliarEntity, Integer> {
 }
