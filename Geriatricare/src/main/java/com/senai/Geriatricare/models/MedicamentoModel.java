@@ -15,6 +15,7 @@ public class MedicamentoModel {
     private String nomeComercial;
     private String nomeGenerico;
     private String dosagem;
+    private String lote;
     private LocalDate dataValidade;
     private StatusMedicamento statusMedicamento;
     private int quantidade;
@@ -25,6 +26,7 @@ public class MedicamentoModel {
         medicamento.setNomeComercial(this.nomeComercial);
         medicamento.setNomeGenerico(this.nomeGenerico);
         medicamento.setDosagem(this.dosagem);
+        medicamento.setLote(this.lote);
         medicamento.setDataValidade(this.dataValidade);
         medicamento.setStatusMedicamento(this.statusMedicamento);
         medicamento.setQuantidade(this.quantidade);

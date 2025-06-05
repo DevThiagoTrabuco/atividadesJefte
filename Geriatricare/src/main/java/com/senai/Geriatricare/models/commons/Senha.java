@@ -13,7 +13,7 @@ public class Senha {
 
     private String senha;
 
-    public boolean isSenhaValida() {
+    public boolean validaSenha() {
         return SENHA_PADRAO.matcher(senha).matches();
     }
 }

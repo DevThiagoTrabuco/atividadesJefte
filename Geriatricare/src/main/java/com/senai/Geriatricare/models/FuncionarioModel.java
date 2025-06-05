@@ -3,6 +3,7 @@ package com.senai.Geriatricare.models;
 import com.senai.Geriatricare.entities.ClienteEntity;
 import com.senai.Geriatricare.entities.FuncionarioEntity;
 import com.senai.Geriatricare.enums.Funcao;
+import com.senai.Geriatricare.models.commons.*;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -14,12 +15,12 @@ import java.time.LocalDate;
 public class FuncionarioModel {
     private int id;
     private String nome;
-    private String cpf;
-    private String rg;
+    private CPF cpf;
+    private RG rg;
     private LocalDate dataNascimento;
-    private String email;
-    private String senha;
-    private String telefone;
+    private Email email;
+    private Senha senha;
+    private Telefone telefone;
     private Funcao funcao;
     private int clienteId;
 
@@ -27,12 +28,12 @@ public class FuncionarioModel {
         FuncionarioEntity funcionario = new FuncionarioEntity();
         funcionario.setId(this.id);
         funcionario.setNome(this.nome);
-        funcionario.setCpf(this.cpf);
-        funcionario.setRg(this.rg);
+        funcionario.setCpf(this.cpf.validaCPF() ? this.cpf.getCpf() : null);
+        funcionario.setRg(this.rg.validaRG() ? this.rg.getRg() : null);
         funcionario.setDataNascimento(this.dataNascimento);
-        funcionario.setEmail(this.email);
-        funcionario.setSenha(this.senha);
-        funcionario.setTelefone(this.telefone);
+        funcionario.setEmail(this.email.validaEmail() ? this.email.getEmail() : null);
+        funcionario.setSenha(this.senha.validaSenha() ? this.senha.getSenha() : null);
+        funcionario.setTelefone(this.telefone.validaTelefone() ? this.telefone.getTelefone() : null);
         funcionario.setFuncao(this.funcao);
         funcionario.setCliente(cliente);
 

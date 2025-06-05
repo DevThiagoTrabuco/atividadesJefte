@@ -26,6 +26,9 @@ public class MedicamentoEntity {
     @Column(name = "dosagem", nullable = false)
     private String dosagem;
 
+    @Column(name = "lote", nullable = false)
+    private  String lote;
+
     @Column(name = "data_validade", nullable = false)
     private LocalDate dataValidade;
 

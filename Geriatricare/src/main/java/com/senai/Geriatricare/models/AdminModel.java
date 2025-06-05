@@ -2,6 +2,7 @@ package com.senai.Geriatricare.models;
 
 import com.senai.Geriatricare.entities.AdminEntity;
 import com.senai.Geriatricare.entities.ClienteEntity;
+import com.senai.Geriatricare.models.commons.*;
 import lombok.*;
 
 import java.util.List;
@@ -13,16 +14,16 @@ import java.util.List;
 public class AdminModel {
     private int id;
     private String nome;
-    private String email;
-    private String senha;
+    private Email email;
+    private Senha senha;
     private List<ClienteEntity> clientes;
 
     public AdminEntity toEntity(){
         AdminEntity admin = new AdminEntity();
         admin.setId(this.id);
         admin.setNome(this.nome);
-        admin.setEmail(this.email);
-        admin.setSenha(this.senha);
+        admin.setEmail(this.email.validaEmail() ? this.email.getEmail() : null);
+        admin.setSenha(this.senha.validaSenha() ? this.senha.getSenha() : null);
         return admin;
     }
 }
