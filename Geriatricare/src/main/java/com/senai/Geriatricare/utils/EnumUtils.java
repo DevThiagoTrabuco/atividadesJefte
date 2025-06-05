@@ -1,4 +1,4 @@
-package utils;
+package com.senai.Geriatricare.utils;
 
 public class EnumUtils {
     public static <E extends Enum<E>> boolean isValidEnum(Class<E> classe, String valor) {
