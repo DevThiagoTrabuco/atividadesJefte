@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class RegistroModel {
     private int id;
-    private Funcionario funcionario;
+    private int funcionarioId;
     private Entidade entidade;
     private int entidadeId;
     private String campo;
@@ -22,7 +22,7 @@ public class RegistroModel {
     private LocalDateTime dataHora;
 
     public RegistroEntity toEntity(FuncionarioEntity funcionario) {
-        RegistroEntity registro = new Registro();
+        RegistroEntity registro = new RegistroEntity();
         registro.setId(this.id);
         registro.setFuncionario(funcionario);
         registro.setEntidade(this.entidade);

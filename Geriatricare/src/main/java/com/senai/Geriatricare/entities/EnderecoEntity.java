@@ -1,5 +1,6 @@
 package com.senai.Geriatricare.entities;
 
+import com.senai.Geriatricare.enums.UnidadeFederativa;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,8 +26,8 @@ public class EnderecoEntity {
     @Column(name = "cidade", nullable = false)
     private String cidade;
 
-    @Column(name = "UF", nullable = false)
-    private String UF;
+    @Enumerated
+    private UnidadeFederativa unidadeFederativa;
 
     @Column(name = "cep", nullable = false)
     private String cep;

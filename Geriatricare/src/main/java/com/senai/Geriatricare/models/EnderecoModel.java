@@ -1,6 +1,7 @@
 package com.senai.Geriatricare.models;
 
 import com.senai.Geriatricare.entities.EnderecoEntity;
+import com.senai.Geriatricare.enums.UnidadeFederativa;
 import lombok.*;
 
 @Getter
@@ -13,18 +14,18 @@ public class EnderecoModel {
     private String numero;
     private String bairro;
     private String cidade;
-    private String UF;
+    private UnidadeFederativa UF;
     private String cep;
     private String complemento;
 
     public EnderecoEntity toEntity(){
-        EnderecoEntity endereco = new Endereco();
+        EnderecoEntity endereco = new EnderecoEntity();
         endereco.setId(this.id);
         endereco.setLogradouro(this.logradouro);
         endereco.setNumero(this.numero);
         endereco.setBairro(this.bairro);
         endereco.setCidade(this.cidade);
-        endereco.setUF(this.UF);
+        endereco.setUnidadeFederativa(this.UF);
         endereco.setCep(this.cep);
         endereco.setComplemento(this.complemento);
         return endereco;
