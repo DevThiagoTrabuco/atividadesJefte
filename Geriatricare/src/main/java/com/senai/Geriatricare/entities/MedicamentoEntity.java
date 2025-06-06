@@ -17,6 +17,10 @@ public class MedicamentoEntity {
     @Column(name = "medicamento_id")
     private int id;
 
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private ClienteEntity cliente;
+
     @Column(name = "nome_comercial")
     private String nomeComercial;
 

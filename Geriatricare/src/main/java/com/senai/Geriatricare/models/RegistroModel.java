@@ -1,5 +1,6 @@
 package com.senai.Geriatricare.models;
 
+import com.senai.Geriatricare.entities.ClienteEntity;
 import com.senai.Geriatricare.entities.FuncionarioEntity;
 import com.senai.Geriatricare.entities.RegistroEntity;
 import com.senai.Geriatricare.enums.Entidade;
@@ -13,17 +14,19 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class RegistroModel {
     private int id;
+    private int clienteId;
     private int funcionarioId;
-    private Entidade entidade;
     private int entidadeId;
+    private Entidade entidade;
     private String campo;
     private String valorAntigo;
     private String valorNovo;
     private LocalDateTime dataHora;
 
-    public RegistroEntity toEntity(FuncionarioEntity funcionario) {
+    public RegistroEntity toEntity(ClienteEntity cliente, FuncionarioEntity funcionario) {
         RegistroEntity registro = new RegistroEntity();
         registro.setId(this.id);
+        registro.setCliente(cliente);
         registro.setFuncionario(funcionario);
         registro.setEntidade(this.entidade);
         registro.setEntidadeId(this.entidadeId);

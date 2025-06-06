@@ -17,6 +17,10 @@ public class RegistroEntity {
     private int id;
 
     @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private ClienteEntity cliente;
+
+    @ManyToOne
     @JoinColumn(name = "funcionario_id", nullable = false)
     private FuncionarioEntity funcionario;
 

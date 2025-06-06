@@ -1,5 +1,6 @@
 package com.senai.Geriatricare.models;
 
+import com.senai.Geriatricare.entities.ClienteEntity;
 import com.senai.Geriatricare.entities.MedicamentoEntity;
 import com.senai.Geriatricare.entities.PacienteEntity;
 import com.senai.Geriatricare.entities.PrescricaoEntity;
@@ -14,15 +15,17 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class PrescricaoModel {
     private int id;
+    private int clienteId;
     private int pacienteId;
     private int medicamentoId;
     private Posologia posologia;
     private LocalDate dataInicio;
     private LocalDate dataFim;
 
-    public PrescricaoEntity toEntity(PacienteEntity paciente, MedicamentoEntity medicamento) {
+    public PrescricaoEntity toEntity(ClienteEntity cliente, PacienteEntity paciente, MedicamentoEntity medicamento) {
         PrescricaoEntity prescricao = new PrescricaoEntity();
         prescricao.setId(this.id);
+        prescricao.setCliente(cliente);
         prescricao.setPaciente(paciente);
         prescricao.setMedicamento(medicamento);
         prescricao.setPosologia(this.posologia);
