@@ -1,0 +1,73 @@
+package com.senai.Geriatricare.controllers;
+
+import com.senai.Geriatricare.entities.PrescricaoEntity;
+import com.senai.Geriatricare.models.PrescricaoModel;
+import com.senai.Geriatricare.services.PrescricaoService;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/prescricoes")
+public class PrescricaoController {
+
+    private final PrescricaoService prescricaoService;
+
+    @Autowired
+    public PrescricaoController(PrescricaoService prescricaoService) {
+        this.prescricaoService = prescricaoService;
+    }
+
+    @PostMapping
+    public ResponseEntity<?> criarPrescricao(@RequestBody PrescricaoModel prescricaoModel) {
+        try {
+            prescricaoService.criarPrescricao(prescricaoModel);
+            return ResponseEntity.ok("Prescrição criada com sucesso.");
+        } catch (IllegalArgumentException | EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> atualizarPrescricao(@PathVariable int id, @RequestBody PrescricaoModel prescricaoModel) {
+        try {
+            prescricaoModel.setId(id);
+            prescricaoService.atualizarPrescricao(prescricaoModel);
+            return ResponseEntity.ok("Prescrição atualizada com sucesso.");
+        } catch (IllegalArgumentException | EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> removerPrescricao(@PathVariable int id) {
+        try {
+            prescricaoService.removerPrescricao(id);
+            return ResponseEntity.ok("Prescrição removida com sucesso.");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PrescricaoEntity>> listarTodos() {
+        return ResponseEntity.ok(prescricaoService.listarTodos());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> buscarPorId(@PathVariable int id) {
+        try {
+            return ResponseEntity.ok(prescricaoService.buscarPorId(id));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/paciente/{clienteId}/{pacienteId}")
+    public ResponseEntity<List<PrescricaoEntity>> buscarPorPaciente(@PathVariable int clienteId, @PathVariable int pacienteId) {
+        return ResponseEntity.ok(prescricaoService.buscarPorPaciente(clienteId, pacienteId));
+    }
+}
