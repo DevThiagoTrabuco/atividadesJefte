@@ -77,19 +77,19 @@ public class PacienteController {
         }
     }
 
-    @GetMapping("/cpf/{cpf}")
-    public ResponseEntity<?> buscarPorCpf(@PathVariable String cpf) {
+    @GetMapping("/cpf/{clienteId}/{cpf}")
+    public ResponseEntity<?> buscarPorCpf(@PathVariable int clienteId, @PathVariable String cpf) {
         try {
-            return ResponseEntity.ok(pacienteService.buscarPorCpf(cpf));
+            return ResponseEntity.ok(pacienteService.buscarPorCpf(clienteId, cpf));
         } catch (EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @GetMapping("/rg/{rg}")
-    public ResponseEntity<?> buscarPorRg(@PathVariable String rg) {
+    @GetMapping("/rg/{clienteId}/{rg}")
+    public ResponseEntity<?> buscarPorRg(@PathVariable int clienteId, @PathVariable String rg) {
         try {
-            return ResponseEntity.ok(pacienteService.buscarPorRg(rg));
+            return ResponseEntity.ok(pacienteService.buscarPorRg(clienteId, rg));
         } catch (EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

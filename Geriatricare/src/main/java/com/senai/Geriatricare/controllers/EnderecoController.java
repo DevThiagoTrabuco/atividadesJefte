@@ -1,6 +1,7 @@
 package com.senai.Geriatricare.controllers;
 
 import com.senai.Geriatricare.entities.EnderecoEntity;
+import com.senai.Geriatricare.enums.UnidadeFederativa;
 import com.senai.Geriatricare.models.EnderecoModel;
 import com.senai.Geriatricare.services.EnderecoService;
 import jakarta.persistence.EntityNotFoundException;
@@ -94,8 +95,8 @@ public class EnderecoController {
     }
 
     @GetMapping("/uf/{uf}")
-    public ResponseEntity<List<EnderecoEntity>> buscarPorUF(@PathVariable String uf) {
-        return ResponseEntity.ok(enderecoService.buscarPorUF(uf));
+    public List<EnderecoEntity> buscarPorUnidadeFederativa(@PathVariable UnidadeFederativa uf) {
+        return enderecoService.buscarPorUnidadeFederativa(uf);
     }
 
     @GetMapping("/cidade/{cidade}")

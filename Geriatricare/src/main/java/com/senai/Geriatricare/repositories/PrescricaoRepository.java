@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PrescricaoRepository extends JpaRepository<PrescricaoEntity, Integer> {
-    List<PrescricaoEntity> findByPaciente(int clienteId, int pacienteId);
+    List<PrescricaoEntity> findByClienteAndPaciente(ClienteEntity cliente, PacienteEntity paciente);
 }

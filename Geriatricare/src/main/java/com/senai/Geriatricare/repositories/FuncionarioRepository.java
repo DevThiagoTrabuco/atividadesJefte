@@ -1,5 +1,6 @@
 package com.senai.Geriatricare.repositories;
 
+import com.senai.Geriatricare.entities.ClienteEntity;
 import com.senai.Geriatricare.entities.FuncionarioEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -9,8 +10,8 @@ public interface FuncionarioRepository extends JpaRepository<FuncionarioEntity, 
     boolean existsByCpf(String cpf);
     boolean existsByRg(String rg);
     boolean existsByEmail(String email);
-    FuncionarioEntity findByEmail(int clienteId, String email);
-    FuncionarioEntity findByCpf(int clienteId, String cpf);
-    FuncionarioEntity findByNome(int clienteId, String nome);
-    List<FuncionarioEntity> findByFuncao(int clienteId, String funcao);
+    FuncionarioEntity findByClienteAndEmail(ClienteEntity cliente, String email);
+    FuncionarioEntity findByClienteAndCpf(ClienteEntity cliente, String cpf);
+    FuncionarioEntity findByClienteAndNome(ClienteEntity cliente, String nome);
+    List<FuncionarioEntity> findByClienteAndFuncao(ClienteEntity cliente, String funcao);
 }

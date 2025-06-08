@@ -3,6 +3,7 @@ package com.senai.Geriatricare.services;
 import com.senai.Geriatricare.entities.ClienteEntity;
 import com.senai.Geriatricare.entities.FuncionarioEntity;
 import com.senai.Geriatricare.models.FuncionarioModel;
+import com.senai.Geriatricare.repositories.ClienteRepository;
 import com.senai.Geriatricare.repositories.FuncionarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,12 @@ import java.util.List;
 @Service
 public class FuncionarioService {
     private final FuncionarioRepository funcionarioRepository;
-    private final ClienteService clienteService;
+    private final ClienteRepository clienteRepository;
 
     @Autowired
-    public FuncionarioService(FuncionarioRepository funcionarioRepository, ClienteService clienteService) {
+    public FuncionarioService(FuncionarioRepository funcionarioRepository, ClienteRepository clienteRepository) {
         this.funcionarioRepository = funcionarioRepository;
-        this.clienteService = clienteService;
+        this.clienteRepository = clienteRepository;
     }
 
     public void criarFuncionario(FuncionarioModel funcionarioModel) {
@@ -36,7 +37,8 @@ public class FuncionarioService {
             throw new IllegalArgumentException("Já existe um funcionário com o RG: " + rg);
         }
 
-        ClienteEntity cliente = clienteService.buscarPorId(funcionarioModel.getClienteId());
+        ClienteEntity cliente = clienteRepository.findById(funcionarioModel.getClienteId())
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + funcionarioModel.getClienteId()));
         FuncionarioEntity funcionario = funcionarioModel.toEntity(cliente);
         funcionarioRepository.save(funcionario);
     }
@@ -89,7 +91,9 @@ public class FuncionarioService {
     }
 
     public FuncionarioEntity buscarPorEmail(int clienteId, String email) {
-        FuncionarioEntity funcionario = funcionarioRepository.findByEmail(clienteId, email);
+        ClienteEntity cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
+        FuncionarioEntity funcionario = funcionarioRepository.findByClienteAndEmail(cliente, email);
         if (funcionario == null) {
             throw new EntityNotFoundException("Funcionário não encontrado com o e-mail: " + email);
         }
@@ -97,7 +101,9 @@ public class FuncionarioService {
     }
 
     public FuncionarioEntity buscarPorCpf(int clienteId, String cpf) {
-        FuncionarioEntity funcionario = funcionarioRepository.findByCpf(clienteId, cpf);
+        ClienteEntity cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
+        FuncionarioEntity funcionario = funcionarioRepository.findByClienteAndCpf(cliente, cpf);
         if (funcionario == null) {
             throw new EntityNotFoundException("Funcionário não encontrado com o CPF: " + cpf);
         }
@@ -105,7 +111,9 @@ public class FuncionarioService {
     }
 
     public FuncionarioEntity buscarPorNome(int clienteId, String nome) {
-        FuncionarioEntity funcionario = funcionarioRepository.findByNome(clienteId, nome);
+        ClienteEntity cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
+        FuncionarioEntity funcionario = funcionarioRepository.findByClienteAndNome(cliente, nome);
         if (funcionario == null) {
             throw new EntityNotFoundException("Funcionário não encontrado com o nome: " + nome);
         }
@@ -113,6 +121,8 @@ public class FuncionarioService {
     }
 
     public List<FuncionarioEntity> buscarPorFuncao(int clienteId, String funcao) {
-        return funcionarioRepository.findByFuncao(clienteId, funcao);
+        ClienteEntity cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
+        return funcionarioRepository.findByClienteAndFuncao(cliente, funcao);
     }
 }

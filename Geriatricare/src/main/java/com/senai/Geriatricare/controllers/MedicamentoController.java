@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -77,7 +78,7 @@ public class MedicamentoController {
     }
 
     @GetMapping("/data-validade/{clienteId}/{dataValidade}")
-    public ResponseEntity<List<MedicamentoEntity>> buscarPorDataValidade(@PathVariable int clienteId, @PathVariable String dataValidade) {
+    public ResponseEntity<List<MedicamentoEntity>> buscarPorDataValidade(@PathVariable int clienteId, @PathVariable LocalDate dataValidade) {
         return ResponseEntity.ok(medicamentoService.buscarPorDataValidade(clienteId, dataValidade));
     }
 
