@@ -1,6 +1,6 @@
 package com.senai.Geriatricare.enums;
 
-public enum Papeis {
+public enum Papel {
     ADMIN("ROLE_ADMIN"),
     CLIENTE("ROLE_CLIENTE"),
     FUNCIONARIO("ROLE_FUNCIONARIO"),
@@ -8,7 +8,7 @@ public enum Papeis {
 
     private final String papel;
 
-    Papeis(String papel) {
+    Papel(String papel) {
         this.papel = papel;
     }
 
