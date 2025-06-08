@@ -40,4 +40,7 @@ public class EnderecoEntity {
 
     @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
     private FamiliarEntity familiar;
+
+    @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
+    private FuncionarioEntity funcionario;
 }

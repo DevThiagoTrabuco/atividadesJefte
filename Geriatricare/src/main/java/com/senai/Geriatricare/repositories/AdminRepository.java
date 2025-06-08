@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AdminRepository extends JpaRepository<AdminEntity, Integer> {
     boolean existsByEmail(String email);
+    AdminEntity findByEmail(String email);
+    AdminEntity findByNome(String nome);
 }

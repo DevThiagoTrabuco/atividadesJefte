@@ -37,6 +37,10 @@ public class FuncionarioEntity {
     @Column(name = "telefone", nullable = false)
     private String telefone;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_id", referencedColumnName = "endereco_id")
+    private EnderecoEntity endereco;
+
     @Enumerated(EnumType.STRING)
     private Funcao funcao;
 

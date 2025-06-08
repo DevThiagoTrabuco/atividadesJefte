@@ -1,6 +1,7 @@
 package com.senai.Geriatricare.models;
 
 import com.senai.Geriatricare.entities.ClienteEntity;
+import com.senai.Geriatricare.entities.EnderecoEntity;
 import com.senai.Geriatricare.entities.FuncionarioEntity;
 import com.senai.Geriatricare.enums.Funcao;
 import com.senai.Geriatricare.models.commons.*;
@@ -21,6 +22,7 @@ public class FuncionarioModel {
     private Email email;
     private Senha senha;
     private Telefone telefone;
+    private EnderecoModel endereco;
     private Funcao funcao;
     private int clienteId;
 
@@ -34,6 +36,7 @@ public class FuncionarioModel {
         funcionario.setEmail(this.email.validaEmail() ? this.email.getEmail() : null);
         funcionario.setSenha(this.senha.validaSenha() ? this.senha.getSenha() : null);
         funcionario.setTelefone(this.telefone.validaTelefone() ? this.telefone.getTelefone() : null);
+        funcionario.setEndereco(this.endereco.toEntity());
         funcionario.setFuncao(this.funcao);
         funcionario.setCliente(cliente);
 
