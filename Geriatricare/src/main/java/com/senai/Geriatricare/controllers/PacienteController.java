@@ -8,12 +8,13 @@ import com.senai.Geriatricare.services.PacienteService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/pacientes")
+@RequestMapping("/{clienteId}/pacientes")
 public class PacienteController {
 
     private final PacienteService pacienteService;
@@ -23,6 +24,7 @@ public class PacienteController {
         this.pacienteService = pacienteService;
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @PostMapping
     public ResponseEntity<?> criarPaciente(@RequestBody PacienteModel pacienteModel) {
         try {
@@ -33,6 +35,7 @@ public class PacienteController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarPaciente(@PathVariable int id, @RequestBody PacienteModel pacienteModel) {
         try {
@@ -44,6 +47,7 @@ public class PacienteController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> removerPaciente(@PathVariable int id) {
         try {
@@ -54,11 +58,13 @@ public class PacienteController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping
     public ResponseEntity<List<PacienteEntity>> listarTodos() {
         return ResponseEntity.ok(pacienteService.listarTodos());
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         try {
@@ -68,7 +74,8 @@ public class PacienteController {
         }
     }
 
-    @GetMapping("/nome/{clienteId}/{nome}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @GetMapping("/nome/{nome}")
     public ResponseEntity<?> buscarPorNome(@PathVariable int clienteId, @PathVariable String nome) {
         try {
             return ResponseEntity.ok(pacienteService.buscarPorNome(clienteId, nome));
@@ -77,7 +84,8 @@ public class PacienteController {
         }
     }
 
-    @GetMapping("/cpf/{clienteId}/{cpf}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @GetMapping("/cpf/{cpf}")
     public ResponseEntity<?> buscarPorCpf(@PathVariable int clienteId, @PathVariable String cpf) {
         try {
             return ResponseEntity.ok(pacienteService.buscarPorCpf(clienteId, cpf));
@@ -86,7 +94,8 @@ public class PacienteController {
         }
     }
 
-    @GetMapping("/rg/{clienteId}/{rg}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @GetMapping("/rg/{rg}")
     public ResponseEntity<?> buscarPorRg(@PathVariable int clienteId, @PathVariable String rg) {
         try {
             return ResponseEntity.ok(pacienteService.buscarPorRg(clienteId, rg));
@@ -95,22 +104,26 @@ public class PacienteController {
         }
     }
 
-    @GetMapping("/familiar/{clienteId}/{familiarId}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @GetMapping("/familiar/{familiarId}")
     public ResponseEntity<List<PacienteEntity>> buscarPorFamiliar(@PathVariable int clienteId, @PathVariable int familiarId) {
         return ResponseEntity.ok(pacienteService.buscarPorFamiliar(clienteId, familiarId));
     }
 
-    @GetMapping("/status/{clienteId}/{statusPaciente}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @GetMapping("/status/{statusPaciente}")
     public ResponseEntity<List<PacienteEntity>> buscarPorStatusPaciente(@PathVariable int clienteId, @PathVariable StatusPaciente statusPaciente) {
         return ResponseEntity.ok(pacienteService.buscarPorStatusPaciente(clienteId, statusPaciente));
     }
 
-    @GetMapping("/genero/{clienteId}/{genero}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @GetMapping("/genero/{genero}")
     public ResponseEntity<List<PacienteEntity>> buscarPorGenero(@PathVariable int clienteId, @PathVariable Genero genero) {
         return ResponseEntity.ok(pacienteService.buscarPorGenero(clienteId, genero));
     }
 
-    @GetMapping("/plano/{clienteId}/{plano}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @GetMapping("/plano/{plano}")
     public ResponseEntity<List<PacienteEntity>> buscarPorPlano(@PathVariable int clienteId, @PathVariable String plano) {
         return ResponseEntity.ok(pacienteService.buscarPorPlano(clienteId, plano));
     }

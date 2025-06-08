@@ -6,13 +6,14 @@ import com.senai.Geriatricare.services.MedicamentoService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/medicamentos")
+@RequestMapping("/{clienteId}/medicamentos")
 public class MedicamentoController {
 
     private final MedicamentoService medicamentoService;
@@ -22,6 +23,7 @@ public class MedicamentoController {
         this.medicamentoService = medicamentoService;
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @PostMapping
     public ResponseEntity<?> criarMedicamento(@RequestBody MedicamentoModel medicamentoModel) {
         try {
@@ -32,6 +34,7 @@ public class MedicamentoController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarMedicamento(@PathVariable int id, @RequestBody MedicamentoModel medicamentoModel) {
         try {
@@ -43,6 +46,7 @@ public class MedicamentoController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> removerMedicamento(@PathVariable int id) {
         try {
@@ -53,11 +57,13 @@ public class MedicamentoController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping
     public ResponseEntity<List<MedicamentoEntity>> listarTodos() {
         return ResponseEntity.ok(medicamentoService.listarTodos());
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         try {
@@ -67,22 +73,26 @@ public class MedicamentoController {
         }
     }
 
-    @GetMapping("/nome-generico/{clienteId}/{nomeGenerico}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @GetMapping("/nome-generico/{nomeGenerico}")
     public ResponseEntity<List<MedicamentoEntity>> buscarPorNomeGenerico(@PathVariable int clienteId, @PathVariable String nomeGenerico) {
         return ResponseEntity.ok(medicamentoService.buscarPorNomeGenerico(clienteId, nomeGenerico));
     }
 
-    @GetMapping("/nome-comercial/{clienteId}/{nomeComercial}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @GetMapping("/nome-comercial/{nomeComercial}")
     public ResponseEntity<List<MedicamentoEntity>> buscarPorNomeComercial(@PathVariable int clienteId, @PathVariable String nomeComercial) {
         return ResponseEntity.ok(medicamentoService.buscarPorNomeComercial(clienteId, nomeComercial));
     }
 
-    @GetMapping("/data-validade/{clienteId}/{dataValidade}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @GetMapping("/data-validade/{dataValidade}")
     public ResponseEntity<List<MedicamentoEntity>> buscarPorDataValidade(@PathVariable int clienteId, @PathVariable LocalDate dataValidade) {
         return ResponseEntity.ok(medicamentoService.buscarPorDataValidade(clienteId, dataValidade));
     }
 
-    @GetMapping("/status/{clienteId}/{statusMedicamento}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @GetMapping("/status/{statusMedicamento}")
     public ResponseEntity<List<MedicamentoEntity>> buscarPorStatusMedicamento(@PathVariable int clienteId, @PathVariable String statusMedicamento) {
         return ResponseEntity.ok(medicamentoService.buscarPorStatusMedicamento(clienteId, statusMedicamento));
     }

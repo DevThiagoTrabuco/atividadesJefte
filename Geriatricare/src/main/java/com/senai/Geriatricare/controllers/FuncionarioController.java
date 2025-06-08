@@ -6,12 +6,13 @@ import com.senai.Geriatricare.services.FuncionarioService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/funcionarios")
+@RequestMapping("/{clienteId}/funcionarios")
 public class FuncionarioController {
 
     private final FuncionarioService funcionarioService;
@@ -21,6 +22,7 @@ public class FuncionarioController {
         this.funcionarioService = funcionarioService;
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE')")
     @PostMapping
     public ResponseEntity<?> criarFuncionario(@RequestBody FuncionarioModel funcionarioModel) {
         try {
@@ -31,6 +33,7 @@ public class FuncionarioController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE')")
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarFuncionario(@PathVariable int id, @RequestBody FuncionarioModel funcionarioModel) {
         try {
@@ -42,6 +45,7 @@ public class FuncionarioController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> removerFuncionario(@PathVariable int id) {
         try {
@@ -52,11 +56,13 @@ public class FuncionarioController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE')")
     @GetMapping
     public ResponseEntity<List<FuncionarioEntity>> listarTodos() {
         return ResponseEntity.ok(funcionarioService.listarTodos());
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE')")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         try {
@@ -66,7 +72,8 @@ public class FuncionarioController {
         }
     }
 
-    @GetMapping("/email/{clienteId}/{email}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE')")
+    @GetMapping("/email/{email}")
     public ResponseEntity<?> buscarPorEmail(@PathVariable int clienteId, @PathVariable String email) {
         try {
             return ResponseEntity.ok(funcionarioService.buscarPorEmail(clienteId, email));
@@ -75,7 +82,8 @@ public class FuncionarioController {
         }
     }
 
-    @GetMapping("/cpf/{clienteId}/{cpf}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE')")
+    @GetMapping("/cpf/{cpf}")
     public ResponseEntity<?> buscarPorCpf(@PathVariable int clienteId, @PathVariable String cpf) {
         try {
             return ResponseEntity.ok(funcionarioService.buscarPorCpf(clienteId, cpf));
@@ -84,7 +92,8 @@ public class FuncionarioController {
         }
     }
 
-    @GetMapping("/nome/{clienteId}/{nome}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE')")
+    @GetMapping("/nome/{nome}")
     public ResponseEntity<?> buscarPorNome(@PathVariable int clienteId, @PathVariable String nome) {
         try {
             return ResponseEntity.ok(funcionarioService.buscarPorNome(clienteId, nome));
@@ -93,7 +102,8 @@ public class FuncionarioController {
         }
     }
 
-    @GetMapping("/funcao/{clienteId}/{funcao}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE')")
+    @GetMapping("/funcao/{funcao}")
     public ResponseEntity<List<FuncionarioEntity>> buscarPorFuncao(@PathVariable int clienteId, @PathVariable String funcao) {
         return ResponseEntity.ok(funcionarioService.buscarPorFuncao(clienteId, funcao));
     }

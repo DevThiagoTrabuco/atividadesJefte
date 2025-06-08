@@ -11,5 +11,4 @@ public interface ClienteRepository extends JpaRepository<ClienteEntity, Integer>
     ClienteEntity findByCnpj(String cnpj);
     ClienteEntity findByEmail(String email);
     ClienteEntity findByNome(String nome);
-    List<ClienteEntity> findByAdmin (AdminEntity admin);
 }

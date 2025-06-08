@@ -6,6 +6,7 @@ import com.senai.Geriatricare.services.AdminService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class AdminController {
         this.adminService = adminService;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<?> criarAdmin(@RequestBody AdminModel adminModel) {
         try {
@@ -31,6 +33,7 @@ public class AdminController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarAdmin(@PathVariable int id, @RequestBody AdminModel adminModel) {
         try {
@@ -42,6 +45,7 @@ public class AdminController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> removerAdmin(@PathVariable int id) {
         try {
@@ -52,11 +56,13 @@ public class AdminController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<List<AdminEntity>> listarTodos() {
         return ResponseEntity.ok(adminService.listarTodos());
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         try {
@@ -66,6 +72,7 @@ public class AdminController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/email/{email}")
     public ResponseEntity<?> buscarPorEmail(@PathVariable String email) {
         try {
@@ -75,6 +82,7 @@ public class AdminController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/nome/{nome}")
     public ResponseEntity<?> buscarPorNome(@PathVariable String nome) {
         try {

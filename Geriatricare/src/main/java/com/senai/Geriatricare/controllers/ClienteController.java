@@ -6,6 +6,7 @@ import com.senai.Geriatricare.services.ClienteService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<?> criarCliente(@RequestBody ClienteModel clienteModel) {
         try {
@@ -31,6 +33,7 @@ public class ClienteController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarCliente(@PathVariable int id, @RequestBody ClienteModel clienteModel) {
         try {
@@ -42,6 +45,7 @@ public class ClienteController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> removerCliente(@PathVariable int id) {
         try {
@@ -52,11 +56,13 @@ public class ClienteController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<List<ClienteEntity>> listarTodos() {
         return ResponseEntity.ok(clienteService.listarTodos());
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         try {
@@ -66,6 +72,7 @@ public class ClienteController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/email/{email}")
     public ResponseEntity<?> buscarPorEmail(@PathVariable String email) {
         try {
@@ -75,6 +82,7 @@ public class ClienteController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/cnpj/{cnpj}")
     public ResponseEntity<?> buscarPorCnpj(@PathVariable String cnpj) {
         try {
@@ -84,19 +92,11 @@ public class ClienteController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/nome/{nome}")
     public ResponseEntity<?> buscarPorNome(@PathVariable String nome) {
         try {
             return ResponseEntity.ok(clienteService.buscarPorNome(nome));
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
-    @GetMapping("/admin/{adminId}")
-    public ResponseEntity<?> buscarPorAdmin(@PathVariable int adminId) {
-        try {
-            return ResponseEntity.ok(clienteService.buscarPorAdmin(adminId));
         } catch (EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

@@ -99,10 +99,4 @@ public class ClienteService {
         }
         return cliente;
     }
-
-    public List<ClienteEntity> buscarPorAdmin(int adminId) {
-        AdminEntity admin = adminRepository.findById(adminId)
-                .orElseThrow(() -> new EntityNotFoundException("Admin não encontrado com o ID: " + adminId));
-        return clienteRepository.findByAdmin(admin);
-    }
 }

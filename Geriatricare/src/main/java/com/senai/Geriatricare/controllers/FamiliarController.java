@@ -6,12 +6,13 @@ import com.senai.Geriatricare.services.FamiliarService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/familiares")
+@RequestMapping("/{clienteId}/familiares")
 public class FamiliarController {
 
     private final FamiliarService familiarService;
@@ -21,6 +22,7 @@ public class FamiliarController {
         this.familiarService = familiarService;
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @PostMapping
     public ResponseEntity<?> criarFamiliar(@RequestBody FamiliarModel familiarModel) {
         try {
@@ -31,6 +33,7 @@ public class FamiliarController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarFamiliar(@PathVariable int id, @RequestBody FamiliarModel familiarModel) {
         try {
@@ -42,6 +45,7 @@ public class FamiliarController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> removerFamiliar(@PathVariable int id) {
         try {
@@ -52,11 +56,13 @@ public class FamiliarController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping
     public ResponseEntity<List<FamiliarEntity>> listarTodos() {
         return ResponseEntity.ok(familiarService.listarTodos());
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         try {
@@ -66,7 +72,8 @@ public class FamiliarController {
         }
     }
 
-    @GetMapping("/nome/{clienteId}/{nome}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @GetMapping("/nome/{nome}")
     public ResponseEntity<?> buscarPorNome(@PathVariable int clienteId, @PathVariable String nome) {
         try {
             return ResponseEntity.ok(familiarService.buscarPorNome(clienteId, nome));
@@ -75,7 +82,8 @@ public class FamiliarController {
         }
     }
 
-    @GetMapping("/email/{clienteId}/{email}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @GetMapping("/email/{email}")
     public ResponseEntity<?> buscarPorEmail(@PathVariable int clienteId, @PathVariable String email) {
         try {
             return ResponseEntity.ok(familiarService.buscarPorEmail(clienteId, email));
@@ -84,7 +92,8 @@ public class FamiliarController {
         }
     }
 
-    @GetMapping("/cpf/{clienteId}/{cpf}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @GetMapping("/cpf/{cpf}")
     public ResponseEntity<?> buscarPorCpf(@PathVariable int clienteId, @PathVariable String cpf) {
         try {
             return ResponseEntity.ok(familiarService.buscarPorCpf(clienteId, cpf));
@@ -93,7 +102,8 @@ public class FamiliarController {
         }
     }
 
-    @GetMapping("/rg/{clienteId}/{rg}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @GetMapping("/rg/{rg}")
     public ResponseEntity<?> buscarPorRg(@PathVariable int clienteId, @PathVariable String rg) {
         try {
             return ResponseEntity.ok(familiarService.buscarPorRg(clienteId, rg));
@@ -102,7 +112,8 @@ public class FamiliarController {
         }
     }
 
-    @GetMapping("/paciente/{clienteId}/{pacienteId}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @GetMapping("/paciente/{pacienteId}")
     public ResponseEntity<List<FamiliarEntity>> buscarPorPaciente(@PathVariable int clienteId, @PathVariable int pacienteId) {
         return ResponseEntity.ok(familiarService.buscarPorPaciente(clienteId, pacienteId));
     }

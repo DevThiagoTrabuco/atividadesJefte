@@ -6,13 +6,14 @@ import com.senai.Geriatricare.services.RegistroService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/registros")
+@RequestMapping("/{clienteId}/registros")
 public class RegistroController {
 
     private final RegistroService registroService;
@@ -22,6 +23,7 @@ public class RegistroController {
         this.registroService = registroService;
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @PostMapping
     public ResponseEntity<?> criarRegistro(@RequestBody RegistroModel registroModel) {
         try {
@@ -32,6 +34,7 @@ public class RegistroController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarRegistro(@PathVariable int id, @RequestBody RegistroModel registroModel) {
         try {
@@ -43,6 +46,7 @@ public class RegistroController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> removerRegistro(@PathVariable int id) {
         try {
@@ -53,11 +57,13 @@ public class RegistroController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping
     public ResponseEntity<List<RegistroEntity>> listarTodos() {
         return ResponseEntity.ok(registroService.listarTodos());
     }
 
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         try {
@@ -67,7 +73,8 @@ public class RegistroController {
         }
     }
 
-    @GetMapping("/entidade/{clienteId}/{entidade}/{entidadeId}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @GetMapping("/entidade/{entidade}/{entidadeId}")
     public ResponseEntity<List<RegistroEntity>> buscarPorEntidadeEId(
             @PathVariable int clienteId,
             @PathVariable String entidade,
@@ -75,21 +82,24 @@ public class RegistroController {
         return ResponseEntity.ok(registroService.buscarPorEntidadeEId(clienteId, entidade, entidadeId));
     }
 
-    @GetMapping("/entidade/{clienteId}/{entidade}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @GetMapping("/entidade/{entidade}")
     public ResponseEntity<List<RegistroEntity>> buscarPorEntidade(
             @PathVariable int clienteId,
             @PathVariable String entidade) {
         return ResponseEntity.ok(registroService.buscarPorEntidade(clienteId, entidade));
     }
 
-    @GetMapping("/funcionario/{clienteId}/{funcionarioId}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @GetMapping("/funcionario/{funcionarioId}")
     public ResponseEntity<List<RegistroEntity>> buscarPorFuncionario(
             @PathVariable int clienteId,
             @PathVariable int funcionarioId) {
         return ResponseEntity.ok(registroService.buscarPorFuncionario(clienteId, funcionarioId));
     }
 
-    @GetMapping("/data/{clienteId}/{dataHora}")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @GetMapping("/data/{dataHora}")
     public ResponseEntity<List<RegistroEntity>> buscarPorData(
             @PathVariable int clienteId,
             @PathVariable String dataHora) {
