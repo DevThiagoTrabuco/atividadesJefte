@@ -36,6 +36,7 @@
 		</dependency>
 		<dependency>
 <<<<<<< HEAD:Geriatricare/pom.xml
+<<<<<<< HEAD:Geriatricare/pom.xml
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
@@ -45,6 +46,8 @@
 		</dependency>
 
 		<dependency>
+=======
+>>>>>>> parent of 0b85f32 (Merge pull request #69 from DevThiagoTrabuco/features/Akira):SeniorGest/geriatricare/pom.xml
 =======
 >>>>>>> parent of 0b85f32 (Merge pull request #69 from DevThiagoTrabuco/features/Akira):SeniorGest/geriatricare/pom.xml
 			<groupId>com.mysql</groupId>
@@ -60,9 +63,12 @@
 
 <<<<<<< HEAD:Geriatricare/pom.xml
 <<<<<<< HEAD:Geriatricare/pom.xml
+<<<<<<< HEAD:Geriatricare/pom.xml
 
 =======
 >>>>>>> feature/thiago:Geriatricare/pom.xml
+=======
+>>>>>>> parent of 0b85f32 (Merge pull request #69 from DevThiagoTrabuco/features/Akira):SeniorGest/geriatricare/pom.xml
 =======
 >>>>>>> parent of 0b85f32 (Merge pull request #69 from DevThiagoTrabuco/features/Akira):SeniorGest/geriatricare/pom.xml
 =======
