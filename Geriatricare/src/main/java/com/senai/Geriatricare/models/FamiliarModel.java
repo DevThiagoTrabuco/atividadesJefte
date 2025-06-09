@@ -16,7 +16,6 @@ public class FamiliarModel {
     private int id;
     private String nome;
     private Email email;
-    private Senha senha;
     private Telefone telefone;
     private CPF cpf;
     private RG rg;
@@ -30,7 +29,6 @@ public class FamiliarModel {
         familiar.setId(this.id);
         familiar.setNome(this.nome);
         familiar.setEmail(this.email.validaEmail() ? this.email.getEmail() : null);
-        familiar.setSenha(this.senha.validaSenha() ? this.senha.getSenha() : null);
         familiar.setTelefone(this.telefone.validaTelefone() ? this.telefone.getTelefone() : null);
         familiar.setCpf(this.cpf.validaCPF() ? this.cpf.getCpf() : null);
         familiar.setRg(this.rg.validaRG() ? this.rg.getRg() : null);

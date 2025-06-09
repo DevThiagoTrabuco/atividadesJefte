@@ -40,7 +40,6 @@ public class ClienteService {
         String cnpjAtualizado = clienteAtualizado.getCnpj().getCnpj();
         String emailAtualizado = clienteAtualizado.getEmail().getEmail();
         String telefoneAtualizado = clienteAtualizado.getTelefone().getTelefone();
-        String senhaAtualizada = clienteAtualizado.getSenha().getSenha();
         
         ClienteEntity cliente = clienteRepository.findById(clienteAtualizado.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteAtualizado.getId()));
@@ -52,7 +51,6 @@ public class ClienteService {
 
         cliente.setNome(clienteAtualizado.getNome());
         cliente.setEmail(emailAtualizado);
-        cliente.setSenha(senhaAtualizada);
         cliente.setTelefone(telefoneAtualizado);
         cliente.setCnpj(cnpjAtualizado);
         cliente.setEndereco(clienteAtualizado.getEndereco().toEntity());

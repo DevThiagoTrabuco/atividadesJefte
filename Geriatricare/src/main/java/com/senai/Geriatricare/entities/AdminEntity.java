@@ -21,9 +21,6 @@ public class AdminEntity {
     @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "senha", nullable = false)
-    private String senha;
-
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     private List<ClienteEntity> clientes;
 }

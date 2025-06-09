@@ -15,7 +15,6 @@ public class AdminModel {
     private int id;
     private String nome;
     private Email email;
-    private Senha senha;
     private List<ClienteEntity> clientes;
 
     public AdminEntity toEntity(){
@@ -23,7 +22,6 @@ public class AdminModel {
         admin.setId(this.id);
         admin.setNome(this.nome);
         admin.setEmail(this.email.validaEmail() ? this.email.getEmail() : null);
-        admin.setSenha(this.senha.validaSenha() ? this.senha.getSenha() : null);
         return admin;
     }
 }

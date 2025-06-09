@@ -68,7 +68,6 @@ public class FamiliarService {
 
         familiar.setNome(familiarAtualizado.getNome());
         familiar.setEmail(emailAtualizado);
-        familiar.setSenha(familiarAtualizado.getSenha().getSenha());
         familiar.setTelefone(familiarAtualizado.getTelefone().getTelefone());
         familiar.setCpf(cpfAtualizado);
         familiar.setRg(rgAtualizado);

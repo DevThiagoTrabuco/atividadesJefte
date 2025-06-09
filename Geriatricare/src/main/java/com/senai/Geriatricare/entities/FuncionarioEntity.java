@@ -31,9 +31,6 @@ public class FuncionarioEntity {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "senha", nullable = false)
-    private String senha;
-
     @Column(name = "telefone", nullable = false)
     private String telefone;
 

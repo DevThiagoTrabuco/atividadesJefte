@@ -63,7 +63,6 @@ public class FuncionarioService {
 
         funcionario.setNome(funcionarioAtualizado.getNome());
         funcionario.setEmail(emailAtualizado);
-        funcionario.setSenha(funcionarioAtualizado.getSenha().getSenha());
         funcionario.setTelefone(funcionarioAtualizado.getTelefone().getTelefone());
         funcionario.setCpf(cpfAtualizado);
         funcionario.setRg(rgAtualizado);

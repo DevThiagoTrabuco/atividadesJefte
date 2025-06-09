@@ -13,7 +13,6 @@ public class ClienteModel {
     private int id;
     private String nome;
     private Email email;
-    private Senha senha;
     private Telefone telefone;
     private CNPJ cnpj;
     private EnderecoModel endereco;
@@ -24,7 +23,6 @@ public class ClienteModel {
         cliente.setId(this.id);
         cliente.setNome(this.nome);
         cliente.setEmail(this.email.validaEmail() ? this.email.getEmail() : null);
-        cliente.setSenha(this.senha.validaSenha() ? this.senha.getSenha() : null);
         cliente.setTelefone(this.telefone.validaTelefone() ? this.telefone.getTelefone() : null);
         cliente.setCnpj(this.cnpj.validaCNPJ() ? this.cnpj.getCnpj() : null);
         cliente.setEndereco(this.endereco.toEntity());

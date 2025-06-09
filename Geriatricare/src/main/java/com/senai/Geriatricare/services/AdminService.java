@@ -30,9 +30,6 @@ public class AdminService {
             throw new IllegalArgumentException("Email inválido.");
         }
 
-        if (admin.getSenha() == null) {
-            throw new IllegalArgumentException("Senha inválida.");
-        }
 
         adminRepository.save(admin);
     }
@@ -52,13 +49,8 @@ public class AdminService {
             throw new IllegalArgumentException("Email inválido.");
         }
 
-        if (adminConvertido.getSenha() == null) {
-            throw new IllegalArgumentException("Senha inválida.");
-        }
-
         admin.setNome(adminConvertido.getNome());
         admin.setEmail(adminConvertido.getEmail());
-        admin.setSenha(adminConvertido.getSenha());
 
         adminRepository.save(admin);
     }

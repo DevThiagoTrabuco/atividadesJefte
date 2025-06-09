@@ -20,7 +20,6 @@ public class FuncionarioModel {
     private RG rg;
     private LocalDate dataNascimento;
     private Email email;
-    private Senha senha;
     private Telefone telefone;
     private EnderecoModel endereco;
     private Funcao funcao;
@@ -34,7 +33,6 @@ public class FuncionarioModel {
         funcionario.setRg(this.rg.validaRG() ? this.rg.getRg() : null);
         funcionario.setDataNascimento(this.dataNascimento);
         funcionario.setEmail(this.email.validaEmail() ? this.email.getEmail() : null);
-        funcionario.setSenha(this.senha.validaSenha() ? this.senha.getSenha() : null);
         funcionario.setTelefone(this.telefone.validaTelefone() ? this.telefone.getTelefone() : null);
         funcionario.setEndereco(this.endereco.toEntity());
         funcionario.setFuncao(this.funcao);

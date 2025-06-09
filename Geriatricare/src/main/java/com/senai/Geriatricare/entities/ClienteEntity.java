@@ -19,9 +19,6 @@ public class ClienteEntity {
     @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "senha", nullable = false)
-    private String senha;
-
     @Column(name = "telefone", nullable = false)
     private String telefone;
 
