@@ -1,46 +1,52 @@
 package com.geriaTeam.geriatricare.controller;
 
 import com.geriaTeam.geriatricare.facade.PacienteMedicamentoFacade;
-import com.geriaTeam.geriatricare.models.domain.PacienteMedicamento;
+import com.geriaTeam.geriatricare.models.PacienteMedicamentoModels;
+import com.geriaTeam.geriatricare.models.MedicamentoModels;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/pacienteMedicamento/")
+@RequestMapping("/api/paciente-medicamento/")
 public class PacienteMedicamentoController {
+
     private final PacienteMedicamentoFacade pacienteMedicamentoFacade;
 
     @Autowired
     public PacienteMedicamentoController(PacienteMedicamentoFacade pacienteMedicamentoFacade) {
         this.pacienteMedicamentoFacade = pacienteMedicamentoFacade;
-
+    }
+    @PostMapping("/adicionar-medicamento")
+    public void adicionarMedicamento(@RequestParam int pacienteId, @RequestParam int medicamentoId) {
+        pacienteMedicamentoFacade.adicionarMedicamento(pacienteId, medicamentoId);
     }
 
-    @GetMapping("")
-    public List<PacienteMedicamento> buscar(){
-        return pacienteMedicamentoFacade.buscar();
+    @DeleteMapping("/remover-medicamento")
+    public void removerMedicamento(@RequestParam int pacienteId, @RequestParam int medicamentoId) {
+        pacienteMedicamentoFacade.removerMedicamento(pacienteId, medicamentoId);
     }
 
-    @GetMapping("/{codigo}")
-    public PacienteMedicamento buscarPorCodigo(@PathVariable int codigo){
-        return pacienteMedicamentoFacade.buscarPorCodigo(codigo);
+    @GetMapping("/todos-medicamentos/{pacienteId}")
+    public List<MedicamentoModels> buscarMedicamentosPorPaciente(@PathVariable int pacienteId) {
+        return pacienteMedicamentoFacade.buscarMedicamentosPorPaciente(pacienteId);
     }
 
-    @PostMapping("")
-    public void adicionar(@RequestBody PacienteMedicamento pacienteMedicamento){
-        pacienteMedicamentoFacade.adicionar(pacienteMedicamento);
+    @PutMapping("/atualizar-medicamento")
+    public void atualizarMedicamento(
+            @RequestParam int pacienteId,
+            @RequestParam int medicamentoIdAntigo,
+            @RequestParam int medicamentoIdNovo
+    ) {
+        pacienteMedicamentoFacade.atualizarMedicamento(pacienteId, medicamentoIdAntigo, medicamentoIdNovo);
     }
 
-    @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody PacienteMedicamento pacienteMedicamento){
-        pacienteMedicamentoFacade.atualizar(pacienteMedicamento);
+    @GetMapping("/verificar-medicamento")
+    public boolean verificarMedicamento(
+            @RequestParam int pacienteId,
+            @RequestParam int medicamentoId
+    ) {
+        return pacienteMedicamentoFacade.verificarMedicamento(pacienteId, medicamentoId);
     }
-
-    @DeleteMapping("/{codigo}")
-    public void remover(@PathVariable int codigo){
-        pacienteMedicamentoFacade.remover(codigo);
-    }
-    
 }

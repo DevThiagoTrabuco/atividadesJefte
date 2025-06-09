@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.repositories.mySQL;
 
 import com.geriaTeam.geriatricare.Interfaces.HistoricoRepository;
-import com.geriaTeam.geriatricare.models.domain.Historico;
+import com.geriaTeam.geriatricare.models.HistoricoModels;
 import com.geriaTeam.geriatricare.repositories.jpa.HistoricoJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,18 +18,18 @@ public class HistoricoRepositoryMySQLImpl implements HistoricoRepository {
     }
 
     @Override
-    public Historico buscarPorCodigo(int codigo) {
+    public HistoricoModels buscarPorCodigo(int codigo) {
         return this.historicoJPA.findById(codigo).get();
     }
 
     @Override
-    public List<Historico> buscar() {
+    public List<HistoricoModels> buscar() {
         return this.historicoJPA.findAll();
     }
 
     @Override
-    public void adicionar(Historico historico) {
-        this.historicoJPA.save(historico);
+    public void adicionar(HistoricoModels historicoModels) {
+        this.historicoJPA.save(historicoModels);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class HistoricoRepositoryMySQLImpl implements HistoricoRepository {
     }
 
     @Override
-    public void atualizar(Historico historico) {
-        this.historicoJPA.save(historico);
+    public void atualizar(HistoricoModels historicoModels) {
+        this.historicoJPA.save(historicoModels);
     }
 }

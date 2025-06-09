@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.geriaTeam.geriatricare.facade.HistoricoFacade;
-import com.geriaTeam.geriatricare.models.domain.Historico;
+import com.geriaTeam.geriatricare.models.HistoricoModels;
 
 @RequestMapping("/api/historico/")
 @RestController
@@ -27,23 +27,23 @@ public class HistoricoController {
     }
 
     @GetMapping("")
-    public List<Historico> buscar(){
+    public List<HistoricoModels> buscar(){
         return historicoFacade.buscar();
     }
 
     @GetMapping("/{codigo}")
-    public Historico buscarPorCodigo(@PathVariable int codigo){
+    public HistoricoModels buscarPorCodigo(@PathVariable int codigo){
         return historicoFacade.buscarPorCodigo(codigo);
     }
 
     @PostMapping("")
-    public void adicionar(@RequestBody Historico historico){
-        historicoFacade.adicionar(historico);
+    public void adicionar(@RequestBody HistoricoModels historicoModels){
+        historicoFacade.adicionar(historicoModels);
     }
 
     @PutMapping("/{codigo}")
-    public void atualizar(@PathVariable int codigo, @RequestBody Historico historico){
-        historicoFacade.atualizar(historico);
+    public void atualizar(@PathVariable int codigo, @RequestBody HistoricoModels historicoModels){
+        historicoFacade.atualizar(historicoModels);
     }
 
     @DeleteMapping("/{codigo}")

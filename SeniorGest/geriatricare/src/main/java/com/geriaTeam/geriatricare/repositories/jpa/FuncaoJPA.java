@@ -1,7 +1,7 @@
 package com.geriaTeam.geriatricare.repositories.jpa;
 
-import com.geriaTeam.geriatricare.models.domain.Funcao;
+import com.geriaTeam.geriatricare.models.FuncaoModels;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface FuncaoJPA extends JpaRepository<Funcao, Integer> {
+public interface FuncaoJPA extends JpaRepository<FuncaoModels, Integer> {
 }
