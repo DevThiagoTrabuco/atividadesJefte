@@ -16,7 +16,7 @@ public class PapelEntity implements GrantedAuthority {
     private int id;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(nullable = false, unique = true)
     private Papel papel;
 
     @Override

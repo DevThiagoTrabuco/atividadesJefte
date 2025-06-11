@@ -23,7 +23,7 @@ public class EnderecoController {
         this.enderecoService = enderecoService;
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<?> criarEndereco(@RequestBody EnderecoModel enderecoModel) {
         try {
@@ -34,7 +34,7 @@ public class EnderecoController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarEndereco(@PathVariable int id, @RequestBody EnderecoModel enderecoModel) {
         try {
@@ -46,7 +46,7 @@ public class EnderecoController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> removerEndereco(@PathVariable int id) {
         try {
@@ -57,13 +57,13 @@ public class EnderecoController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<List<EnderecoEntity>> listarTodos() {
         return ResponseEntity.ok(enderecoService.listarTodos());
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         try {
@@ -73,7 +73,7 @@ public class EnderecoController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{clienteId}")
     public ResponseEntity<?> buscarPorCliente(@PathVariable int clienteId) {
         try {
@@ -83,7 +83,7 @@ public class EnderecoController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping("/{clienteId}/familiar/{familiarId}")
     public ResponseEntity<?> buscarPorFamiliar(@PathVariable int clienteId, @PathVariable int familiarId) {
         try {
@@ -93,7 +93,7 @@ public class EnderecoController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENTE')")
     @GetMapping("/{clienteId}/funcionario/{funcionarioId}")
     public ResponseEntity<?> buscarPorFuncionario(@PathVariable int clienteId, @PathVariable int funcionarioId) {
         try {
@@ -103,13 +103,13 @@ public class EnderecoController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/uf/{uf}")
     public List<EnderecoEntity> buscarPorUnidadeFederativa(@PathVariable UnidadeFederativa uf) {
         return enderecoService.buscarPorUnidadeFederativa(uf);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/cidade/{cidade}")
     public ResponseEntity<List<EnderecoEntity>> buscarPorCidade(@PathVariable String cidade) {
         return ResponseEntity.ok(enderecoService.buscarPorCidade(cidade));

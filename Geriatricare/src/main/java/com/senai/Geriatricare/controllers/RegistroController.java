@@ -23,7 +23,7 @@ public class RegistroController {
         this.registroService = registroService;
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @PostMapping
     public ResponseEntity<?> criarRegistro(@RequestBody RegistroModel registroModel) {
         try {
@@ -34,7 +34,7 @@ public class RegistroController {
         }
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarRegistro(@PathVariable int id, @RequestBody RegistroModel registroModel) {
         try {
@@ -46,7 +46,7 @@ public class RegistroController {
         }
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> removerRegistro(@PathVariable int id) {
         try {
@@ -57,13 +57,13 @@ public class RegistroController {
         }
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping
     public ResponseEntity<List<RegistroEntity>> listarTodos() {
         return ResponseEntity.ok(registroService.listarTodos());
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         try {
@@ -73,7 +73,7 @@ public class RegistroController {
         }
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping("/entidade/{entidade}/{entidadeId}")
     public ResponseEntity<List<RegistroEntity>> buscarPorEntidadeEId(
             @PathVariable int clienteId,
@@ -82,7 +82,7 @@ public class RegistroController {
         return ResponseEntity.ok(registroService.buscarPorEntidadeEId(clienteId, entidade, entidadeId));
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping("/entidade/{entidade}")
     public ResponseEntity<List<RegistroEntity>> buscarPorEntidade(
             @PathVariable int clienteId,
@@ -90,7 +90,7 @@ public class RegistroController {
         return ResponseEntity.ok(registroService.buscarPorEntidade(clienteId, entidade));
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping("/funcionario/{funcionarioId}")
     public ResponseEntity<List<RegistroEntity>> buscarPorFuncionario(
             @PathVariable int clienteId,
@@ -98,7 +98,7 @@ public class RegistroController {
         return ResponseEntity.ok(registroService.buscarPorFuncionario(clienteId, funcionarioId));
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping("/data/{dataHora}")
     public ResponseEntity<List<RegistroEntity>> buscarPorData(
             @PathVariable int clienteId,

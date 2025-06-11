@@ -1,10 +1,10 @@
 package com.senai.Geriatricare.enums;
 
 public enum Papel {
-    ADMIN("ADMIN"),
-    CLIENTE("CLIENTE"),
-    FUNCIONARIO("FUNCIONARIO"),
-    FAMILIAR("FAMILIAR");
+    ADMIN("ROLE_ADMIN"),
+    CLIENTE("ROLE_CLIENTE"),
+    FUNCIONARIO("ROLE_FUNCIONARIO"),
+    FAMILIAR("ROLE_FAMILIAR");
 
     private final String papel;
 

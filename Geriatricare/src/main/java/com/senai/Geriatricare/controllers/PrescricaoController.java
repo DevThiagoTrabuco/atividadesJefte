@@ -22,7 +22,7 @@ public class PrescricaoController {
         this.prescricaoService = prescricaoService;
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @PostMapping
     public ResponseEntity<?> criarPrescricao(@RequestBody PrescricaoModel prescricaoModel) {
         try {
@@ -33,7 +33,7 @@ public class PrescricaoController {
         }
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarPrescricao(@PathVariable int id, @RequestBody PrescricaoModel prescricaoModel) {
         try {
@@ -45,7 +45,7 @@ public class PrescricaoController {
         }
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> removerPrescricao(@PathVariable int id) {
         try {
@@ -56,13 +56,13 @@ public class PrescricaoController {
         }
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping
     public ResponseEntity<List<PrescricaoEntity>> listarTodos() {
         return ResponseEntity.ok(prescricaoService.listarTodos());
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         try {
@@ -72,7 +72,7 @@ public class PrescricaoController {
         }
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping("/paciente/{pacienteId}")
     public ResponseEntity<List<PrescricaoEntity>> buscarPorPaciente(@PathVariable int clienteId, @PathVariable int pacienteId) {
         return ResponseEntity.ok(prescricaoService.buscarPorPaciente(clienteId, pacienteId));

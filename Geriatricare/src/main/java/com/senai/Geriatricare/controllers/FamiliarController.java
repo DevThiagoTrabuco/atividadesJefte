@@ -22,7 +22,7 @@ public class FamiliarController {
         this.familiarService = familiarService;
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @PostMapping
     public ResponseEntity<?> criarFamiliar(@RequestBody FamiliarModel familiarModel) {
         try {
@@ -33,7 +33,7 @@ public class FamiliarController {
         }
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarFamiliar(@PathVariable int id, @RequestBody FamiliarModel familiarModel) {
         try {
@@ -45,7 +45,7 @@ public class FamiliarController {
         }
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> removerFamiliar(@PathVariable int id) {
         try {
@@ -56,13 +56,13 @@ public class FamiliarController {
         }
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping
     public ResponseEntity<List<FamiliarEntity>> listarTodos() {
         return ResponseEntity.ok(familiarService.listarTodos());
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         try {
@@ -72,7 +72,7 @@ public class FamiliarController {
         }
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping("/nome/{nome}")
     public ResponseEntity<?> buscarPorNome(@PathVariable int clienteId, @PathVariable String nome) {
         try {
@@ -82,7 +82,7 @@ public class FamiliarController {
         }
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping("/email/{email}")
     public ResponseEntity<?> buscarPorEmail(@PathVariable int clienteId, @PathVariable String email) {
         try {
@@ -92,7 +92,7 @@ public class FamiliarController {
         }
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping("/cpf/{cpf}")
     public ResponseEntity<?> buscarPorCpf(@PathVariable int clienteId, @PathVariable String cpf) {
         try {
@@ -102,7 +102,7 @@ public class FamiliarController {
         }
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping("/rg/{rg}")
     public ResponseEntity<?> buscarPorRg(@PathVariable int clienteId, @PathVariable String rg) {
         try {
@@ -112,7 +112,7 @@ public class FamiliarController {
         }
     }
 
-    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
     @GetMapping("/paciente/{pacienteId}")
     public ResponseEntity<List<FamiliarEntity>> buscarPorPaciente(@PathVariable int clienteId, @PathVariable int pacienteId) {
         return ResponseEntity.ok(familiarService.buscarPorPaciente(clienteId, pacienteId));
