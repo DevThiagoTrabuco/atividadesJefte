@@ -11,5 +11,4 @@ public class GeriatricareApplication {
 		SpringApplication.run(GeriatricareApplication.class, args);
 		System.out.println(new BCryptPasswordEncoder().encode("senha123"));
 	}
-
 }

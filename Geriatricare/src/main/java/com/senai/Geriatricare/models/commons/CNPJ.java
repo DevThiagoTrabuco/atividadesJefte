@@ -1,5 +1,7 @@
 package com.senai.Geriatricare.models.commons;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.*;
 
 import java.util.regex.Pattern;
@@ -9,10 +11,18 @@ import java.util.regex.Pattern;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CNPJ {
-    private Pattern CNPJ_PADRAO =
-            Pattern.compile("\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}");
-
+    private Pattern CNPJ_PADRAO = Pattern.compile("\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}");
     private String cnpj;
+
+    @JsonCreator
+    public CNPJ(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    @JsonValue
+    public String getCnpj() {
+        return cnpj;
+    }
 
     public boolean validaCNPJ() {
         if (cnpj == null || !CNPJ_PADRAO.matcher(cnpj).matches()) {

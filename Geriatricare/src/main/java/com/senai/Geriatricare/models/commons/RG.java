@@ -1,5 +1,7 @@
 package com.senai.Geriatricare.models.commons;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.*;
 
 import java.util.regex.Pattern;
@@ -9,10 +11,18 @@ import java.util.regex.Pattern;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RG {
-    private Pattern RG_PADRAO =
-            Pattern.compile("\\d{2}\\.\\d{3}\\.\\d{3}-\\d{1}");
-
+    private Pattern RG_PADRAO = Pattern.compile("\\d{2}\\.\\d{3}\\.\\d{3}-\\d{1}");
     private String rg;
+
+    @JsonCreator
+    public RG(String rg) {
+        this.rg = rg;
+    }
+
+    @JsonValue
+    public String getRg() {
+        return rg;
+    }
 
     public boolean validaRG() {
         if (rg == null || !RG_PADRAO.matcher(rg).matches()) {

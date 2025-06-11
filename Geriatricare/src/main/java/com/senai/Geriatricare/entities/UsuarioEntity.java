@@ -24,7 +24,7 @@ public class UsuarioEntity implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "papel_id"))
     private List<PapelEntity> papeis;
 
-    @Column(name = "nomeUsuario", nullable = false, unique = true)
+    @Column(name = "nome_usuario", nullable = false, unique = true)
     private String nomeUsuario;
 
     @Column(name = "senha", nullable = false)
