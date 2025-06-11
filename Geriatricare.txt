@@ -1,0 +1,18 @@
+use geriatricare
+
+INSERT INTO usuarios (nome_usuario, senha) 
+VALUES ('jorge', '$2a$10$BXRHeBV7.URYsZa0WyrMunoY81lYoGGH.5GTrl5QZkCpV3Y5mR2K');
+
+INSERT INTO papeis (papel) VALUES ('ADMIN');
+INSERT INTO papeis (papel) VALUES ('CLIENTE');
+INSERT INTO papeis (papel) VALUES ('FUNCIONARIO');
+INSERT INTO papeis (papel) VALUES ('FAMILIAR');
+
+INSERT INTO usuarios_papeis (usuario_id, papel_id)
+VALUES (
+    (SELECT usuario_id FROM usuarios WHERE nome_usuario = 'jorge'),
+    (SELECT papel_id FROM papeis WHERE papel = 'ADMIN')
+);
+
+
+drop database GERIATRICARE
