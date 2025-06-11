@@ -21,6 +21,6 @@ public class PapelEntity implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        return this.papel.toString();
+        return "ROLE_" + this.papel.toString();
     }
 }
