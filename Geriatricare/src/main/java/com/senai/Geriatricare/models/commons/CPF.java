@@ -1,5 +1,7 @@
 package com.senai.Geriatricare.models.commons;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.*;
 
 import java.util.regex.Pattern;
@@ -9,10 +11,18 @@ import java.util.regex.Pattern;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CPF {
-    private Pattern CPF_PADRAO =
-            Pattern.compile("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}");
-
+    private Pattern CPF_PADRAO = Pattern.compile("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}");
     private String cpf;
+
+    @JsonCreator
+    public CPF(String cpf) {
+        this.cpf = cpf;
+    }
+
+    @JsonValue
+    public String getCpf() {
+        return cpf;
+    }
 
     public boolean validaCPF() {
         if (cpf == null || !CPF_PADRAO.matcher(cpf).matches()) {

@@ -11,8 +11,7 @@ import java.util.regex.Pattern;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Email {
-    private Pattern EMAIL_PADRAO = Pattern.compile(
-            "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", Pattern.CASE_INSENSITIVE);
+    private Pattern EMAIL_PADRAO = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", Pattern.CASE_INSENSITIVE);
 
     private String email;
 
