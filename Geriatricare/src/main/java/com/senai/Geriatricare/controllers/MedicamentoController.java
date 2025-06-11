@@ -23,7 +23,7 @@ public class MedicamentoController {
         this.medicamentoService = medicamentoService;
     }
 
-    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
     @PostMapping
     public ResponseEntity<?> criarMedicamento(@RequestBody MedicamentoModel medicamentoModel) {
         try {
@@ -34,7 +34,7 @@ public class MedicamentoController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarMedicamento(@PathVariable int id, @RequestBody MedicamentoModel medicamentoModel) {
         try {
@@ -46,7 +46,7 @@ public class MedicamentoController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> removerMedicamento(@PathVariable int id) {
         try {
@@ -57,13 +57,13 @@ public class MedicamentoController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
     @GetMapping
     public ResponseEntity<List<MedicamentoEntity>> listarTodos() {
         return ResponseEntity.ok(medicamentoService.listarTodos());
     }
 
-    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         try {
@@ -73,25 +73,25 @@ public class MedicamentoController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
     @GetMapping("/nome-generico/{nomeGenerico}")
     public ResponseEntity<List<MedicamentoEntity>> buscarPorNomeGenerico(@PathVariable int clienteId, @PathVariable String nomeGenerico) {
         return ResponseEntity.ok(medicamentoService.buscarPorNomeGenerico(clienteId, nomeGenerico));
     }
 
-    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
     @GetMapping("/nome-comercial/{nomeComercial}")
     public ResponseEntity<List<MedicamentoEntity>> buscarPorNomeComercial(@PathVariable int clienteId, @PathVariable String nomeComercial) {
         return ResponseEntity.ok(medicamentoService.buscarPorNomeComercial(clienteId, nomeComercial));
     }
 
-    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
     @GetMapping("/data-validade/{dataValidade}")
     public ResponseEntity<List<MedicamentoEntity>> buscarPorDataValidade(@PathVariable int clienteId, @PathVariable LocalDate dataValidade) {
         return ResponseEntity.ok(medicamentoService.buscarPorDataValidade(clienteId, dataValidade));
     }
 
-    @PreAuthorize("hasRole('ROLE_CLIENTE') or hasRole('ROLE_FUNCIONARIO')")
+    @PreAuthorize("hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
     @GetMapping("/status/{statusMedicamento}")
     public ResponseEntity<List<MedicamentoEntity>> buscarPorStatusMedicamento(@PathVariable int clienteId, @PathVariable String statusMedicamento) {
         return ResponseEntity.ok(medicamentoService.buscarPorStatusMedicamento(clienteId, statusMedicamento));

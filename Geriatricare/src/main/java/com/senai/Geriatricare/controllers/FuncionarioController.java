@@ -22,7 +22,7 @@ public class FuncionarioController {
         this.funcionarioService = funcionarioService;
     }
 
-    @PreAuthorize("hasRole('ROLE_CLIENTE')")
+    @PreAuthorize("hasRole('CLIENTE')")
     @PostMapping
     public ResponseEntity<?> criarFuncionario(@RequestBody FuncionarioModel funcionarioModel) {
         try {
@@ -33,7 +33,7 @@ public class FuncionarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_CLIENTE')")
+    @PreAuthorize("hasRole('CLIENTE')")
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarFuncionario(@PathVariable int id, @RequestBody FuncionarioModel funcionarioModel) {
         try {
@@ -45,7 +45,7 @@ public class FuncionarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_CLIENTE')")
+    @PreAuthorize("hasRole('CLIENTE')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> removerFuncionario(@PathVariable int id) {
         try {
@@ -56,13 +56,13 @@ public class FuncionarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_CLIENTE')")
+    @PreAuthorize("hasRole('CLIENTE')")
     @GetMapping
     public ResponseEntity<List<FuncionarioEntity>> listarTodos() {
         return ResponseEntity.ok(funcionarioService.listarTodos());
     }
 
-    @PreAuthorize("hasRole('ROLE_CLIENTE')")
+    @PreAuthorize("hasRole('CLIENTE')")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         try {
@@ -72,7 +72,7 @@ public class FuncionarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_CLIENTE')")
+    @PreAuthorize("hasRole('CLIENTE')")
     @GetMapping("/email/{email}")
     public ResponseEntity<?> buscarPorEmail(@PathVariable int clienteId, @PathVariable String email) {
         try {
@@ -82,7 +82,7 @@ public class FuncionarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_CLIENTE')")
+    @PreAuthorize("hasRole('CLIENTE')")
     @GetMapping("/cpf/{cpf}")
     public ResponseEntity<?> buscarPorCpf(@PathVariable int clienteId, @PathVariable String cpf) {
         try {
@@ -92,7 +92,7 @@ public class FuncionarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_CLIENTE')")
+    @PreAuthorize("hasRole('CLIENTE')")
     @GetMapping("/nome/{nome}")
     public ResponseEntity<?> buscarPorNome(@PathVariable int clienteId, @PathVariable String nome) {
         try {
@@ -102,7 +102,7 @@ public class FuncionarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_CLIENTE')")
+    @PreAuthorize("hasRole('CLIENTE')")
     @GetMapping("/funcao/{funcao}")
     public ResponseEntity<List<FuncionarioEntity>> buscarPorFuncao(@PathVariable int clienteId, @PathVariable String funcao) {
         return ResponseEntity.ok(funcionarioService.buscarPorFuncao(clienteId, funcao));
