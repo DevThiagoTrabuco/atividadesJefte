@@ -1,7 +1,7 @@
 use geriatricare
 
 INSERT INTO usuarios (nome_usuario, senha) 
-VALUES ('jorge', '$2a$10$BXRHeBV7.URYsZa0WyrMunoY81lYoGGH.5GTrl5QZkCpV3Y5mR2K');
+VALUES ('jorge', '$2a$12$J3MjhPpv1YLETD/KQ/0O0.FF5mx67vxpFwTWX6POQ4OxXKY1GnvgW');
 
 INSERT INTO papeis (papel) VALUES ('ADMIN');
 INSERT INTO papeis (papel) VALUES ('CLIENTE');
