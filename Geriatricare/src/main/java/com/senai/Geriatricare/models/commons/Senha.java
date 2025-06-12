@@ -21,7 +21,7 @@ public class Senha {
 
     @JsonValue
     public String getSenha() {
-        return senha;
+        return senha.toString();
     }
 
     public boolean validaSenha() {

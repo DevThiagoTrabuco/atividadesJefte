@@ -1,5 +1,6 @@
 package com.senai.Geriatricare.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.senai.Geriatricare.enums.Parentesco;
 import jakarta.persistence.*;
 import lombok.*;
@@ -41,6 +42,7 @@ public class FamiliarEntity {
     @ManyToMany(mappedBy = "familiares", cascade = CascadeType.ALL)
     private List<PacienteEntity> pacientes;
 
+    @JsonManagedReference("familiar-endereco")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "endereco_id")
     private EnderecoEntity endereco;

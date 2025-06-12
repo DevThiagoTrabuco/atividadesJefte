@@ -25,30 +25,32 @@ public class CNPJ {
     }
 
     public boolean validaCNPJ() {
-        if (cnpj == null || !CNPJ_PADRAO.matcher(cnpj).matches()) {
-            return false;
-        }
+        if (cnpj == null) return false;
 
-        cnpj = cnpj.replace(".", "").replace("/", "").replace("-", "");
+        String cnpjNum = cnpj.replaceAll("\\D", "");
+        if (cnpjNum.length() != 14) return false;
 
-        if (cnpj.chars().distinct().count() == 1) return false; // Ex: 00.000.000/0000-00
+        if (cnpjNum.chars().distinct().count() == 1) return false;
 
-        int[] pesos = {5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+        int[] pesos1 = {5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+        int[] pesos2 = {6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+
         int soma = 0;
-
         for (int i = 0; i < 12; i++) {
-            soma += (cnpj.charAt(i) - '0') * pesos[i];
+            soma += (cnpjNum.charAt(i) - '0') * pesos1[i];
         }
+        int dig1 = soma % 11;
+        dig1 = (dig1 < 2) ? 0 : 11 - dig1;
 
-        int primeiroDigito = (soma % 11 < 2) ? 0 : 11 - (soma % 11);
-        if (primeiroDigito != cnpj.charAt(12) - '0') return false;
+        if (dig1 != (cnpjNum.charAt(12) - '0')) return false;
 
         soma = 0;
         for (int i = 0; i < 13; i++) {
-            soma += (cnpj.charAt(i) - '0') * pesos[i % pesos.length];
+            soma += (cnpjNum.charAt(i) - '0') * pesos2[i];
         }
+        int dig2 = soma % 11;
+        dig2 = (dig2 < 2) ? 0 : 11 - dig2;
 
-        int segundoDigito = (soma % 11 < 2) ? 0 : 11 - (soma % 11);
-        return segundoDigito == cnpj.charAt(13) - '0';
+        return dig2 == (cnpjNum.charAt(13) - '0');
     }
 }

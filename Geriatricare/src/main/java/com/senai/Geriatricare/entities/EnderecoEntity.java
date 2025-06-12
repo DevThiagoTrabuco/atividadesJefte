@@ -1,5 +1,6 @@
 package com.senai.Geriatricare.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.senai.Geriatricare.enums.UnidadeFederativa;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,7 +27,8 @@ public class EnderecoEntity {
     @Column(name = "cidade", nullable = false)
     private String cidade;
 
-    @Enumerated
+
+    @Enumerated(EnumType.STRING)
     private UnidadeFederativa unidadeFederativa;
 
     @Column(name = "cep", nullable = false)
@@ -35,12 +37,15 @@ public class EnderecoEntity {
     @Column(name = "complemento")
     private String complemento;
 
+    @JsonBackReference("cliente-endereco")
     @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
     private ClienteEntity cliente;
 
+    @JsonBackReference("familiar-endereco")
     @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
     private FamiliarEntity familiar;
 
+    @JsonBackReference("funcionario-endereco")
     @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
     private FuncionarioEntity funcionario;
 }

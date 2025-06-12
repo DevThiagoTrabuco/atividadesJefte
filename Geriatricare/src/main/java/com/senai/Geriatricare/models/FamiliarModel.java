@@ -1,5 +1,6 @@
 package com.senai.Geriatricare.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.senai.Geriatricare.entities.ClienteEntity;
 import com.senai.Geriatricare.entities.FamiliarEntity;
 import com.senai.Geriatricare.enums.Parentesco;
@@ -12,6 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FamiliarModel {
     private int id;
     private String nome;
