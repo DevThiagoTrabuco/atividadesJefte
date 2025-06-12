@@ -24,10 +24,9 @@ public class ClienteModel {
         cliente.setNome(this.nome);
         cliente.setEmail(this.email.validaEmail() ? this.email.getEmail() : null);
         cliente.setTelefone(this.telefone.validaTelefone() ? this.telefone.getTelefone() : null);
-        cliente.setCnpj(this.cnpj.validaCNPJ() ? this.cnpj.getCnpj() : null);
+        cliente.setCnpj(this.cnpj.getCnpj());
         cliente.setEndereco(this.endereco.toEntity());
         cliente.setAdmin(admin);
-
         return cliente;
     }
 }

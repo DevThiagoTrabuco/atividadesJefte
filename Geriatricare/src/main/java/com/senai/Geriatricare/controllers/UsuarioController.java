@@ -169,13 +169,13 @@ public class UsuarioController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/atualizar/admin")
-    public ResponseEntity<?> atualizarAdmin(@RequestBody UsuarioModel usuarioModel) {
+    @PutMapping("/atualizar/admin")
+    public ResponseEntity<?> atualizarAdmin(@PathVariable int id, @RequestBody UsuarioModel usuarioModel) {
         try {
             if (usuarioModel.getPapel() == null || usuarioModel.getPapel().size() != 1 || !usuarioModel.getPapel().contains(Papel.ADMIN)) {
                 return ResponseEntity.badRequest().body("Para esta rota, o papel deve ser apenas 'ADMIN'.");
             }
-            usuarioService.atualizarUsuarioPorPapel(usuarioModel.getId(), usuarioModel, Papel.ADMIN);
+            usuarioService.atualizarUsuarioPorPapel(id, usuarioModel, Papel.ADMIN);
             return ResponseEntity.ok("Usuário ADMIN atualizado com sucesso.");
         } catch (IllegalArgumentException | EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -185,13 +185,13 @@ public class UsuarioController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/atualizar/cliente")
-    public ResponseEntity<?> atualizarCliente(@RequestBody UsuarioModel usuarioModel) {
+    @PutMapping("/atualizar/cliente/{id}")
+    public ResponseEntity<?> atualizarCliente(@PathVariable int id,@RequestBody UsuarioModel usuarioModel) {
         try {
             if (usuarioModel.getPapel() == null || usuarioModel.getPapel().size() != 1 || !usuarioModel.getPapel().contains(Papel.CLIENTE)) {
                 return ResponseEntity.badRequest().body("Para esta rota, o papel deve ser apenas 'CLIENTE'.");
             }
-            usuarioService.atualizarUsuarioPorPapel(usuarioModel.getId(), usuarioModel, Papel.CLIENTE);
+            usuarioService.atualizarUsuarioPorPapel(id, usuarioModel, Papel.CLIENTE);
             return ResponseEntity.ok("Usuário CLIENTE atualizado com sucesso.");
         } catch (IllegalArgumentException | EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -201,13 +201,13 @@ public class UsuarioController {
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE')")
-    @PostMapping("/atualizar/funcionario")
-    public ResponseEntity<?> atualizarFuncionario(@RequestBody UsuarioModel usuarioModel) {
+    @PutMapping("/atualizar/funcionario/{id}")
+    public ResponseEntity<?> atualizarFuncionario(@PathVariable int id, @RequestBody UsuarioModel usuarioModel) {
         try {
             if (usuarioModel.getPapel() == null || usuarioModel.getPapel().size() != 1 || !usuarioModel.getPapel().contains(Papel.FUNCIONARIO)) {
                 return ResponseEntity.badRequest().body("Para esta rota, o papel deve ser apenas 'FUNCIONARIO'.");
             }
-            usuarioService.atualizarUsuarioPorPapel(usuarioModel.getId(), usuarioModel, Papel.FUNCIONARIO);
+            usuarioService.atualizarUsuarioPorPapel(id, usuarioModel, Papel.FUNCIONARIO);
             return ResponseEntity.ok("Usuário FUNCIONARIO atualizado com sucesso.");
         } catch (IllegalArgumentException | EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -217,8 +217,8 @@ public class UsuarioController {
     }
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
-    @PostMapping("/atualizar/familiar")
-    public ResponseEntity<?> atualizarFamiliar(@RequestBody UsuarioModel usuarioModel) {
+    @PutMapping("/atualizar/familiar/{id}")
+    public ResponseEntity<?> atualizarFamiliar(@PathVariable int id, @RequestBody UsuarioModel usuarioModel) {
         try {
             if (usuarioModel.getPapel() == null || usuarioModel.getPapel().size() != 1 || !usuarioModel.getPapel().contains(Papel.FAMILIAR)) {
                 return ResponseEntity.badRequest().body("Para esta rota, o papel deve ser apenas 'FAMILIAR'.");

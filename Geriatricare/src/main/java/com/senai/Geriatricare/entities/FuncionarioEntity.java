@@ -1,5 +1,6 @@
 package com.senai.Geriatricare.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.senai.Geriatricare.enums.Funcao;
 import jakarta.persistence.*;
 import lombok.*;
@@ -34,6 +35,7 @@ public class FuncionarioEntity {
     @Column(name = "telefone", nullable = false)
     private String telefone;
 
+    @JsonManagedReference("funcionario-endereco")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "endereco_id")
     private EnderecoEntity endereco;
