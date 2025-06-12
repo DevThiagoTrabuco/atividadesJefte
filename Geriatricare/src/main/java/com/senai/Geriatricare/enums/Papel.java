@@ -4,7 +4,9 @@ public enum Papel {
     ADMIN("ADMIN"),
     CLIENTE("CLIENTE"),
     FUNCIONARIO("FUNCIONARIO"),
-    FAMILIAR("FAMILIAR");
+    FAMILIAR("FAMILIAR"),
+    ATIVADO("ATIVADO"),
+    DESATIVADO("DESATIVADO");
 
     private final String papel;
 

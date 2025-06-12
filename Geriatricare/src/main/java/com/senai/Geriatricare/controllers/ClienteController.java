@@ -22,7 +22,7 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @PostMapping
     public ResponseEntity<?> criarCliente(@RequestBody ClienteModel clienteModel) {
         try {
@@ -33,7 +33,7 @@ public class ClienteController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarCliente(@PathVariable int id, @RequestBody ClienteModel clienteModel) {
         try {
@@ -45,7 +45,7 @@ public class ClienteController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> removerCliente(@PathVariable int id) {
         try {
@@ -56,13 +56,13 @@ public class ClienteController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @GetMapping
     public ResponseEntity<List<ClienteEntity>> listarTodos() {
         return ResponseEntity.ok(clienteService.listarTodos());
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         try {
@@ -72,7 +72,7 @@ public class ClienteController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @GetMapping("/email/{email}")
     public ResponseEntity<?> buscarPorEmail(@PathVariable String email) {
         try {
@@ -82,7 +82,7 @@ public class ClienteController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @GetMapping("/cnpj/{cnpj}")
     public ResponseEntity<?> buscarPorCnpj(@PathVariable String cnpj) {
         try {
@@ -92,7 +92,7 @@ public class ClienteController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @GetMapping("/nome/{nome}")
     public ResponseEntity<?> buscarPorNome(@PathVariable String nome) {
         try {

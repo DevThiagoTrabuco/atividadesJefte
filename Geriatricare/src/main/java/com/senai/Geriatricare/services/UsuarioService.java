@@ -54,7 +54,10 @@ public class UsuarioService {
     public UsuarioModel buscarUsuarioPorId(int id) {
         UsuarioEntity usuarioEntity = usuarioRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com ID: " + id));
-        return new UsuarioModel(usuarioEntity.getId(), usuarioEntity.getNomeUsuario(), null, Collections.emptyList());
+        List<Papel> papeis = usuarioEntity.getPapeis().stream()
+                .map(PapelEntity::getPapel)
+                .toList();
+        return new UsuarioModel(usuarioEntity.getId(), usuarioEntity.getNomeUsuario(), null, papeis);
     }
 
     public List<UsuarioModel> listarUsuarios() {
@@ -135,5 +138,40 @@ public class UsuarioService {
         }
 
         usuarioRepository.delete(usuarioEntity);
+    }
+
+    public void alternarStatusUsuario(int id, String status) {
+        String statusFormatado = status.toUpperCase();
+
+        if (!statusFormatado.equals("ATIVADO") && !statusFormatado.equals("DESATIVADO")) {
+            throw new IllegalArgumentException("Status inválido. Use 'ATIVADO' ou 'DESATIVADO'.");
+        }
+
+        UsuarioEntity usuarioEntity = usuarioRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com ID: " + id));
+
+        PapelEntity papelAtual = papelRepository.findByPapel(
+                usuarioEntity.getPapeis().stream()
+                        .anyMatch(p -> p.getPapel().equals(Papel.ATIVADO)) ? Papel.ATIVADO : Papel.DESATIVADO
+        );
+
+        PapelEntity papelAlternativo = papelRepository.findByPapel(
+                statusFormatado.equals("ATIVADO") ? Papel.ATIVADO : Papel.DESATIVADO
+        );
+
+        if (papelAtual == null || papelAlternativo == null) {
+            throw new EntityNotFoundException("Roles ATIVADO ou DESATIVADO não encontradas.");
+        }
+
+        List<PapelEntity> papeis = usuarioEntity.getPapeis();
+        if (!papeis.contains(papelAlternativo)) {
+            papeis.remove(papelAtual);
+            papeis.add(papelAlternativo);
+        } else {
+            throw new IllegalArgumentException("Usuário já possui o status: " + statusFormatado);
+        }
+
+        usuarioEntity.setPapeis(papeis);
+        usuarioRepository.save(usuarioEntity);
     }
 }

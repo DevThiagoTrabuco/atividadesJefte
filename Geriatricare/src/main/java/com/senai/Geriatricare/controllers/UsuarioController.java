@@ -20,12 +20,14 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @PostMapping("/admin")
     public ResponseEntity<?> criarAdminUsuario(@RequestBody UsuarioModel usuarioModel) {
         try {
-            if (usuarioModel.getPapel() == null || usuarioModel.getPapel().size() != 1 || !usuarioModel.getPapel().contains(Papel.ADMIN)) {
-                return ResponseEntity.badRequest().body("Para esta rota, o papel deve ser apenas 'ADMIN'.");
+            if (usuarioModel.getPapel() == null || usuarioModel.getPapel().size() != 2 ||
+                    !usuarioModel.getPapel().contains(Papel.ADMIN) ||
+                    !usuarioModel.getPapel().contains(Papel.ATIVADO)) {
+                return ResponseEntity.badRequest().body("Para esta rota, os papéis devem ser 'ADMIN' e 'ATIVADO'.");
             }
             usuarioService.criarUsuario(usuarioModel);
             return ResponseEntity.ok("Usuário administrador criado com sucesso.");
@@ -34,12 +36,14 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @PostMapping("/cliente")
     public ResponseEntity<?> criarClienteUsuario(@RequestBody UsuarioModel usuarioModel) {
         try {
-            if (usuarioModel.getPapel() == null || usuarioModel.getPapel().size() != 1 || !usuarioModel.getPapel().contains(Papel.CLIENTE)) {
-                return ResponseEntity.badRequest().body("Para esta rota, o papel deve ser apenas 'CLIENTE'.");
+            if (usuarioModel.getPapel() == null || usuarioModel.getPapel().size() != 2 ||
+                    !usuarioModel.getPapel().contains(Papel.CLIENTE) ||
+                    !usuarioModel.getPapel().contains(Papel.ATIVADO)) {
+                return ResponseEntity.badRequest().body("Para esta rota, os papéis devem ser 'CLIENTE' e 'ATIVADO'.");
             }
             usuarioService.criarUsuario(usuarioModel);
             return ResponseEntity.ok("Usuário cliente criado com sucesso.");
@@ -48,12 +52,14 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE')")
+    @PreAuthorize("(hasRole('ADMIN') or hasRole('CLIENTE')) and hasRole('ATIVADO')")
     @PostMapping("/funcionario")
     public ResponseEntity<?> criarFuncionarioUsuario(@RequestBody UsuarioModel usuarioModel) {
         try {
-            if (usuarioModel.getPapel() == null || usuarioModel.getPapel().size() != 1 || !usuarioModel.getPapel().contains(Papel.FUNCIONARIO)) {
-                return ResponseEntity.badRequest().body("Para esta rota, o papel deve ser apenas 'FUNCIONARIO'.");
+            if (usuarioModel.getPapel() == null || usuarioModel.getPapel().size() != 2 ||
+                    !usuarioModel.getPapel().contains(Papel.FUNCIONARIO) ||
+                    !usuarioModel.getPapel().contains(Papel.ATIVADO)) {
+                return ResponseEntity.badRequest().body("Para esta rota, os papéis devem ser 'FUNCIONARIO' e 'ATIVADO'.");
             }
             usuarioService.criarUsuario(usuarioModel);
             return ResponseEntity.ok("Usuário funcionário criado com sucesso.");
@@ -62,12 +68,14 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('FUNCIONARIO') and hasRole('ATIVADO')")
     @PostMapping("/familiar")
     public ResponseEntity<?> criarFamiliarUsuario(@RequestBody UsuarioModel usuarioModel) {
         try {
-            if (usuarioModel.getPapel() == null || usuarioModel.getPapel().size() != 1 || !usuarioModel.getPapel().contains(Papel.FAMILIAR)) {
-                return ResponseEntity.badRequest().body("Para esta rota, o papel deve ser apenas 'FAMILIAR'.");
+            if (usuarioModel.getPapel() == null || usuarioModel.getPapel().size() != 2 ||
+                    !usuarioModel.getPapel().contains(Papel.FAMILIAR) ||
+                    !usuarioModel.getPapel().contains(Papel.ATIVADO)) {
+                return ResponseEntity.badRequest().body("Para esta rota, os papéis devem ser 'FAMILIAR' e 'ATIVADO'.");
             }
             usuarioService.criarUsuario(usuarioModel);
             return ResponseEntity.ok("Usuário familiar criado com sucesso.");
@@ -76,7 +84,7 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @GetMapping("/listar/admin")
     public ResponseEntity<?> listarUsuariosAdmin() {
         try {
@@ -86,7 +94,7 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @GetMapping("/listar/cliente")
     public ResponseEntity<?> listarUsuariosCliente() {
         try {
@@ -96,7 +104,7 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') and hasRole('ATIVADO')")
     @GetMapping("/listar/funcionario")
     public ResponseEntity<?> listarUsuariosFuncionario() {
         try {
@@ -106,7 +114,7 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('FUNCIONARIO') and hasRole('ATIVADO')")
     @GetMapping("/listar/familiar")
     public ResponseEntity<?> listarUsuariosFamiliar() {
         try {
@@ -116,7 +124,7 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @GetMapping("/buscar/admin/{id}")
     public ResponseEntity<?> buscarAdminPorId(@PathVariable int id) {
         try {
@@ -129,7 +137,7 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @GetMapping("/buscar/cliente/{id}")
     public ResponseEntity<?> buscarClientePorId(@PathVariable int id) {
         try {
@@ -142,7 +150,7 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') and hasRole('ATIVADO')")
     @GetMapping("/buscar/funcionario/{id}")
     public ResponseEntity<?> buscarFuncionarioPorId(@PathVariable int id) {
         try {
@@ -155,7 +163,7 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('FUNCIONARIO') and hasRole('ATIVADO')")
     @GetMapping("/buscar/familiar/{id}")
     public ResponseEntity<?> buscarFamiliarPorId(@PathVariable int id) {
         try {
@@ -168,12 +176,14 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @PutMapping("/atualizar/admin")
     public ResponseEntity<?> atualizarAdmin(@PathVariable int id, @RequestBody UsuarioModel usuarioModel) {
         try {
-            if (usuarioModel.getPapel() == null || usuarioModel.getPapel().size() != 1 || !usuarioModel.getPapel().contains(Papel.ADMIN)) {
-                return ResponseEntity.badRequest().body("Para esta rota, o papel deve ser apenas 'ADMIN'.");
+            if (usuarioModel.getPapel() == null || usuarioModel.getPapel().size() != 2 ||
+                    !usuarioModel.getPapel().contains(Papel.ADMIN) ||
+                    !usuarioModel.getPapel().contains(Papel.ATIVADO)) {
+                return ResponseEntity.badRequest().body("Para esta rota, os papéis devem ser 'ADMIN' e 'ATIVADO'.");
             }
             usuarioService.atualizarUsuarioPorPapel(id, usuarioModel, Papel.ADMIN);
             return ResponseEntity.ok("Usuário ADMIN atualizado com sucesso.");
@@ -184,12 +194,14 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @PutMapping("/atualizar/cliente/{id}")
     public ResponseEntity<?> atualizarCliente(@PathVariable int id,@RequestBody UsuarioModel usuarioModel) {
         try {
-            if (usuarioModel.getPapel() == null || usuarioModel.getPapel().size() != 1 || !usuarioModel.getPapel().contains(Papel.CLIENTE)) {
-                return ResponseEntity.badRequest().body("Para esta rota, o papel deve ser apenas 'CLIENTE'.");
+            if (usuarioModel.getPapel() == null || usuarioModel.getPapel().size() != 2 ||
+                    !usuarioModel.getPapel().contains(Papel.CLIENTE) ||
+                    !usuarioModel.getPapel().contains(Papel.ATIVADO)) {
+                return ResponseEntity.badRequest().body("Para esta rota, os papéis devem ser 'CLIENTE' e 'ATIVADO'.");
             }
             usuarioService.atualizarUsuarioPorPapel(id, usuarioModel, Papel.CLIENTE);
             return ResponseEntity.ok("Usuário CLIENTE atualizado com sucesso.");
@@ -200,12 +212,14 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') and hasRole('ATIVADO')")
     @PutMapping("/atualizar/funcionario/{id}")
     public ResponseEntity<?> atualizarFuncionario(@PathVariable int id, @RequestBody UsuarioModel usuarioModel) {
         try {
-            if (usuarioModel.getPapel() == null || usuarioModel.getPapel().size() != 1 || !usuarioModel.getPapel().contains(Papel.FUNCIONARIO)) {
-                return ResponseEntity.badRequest().body("Para esta rota, o papel deve ser apenas 'FUNCIONARIO'.");
+            if (usuarioModel.getPapel() == null || usuarioModel.getPapel().size() != 2 ||
+                !usuarioModel.getPapel().contains(Papel.FUNCIONARIO) ||
+                !usuarioModel.getPapel().contains(Papel.ATIVADO)) {
+                return ResponseEntity.badRequest().body("Para esta rota, os papéis devem ser 'FUNCIONARIO' e 'ATIVADO'.");
             }
             usuarioService.atualizarUsuarioPorPapel(id, usuarioModel, Papel.FUNCIONARIO);
             return ResponseEntity.ok("Usuário FUNCIONARIO atualizado com sucesso.");
@@ -216,12 +230,14 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('FUNCIONARIO') and hasRole('ATIVADO')")
     @PutMapping("/atualizar/familiar/{id}")
     public ResponseEntity<?> atualizarFamiliar(@PathVariable int id, @RequestBody UsuarioModel usuarioModel) {
         try {
-            if (usuarioModel.getPapel() == null || usuarioModel.getPapel().size() != 1 || !usuarioModel.getPapel().contains(Papel.FAMILIAR)) {
-                return ResponseEntity.badRequest().body("Para esta rota, o papel deve ser apenas 'FAMILIAR'.");
+            if (usuarioModel.getPapel() == null || usuarioModel.getPapel().size() != 2 ||
+                    !usuarioModel.getPapel().contains(Papel.FAMILIAR) ||
+                    !usuarioModel.getPapel().contains(Papel.ATIVADO)) {
+                return ResponseEntity.badRequest().body("Para esta rota, os papéis devem ser 'FAMILIAR' e 'ATIVADO'.");
             }
             usuarioService.atualizarUsuarioPorPapel(usuarioModel.getId(), usuarioModel, Papel.FAMILIAR);
             return ResponseEntity.ok("Usuário FAMILIAR atualizado com sucesso.");
@@ -232,7 +248,7 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @DeleteMapping("/deletar/admin/{id}")
     public ResponseEntity<?> deletarAdmin(@PathVariable int id) {
         try {
@@ -245,7 +261,7 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @DeleteMapping("/deletar/cliente/{id}")
     public ResponseEntity<?> deletarCliente(@PathVariable int id) {
         try {
@@ -258,7 +274,7 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') and hasRole('ATIVADO')")
     @DeleteMapping("/deletar/funcionario/{id}")
     public ResponseEntity<?> deletarFuncionario(@PathVariable int id) {
         try {
@@ -271,7 +287,7 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('FUNCIONARIO')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('FUNCIONARIO') and hasRole('ATIVADO')")
     @DeleteMapping("/deletar/familiar/{id}")
     public ResponseEntity<?> deletarFamiliar(@PathVariable int id) {
         try {
@@ -281,6 +297,28 @@ public class UsuarioController {
             return ResponseEntity.badRequest().body("Usuário FAMILIAR não encontrado com ID: " + id);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Erro ao deletar usuário FAMILIAR: " + e.getMessage());
+        }
+    }
+
+    @PreAuthorize("(hasRole('ADMIN') or hasRole('CLIENTE')) and hasRole('ATIVADO')")
+    @PutMapping("/alternar-status/{id}/{status}")
+    public ResponseEntity<?> alternarStatusUsuario(@PathVariable int id, @PathVariable String status) {
+        try {
+            UsuarioModel usuario = usuarioService.buscarUsuarioPorId(id);
+
+            // Verifica se o status fornecido é válido
+            String statusFormatado = status.toUpperCase();
+            if (!statusFormatado.equals("ATIVADO") && !statusFormatado.equals("DESATIVADO")) {
+                return ResponseEntity.badRequest().body("Status inválido. Use 'ATIVADO' ou 'DESATIVADO'.");
+            }
+
+            // Alterna o status do usuário
+            usuarioService.alternarStatusUsuario(id, statusFormatado);
+            return ResponseEntity.ok("Status do usuário alternado com sucesso para: " + statusFormatado);
+        } catch (IllegalArgumentException | EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao alternar status do usuário: " + e.getMessage());
         }
     }
 

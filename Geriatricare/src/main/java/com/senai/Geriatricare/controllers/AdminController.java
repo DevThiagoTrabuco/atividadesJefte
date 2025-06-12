@@ -22,7 +22,7 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @PostMapping
     public ResponseEntity<?> criarAdmin(@RequestBody AdminModel adminModel) {
         try {
@@ -33,7 +33,7 @@ public class AdminController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarAdmin(@PathVariable int id, @RequestBody AdminModel adminModel) {
         try {
@@ -45,7 +45,7 @@ public class AdminController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> removerAdmin(@PathVariable int id) {
         try {
@@ -56,13 +56,13 @@ public class AdminController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @GetMapping
     public ResponseEntity<List<AdminEntity>> listarTodos() {
         return ResponseEntity.ok(adminService.listarTodos());
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         try {
@@ -72,7 +72,7 @@ public class AdminController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @GetMapping("/email/{email}")
     public ResponseEntity<?> buscarPorEmail(@PathVariable String email) {
         try {
@@ -82,7 +82,7 @@ public class AdminController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @GetMapping("/nome/{nome}")
     public ResponseEntity<?> buscarPorNome(@PathVariable String nome) {
         try {
