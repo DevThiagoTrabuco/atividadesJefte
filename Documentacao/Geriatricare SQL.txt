@@ -7,11 +7,19 @@ INSERT INTO papeis (papel) VALUES ('ADMIN');
 INSERT INTO papeis (papel) VALUES ('CLIENTE');
 INSERT INTO papeis (papel) VALUES ('FUNCIONARIO');
 INSERT INTO papeis (papel) VALUES ('FAMILIAR');
+INSERT INTO papeis (papel) VALUES ('ATIVADO');
+INSERT INTO papeis (papel) VALUES ('DESATIVADO');
 
 INSERT INTO usuarios_papeis (usuario_id, papel_id)
 VALUES (
     (SELECT usuario_id FROM usuarios WHERE nome_usuario = 'jorge'),
     (SELECT papel_id FROM papeis WHERE papel = 'ADMIN')
+);
+
+INSERT INTO usuarios_papeis (usuario_id, papel_id)
+VALUES (
+    (SELECT usuario_id FROM usuarios WHERE nome_usuario = 'jorge'),
+    (SELECT papel_id FROM papeis WHERE papel = 'ATIVADO')
 );
 
 
