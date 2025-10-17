@@ -30,6 +30,28 @@ public class UsuarioEntity implements UserDetails {
     @Column(name = "senha", nullable = false)
     private String senha;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "funcionario_obj", nullable = true)
+    private FuncionarioEntity funcionarioObj;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "admin_obj", nullable = true)
+    private AdminEntity adminObj;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cliente_obj", nullable = true)
+    private ClienteEntity clienteObj;
+
+    @OneToOne(mappedBy = "clienteObj")
+    private ClienteEntity cliente;
+
+    @OneToOne(mappedBy = "funcionarioObj")
+    private UsuarioEntity usuario;
+
+    @OneToOne(mappedBy = "adminObj")
+    private AdminEntity admin;
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.papeis;
