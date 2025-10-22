@@ -44,4 +44,8 @@ public class MedicamentoEntity {
 
     @OneToMany(mappedBy = "medicamento", cascade = CascadeType.ALL)
     private List<PrescricaoEntity> prescricoes;
+
+    @ManyToOne
+    @JoinColumn(name = "paciente_id", nullable = false)
+    private PacienteEntity paciente;
 }

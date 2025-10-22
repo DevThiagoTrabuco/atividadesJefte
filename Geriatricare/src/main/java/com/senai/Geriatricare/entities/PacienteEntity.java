@@ -55,4 +55,8 @@ public class PacienteEntity {
         inverseJoinColumns = @JoinColumn(name = "familiar_id")
     )
     private List<FamiliarEntity> familiares;
+
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MedicamentoEntity> medicamentos;
+
 }

@@ -1,5 +1,6 @@
 package com.senai.Geriatricare.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -31,25 +32,21 @@ public class UsuarioEntity implements UserDetails {
     private String senha;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "funcionario_obj", nullable = true)
-    private FuncionarioEntity funcionarioObj;
+    @JoinColumn(name = "funcionario_id", nullable = true)
+    private FuncionarioEntity funcionario;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "admin_obj", nullable = true)
-    private AdminEntity adminObj;
+    @JoinColumn(name = "admin_id", referencedColumnName = "admin_id", nullable = true)
+    private AdminEntity admin;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cliente_obj", nullable = true)
-    private ClienteEntity clienteObj;
-
-    @OneToOne(mappedBy = "clienteObj")
+    @JoinColumn(name = "cliente_id", nullable = true)
     private ClienteEntity cliente;
 
-    @OneToOne(mappedBy = "funcionarioObj")
-    private UsuarioEntity usuario;
-
-    @OneToOne(mappedBy = "adminObj")
-    private AdminEntity admin;
+    // Os campos abaixo estavam incorretos ou duplicados e foram removidos.
+    // O relacionamento OneToOne deve ser declarado apenas uma vez.
+    // O lado "dono" (UsuarioEntity) usa @JoinColumn.
+    // O outro lado (AdminEntity) usará "mappedBy".
 
 
     @Override
