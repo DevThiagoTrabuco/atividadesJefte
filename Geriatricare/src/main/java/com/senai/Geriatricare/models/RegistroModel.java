@@ -7,13 +7,13 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "registros")
+@Table(name = "log")
 @Getter
 @Setter
 public class RegistroModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "registro_id")
+    @Column(name = "log_id")
     private int id;
 
     @ManyToOne
