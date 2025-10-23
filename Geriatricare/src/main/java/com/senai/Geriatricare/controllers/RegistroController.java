@@ -1,7 +1,7 @@
 package com.senai.Geriatricare.controllers;
 
-    import com.senai.Geriatricare.entities.RegistroEntity;
     import com.senai.Geriatricare.models.RegistroModel;
+    import com.senai.Geriatricare.entities.RegistroEntity;
     import com.senai.Geriatricare.services.RegistroService;
     import jakarta.persistence.EntityNotFoundException;
     import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +25,9 @@ package com.senai.Geriatricare.controllers;
 
         @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
         @PostMapping
-        public ResponseEntity<?> criarRegistro(@RequestBody RegistroModel registroModel) {
+        public ResponseEntity<?> criarRegistro(@RequestBody RegistroEntity registroEntity) {
             try {
-                registroService.criarRegistro(registroModel);
+                registroService.criarRegistro(registroEntity);
                 return ResponseEntity.ok("Registro criado com sucesso.");
             } catch (IllegalArgumentException | EntityNotFoundException e) {
                 return ResponseEntity.badRequest().body(e.getMessage());
@@ -36,10 +36,10 @@ package com.senai.Geriatricare.controllers;
 
         @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
         @PutMapping("/{id}")
-        public ResponseEntity<?> atualizarRegistro(@PathVariable int id, @RequestBody RegistroModel registroModel) {
+        public ResponseEntity<?> atualizarRegistro(@PathVariable int id, @RequestBody RegistroEntity registroEntity) {
             try {
-                registroModel.setId(id);
-                registroService.atualizarRegistro(registroModel);
+                registroEntity.setId(id);
+                registroService.atualizarRegistro(registroEntity);
                 return ResponseEntity.ok("Registro atualizado com sucesso.");
             } catch (IllegalArgumentException | EntityNotFoundException e) {
                 return ResponseEntity.badRequest().body(e.getMessage());
@@ -59,7 +59,7 @@ package com.senai.Geriatricare.controllers;
 
         @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
         @GetMapping
-        public ResponseEntity<List<RegistroEntity>> listarTodos() {
+        public ResponseEntity<List<RegistroModel>> listarTodos() {
             return ResponseEntity.ok(registroService.listarTodos());
         }
 
@@ -75,7 +75,7 @@ package com.senai.Geriatricare.controllers;
 
         @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
         @GetMapping("/entidade/{entidade}/{entidadeId}")
-        public ResponseEntity<List<RegistroEntity>> buscarPorEntidadeEId(
+        public ResponseEntity<List<RegistroModel>> buscarPorEntidadeEId(
                 @PathVariable int clienteId,
                 @PathVariable String entidade,
                 @PathVariable int entidadeId) {
@@ -84,7 +84,7 @@ package com.senai.Geriatricare.controllers;
 
         @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
         @GetMapping("/entidade/{entidade}")
-        public ResponseEntity<List<RegistroEntity>> buscarPorEntidade(
+        public ResponseEntity<List<RegistroModel>> buscarPorEntidade(
                 @PathVariable int clienteId,
                 @PathVariable String entidade) {
             return ResponseEntity.ok(registroService.buscarPorEntidade(clienteId, entidade));
@@ -92,7 +92,7 @@ package com.senai.Geriatricare.controllers;
 
         @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
         @GetMapping("/funcionario/{funcionarioId}")
-        public ResponseEntity<List<RegistroEntity>> buscarPorFuncionario(
+        public ResponseEntity<List<RegistroModel>> buscarPorFuncionario(
                 @PathVariable int clienteId,
                 @PathVariable int funcionarioId) {
             return ResponseEntity.ok(registroService.buscarPorFuncionario(clienteId, funcionarioId));
@@ -100,7 +100,7 @@ package com.senai.Geriatricare.controllers;
 
         @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
         @GetMapping("/data/{dataHora}")
-        public ResponseEntity<List<RegistroEntity>> buscarPorData(
+        public ResponseEntity<List<RegistroModel>> buscarPorData(
                 @PathVariable int clienteId,
                 @PathVariable String dataHora) {
             LocalDateTime data = LocalDateTime.parse(dataHora);

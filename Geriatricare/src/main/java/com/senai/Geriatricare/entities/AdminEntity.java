@@ -1,28 +1,27 @@
 package com.senai.Geriatricare.entities;
 
-import jakarta.persistence.*;
+import com.senai.Geriatricare.models.AdminModel;
+import com.senai.Geriatricare.models.ClienteModel;
+import com.senai.Geriatricare.entities.commons.*;
 import lombok.*;
 
 import java.util.List;
 
-@Entity
-@Table(name = "administradores")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class AdminEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "admin_id")
     private int id;
-
-    @Column(name = "nome")
     private String nome;
+    private Email email;
+    private List<ClienteModel> clientes;
 
-    @Column(name = "email", unique = true, nullable = false)
-    private String email;
-
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
-    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
-    private List<ClienteEntity> clientes;
+    public AdminModel toEntity(){
+        AdminModel admin = new AdminModel();
+        admin.setId(this.id);
+        admin.setNome(this.nome);
+        admin.setEmail(this.email.validaEmail() ? this.email.getEmail() : null);
+        return admin;
+    }
 }

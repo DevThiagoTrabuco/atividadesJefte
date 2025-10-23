@@ -1,9 +1,9 @@
 package com.senai.Geriatricare.services;
 
-import com.senai.Geriatricare.entities.ClienteEntity;
-import com.senai.Geriatricare.entities.FamiliarEntity;
-import com.senai.Geriatricare.entities.PacienteEntity;
+import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.models.FamiliarModel;
+import com.senai.Geriatricare.models.PacienteModel;
+import com.senai.Geriatricare.entities.FamiliarEntity;
 import com.senai.Geriatricare.repositories.ClienteRepository;
 import com.senai.Geriatricare.repositories.FamiliarRepository;
 import com.senai.Geriatricare.repositories.PacienteRepository;
@@ -26,10 +26,10 @@ public class FamiliarService {
         this.pacienteRepository = pacienteRepository;
     }
 
-    public void criarFamiliar(FamiliarModel familiarModel) {
-        String cpf = familiarModel.getCpf().getCpf();
-        String email = familiarModel.getEmail().getEmail();
-        String rg = familiarModel.getRg().getRg();
+    public void criarFamiliar(FamiliarEntity familiarEntity) {
+        String cpf = familiarEntity.getCpf().getCpf();
+        String email = familiarEntity.getEmail().getEmail();
+        String rg = familiarEntity.getRg().getRg();
 
         if (familiarRepository.existsByCpf(cpf)) {
             throw new IllegalArgumentException("Já existe um familiar com o CPF: " + cpf);
@@ -41,19 +41,19 @@ public class FamiliarService {
             throw new IllegalArgumentException("Já existe um familiar com o RG: " + rg);
         }
 
-        ClienteEntity cliente = clienteRepository.findById(familiarModel.getClienteId())
-                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + familiarModel.getClienteId()));
+        ClienteModel cliente = clienteRepository.findById(familiarEntity.getClienteId())
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + familiarEntity.getClienteId()));
 
-        FamiliarEntity familiar = familiarModel.toEntity(cliente);
+        FamiliarModel familiar = familiarEntity.toEntity(cliente);
         familiarRepository.save(familiar);
     }
 
-    public void atualizarFamiliar(FamiliarModel familiarAtualizado) {
+    public void atualizarFamiliar(FamiliarEntity familiarAtualizado) {
         String cpfAtualizado = familiarAtualizado.getCpf().getCpf();
         String emailAtualizado = familiarAtualizado.getEmail().getEmail();
         String rgAtualizado = familiarAtualizado.getRg().getRg();
 
-        FamiliarEntity familiar = familiarRepository.findById(familiarAtualizado.getId())
+        FamiliarModel familiar = familiarRepository.findById(familiarAtualizado.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Familiar não encontrado com o ID: " + familiarAtualizado.getId()));
 
         if (!familiar.getCpf().equals(cpfAtualizado) && familiarRepository.existsByCpf(cpfAtualizado)) {
@@ -84,59 +84,59 @@ public class FamiliarService {
         familiarRepository.deleteById(id);
     }
 
-    public List<FamiliarEntity> listarTodos() {
+    public List<FamiliarModel> listarTodos() {
         return familiarRepository.findAll();
     }
 
-    public FamiliarEntity buscarPorId(int id) {
+    public FamiliarModel buscarPorId(int id) {
         return familiarRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Familiar com ID " + id + " não encontrado."));
     }
 
-    public FamiliarEntity buscarPorNome(int clienteId, String nome) {
-        ClienteEntity cliente = clienteRepository.findById(clienteId)
+    public FamiliarModel buscarPorNome(int clienteId, String nome) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
-        FamiliarEntity familiar = familiarRepository.findByClienteAndNome(cliente, nome);
+        FamiliarModel familiar = familiarRepository.findByClienteAndNome(cliente, nome);
         if (familiar == null) {
             throw new EntityNotFoundException("Familiar não encontrado com o nome: " + nome);
         }
         return familiar;
     }
 
-    public FamiliarEntity buscarPorEmail(int clienteId, String email) {
-        ClienteEntity cliente = clienteRepository.findById(clienteId)
+    public FamiliarModel buscarPorEmail(int clienteId, String email) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
-        FamiliarEntity familiar = familiarRepository.findByClienteAndEmail(cliente, email);
+        FamiliarModel familiar = familiarRepository.findByClienteAndEmail(cliente, email);
         if (familiar == null) {
             throw new EntityNotFoundException("Familiar não encontrado com o e-mail: " + email);
         }
         return familiar;
     }
 
-    public FamiliarEntity buscarPorCpf(int clienteId, String cpf) {
-        ClienteEntity cliente = clienteRepository.findById(clienteId)
+    public FamiliarModel buscarPorCpf(int clienteId, String cpf) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
-        FamiliarEntity familiar = familiarRepository.findByClienteAndCpf(cliente, cpf);
+        FamiliarModel familiar = familiarRepository.findByClienteAndCpf(cliente, cpf);
         if (familiar == null) {
             throw new EntityNotFoundException("Familiar não encontrado com o CPF: " + cpf);
         }
         return familiar;
     }
 
-    public FamiliarEntity buscarPorRg(int clienteId, String rg) {
-        ClienteEntity cliente = clienteRepository.findById(clienteId)
+    public FamiliarModel buscarPorRg(int clienteId, String rg) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
-        FamiliarEntity familiar = familiarRepository.findByClienteAndRg(cliente, rg);
+        FamiliarModel familiar = familiarRepository.findByClienteAndRg(cliente, rg);
         if (familiar == null) {
             throw new EntityNotFoundException("Familiar não encontrado com o RG: " + rg);
         }
         return familiar;
     }
 
-    public List<FamiliarEntity> buscarPorPaciente(int clienteId, int pacienteId) {
-        ClienteEntity cliente = clienteRepository.findById(clienteId)
+    public List<FamiliarModel> buscarPorPaciente(int clienteId, int pacienteId) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
-        PacienteEntity paciente = pacienteRepository.findById(pacienteId)
+        PacienteModel paciente = pacienteRepository.findById(pacienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado com o ID: " + pacienteId));
         return familiarRepository.findByClienteAndPacientes(cliente, paciente);
     }

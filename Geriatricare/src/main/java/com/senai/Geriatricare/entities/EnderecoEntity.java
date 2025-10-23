@@ -1,51 +1,34 @@
 package com.senai.Geriatricare.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.senai.Geriatricare.models.EnderecoModel;
 import com.senai.Geriatricare.enums.UnidadeFederativa;
-import jakarta.persistence.*;
+import com.senai.Geriatricare.entities.commons.CEP;
 import lombok.*;
 
-@Entity
-@Table(name = "enderecos")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class EnderecoEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "endereco_id")
     private int id;
-
-    @Column(name = "logradouro", nullable = false)
     private String logradouro;
-
-    @Column(name = "numero", nullable = false)
     private String numero;
-
-    @Column(name = "bairro", nullable = false)
     private String bairro;
-
-    @Column(name = "cidade", nullable = false)
     private String cidade;
-
-
-    @Enumerated(EnumType.STRING)
     private UnidadeFederativa unidadeFederativa;
-
-    @Column(name = "cep", nullable = false)
-    private String cep;
-
-    @Column(name = "complemento")
+    private CEP cep;
     private String complemento;
 
-    @JsonBackReference("cliente-endereco")
-    @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
-    private ClienteEntity cliente;
-
-    @JsonBackReference("familiar-endereco")
-    @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
-    private FamiliarEntity familiar;
-
-    @JsonBackReference("funcionario-endereco")
-    @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
-    private FuncionarioEntity funcionario;
+    public EnderecoModel toEntity(){
+        EnderecoModel endereco = new EnderecoModel();
+        endereco.setId(this.id);
+        endereco.setLogradouro(this.logradouro);
+        endereco.setNumero(this.numero);
+        endereco.setBairro(this.bairro);
+        endereco.setCidade(this.cidade);
+        endereco.setUnidadeFederativa(this.unidadeFederativa);
+        endereco.setCep(this.cep.validaCEP() ? this.cep.getCep() : null);
+        endereco.setComplemento(this.complemento);
+        return endereco;
+    }
 }

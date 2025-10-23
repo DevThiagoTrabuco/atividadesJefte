@@ -1,7 +1,7 @@
 package com.senai.Geriatricare.services;
 
-import com.senai.Geriatricare.entities.AdminEntity;
 import com.senai.Geriatricare.models.AdminModel;
+import com.senai.Geriatricare.entities.AdminEntity;
 import com.senai.Geriatricare.repositories.AdminRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +17,14 @@ public class AdminService {
         this.adminRepository = adminRepository;
     }
 
-    public void criarAdmin(AdminModel adminModel) {
-        String email = adminModel.getEmail().getEmail();
+    public void criarAdmin(AdminEntity adminEntity) {
+        String email = adminEntity.getEmail().getEmail();
 
         if (adminRepository.existsByEmail(email)) {
             throw new IllegalArgumentException("Já existe um admin com o email: " + email);
         }
 
-        AdminEntity admin = adminModel.toEntity();
+        AdminModel admin = adminEntity.toEntity();
 
         if (admin.getEmail() == null) {
             throw new IllegalArgumentException("Email inválido.");
@@ -34,8 +34,8 @@ public class AdminService {
         adminRepository.save(admin);
     }
 
-    public void atualizarAdmin(AdminModel adminAtualizado) {
-        AdminEntity admin = adminRepository.findById(adminAtualizado.getId())
+    public void atualizarAdmin(AdminEntity adminAtualizado) {
+        AdminModel admin = adminRepository.findById(adminAtualizado.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Admin não encontrado com o ID: " + adminAtualizado.getId()));
 
         String emailAtualizado = adminAtualizado.getEmail().getEmail();
@@ -43,7 +43,7 @@ public class AdminService {
             throw new IllegalArgumentException("Já existe um admin com o email: " + emailAtualizado);
         }
 
-        AdminEntity adminConvertido = adminAtualizado.toEntity();
+        AdminModel adminConvertido = adminAtualizado.toEntity();
 
         if (adminConvertido.getEmail() == null) {
             throw new IllegalArgumentException("Email inválido.");
@@ -62,25 +62,25 @@ public class AdminService {
         adminRepository.deleteById(id);
     }
 
-    public List<AdminEntity> listarTodos() {
+    public List<AdminModel> listarTodos() {
         return adminRepository.findAll();
     }
 
-    public AdminEntity buscarPorId(int id) {
+    public AdminModel buscarPorId(int id) {
         return adminRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Admin com ID " + id + " não encontrado."));
     }
 
-    public AdminEntity buscarPorEmail(String email) {
-        AdminEntity admin = adminRepository.findByEmail(email);
+    public AdminModel buscarPorEmail(String email) {
+        AdminModel admin = adminRepository.findByEmail(email);
         if (admin == null) {
             throw new EntityNotFoundException("Admin não encontrado com o email: " + email);
         }
         return admin;
     }
 
-    public AdminEntity buscarPorNome(String nome) {
-        AdminEntity admin = adminRepository.findByNome(nome);
+    public AdminModel buscarPorNome(String nome) {
+        AdminModel admin = adminRepository.findByNome(nome);
         if (admin == null) {
             throw new EntityNotFoundException("Admin não encontrado com o nome: " + nome);
         }

@@ -1,20 +1,20 @@
 package com.senai.Geriatricare.repositories;
 
-import com.senai.Geriatricare.entities.ClienteEntity;
-import com.senai.Geriatricare.entities.FamiliarEntity;
-import com.senai.Geriatricare.entities.PacienteEntity;
+import com.senai.Geriatricare.models.ClienteModel;
+import com.senai.Geriatricare.models.FamiliarModel;
+import com.senai.Geriatricare.models.PacienteModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface PacienteRepository extends JpaRepository<PacienteEntity, Integer> {
+public interface PacienteRepository extends JpaRepository<PacienteModel, Integer> {
     boolean existsByCpf(String cpf);
     boolean existsByRg(String rg);
-    PacienteEntity findByClienteAndNome(ClienteEntity cliente, String nome);
-    PacienteEntity findByClienteAndCpf(ClienteEntity cliente, String cpf);
-    PacienteEntity findByClienteAndRg(ClienteEntity cliente, String rg);
-    List<PacienteEntity> findByClienteAndFamiliares(ClienteEntity cliente, FamiliarEntity familiar);
-    List<PacienteEntity> findByClienteAndStatusPaciente(ClienteEntity cliente, String statusPaciente);
-    List<PacienteEntity> findByClienteAndGenero(ClienteEntity cliente, String genero);
-    List<PacienteEntity> findByClienteAndPlano(ClienteEntity cliente, String plano);
+    PacienteModel findByClienteAndNome(ClienteModel cliente, String nome);
+    PacienteModel findByClienteAndCpf(ClienteModel cliente, String cpf);
+    PacienteModel findByClienteAndRg(ClienteModel cliente, String rg);
+    List<PacienteModel> findByClienteAndFamiliares(ClienteModel cliente, FamiliarModel familiar);
+    List<PacienteModel> findByClienteAndStatusPaciente(ClienteModel cliente, String statusPaciente);
+    List<PacienteModel> findByClienteAndGenero(ClienteModel cliente, String genero);
+    List<PacienteModel> findByClienteAndPlano(ClienteModel cliente, String plano);
 }

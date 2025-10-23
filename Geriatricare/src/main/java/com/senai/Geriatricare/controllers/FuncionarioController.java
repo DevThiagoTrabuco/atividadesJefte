@@ -1,7 +1,7 @@
 package com.senai.Geriatricare.controllers;
 
-import com.senai.Geriatricare.entities.FuncionarioEntity;
 import com.senai.Geriatricare.models.FuncionarioModel;
+import com.senai.Geriatricare.entities.FuncionarioEntity;
 import com.senai.Geriatricare.services.FuncionarioService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +24,9 @@ public class FuncionarioController {
 
     @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
     @PostMapping
-    public ResponseEntity<?> criarFuncionario(@RequestBody FuncionarioModel funcionarioModel) {
+    public ResponseEntity<?> criarFuncionario(@RequestBody FuncionarioEntity funcionarioEntity) {
         try {
-            funcionarioService.criarFuncionario(funcionarioModel);
+            funcionarioService.criarFuncionario(funcionarioEntity);
             return ResponseEntity.ok("Funcionário criado com sucesso.");
         } catch (IllegalArgumentException | EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -35,10 +35,10 @@ public class FuncionarioController {
 
     @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
     @PutMapping("/{id}")
-    public ResponseEntity<?> atualizarFuncionario(@PathVariable int id, @RequestBody FuncionarioModel funcionarioModel) {
+    public ResponseEntity<?> atualizarFuncionario(@PathVariable int id, @RequestBody FuncionarioEntity funcionarioEntity) {
         try {
-            funcionarioModel.setId(id);
-            funcionarioService.atualizarFuncionario(funcionarioModel);
+            funcionarioEntity.setId(id);
+            funcionarioService.atualizarFuncionario(funcionarioEntity);
             return ResponseEntity.ok("Funcionário atualizado com sucesso.");
         } catch (IllegalArgumentException | EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -58,7 +58,7 @@ public class FuncionarioController {
 
     @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
     @GetMapping
-    public ResponseEntity<List<FuncionarioEntity>> listarTodos() {
+    public ResponseEntity<List<FuncionarioModel>> listarTodos() {
         return ResponseEntity.ok(funcionarioService.listarTodos());
     }
 
@@ -104,7 +104,7 @@ public class FuncionarioController {
 
     @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
     @GetMapping("/funcao/{funcao}")
-    public ResponseEntity<List<FuncionarioEntity>> buscarPorFuncao(@PathVariable int clienteId, @PathVariable String funcao) {
+    public ResponseEntity<List<FuncionarioModel>> buscarPorFuncao(@PathVariable int clienteId, @PathVariable String funcao) {
         return ResponseEntity.ok(funcionarioService.buscarPorFuncao(clienteId, funcao));
     }
 }

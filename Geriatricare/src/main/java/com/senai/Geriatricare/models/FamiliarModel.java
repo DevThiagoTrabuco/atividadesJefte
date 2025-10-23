@@ -1,43 +1,49 @@
 package com.senai.Geriatricare.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.senai.Geriatricare.entities.ClienteEntity;
-import com.senai.Geriatricare.entities.FamiliarEntity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.senai.Geriatricare.enums.Parentesco;
-import com.senai.Geriatricare.models.commons.*;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
 
+@Entity
+@Table(name = "familiares")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class FamiliarModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "familiar_id")
     private int id;
+
+    @Column(name = "nome", nullable = false)
     private String nome;
-    private Email email;
-    private Telefone telefone;
-    private CPF cpf;
-    private RG rg;
+
+    @Column(name = "cpf", nullable = false, unique = true)
+    private String cpf;
+
+    @Column(name = "rg", nullable = false, unique = true)
+    private String rg;
+
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
+
+    @Column(name = "telefone", nullable = false)
+    private String telefone;
+
+    @Enumerated(EnumType.STRING)
     private Parentesco parentesco;
-    private int clienteId;
-    private EnderecoModel endereco;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private ClienteModel cliente;
+
+    @ManyToMany(mappedBy = "familiares", cascade = CascadeType.ALL)
     private List<PacienteModel> pacientes;
 
-    public FamiliarEntity toEntity(ClienteEntity cliente) {
-        FamiliarEntity familiar = new FamiliarEntity();
-        familiar.setId(this.id);
-        familiar.setNome(this.nome);
-        familiar.setEmail(this.email.validaEmail() ? this.email.getEmail() : null);
-        familiar.setTelefone(this.telefone.validaTelefone() ? this.telefone.getTelefone() : null);
-        familiar.setCpf(this.cpf.validaCPF() ? this.cpf.getCpf() : null);
-        familiar.setRg(this.rg.validaRG() ? this.rg.getRg() : null);
-        familiar.setParentesco(this.parentesco);
-        familiar.setCliente(cliente);
-        familiar.setEndereco(this.endereco.toEntity());
-
-        return familiar;
-    }
+    @JsonManagedReference("familiar-endereco")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_id", referencedColumnName = "endereco_id")
+    private EnderecoModel endereco;
 }

@@ -1,4 +1,4 @@
-package com.senai.Geriatricare.models.commons;
+package com.senai.Geriatricare.entities.commons;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;

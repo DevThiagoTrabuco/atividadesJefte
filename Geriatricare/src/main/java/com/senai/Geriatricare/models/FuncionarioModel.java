@@ -1,43 +1,49 @@
 package com.senai.Geriatricare.models;
 
-import com.senai.Geriatricare.entities.ClienteEntity;
-import com.senai.Geriatricare.entities.EnderecoEntity;
-import com.senai.Geriatricare.entities.FuncionarioEntity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.senai.Geriatricare.enums.Funcao;
-import com.senai.Geriatricare.models.commons.*;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "funcionarios")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class FuncionarioModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "funcionario_id")
     private int id;
+
+    @Column(name = "nome", nullable = false)
     private String nome;
-    private CPF cpf;
-    private RG rg;
+
+    @Column(name = "cpf", nullable = false, unique = true)
+    private String cpf;
+
+    @Column(name = "rg", nullable = false, unique = true)
+    private String rg;
+
+    @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataNascimento;
-    private Email email;
-    private Telefone telefone;
+
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
+
+    @Column(name = "telefone", nullable = false)
+    private String telefone;
+
+    @JsonManagedReference("funcionario-endereco")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_id", referencedColumnName = "endereco_id")
     private EnderecoModel endereco;
+
+    @Enumerated(EnumType.STRING)
     private Funcao funcao;
-    private int clienteId;
 
-    public FuncionarioEntity toEntity(ClienteEntity cliente) {
-        FuncionarioEntity funcionario = new FuncionarioEntity();
-        funcionario.setId(this.id);
-        funcionario.setNome(this.nome);
-        funcionario.setCpf(this.cpf.validaCPF() ? this.cpf.getCpf() : null);
-        funcionario.setRg(this.rg.validaRG() ? this.rg.getRg() : null);
-        funcionario.setDataNascimento(this.dataNascimento);
-        funcionario.setEmail(this.email.validaEmail() ? this.email.getEmail() : null);
-        funcionario.setTelefone(this.telefone.validaTelefone() ? this.telefone.getTelefone() : null);
-        funcionario.setEndereco(this.endereco.toEntity());
-        funcionario.setFuncao(this.funcao);
-        funcionario.setCliente(cliente);
-
-        return funcionario;
-    }
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private ClienteModel cliente;
 }

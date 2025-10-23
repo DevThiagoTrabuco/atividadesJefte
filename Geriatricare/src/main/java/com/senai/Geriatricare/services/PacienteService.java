@@ -1,11 +1,11 @@
 package com.senai.Geriatricare.services;
 
-import com.senai.Geriatricare.entities.ClienteEntity;
-import com.senai.Geriatricare.entities.FamiliarEntity;
-import com.senai.Geriatricare.entities.PacienteEntity;
+import com.senai.Geriatricare.models.ClienteModel;
+import com.senai.Geriatricare.models.FamiliarModel;
+import com.senai.Geriatricare.models.PacienteModel;
 import com.senai.Geriatricare.enums.StatusPaciente;
 import com.senai.Geriatricare.enums.Genero;
-import com.senai.Geriatricare.models.PacienteModel;
+import com.senai.Geriatricare.entities.PacienteEntity;
 import com.senai.Geriatricare.repositories.ClienteRepository;
 import com.senai.Geriatricare.repositories.FamiliarRepository;
 import com.senai.Geriatricare.repositories.PacienteRepository;
@@ -28,9 +28,9 @@ public class PacienteService {
         this.familiarRepository = familiarRepository;
     }
 
-    public void criarPaciente(PacienteModel pacienteModel) {
-        String cpf = pacienteModel.getCpf().getCpf();
-        String rg = pacienteModel.getRg().getRg();
+    public void criarPaciente(PacienteEntity pacienteEntity) {
+        String cpf = pacienteEntity.getCpf().getCpf();
+        String rg = pacienteEntity.getRg().getRg();
 
         if (pacienteRepository.existsByCpf(cpf)) {
             throw new IllegalArgumentException("Já existe um paciente com o CPF: " + cpf);
@@ -39,17 +39,17 @@ public class PacienteService {
             throw new IllegalArgumentException("Já existe um paciente com o RG: " + rg);
         }
 
-        ClienteEntity cliente = clienteRepository.findById(pacienteModel.getClienteId())
-                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + pacienteModel.getClienteId()));
-        PacienteEntity paciente = pacienteModel.toEntity(cliente);
+        ClienteModel cliente = clienteRepository.findById(pacienteEntity.getClienteId())
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + pacienteEntity.getClienteId()));
+        PacienteModel paciente = pacienteEntity.toEntity(cliente);
         pacienteRepository.save(paciente);
     }
 
-    public void atualizarPaciente(PacienteModel pacienteAtualizado) {
+    public void atualizarPaciente(PacienteEntity pacienteAtualizado) {
         String cpfAtualizado = pacienteAtualizado.getCpf().getCpf();
         String rgAtualizado = pacienteAtualizado.getRg().getRg();
 
-        PacienteEntity paciente = pacienteRepository.findById(pacienteAtualizado.getId())
+        PacienteModel paciente = pacienteRepository.findById(pacienteAtualizado.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado com o ID: " + pacienteAtualizado.getId()));
 
         if (!paciente.getCpf().equals(cpfAtualizado) && pacienteRepository.existsByCpf(cpfAtualizado)) {
@@ -78,67 +78,67 @@ public class PacienteService {
         pacienteRepository.deleteById(id);
     }
 
-    public List<PacienteEntity> listarTodos() {
+    public List<PacienteModel> listarTodos() {
         return pacienteRepository.findAll();
     }
 
-    public PacienteEntity buscarPorId(int id) {
+    public PacienteModel buscarPorId(int id) {
         return pacienteRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Paciente com ID " + id + " não encontrado."));
     }
 
-    public PacienteEntity buscarPorNome(int clienteId, String nome) {
-        ClienteEntity cliente = clienteRepository.findById(clienteId)
+    public PacienteModel buscarPorNome(int clienteId, String nome) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
-        PacienteEntity paciente = pacienteRepository.findByClienteAndNome(cliente, nome);
+        PacienteModel paciente = pacienteRepository.findByClienteAndNome(cliente, nome);
         if (paciente == null) {
             throw new EntityNotFoundException("Paciente não encontrado com o nome: " + nome);
         }
         return paciente;
     }
 
-    public PacienteEntity buscarPorCpf(int clienteId, String cpf) {
-        ClienteEntity cliente = clienteRepository.findById(clienteId)
+    public PacienteModel buscarPorCpf(int clienteId, String cpf) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
-        PacienteEntity paciente = pacienteRepository.findByClienteAndCpf(cliente, cpf);
+        PacienteModel paciente = pacienteRepository.findByClienteAndCpf(cliente, cpf);
         if (paciente == null) {
             throw new EntityNotFoundException("Paciente não encontrado com o CPF: " + cpf);
         }
         return paciente;
     }
 
-    public PacienteEntity buscarPorRg(int clienteId, String rg) {
-        ClienteEntity cliente = clienteRepository.findById(clienteId)
+    public PacienteModel buscarPorRg(int clienteId, String rg) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
-        PacienteEntity paciente = pacienteRepository.findByClienteAndRg(cliente, rg);
+        PacienteModel paciente = pacienteRepository.findByClienteAndRg(cliente, rg);
         if (paciente == null) {
             throw new EntityNotFoundException("Paciente não encontrado com o RG: " + rg);
         }
         return paciente;
     }
 
-    public List<PacienteEntity> buscarPorFamiliar(int clienteId, int familiarId) {
-        ClienteEntity cliente = clienteRepository.findById(clienteId)
+    public List<PacienteModel> buscarPorFamiliar(int clienteId, int familiarId) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
-        FamiliarEntity familiar = familiarRepository.findById(familiarId)
+        FamiliarModel familiar = familiarRepository.findById(familiarId)
                 .orElseThrow(() -> new EntityNotFoundException("Familiar não encontrado com o ID: " + familiarId));
         return pacienteRepository.findByClienteAndFamiliares(cliente, familiar);
     }
 
-    public List<PacienteEntity> buscarPorStatusPaciente(int clienteId, StatusPaciente statusPaciente) {
-        ClienteEntity cliente = clienteRepository.findById(clienteId)
+    public List<PacienteModel> buscarPorStatusPaciente(int clienteId, StatusPaciente statusPaciente) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         return pacienteRepository.findByClienteAndStatusPaciente(cliente, statusPaciente.name());
     }
 
-    public List<PacienteEntity> buscarPorGenero(int clienteId, Genero genero) {
-        ClienteEntity cliente = clienteRepository.findById(clienteId)
+    public List<PacienteModel> buscarPorGenero(int clienteId, Genero genero) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         return pacienteRepository.findByClienteAndGenero(cliente, genero.name());
     }
 
-    public List<PacienteEntity> buscarPorPlano(int clienteId, String plano) {
-        ClienteEntity cliente = clienteRepository.findById(clienteId)
+    public List<PacienteModel> buscarPorPlano(int clienteId, String plano) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         return pacienteRepository.findByClienteAndPlano(cliente, plano);
     }

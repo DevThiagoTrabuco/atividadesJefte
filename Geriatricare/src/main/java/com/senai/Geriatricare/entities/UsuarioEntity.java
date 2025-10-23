@@ -1,86 +1,28 @@
 package com.senai.Geriatricare.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
+import com.senai.Geriatricare.models.UsuarioModel;
+import com.senai.Geriatricare.enums.Papel;
+import com.senai.Geriatricare.entities.commons.Senha;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.Collection;
 import java.util.List;
 
-@Entity
-@Table(name = "usuarios")
 @Getter
 @Setter
-public class UsuarioEntity implements UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "usuario_id")
+@NoArgsConstructor
+@AllArgsConstructor
+public class UsuarioEntity {
     private int id;
-
-    @ManyToMany
-    @JoinTable(name = "usuarios_papeis",
-            joinColumns = @JoinColumn(name = "usuario_id"),
-            inverseJoinColumns = @JoinColumn(name = "papel_id"))
-    private List<PapelEntity> papeis;
-
-    @Column(name = "nome_usuario", nullable = false, unique = true)
     private String nomeUsuario;
+    private Senha senha;
+    private List<Papel> papel;
 
-    @Column(name = "senha", nullable = false)
-    private String senha;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "funcionario_id", nullable = true)
-    private FuncionarioEntity funcionario;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "admin_id", referencedColumnName = "admin_id", nullable = true)
-    private AdminEntity admin;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cliente_id", nullable = true)
-    private ClienteEntity cliente;
-
-    // Os campos abaixo estavam incorretos ou duplicados e foram removidos.
-    // O relacionamento OneToOne deve ser declarado apenas uma vez.
-    // O lado "dono" (UsuarioEntity) usa @JoinColumn.
-    // O outro lado (AdminEntity) usará "mappedBy".
-
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.papeis;
-    }
-
-    @Override
-    public String getPassword() {
-        return this.senha;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.nomeUsuario;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
+    public UsuarioModel toEntity() {
+        UsuarioModel usuario = new UsuarioModel();
+        usuario.setId(this.id);
+        usuario.setNomeUsuario(this.nomeUsuario);
+        usuario.setSenha(this.senha.validaSenha() ? new BCryptPasswordEncoder().encode(this.senha.getSenha()) : null);
+        return usuario;
     }
 }

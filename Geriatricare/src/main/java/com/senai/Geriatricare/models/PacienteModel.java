@@ -1,45 +1,58 @@
 package com.senai.Geriatricare.models;
 
-import com.senai.Geriatricare.entities.ClienteEntity;
-import com.senai.Geriatricare.entities.PacienteEntity;
 import com.senai.Geriatricare.enums.Genero;
 import com.senai.Geriatricare.enums.StatusPaciente;
-import com.senai.Geriatricare.models.commons.*;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
 
+@Entity
+@Table(name = "pacientes")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class PacienteModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "paciente_id")
     private int id;
+
+    @Column(name = "nome", nullable = false)
     private String nome;
-    private CPF cpf;
-    private RG rg;
-    private Email email;
-    private String dataNascimento;
-    private String plano;
+
+    @Column(name = "cpf", nullable = false, unique = true)
+    private String cpf;
+
+    @Column(name = "rg", nullable = false, unique = true)
+    private String rg;
+
+    @Enumerated(EnumType.STRING)
     private Genero genero;
+
+    @Column(name = "email", unique = true)
+    private String email;
+
+    @Column(name = "data_nascimento", nullable = false)
+    private String dataNascimento;
+
+    @Enumerated(EnumType.STRING)
     private StatusPaciente statusPaciente;
-    private int clienteId;
+
+    @Column(name = "plano", nullable = false)
+    private String plano;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private ClienteModel cliente;
+
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<PrescricaoModel> prescricoes;
+
+    @ManyToMany
+    @JoinTable(
+        name = "paciente_familiar",
+        joinColumns = @JoinColumn(name = "paciente_id"),
+        inverseJoinColumns = @JoinColumn(name = "familiar_id")
+    )
     private List<FamiliarModel> familiares;
-
-    public PacienteEntity toEntity(ClienteEntity cliente) {
-        PacienteEntity paciente = new PacienteEntity();
-        paciente.setId(this.id);
-        paciente.setNome(this.nome);
-        paciente.setCpf(this.cpf.validaCPF() ? this.cpf.getCpf() : null);
-        paciente.setRg(this.rg.validaRG() ? this.rg.getRg() : null);
-        paciente.setEmail(this.email.validaEmail() ? this.email.getEmail() : null);
-        paciente.setDataNascimento(this.dataNascimento);
-        paciente.setPlano(this.plano);
-        paciente.setGenero(this.genero);
-        paciente.setStatusPaciente(this.statusPaciente);
-        paciente.setCliente(cliente);
-
-        return paciente;
-    }
 }

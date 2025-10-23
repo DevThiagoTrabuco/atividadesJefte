@@ -1,7 +1,7 @@
 package com.senai.Geriatricare.controllers;
 
-import com.senai.Geriatricare.entities.ClienteEntity;
 import com.senai.Geriatricare.models.ClienteModel;
+import com.senai.Geriatricare.entities.ClienteEntity;
 import com.senai.Geriatricare.services.ClienteService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +24,9 @@ public class ClienteController {
 
     @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @PostMapping
-    public ResponseEntity<?> criarCliente(@RequestBody ClienteModel clienteModel) {
+    public ResponseEntity<?> criarCliente(@RequestBody ClienteEntity clienteEntity) {
         try {
-            clienteService.criarCliente(clienteModel);
+            clienteService.criarCliente(clienteEntity);
             return ResponseEntity.ok("Cliente criado com sucesso.");
         } catch (IllegalArgumentException | EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -35,10 +35,10 @@ public class ClienteController {
 
     @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @PutMapping("/{id}")
-    public ResponseEntity<?> atualizarCliente(@PathVariable int id, @RequestBody ClienteModel clienteModel) {
+    public ResponseEntity<?> atualizarCliente(@PathVariable int id, @RequestBody ClienteEntity clienteEntity) {
         try {
-            clienteModel.setId(id);
-            clienteService.atualizarCliente(clienteModel);
+            clienteEntity.setId(id);
+            clienteService.atualizarCliente(clienteEntity);
             return ResponseEntity.ok("Cliente atualizado com sucesso.");
         } catch (IllegalArgumentException | EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -58,7 +58,7 @@ public class ClienteController {
 
     @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @GetMapping
-    public ResponseEntity<List<ClienteEntity>> listarTodos() {
+    public ResponseEntity<List<ClienteModel>> listarTodos() {
         return ResponseEntity.ok(clienteService.listarTodos());
     }
 

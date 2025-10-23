@@ -1,14 +1,11 @@
 package com.senai.Geriatricare.repositories;
 
-import com.senai.Geriatricare.entities.AdminEntity;
-import com.senai.Geriatricare.entities.ClienteEntity;
+import com.senai.Geriatricare.models.ClienteModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface ClienteRepository extends JpaRepository<ClienteEntity, Integer> {
+public interface ClienteRepository extends JpaRepository<ClienteModel, Integer> {
     boolean existsByCnpj(String cnpj);
-    ClienteEntity findByCnpj(String cnpj);
-    ClienteEntity findByEmail(String email);
-    ClienteEntity findByNome(String nome);
+    ClienteModel findByCnpj(String cnpj);
+    ClienteModel findByEmail(String email);
+    ClienteModel findByNome(String nome);
 }

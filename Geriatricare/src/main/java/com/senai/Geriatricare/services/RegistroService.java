@@ -1,9 +1,9 @@
 package com.senai.Geriatricare.services;
 
-import com.senai.Geriatricare.entities.ClienteEntity;
-import com.senai.Geriatricare.entities.FuncionarioEntity;
-import com.senai.Geriatricare.entities.RegistroEntity;
+import com.senai.Geriatricare.models.ClienteModel;
+import com.senai.Geriatricare.models.FuncionarioModel;
 import com.senai.Geriatricare.models.RegistroModel;
+import com.senai.Geriatricare.entities.RegistroEntity;
 import com.senai.Geriatricare.repositories.ClienteRepository;
 import com.senai.Geriatricare.repositories.FuncionarioRepository;
 import com.senai.Geriatricare.repositories.RegistroRepository;
@@ -27,22 +27,22 @@ public class RegistroService {
         this.funcionarioRepository = funcionarioRepository;
     }
 
-    public void criarRegistro(RegistroModel registroModel) {
-        ClienteEntity cliente = clienteRepository.findById(registroModel.getClienteId())
-                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + registroModel.getClienteId()));
-        FuncionarioEntity funcionario = funcionarioRepository.findById(registroModel.getFuncionarioId())
-                .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado com o ID: " + registroModel.getFuncionarioId()));
-        RegistroEntity registro = registroModel.toEntity(cliente, funcionario);
+    public void criarRegistro(RegistroEntity registroEntity) {
+        ClienteModel cliente = clienteRepository.findById(registroEntity.getClienteId())
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + registroEntity.getClienteId()));
+        FuncionarioModel funcionario = funcionarioRepository.findById(registroEntity.getFuncionarioId())
+                .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado com o ID: " + registroEntity.getFuncionarioId()));
+        RegistroModel registro = registroEntity.toEntity(cliente, funcionario);
         registroRepository.save(registro);
     }
 
-    public void atualizarRegistro(RegistroModel registroAtualizado) {
-        RegistroEntity registro = registroRepository.findById(registroAtualizado.getId())
+    public void atualizarRegistro(RegistroEntity registroAtualizado) {
+        RegistroModel registro = registroRepository.findById(registroAtualizado.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Registro não encontrado com o ID: " + registroAtualizado.getId()));
 
-        ClienteEntity cliente = clienteRepository.findById(registroAtualizado.getClienteId())
+        ClienteModel cliente = clienteRepository.findById(registroAtualizado.getClienteId())
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + registroAtualizado.getClienteId()));
-        FuncionarioEntity funcionario = funcionarioRepository.findById(registroAtualizado.getFuncionarioId())
+        FuncionarioModel funcionario = funcionarioRepository.findById(registroAtualizado.getFuncionarioId())
                 .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado com o ID: " + registroAtualizado.getFuncionarioId()));
 
         registro.setCliente(cliente);
@@ -64,37 +64,37 @@ public class RegistroService {
         registroRepository.deleteById(id);
     }
 
-    public List<RegistroEntity> listarTodos() {
+    public List<RegistroModel> listarTodos() {
         return registroRepository.findAll();
     }
 
-    public RegistroEntity buscarPorId(int id) {
+    public RegistroModel buscarPorId(int id) {
         return registroRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Registro com ID " + id + " não encontrado."));
     }
 
-    public List<RegistroEntity> buscarPorEntidadeEId(int clienteId, String entidade, int entidadeId) {
-        ClienteEntity cliente = clienteRepository.findById(clienteId)
+    public List<RegistroModel> buscarPorEntidadeEId(int clienteId, String entidade, int entidadeId) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         return registroRepository.findByClienteAndEntidadeAndId(cliente, entidade, entidadeId);
     }
 
-    public List<RegistroEntity> buscarPorEntidade(int clienteId, String entidade) {
-        ClienteEntity cliente = clienteRepository.findById(clienteId)
+    public List<RegistroModel> buscarPorEntidade(int clienteId, String entidade) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         return registroRepository.findByClienteAndEntidade(cliente, entidade);
     }
 
-    public List<RegistroEntity> buscarPorFuncionario(int clienteId, int funcionarioId) {
-        ClienteEntity cliente = clienteRepository.findById(clienteId)
+    public List<RegistroModel> buscarPorFuncionario(int clienteId, int funcionarioId) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
-        FuncionarioEntity funcionario = funcionarioRepository.findById(funcionarioId)
+        FuncionarioModel funcionario = funcionarioRepository.findById(funcionarioId)
                 .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado com o ID: " + funcionarioId));
         return registroRepository.findByClienteAndFuncionario(cliente, funcionario);
     }
 
-    public List<RegistroEntity> buscarPorData(int clienteId, LocalDateTime dataHora) {
-        ClienteEntity cliente = clienteRepository.findById(clienteId)
+    public List<RegistroModel> buscarPorData(int clienteId, LocalDateTime dataHora) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         return registroRepository.findByClienteAndDataHora(cliente, dataHora);
     }

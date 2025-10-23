@@ -1,7 +1,7 @@
 package com.senai.Geriatricare.controllers;
 
-import com.senai.Geriatricare.entities.FamiliarEntity;
 import com.senai.Geriatricare.models.FamiliarModel;
+import com.senai.Geriatricare.entities.FamiliarEntity;
 import com.senai.Geriatricare.services.FamiliarService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +24,9 @@ public class FamiliarController {
 
     @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
     @PostMapping
-    public ResponseEntity<?> criarFamiliar(@RequestBody FamiliarModel familiarModel) {
+    public ResponseEntity<?> criarFamiliar(@RequestBody FamiliarEntity familiarEntity) {
         try {
-            familiarService.criarFamiliar(familiarModel);
+            familiarService.criarFamiliar(familiarEntity);
             return ResponseEntity.ok("Familiar criado com sucesso.");
         } catch (IllegalArgumentException | EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -35,10 +35,10 @@ public class FamiliarController {
 
     @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
     @PutMapping("/{id}")
-    public ResponseEntity<?> atualizarFamiliar(@PathVariable int id, @RequestBody FamiliarModel familiarModel) {
+    public ResponseEntity<?> atualizarFamiliar(@PathVariable int id, @RequestBody FamiliarEntity familiarEntity) {
         try {
-            familiarModel.setId(id);
-            familiarService.atualizarFamiliar(familiarModel);
+            familiarEntity.setId(id);
+            familiarService.atualizarFamiliar(familiarEntity);
             return ResponseEntity.ok("Familiar atualizado com sucesso.");
         } catch (IllegalArgumentException | EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -58,7 +58,7 @@ public class FamiliarController {
 
     @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
     @GetMapping
-    public ResponseEntity<List<FamiliarEntity>> listarTodos() {
+    public ResponseEntity<List<FamiliarModel>> listarTodos() {
         return ResponseEntity.ok(familiarService.listarTodos());
     }
 
@@ -114,7 +114,7 @@ public class FamiliarController {
 
     @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
     @GetMapping("/paciente/{pacienteId}")
-    public ResponseEntity<List<FamiliarEntity>> buscarPorPaciente(@PathVariable int clienteId, @PathVariable int pacienteId) {
+    public ResponseEntity<List<FamiliarModel>> buscarPorPaciente(@PathVariable int clienteId, @PathVariable int pacienteId) {
         return ResponseEntity.ok(familiarService.buscarPorPaciente(clienteId, pacienteId));
     }
 }

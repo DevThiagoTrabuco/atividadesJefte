@@ -1,7 +1,7 @@
 package com.senai.Geriatricare.controllers;
 
-import com.senai.Geriatricare.entities.AdminEntity;
 import com.senai.Geriatricare.models.AdminModel;
+import com.senai.Geriatricare.entities.AdminEntity;
 import com.senai.Geriatricare.services.AdminService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +24,9 @@ public class AdminController {
 
     @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @PostMapping
-    public ResponseEntity<?> criarAdmin(@RequestBody AdminModel adminModel) {
+    public ResponseEntity<?> criarAdmin(@RequestBody AdminEntity adminEntity) {
         try {
-            adminService.criarAdmin(adminModel);
+            adminService.criarAdmin(adminEntity);
             return ResponseEntity.ok("Administrador criado com sucesso.");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -35,10 +35,10 @@ public class AdminController {
 
     @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @PutMapping("/{id}")
-    public ResponseEntity<?> atualizarAdmin(@PathVariable int id, @RequestBody AdminModel adminModel) {
+    public ResponseEntity<?> atualizarAdmin(@PathVariable int id, @RequestBody AdminEntity adminEntity) {
         try {
-            adminModel.setId(id);
-            adminService.atualizarAdmin(adminModel);
+            adminEntity.setId(id);
+            adminService.atualizarAdmin(adminEntity);
             return ResponseEntity.ok("Administrador atualizado com sucesso.");
         } catch (EntityNotFoundException | IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -58,7 +58,7 @@ public class AdminController {
 
     @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @GetMapping
-    public ResponseEntity<List<AdminEntity>> listarTodos() {
+    public ResponseEntity<List<AdminModel>> listarTodos() {
         return ResponseEntity.ok(adminService.listarTodos());
     }
 

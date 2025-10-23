@@ -1,16 +1,16 @@
 package com.senai.Geriatricare.repositories;
 
-import com.senai.Geriatricare.entities.ClienteEntity;
-import com.senai.Geriatricare.entities.FuncionarioEntity;
-import com.senai.Geriatricare.entities.RegistroEntity;
+import com.senai.Geriatricare.models.ClienteModel;
+import com.senai.Geriatricare.models.FuncionarioModel;
+import com.senai.Geriatricare.models.RegistroModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface RegistroRepository extends JpaRepository<RegistroEntity, Integer> {
-    List<RegistroEntity> findByClienteAndEntidadeAndId(ClienteEntity cliente, String entidade, int entidadeId);
-    List<RegistroEntity> findByClienteAndEntidade(ClienteEntity cliente, String entidade);
-    List<RegistroEntity> findByClienteAndFuncionario(ClienteEntity cliente, FuncionarioEntity funcionario);
-    List<RegistroEntity> findByClienteAndDataHora(ClienteEntity cliente, LocalDateTime dataHora);
+public interface RegistroRepository extends JpaRepository<RegistroModel, Integer> {
+    List<RegistroModel> findByClienteAndEntidadeAndId(ClienteModel cliente, String entidade, int entidadeId);
+    List<RegistroModel> findByClienteAndEntidade(ClienteModel cliente, String entidade);
+    List<RegistroModel> findByClienteAndFuncionario(ClienteModel cliente, FuncionarioModel funcionario);
+    List<RegistroModel> findByClienteAndDataHora(ClienteModel cliente, LocalDateTime dataHora);
 }

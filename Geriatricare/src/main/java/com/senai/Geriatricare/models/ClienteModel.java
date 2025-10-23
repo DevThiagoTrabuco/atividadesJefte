@@ -1,32 +1,44 @@
 package com.senai.Geriatricare.models;
 
-import com.senai.Geriatricare.entities.AdminEntity;
-import com.senai.Geriatricare.entities.ClienteEntity;
-import com.senai.Geriatricare.models.commons.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 import lombok.*;
 
+@Entity
+@Table(name = "clientes")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class ClienteModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cliente_id")
     private int id;
-    private String nome;
-    private Email email;
-    private Telefone telefone;
-    private CNPJ cnpj;
-    private EnderecoModel endereco;
-    private int adminId;
 
-    public ClienteEntity toEntity(AdminEntity admin){
-        ClienteEntity cliente = new ClienteEntity();
-        cliente.setId(this.id);
-        cliente.setNome(this.nome);
-        cliente.setEmail(this.email.validaEmail() ? this.email.getEmail() : null);
-        cliente.setTelefone(this.telefone.validaTelefone() ? this.telefone.getTelefone() : null);
-        cliente.setCnpj(this.cnpj.getCnpj());
-        cliente.setEndereco(this.endereco.toEntity());
-        cliente.setAdmin(admin);
-        return cliente;
-    }
-}
+    @Column(name = "nome", nullable = false)
+    private String nome;
+
+    @Column(name = "email", unique = true, nullable = false)
+    private String email;
+
+    @Column(name = "telefone", nullable = false)
+    private String telefone;
+
+    @Column(name = "cnpj", unique = true, nullable = false)
+    private String cnpj;
+
+    @JsonManagedReference("cliente-endereco")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_id", referencedColumnName = "endereco_id")
+    private EnderecoModel endereco;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "admin_id", nullable = false)
+    private AdminModel admin;
+
+    @JsonProperty("adminId")
+    public Integer getAdminId() {
+        return admin != null ? admin.getId() : null;
+    }}

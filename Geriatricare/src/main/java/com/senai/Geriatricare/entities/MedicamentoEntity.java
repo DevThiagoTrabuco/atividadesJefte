@@ -1,51 +1,38 @@
 package com.senai.Geriatricare.entities;
 
+import com.senai.Geriatricare.models.ClienteModel;
+import com.senai.Geriatricare.models.MedicamentoModel;
 import com.senai.Geriatricare.enums.StatusMedicamento;
-import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
-@Entity
-@Table(name = "medicamentos")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class MedicamentoEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "medicamento_id")
     private int id;
-
-    @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
-    private ClienteEntity cliente;
-
-    @Column(name = "nome_comercial")
+    private int clienteId;
     private String nomeComercial;
-
-    @Column(name = "nome_generico", nullable = false)
     private String nomeGenerico;
-
-    @Column(name = "dosagem", nullable = false)
     private String dosagem;
-
-    @Column(name = "lote", nullable = false)
-    private  String lote;
-
-    @Column(name = "data_validade", nullable = false)
+    private String lote;
     private LocalDate dataValidade;
-
-    @Enumerated(EnumType.STRING)
     private StatusMedicamento statusMedicamento;
-
-    @Column(name = "quantidade", nullable = false)
     private int quantidade;
 
-    @OneToMany(mappedBy = "medicamento", cascade = CascadeType.ALL)
-    private List<PrescricaoEntity> prescricoes;
-
-    @ManyToOne
-    @JoinColumn(name = "paciente_id", nullable = false)
-    private PacienteEntity paciente;
+    public MedicamentoModel toEntity(ClienteModel cliente){
+        MedicamentoModel medicamento = new MedicamentoModel();
+        medicamento.setId(this.id);
+        medicamento.setCliente(cliente);
+        medicamento.setNomeComercial(this.nomeComercial);
+        medicamento.setNomeGenerico(this.nomeGenerico);
+        medicamento.setDosagem(this.dosagem);
+        medicamento.setLote(this.lote);
+        medicamento.setDataValidade(this.dataValidade);
+        medicamento.setStatusMedicamento(this.statusMedicamento);
+        medicamento.setQuantidade(this.quantidade);
+        return medicamento;
+    }
 }

@@ -1,4 +1,4 @@
-package com.senai.Geriatricare.entities;
+package com.senai.Geriatricare.models;
 
 import com.senai.Geriatricare.enums.Papel;
 import jakarta.persistence.*;
@@ -9,7 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 @Table(name = "papeis")
 @Getter
 @Setter
-public class PapelEntity implements GrantedAuthority {
+public class PapelModel implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "papel_id")

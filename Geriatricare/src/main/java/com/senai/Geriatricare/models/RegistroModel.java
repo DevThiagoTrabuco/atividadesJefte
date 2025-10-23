@@ -1,40 +1,44 @@
 package com.senai.Geriatricare.models;
 
-import com.senai.Geriatricare.entities.ClienteEntity;
-import com.senai.Geriatricare.entities.FuncionarioEntity;
-import com.senai.Geriatricare.entities.RegistroEntity;
 import com.senai.Geriatricare.enums.Entidade;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "registros")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class RegistroModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "registro_id")
     private int id;
-    private int clienteId;
-    private int funcionarioId;
-    private int entidadeId;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private ClienteModel cliente;
+
+    @ManyToOne
+    @JoinColumn(name = "funcionario_id", nullable = false)
+    private FuncionarioModel funcionario;
+
+    @Enumerated(EnumType.STRING)
     private Entidade entidade;
+
+    @Column(name = "entidade_id", nullable = false)
+    private int entidadeId;
+
+    @Column(name = "campo", nullable = false)
     private String campo;
+
+    @Column(name = "valor_antigo")
     private String valorAntigo;
+
+    @Column(name = "valor_novo")
     private String valorNovo;
+
+    @Column(name = "data_hora", nullable = false)
     private LocalDateTime dataHora;
-
-    public RegistroEntity toEntity(ClienteEntity cliente, FuncionarioEntity funcionario) {
-        RegistroEntity registro = new RegistroEntity();
-        registro.setId(this.id);
-        registro.setCliente(cliente);
-        registro.setFuncionario(funcionario);
-        registro.setEntidade(this.entidade);
-        registro.setEntidadeId(this.entidadeId);
-        registro.setCampo(this.campo);
-        registro.setValorAntigo(this.valorAntigo);
-        registro.setValorNovo(this.valorNovo);
-        registro.setDataHora(this.dataHora);
-
-        return registro;
-    }
 }
