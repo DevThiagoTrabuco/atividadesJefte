@@ -5,6 +5,7 @@ import com.senai.Geriatricare.models.MedicamentoModel;
 import com.senai.Geriatricare.models.PacienteModel;
 import com.senai.Geriatricare.models.PrescricaoModel;
 import com.senai.Geriatricare.enums.Posologia;
+import jakarta.persistence.Column;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -20,7 +21,7 @@ public class PrescricaoEntity {
     private int medicamentoId;
     private Posologia posologia;
     private LocalDate dataInicio;
-    private LocalDate dataFim;
+    private int quantidade;
 
     public PrescricaoModel toEntity(ClienteModel cliente, PacienteModel paciente, MedicamentoModel medicamento) {
         PrescricaoModel prescricao = new PrescricaoModel();
@@ -30,7 +31,7 @@ public class PrescricaoEntity {
         prescricao.setMedicamento(medicamento);
         prescricao.setPosologia(this.posologia);
         prescricao.setDataInicio(this.dataInicio);
-        prescricao.setDataFim(this.dataFim);
+        prescricao.setQuantidade(this.quantidade);
 
         return prescricao;
     }

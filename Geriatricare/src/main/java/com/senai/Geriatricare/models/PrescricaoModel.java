@@ -37,6 +37,6 @@ public class PrescricaoModel {
     @Column(name = "data_inicio")
     private LocalDate dataInicio;
 
-    @Column(name = "data_fim")
-    private LocalDate dataFim;
+    @Column(name = "quantidade")
+    private int quantidade;
 }

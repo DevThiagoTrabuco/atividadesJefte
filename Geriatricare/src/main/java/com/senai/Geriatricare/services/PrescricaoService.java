@@ -63,7 +63,6 @@ public class PrescricaoService {
         prescricao.setMedicamento(medicamento);
         prescricao.setPosologia(prescricaoAtualizada.getPosologia());
         prescricao.setDataInicio(prescricaoAtualizada.getDataInicio());
-        prescricao.setDataFim(prescricaoAtualizada.getDataFim());
 
         prescricaoRepository.save(prescricao);
     }

@@ -36,11 +36,8 @@ public class MedicamentoModel {
     @Column(name = "data_validade", nullable = false)
     private LocalDate dataValidade;
 
-    @Enumerated(EnumType.STRING)
-    private StatusMedicamento statusMedicamento;
-
-    @Column(name = "quantidade", nullable = false)
-    private int quantidade;
+    //@Enumerated(EnumType.STRING)
+    //private StatusMedicamento statusMedicamento;
 
     @OneToMany(mappedBy = "medicamento", cascade = CascadeType.ALL)
     private List<PrescricaoModel> prescricoes;
