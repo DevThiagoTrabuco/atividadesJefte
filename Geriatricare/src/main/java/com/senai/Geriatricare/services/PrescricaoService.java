@@ -1,6 +1,6 @@
 package com.senai.Geriatricare.services;
 
-import com.senai.Geriatricare.models.ClienteModel;
+import com.senai.Geriatricare.models.ClienteModelModel;
 import com.senai.Geriatricare.models.MedicamentoModel;
 import com.senai.Geriatricare.models.PacienteModel;
 import com.senai.Geriatricare.models.PrescricaoModel;
@@ -36,7 +36,7 @@ public class PrescricaoService {
     }
 
     public void criarPrescricao(PrescricaoEntity prescricaoEntity) {
-        ClienteModel cliente = clienteRepository.findById(prescricaoEntity.getClienteId())
+        ClienteModelModel cliente = clienteRepository.findById(prescricaoEntity.getClienteId())
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + prescricaoEntity.getClienteId()));
         PacienteModel paciente = pacienteRepository.findById(prescricaoEntity.getPacienteId())
                 .orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado com o ID: " + prescricaoEntity.getPacienteId()));
@@ -51,7 +51,7 @@ public class PrescricaoService {
         PrescricaoModel prescricao = prescricaoRepository.findById(prescricaoAtualizada.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Prescrição não encontrada com o ID: " + prescricaoAtualizada.getId()));
 
-        ClienteModel cliente = clienteRepository.findById(prescricaoAtualizada.getClienteId())
+        ClienteModelModel cliente = clienteRepository.findById(prescricaoAtualizada.getClienteId())
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + prescricaoAtualizada.getClienteId()));
         PacienteModel paciente = pacienteRepository.findById(prescricaoAtualizada.getPacienteId())
                 .orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado com o ID: " + prescricaoAtualizada.getPacienteId()));
@@ -84,7 +84,7 @@ public class PrescricaoService {
     }
 
     public List<PrescricaoModel> buscarPorPaciente(int clienteId, int pacienteId) {
-        ClienteModel cliente = clienteRepository.findById(clienteId)
+        ClienteModelModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         PacienteModel paciente = pacienteRepository.findById(pacienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado com o ID: " + pacienteId));

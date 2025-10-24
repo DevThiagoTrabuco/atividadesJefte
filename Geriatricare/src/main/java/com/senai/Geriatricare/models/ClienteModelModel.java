@@ -4,13 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 import lombok.*;
 
 @Entity
 @Table(name = "clientes")
 @Getter
 @Setter
-public class ClienteModel {
+public class ClienteModelModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cliente_id")
@@ -33,6 +36,9 @@ public class ClienteModel {
     @JoinColumn(name = "endereco_id", referencedColumnName = "endereco_id")
     private EnderecoModel endereco;
 
+    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private EstoqueGeralModel estoqueGeral;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "admin_id", nullable = false)
@@ -41,4 +47,13 @@ public class ClienteModel {
     @JsonProperty("adminId")
     public Integer getAdminId() {
         return admin != null ? admin.getId() : null;
-    }}
+    }
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("cliente-contas-pagar")
+    private List<ContasAPagarModel> contasAPagarModel = new ArrayList<>();
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("cliente-contas-receber")
+    private List<ContasAReceber> contasAReceber = new ArrayList<>();
+}

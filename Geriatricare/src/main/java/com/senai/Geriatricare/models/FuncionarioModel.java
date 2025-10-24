@@ -45,5 +45,5 @@ public class FuncionarioModel {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
-    private ClienteModel cliente;
+    private ClienteModelModel cliente;
 }

@@ -1,7 +1,6 @@
 package com.senai.Geriatricare.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.senai.Geriatricare.entities.PrescricaoEntity;
 import com.senai.Geriatricare.enums.Genero;
 import com.senai.Geriatricare.enums.StatusPaciente;
 import jakarta.persistence.*;
@@ -46,15 +45,23 @@ public class PacienteModel {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
-    private ClienteModel cliente;
+    private ClienteModelModel cliente;
 
     @OneToMany(
             mappedBy = "paciente",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    @JsonManagedReference
-    private List<PrescricaoModel> prescricoes;
+    @JsonManagedReference("paciente-prescricao")
+    private List<PrescricaoModel> prescricoes = new ArrayList<>();
+
+    @OneToMany(
+            mappedBy = "paciente",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JsonManagedReference("paciente-estoque")
+    private List<EstoqueMedicamentoModel> estoques = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -62,5 +69,5 @@ public class PacienteModel {
         joinColumns = @JoinColumn(name = "paciente_id"),
         inverseJoinColumns = @JoinColumn(name = "familiar_id")
     )
-    private List<FamiliarModel> familiares;
+    private List<FamiliarModel> familiares = new ArrayList<>();
 }

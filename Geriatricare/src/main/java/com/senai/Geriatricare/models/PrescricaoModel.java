@@ -1,7 +1,6 @@
 package com.senai.Geriatricare.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.senai.Geriatricare.entities.PacienteEntity;
 import com.senai.Geriatricare.enums.Posologia;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,7 +19,7 @@ public class PrescricaoModel {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
-    private ClienteModel cliente;
+    private ClienteModelModel cliente;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "paciente_id", nullable = false)

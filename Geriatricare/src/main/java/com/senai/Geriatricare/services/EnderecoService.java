@@ -1,6 +1,6 @@
 package com.senai.Geriatricare.services;
 
-import com.senai.Geriatricare.models.ClienteModel;
+import com.senai.Geriatricare.models.ClienteModelModel;
 import com.senai.Geriatricare.models.EnderecoModel;
 import com.senai.Geriatricare.models.FamiliarModel;
 import com.senai.Geriatricare.models.FuncionarioModel;
@@ -72,7 +72,7 @@ public class EnderecoService {
     }
 
     public EnderecoModel buscarPorCliente(int clienteId){
-        ClienteModel cliente = clienteRepository.findById(clienteId)
+        ClienteModelModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         EnderecoModel endereco = enderecoRepository.findByCliente(cliente);
         if (endereco == null) {
@@ -82,7 +82,7 @@ public class EnderecoService {
     }
 
     public EnderecoModel buscarPorFamiliar(int clienteId, int familiarId){
-        ClienteModel cliente = clienteRepository.findById(clienteId)
+        ClienteModelModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         FamiliarModel familiar = familiarRepository.findById(familiarId)
                 .orElseThrow(() -> new EntityNotFoundException("Familiar não encontrado com o ID: " + familiarId));
@@ -94,7 +94,7 @@ public class EnderecoService {
     }
 
     public EnderecoModel buscarPorFuncionario(int clienteId, int funcionarioId){
-        ClienteModel cliente = clienteRepository.findById(clienteId)
+        ClienteModelModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         FuncionarioModel funcionario = funcionarioRepository.findById(funcionarioId)
                 .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado com o ID: " + funcionarioId));

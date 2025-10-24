@@ -1,6 +1,6 @@
 package com.senai.Geriatricare.entities;
 
-import com.senai.Geriatricare.models.ClienteModel;
+import com.senai.Geriatricare.models.ClienteModelModel;
 import com.senai.Geriatricare.models.FuncionarioModel;
 import com.senai.Geriatricare.models.RegistroModel;
 import com.senai.Geriatricare.enums.Entidade;
@@ -23,7 +23,7 @@ public class RegistroEntity {
     private String valorNovo;
     private LocalDateTime dataHora;
 
-    public RegistroModel toEntity(ClienteModel cliente, FuncionarioModel funcionario) {
+    public RegistroModel toEntity(ClienteModelModel cliente, FuncionarioModel funcionario) {
         RegistroModel registro = new RegistroModel();
         registro.setId(this.id);
         registro.setCliente(cliente);

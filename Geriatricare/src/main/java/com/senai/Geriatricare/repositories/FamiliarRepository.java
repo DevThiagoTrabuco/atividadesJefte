@@ -1,6 +1,6 @@
 package com.senai.Geriatricare.repositories;
 
-import com.senai.Geriatricare.models.ClienteModel;
+import com.senai.Geriatricare.models.ClienteModelModel;
 import com.senai.Geriatricare.models.FamiliarModel;
 import com.senai.Geriatricare.models.PacienteModel;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,9 +11,9 @@ public interface FamiliarRepository extends JpaRepository<FamiliarModel, Integer
     boolean existsByCpf(String cpf);
     boolean existsByEmail(String email);
     boolean existsByRg(String rg);
-    FamiliarModel findByClienteAndNome(ClienteModel cliente, String nome);
-    FamiliarModel findByClienteAndEmail(ClienteModel cliente, String email);
-    FamiliarModel findByClienteAndCpf(ClienteModel cliente, String cpf);
-    FamiliarModel findByClienteAndRg(ClienteModel cliente, String rg);
-    List<FamiliarModel> findByClienteAndPacientes(ClienteModel cliente, PacienteModel paciente);
+    FamiliarModel findByClienteAndNome(ClienteModelModel cliente, String nome);
+    FamiliarModel findByClienteAndEmail(ClienteModelModel cliente, String email);
+    FamiliarModel findByClienteAndCpf(ClienteModelModel cliente, String cpf);
+    FamiliarModel findByClienteAndRg(ClienteModelModel cliente, String rg);
+    List<FamiliarModel> findByClienteAndPacientes(ClienteModelModel cliente, PacienteModel paciente);
 }

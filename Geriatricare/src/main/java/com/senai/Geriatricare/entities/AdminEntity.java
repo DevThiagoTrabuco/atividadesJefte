@@ -1,7 +1,7 @@
 package com.senai.Geriatricare.entities;
 
 import com.senai.Geriatricare.models.AdminModel;
-import com.senai.Geriatricare.models.ClienteModel;
+import com.senai.Geriatricare.models.ClienteModelModel;
 import com.senai.Geriatricare.entities.commons.*;
 import lombok.*;
 
@@ -15,7 +15,7 @@ public class AdminEntity {
     private int id;
     private String nome;
     private Email email;
-    private List<ClienteModel> clientes;
+    private List<ClienteModelModel> clientes;
 
     public AdminModel toEntity(){
         AdminModel admin = new AdminModel();

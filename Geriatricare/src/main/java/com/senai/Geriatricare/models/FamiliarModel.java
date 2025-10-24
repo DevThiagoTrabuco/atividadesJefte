@@ -37,7 +37,7 @@ public class FamiliarModel {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
-    private ClienteModel cliente;
+    private ClienteModelModel cliente;
 
     @ManyToMany(mappedBy = "familiares", cascade = CascadeType.ALL)
     private List<PacienteModel> pacientes;

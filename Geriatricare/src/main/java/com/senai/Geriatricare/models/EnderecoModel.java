@@ -39,7 +39,7 @@ public class EnderecoModel {
 
     @JsonBackReference("cliente-endereco")
     @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
-    private ClienteModel cliente;
+    private ClienteModelModel cliente;
 
     @JsonBackReference("familiar-endereco")
     @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)

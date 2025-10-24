@@ -91,9 +91,4 @@ package com.senai.Geriatricare.controllers;
             return ResponseEntity.ok(medicamentoService.buscarPorDataValidade(clienteId, dataValidade));
         }
 
-        @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
-        @GetMapping("/status/{statusMedicamento}")
-        public ResponseEntity<List<MedicamentoModel>> buscarPorStatusMedicamento(@PathVariable int clienteId, @PathVariable String statusMedicamento) {
-            return ResponseEntity.ok(medicamentoService.buscarPorStatusMedicamento(clienteId, statusMedicamento));
-        }
     }

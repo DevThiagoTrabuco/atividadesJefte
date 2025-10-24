@@ -1,10 +1,10 @@
 package com.senai.Geriatricare.models;
 
-import com.senai.Geriatricare.enums.StatusMedicamento;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,7 +19,7 @@ public class MedicamentoModel {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
-    private ClienteModel cliente;
+    private ClienteModelModel cliente;
 
     @Column(name = "nome_comercial")
     private String nomeComercial;
@@ -36,9 +36,7 @@ public class MedicamentoModel {
     @Column(name = "data_validade", nullable = false)
     private LocalDate dataValidade;
 
-    //@Enumerated(EnumType.STRING)
-    //private StatusMedicamento statusMedicamento;
 
     @OneToMany(mappedBy = "medicamento", cascade = CascadeType.ALL)
-    private List<PrescricaoModel> prescricoes;
+    private List<PrescricaoModel> prescricoes = new ArrayList<>();
 }

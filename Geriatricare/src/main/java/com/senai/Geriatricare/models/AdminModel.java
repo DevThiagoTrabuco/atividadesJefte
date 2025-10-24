@@ -24,5 +24,5 @@ public class AdminModel {
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
-    private List<ClienteModel> clientes;
+    private List<ClienteModelModel> clientes;
 }

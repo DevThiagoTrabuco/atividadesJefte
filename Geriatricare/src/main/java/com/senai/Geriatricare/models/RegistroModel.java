@@ -18,7 +18,7 @@ public class RegistroModel {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
-    private ClienteModel cliente;
+    private ClienteModelModel cliente;
 
     @ManyToOne
     @JoinColumn(name = "funcionario_id", nullable = false)

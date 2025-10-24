@@ -1,17 +1,18 @@
 package com.senai.Geriatricare.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.senai.Geriatricare.enums.TipoConta;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "contas_a_pagar")
 @Getter
 @Setter
-public class ContasAPagar {
+public class ContasAPagarModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "contas_a_pagar_id")
@@ -20,6 +21,7 @@ public class ContasAPagar {
     @Column(name = "descricao")
     private String descricao;
 
+    @Enumerated(EnumType.STRING)
     private TipoConta tipoConta;
 
     @Column(name = "chave_NFE")
@@ -32,6 +34,10 @@ public class ContasAPagar {
     private double valor;
 
     @Column(name = "data_vencimento")
-    private Date dataVencimento;
+    private LocalDate dataVencimento;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id", nullable = false)
+    @JsonBackReference("cliente-contas-pagar")
+    private ClienteModelModel cliente;
 }
