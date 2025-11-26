@@ -1,0 +1,177 @@
+1 - Cadastro de novo paciente
+graph TD
+    subgraph "Funcionário (Recepção)"
+        A["Inicia cadastro no sistema"]
+        B["Preenche formulário com dados do paciente<br>(Nome, CPF, RG, Plano, etc.)"]
+        C["Submete formulário"]
+        F["Recebe confirmação de sucesso"]
+        G["Informa ao paciente sobre o cadastro"]
+        I["Recebe mensagem de erro<br>e corrige os dados"]
+    end
+
+    subgraph "Sistema Geriatricare (Nuvem)"
+        D["Recebe dados e valida<br>CPF/RG únicos, campos obrigatórios"]
+        E{"Dados válidos?"}
+        H["Cria PacienteModel no BD"]
+        J["Retorna erro de validação para a tela"]
+    end
+
+    A --> B --> C --> D --> E
+    E -- "Sim" --> H --> F --> G
+    E -- "Não" --> J --> I --> B
+
+
+2 - Cadastro de novo funcionário
+graph TD
+    subgraph "Administrador"
+        A["Acessa área de gestão de funcionários"]
+        B["Preenche formulário com dados<br>(Nome, CPF, Função, Email)"]
+        C["Submete dados"]
+        F["Recebe confirmação"]
+    end
+
+    subgraph "Sistema Geriatricare (Nuvem)"
+        D["Valida dados<br>CPF e Email únicos"]
+        E{"Validação OK?"}
+        G["Cria FuncionarioModel no BD"]
+        H["Gera credenciais de acesso<br>e envia email de boas-vindas"]
+        I["Exibe mensagem de erro"]
+    end
+
+    A --> B --> C --> D --> E
+    E -- "Sim" --> G --> H --> F
+    E -- "Não" --> I --> B
+
+
+3 - Entrada de usuário
+graph TD
+    subgraph "Usuário (Paciente/Funcionário)"
+        A["Acessa a página de login"]
+        B["Informa credenciais"]
+        C["Clica em 'Entrar'"]
+        F["Acesso liberado ao painel correspondente"]
+        I["Recebe mensagem 'Credenciais inválidas'"]
+    end
+
+    subgraph "Sistema Geriatricare (Nuvem)"
+        D["Recebe credenciais"]
+        E["Verifica no BD se o usuário existe e a senha corresponde"]
+        G{"Credenciais corretas?"}
+        H["Cria uma sessão de usuário e<br>retorna token de acesso"]
+        J["Registra tentativa de login falha"]
+    end
+
+    A --> B --> C --> D --> E --> G
+    G -- "Sim" --> H --> F
+    G -- "Não" --> J --> I --> B
+
+
+4 - Agendamento de consulta
+graph TD
+    subgraph "Paciente ou Recepção"
+        A["Solicita novo agendamento"]
+        B["Seleciona Paciente, Especialidade e<br>período desejado"]
+        D["Visualiza horários disponíveis"]
+        E["Seleciona um horário"]
+        G["Confirma o agendamento"]
+    end
+
+    subgraph "Sistema Geriatricare"
+        C["Busca no BD por funcionários<br>com a especialidade e agenda livre"]
+        F["Reserva o horário temporariamente"]
+        H["Cria AgendamentoModel no BD"]
+        I["Envia notificação de confirmação<br>para o admnistrador da casa de repouso e familiares"]
+    end
+
+    A --> B --> C --> D --> E --> F --> G --> H --> I
+
+
+5 - Check-in inicio da consulta
+graph TD
+    subgraph "Paciente"
+        A["Chega à clínica"]
+    end
+    
+    subgraph "Funcionário (Recepção)"
+        B["Confirma presença do paciente no sistema"]
+    end
+
+    subgraph "Funcionário (Médico)"
+        D["Recebe notificação de paciente aguardando"]
+        E["Chama o paciente para a sala"]
+        F["Abre o prontuário do paciente no sistema"]
+    end
+
+    subgraph "Sistema Geriatricare (Nuvem)"
+        C["Atualiza status do agendamento"]
+        G["Cria um novo ConsultaModel no BD<br>vinculado ao paciente e ao médico"]
+    end
+
+    A --> B --> C --> D --> E --> F --> G
+
+6 - Realização de consulta
+graph TD
+    subgraph "Funcionário (Médico)"
+        A["Inicia o atendimento"]
+        B["Registra observações e<br>diagnóstico no sistema"]
+        C{"Necessita de prescrição?"}
+        D["Busca medicamento no sistema"]
+        E["Define posologia e duração"]
+        F["Adiciona prescrição à consulta"]
+        H["Finaliza a consulta no sistema"]
+    end
+
+    subgraph "Sistema Geriatricare"
+        A1["Atualiza ConsultaModel com observações"]
+        G["Cria PrescricaoModel no BD<br>associado à ConsultaModel"]
+        I["Disponibiliza consulta e prescrição<br>no portal dos funcionários autorizados"]
+    end
+
+    A --> B --> A1 --> C
+    C -- "Sim" --> D --> E --> F --> G --> C
+    C -- "Não" --> H --> I
+
+
+7 - Dispensação de medicamentos
+graph TD
+    subgraph "Funcionário"
+        A["Paciente apresenta a prescrição"]
+        B["Busca a prescrição no sistema"]
+        C["Verifica disponibilidade no estoque"]
+        E["Entrega o medicamento ao paciente"]
+        F["Registra a saída no sistema"]
+    end
+
+    subgraph "Sistema Geriatricare"
+        D{"Medicamento em estoque?"}
+        G["Atualiza a quantidade em EstoqueMedicamentoModel"]
+        H{"Estoque baixo?"}
+        I["Envia notificação para o estoque"]
+        J["Exibe alerta de falta de estoque"]
+    end
+
+    A --> B --> C --> D
+    D -- "Sim" --> E --> F --> G
+    G --> H
+    H -- "Sim" --> I
+    D -- "Não" --> J
+
+
+8 - Cadastro de familiar / associação de familiar ao paciente
+graph TD
+
+    subgraph "Funcionário (Recepção)"
+        A["Inicia cadastro de familiar"]
+        B["Preenche dados do familiar"]
+        C["Cria FamiliarModel no BD"]
+        D["Busca o paciente ao qual<br>o familiar será associado"]
+        E["Realiza a associação no sistema"]
+        G["Define o nível de parentesco)"]
+    end
+
+    subgraph "Sistema Geriatricare (Nuvem)"
+        F["Atualiza a relação ManyToMany<br>entre PacienteModel e FamiliarModel"]
+        H["Salva familiar no BD"]
+    end
+
+    A --> B --> C --> D --> E --> F --> G --> H
