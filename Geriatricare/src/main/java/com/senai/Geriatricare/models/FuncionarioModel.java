@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "funcionarios")
@@ -46,4 +48,12 @@ public class FuncionarioModel {
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     private ClienteModelModel cliente;
+
+    @OneToMany(
+            mappedBy = "funcionario",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JsonManagedReference("funcionario-consulta")
+    private List<ConsultaModel> consultas = new ArrayList<>();
 }

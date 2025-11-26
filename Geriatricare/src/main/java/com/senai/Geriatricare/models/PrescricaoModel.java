@@ -26,6 +26,12 @@ public class PrescricaoModel {
     @JsonBackReference
     private PacienteModel paciente;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "consulta_id", nullable = false)
+    @JsonBackReference("consulta-prescricao")
+    private ConsultaModel consulta;
+
+
     @ManyToOne
     @JoinColumn(name = "medicamento_id", nullable = false)
     private MedicamentoModel medicamento;

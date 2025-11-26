@@ -52,8 +52,8 @@ public class PacienteModel {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    @JsonManagedReference("paciente-prescricao")
-    private List<PrescricaoModel> prescricoes = new ArrayList<>();
+    @JsonManagedReference("paciente-consulta")
+    private List<ConsultaModel> consultas = new ArrayList<>();
 
     @OneToMany(
             mappedBy = "paciente",
