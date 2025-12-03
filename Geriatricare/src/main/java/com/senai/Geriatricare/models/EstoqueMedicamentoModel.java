@@ -22,7 +22,7 @@ public class EstoqueMedicamentoModel {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
-    private ClienteModelModel cliente;
+    private ClienteModel cliente;
 
     @ManyToOne
     @JoinColumn(name = "medicamento_id", nullable = false)
@@ -32,8 +32,8 @@ public class EstoqueMedicamentoModel {
     private int quantidade;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "paciente_id")
-    @JsonBackReference("paciente-estoque")
-    private PacienteModel paciente;
+    @JoinColumn(name = "estoque_paciente_id")
+    @JsonBackReference("estoque-medicamentos")
+    private EstoquePacienteModel estoquePaciente;
 
 }

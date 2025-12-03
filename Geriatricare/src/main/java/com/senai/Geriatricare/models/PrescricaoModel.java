@@ -19,7 +19,7 @@ public class PrescricaoModel {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
-    private ClienteModelModel cliente;
+    private ClienteModel cliente;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "paciente_id", nullable = false)

@@ -13,7 +13,7 @@ import lombok.*;
 @Table(name = "clientes")
 @Getter
 @Setter
-public class ClienteModelModel {
+public class ClienteModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cliente_id")
@@ -55,5 +55,5 @@ public class ClienteModelModel {
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("cliente-contas-receber")
-    private List<ContasAReceber> contasAReceber = new ArrayList<>();
+    private List<ContasAReceberModel> contasAReceberModel = new ArrayList<>();
 }

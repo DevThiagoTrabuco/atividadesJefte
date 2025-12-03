@@ -36,8 +36,11 @@ public class ContasAPagarModel {
     @Column(name = "data_vencimento")
     private LocalDate dataVencimento;
 
+    @Column(name = "data_emissao")
+    private LocalDate dataEmissao;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", nullable = false)
     @JsonBackReference("cliente-contas-pagar")
-    private ClienteModelModel cliente;
+    private ClienteModel cliente;
 }

@@ -23,8 +23,7 @@ public class EstoqueGeralModel {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", nullable = false, unique = true)
-    private ClienteModelModel cliente;
-
+    private ClienteModel cliente;
 
     @OneToMany(mappedBy = "estoqueGeral", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("estoque-produtos")

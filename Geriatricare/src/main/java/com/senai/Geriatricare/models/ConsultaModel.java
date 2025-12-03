@@ -21,6 +21,10 @@ public class ConsultaModel {
     private int id;
 
     @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private ClienteModel cliente;
+
+    @ManyToOne
     @JoinColumn(name = "paciente_id", nullable = false)
     private PacienteModel paciente;
 

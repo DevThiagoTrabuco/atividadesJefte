@@ -1,6 +1,6 @@
 package com.senai.Geriatricare.entities;
 
-import com.senai.Geriatricare.models.ClienteModelModel;
+import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.models.MedicamentoModel;
 import com.senai.Geriatricare.models.PacienteModel;
 import com.senai.Geriatricare.models.PrescricaoModel;
@@ -22,7 +22,7 @@ public class PrescricaoEntity {
     private LocalDate dataInicio;
     private int quantidade;
 
-    public PrescricaoModel toEntity(ClienteModelModel cliente, PacienteModel paciente, MedicamentoModel medicamento) {
+    public PrescricaoModel toEntity(ClienteModel cliente, PacienteModel paciente, MedicamentoModel medicamento) {
         PrescricaoModel prescricao = new PrescricaoModel();
         prescricao.setId(this.id);
         prescricao.setCliente(cliente);

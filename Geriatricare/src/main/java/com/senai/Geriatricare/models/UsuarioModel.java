@@ -40,7 +40,7 @@ public class UsuarioModel implements UserDetails {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cliente_id", nullable = true)
-    private ClienteModelModel cliente;
+    private ClienteModel cliente;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

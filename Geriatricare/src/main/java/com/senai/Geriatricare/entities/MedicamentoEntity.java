@@ -1,6 +1,6 @@
 package com.senai.Geriatricare.entities;
 
-import com.senai.Geriatricare.models.ClienteModelModel;
+import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.models.MedicamentoModel;
 import com.senai.Geriatricare.enums.StatusMedicamento;
 import lombok.*;
@@ -22,7 +22,7 @@ public class MedicamentoEntity {
     private StatusMedicamento statusMedicamento;
     private int quantidade;
 
-    public MedicamentoModel toEntity(ClienteModelModel cliente){
+    public MedicamentoModel toEntity(ClienteModel cliente){
         MedicamentoModel medicamento = new MedicamentoModel();
         medicamento.setId(this.id);
         medicamento.setCliente(cliente);

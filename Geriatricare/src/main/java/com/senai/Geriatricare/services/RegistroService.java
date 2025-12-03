@@ -1,6 +1,6 @@
 package com.senai.Geriatricare.services;
 
-import com.senai.Geriatricare.models.ClienteModelModel;
+import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.models.FuncionarioModel;
 import com.senai.Geriatricare.models.RegistroModel;
 import com.senai.Geriatricare.entities.RegistroEntity;
@@ -28,7 +28,7 @@ public class RegistroService {
     }
 
     public void criarRegistro(RegistroEntity registroEntity) {
-        ClienteModelModel cliente = clienteRepository.findById(registroEntity.getClienteId())
+        ClienteModel cliente = clienteRepository.findById(registroEntity.getClienteId())
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + registroEntity.getClienteId()));
         FuncionarioModel funcionario = funcionarioRepository.findById(registroEntity.getFuncionarioId())
                 .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado com o ID: " + registroEntity.getFuncionarioId()));
@@ -40,7 +40,7 @@ public class RegistroService {
         RegistroModel registro = registroRepository.findById(registroAtualizado.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Registro não encontrado com o ID: " + registroAtualizado.getId()));
 
-        ClienteModelModel cliente = clienteRepository.findById(registroAtualizado.getClienteId())
+        ClienteModel cliente = clienteRepository.findById(registroAtualizado.getClienteId())
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + registroAtualizado.getClienteId()));
         FuncionarioModel funcionario = funcionarioRepository.findById(registroAtualizado.getFuncionarioId())
                 .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado com o ID: " + registroAtualizado.getFuncionarioId()));
@@ -74,19 +74,19 @@ public class RegistroService {
     }
 
     public List<RegistroModel> buscarPorEntidadeEId(int clienteId, String entidade, int entidadeId) {
-        ClienteModelModel cliente = clienteRepository.findById(clienteId)
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         return registroRepository.findByClienteAndEntidadeAndId(cliente, entidade, entidadeId);
     }
 
     public List<RegistroModel> buscarPorEntidade(int clienteId, String entidade) {
-        ClienteModelModel cliente = clienteRepository.findById(clienteId)
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         return registroRepository.findByClienteAndEntidade(cliente, entidade);
     }
 
     public List<RegistroModel> buscarPorFuncionario(int clienteId, int funcionarioId) {
-        ClienteModelModel cliente = clienteRepository.findById(clienteId)
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         FuncionarioModel funcionario = funcionarioRepository.findById(funcionarioId)
                 .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado com o ID: " + funcionarioId));
@@ -94,7 +94,7 @@ public class RegistroService {
     }
 
     public List<RegistroModel> buscarPorData(int clienteId, LocalDateTime dataHora) {
-        ClienteModelModel cliente = clienteRepository.findById(clienteId)
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         return registroRepository.findByClienteAndDataHora(cliente, dataHora);
     }

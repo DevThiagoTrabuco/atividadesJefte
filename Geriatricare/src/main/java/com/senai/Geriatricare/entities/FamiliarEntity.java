@@ -1,7 +1,7 @@
 package com.senai.Geriatricare.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.senai.Geriatricare.models.ClienteModelModel;
+import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.models.FamiliarModel;
 import com.senai.Geriatricare.enums.Parentesco;
 import com.senai.Geriatricare.entities.commons.*;
@@ -26,7 +26,7 @@ public class FamiliarEntity {
     private EnderecoEntity endereco;
     private List<PacienteEntity> pacientes;
 
-    public FamiliarModel toEntity(ClienteModelModel cliente) {
+    public FamiliarModel toEntity(ClienteModel cliente) {
         FamiliarModel familiar = new FamiliarModel();
         familiar.setId(this.id);
         familiar.setNome(this.nome);

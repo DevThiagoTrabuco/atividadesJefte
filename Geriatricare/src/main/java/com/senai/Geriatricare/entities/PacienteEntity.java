@@ -1,6 +1,6 @@
 package com.senai.Geriatricare.entities;
 
-import com.senai.Geriatricare.models.ClienteModelModel;
+import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.models.PacienteModel;
 import com.senai.Geriatricare.enums.Genero;
 import com.senai.Geriatricare.enums.StatusPaciente;
@@ -27,7 +27,7 @@ public class PacienteEntity {
     private List<PrescricaoEntity> prescricoes;
     private List<FamiliarEntity> familiares;
 
-    public PacienteModel toEntity(ClienteModelModel cliente) {
+    public PacienteModel toEntity(ClienteModel cliente) {
         PacienteModel paciente = new PacienteModel();
         paciente.setId(this.id);
         paciente.setNome(this.nome);

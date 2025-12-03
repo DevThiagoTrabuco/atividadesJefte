@@ -1,7 +1,7 @@
 package com.senai.Geriatricare.services;
 
 import com.senai.Geriatricare.models.AdminModel;
-import com.senai.Geriatricare.models.ClienteModelModel;
+import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.entities.ClienteEntity;
 import com.senai.Geriatricare.repositories.AdminRepository;
 import com.senai.Geriatricare.repositories.ClienteRepository;
@@ -32,7 +32,7 @@ public class ClienteService {
         AdminModel admin = adminRepository.findById(clienteEntity.getAdminId())
                 .orElseThrow(() -> new EntityNotFoundException("Admin não encontrado com o ID: " + clienteEntity.getAdminId()));
 
-        ClienteModelModel cliente = clienteEntity.toEntity(admin);
+        ClienteModel cliente = clienteEntity.toEntity(admin);
         clienteRepository.save(cliente);
     }
 
@@ -41,7 +41,7 @@ public class ClienteService {
         String emailAtualizado = clienteAtualizado.getEmail().getEmail();
         String telefoneAtualizado = clienteAtualizado.getTelefone().getTelefone();
         
-        ClienteModelModel cliente = clienteRepository.findById(clienteAtualizado.getId())
+        ClienteModel cliente = clienteRepository.findById(clienteAtualizado.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteAtualizado.getId()));
 
         if (!cliente.getCnpj().equals(cnpjAtualizado) &&
@@ -65,33 +65,33 @@ public class ClienteService {
         clienteRepository.deleteById(id);
     }
 
-    public List<ClienteModelModel> listarTodos() {
+    public List<ClienteModel> listarTodos() {
         return clienteRepository.findAll();
     }
 
-    public ClienteModelModel buscarPorId(int id) {
+    public ClienteModel buscarPorId(int id) {
         return clienteRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente com ID " + id + " não encontrado."));
     }
 
-    public ClienteModelModel buscarPorEmail(String email) {
-        ClienteModelModel cliente = clienteRepository.findByEmail(email);
+    public ClienteModel buscarPorEmail(String email) {
+        ClienteModel cliente = clienteRepository.findByEmail(email);
         if (cliente == null) {
             throw new EntityNotFoundException("Cliente não encontrado com o email: " + email);
         }
         return cliente;
     }
 
-    public ClienteModelModel buscarPorCnpj(String cnpj) {
-        ClienteModelModel cliente = clienteRepository.findByCnpj(cnpj);
+    public ClienteModel buscarPorCnpj(String cnpj) {
+        ClienteModel cliente = clienteRepository.findByCnpj(cnpj);
         if (cliente == null) {
             throw new EntityNotFoundException("Cliente não encontrado com o CNPJ: " + cnpj);
         }
         return cliente;
     }
 
-    public ClienteModelModel buscarPorNome(String nome) {
-        ClienteModelModel cliente = clienteRepository.findByNome(nome);
+    public ClienteModel buscarPorNome(String nome) {
+        ClienteModel cliente = clienteRepository.findByNome(nome);
         if (cliente == null) {
             throw new EntityNotFoundException("Cliente não encontrado com o nome: " + nome);
         }

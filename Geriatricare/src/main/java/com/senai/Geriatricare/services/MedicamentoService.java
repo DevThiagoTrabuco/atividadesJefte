@@ -1,6 +1,6 @@
 package com.senai.Geriatricare.services;
 
-import com.senai.Geriatricare.models.ClienteModelModel;
+import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.models.MedicamentoModel;
 import com.senai.Geriatricare.entities.MedicamentoEntity;
 import com.senai.Geriatricare.repositories.ClienteRepository;
@@ -24,7 +24,7 @@ public class MedicamentoService {
     }
 
     public void criarMedicamento(MedicamentoEntity medicamentoEntity) {
-        ClienteModelModel cliente = clienteRepository.findById(medicamentoEntity.getClienteId())
+        ClienteModel cliente = clienteRepository.findById(medicamentoEntity.getClienteId())
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + medicamentoEntity.getClienteId()));
         MedicamentoModel medicamento = medicamentoEntity.toEntity(cliente);
         medicamentoRepository.save(medicamento);
@@ -34,7 +34,7 @@ public class MedicamentoService {
         MedicamentoModel medicamento = medicamentoRepository.findById(medicamentoAtualizado.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Medicamento não encontrado com o ID: " + medicamentoAtualizado.getId()));
 
-        ClienteModelModel cliente = clienteRepository.findById(medicamentoAtualizado.getClienteId())
+        ClienteModel cliente = clienteRepository.findById(medicamentoAtualizado.getClienteId())
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + medicamentoAtualizado.getClienteId()));
 
         medicamento.setCliente(cliente);
@@ -65,19 +65,19 @@ public class MedicamentoService {
     }
 
     public List<MedicamentoModel> buscarPorNomeGenerico(int clienteId, String nomeGenerico) {
-        ClienteModelModel cliente = clienteRepository.findById(clienteId)
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         return medicamentoRepository.findByClienteAndNomeGenerico(cliente, nomeGenerico);
     }
 
     public List<MedicamentoModel> buscarPorNomeComercial(int clienteId, String nomeComercial) {
-        ClienteModelModel cliente = clienteRepository.findById(clienteId)
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         return medicamentoRepository.findByClienteAndNomeComercial(cliente, nomeComercial);
     }
 
     public List<MedicamentoModel> buscarPorDataValidade(int clienteId, LocalDate dataValidade) {
-        ClienteModelModel cliente = clienteRepository.findById(clienteId)
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         return medicamentoRepository.findByClienteAndDataValidade(cliente, dataValidade);
     }

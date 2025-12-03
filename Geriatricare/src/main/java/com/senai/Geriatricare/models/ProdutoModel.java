@@ -18,6 +18,10 @@ public class ProdutoModel {
     @Column(name = "produto_id")
     private int id;
 
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private ClienteModel cliente;
+
     @Column(name = "nome", nullable = false)
     private String nome;
 

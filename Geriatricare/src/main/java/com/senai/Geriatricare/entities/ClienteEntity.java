@@ -1,7 +1,7 @@
 package com.senai.Geriatricare.entities;
 
 import com.senai.Geriatricare.models.AdminModel;
-import com.senai.Geriatricare.models.ClienteModelModel;
+import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.entities.commons.*;
 import lombok.*;
 
@@ -18,8 +18,8 @@ public class ClienteEntity {
     private EnderecoEntity endereco;
     private int adminId;
 
-    public ClienteModelModel toEntity(AdminModel admin){
-        ClienteModelModel cliente = new ClienteModelModel();
+    public ClienteModel toEntity(AdminModel admin){
+        ClienteModel cliente = new ClienteModel();
         cliente.setId(this.id);
         cliente.setNome(this.nome);
         cliente.setEmail(this.email.validaEmail() ? this.email.getEmail() : null);

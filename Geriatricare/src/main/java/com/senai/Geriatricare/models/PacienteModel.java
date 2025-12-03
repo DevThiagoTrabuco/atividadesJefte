@@ -6,6 +6,7 @@ import com.senai.Geriatricare.enums.StatusPaciente;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,8 +36,11 @@ public class PacienteModel {
     private String email;
 
     @Column(name = "data_nascimento", nullable = false)
-    private String dataNascimento;
-
+    private LocalDate dataNascimento;
+    
+    @Column(name = "observacoes", nullable = false)
+    private List<String> observacoes = new ArrayList<>();
+    
     @Enumerated(EnumType.STRING)
     private StatusPaciente statusPaciente;
 
@@ -45,7 +49,7 @@ public class PacienteModel {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
-    private ClienteModelModel cliente;
+    private ClienteModel cliente;
 
     @OneToMany(
             mappedBy = "paciente",

@@ -1,6 +1,6 @@
 package com.senai.Geriatricare.controllers;
 
-import com.senai.Geriatricare.models.ClienteModelModel;
+import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.entities.ClienteEntity;
 import com.senai.Geriatricare.services.ClienteService;
 import jakarta.persistence.EntityNotFoundException;
@@ -58,7 +58,7 @@ public class ClienteController {
 
     @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @GetMapping
-    public ResponseEntity<List<ClienteModelModel>> listarTodos() {
+    public ResponseEntity<List<ClienteModel>> listarTodos() {
         return ResponseEntity.ok(clienteService.listarTodos());
     }
 

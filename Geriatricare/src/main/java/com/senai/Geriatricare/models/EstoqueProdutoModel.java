@@ -16,6 +16,10 @@ public class EstoqueProdutoModel {
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private ClienteModel cliente;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "estoque_geral_id", nullable = false)
     @JsonBackReference("estoque-produtos")
     private EstoqueGeralModel estoqueGeral;
