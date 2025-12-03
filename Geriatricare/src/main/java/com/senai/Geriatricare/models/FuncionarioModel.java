@@ -2,6 +2,7 @@ package com.senai.Geriatricare.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.senai.Geriatricare.enums.Funcao;
+import com.senai.Geriatricare.enums.UnidadeFederativa;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,6 +34,12 @@ public class FuncionarioModel {
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
+
+    @Column(name = "registro_profissional", nullable = false, unique = true)
+    private String registro;
+
+    @Enumerated(EnumType.STRING)
+    private UnidadeFederativa unidadeFederativa;
 
     @Column(name = "telefone", nullable = false)
     private String telefone;

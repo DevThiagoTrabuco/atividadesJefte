@@ -43,6 +43,6 @@ public class ConsultaModel {
     @Column(name = "data_consulta", nullable = false)
     private LocalDateTime dataConsulta;
 
-    @Column(name = "observacoes", columnDefinition = "TEXT")
+    @Column(name = "observacoes", nullable = false)
     private String observacoes;
 }

@@ -6,9 +6,11 @@ import com.senai.Geriatricare.models.FamiliarModel;
 import com.senai.Geriatricare.models.FuncionarioModel;
 import com.senai.Geriatricare.enums.UnidadeFederativa;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface EnderecoRepository extends JpaRepository<EnderecoModel, Integer> {
     EnderecoModel findByCliente(ClienteModel cliente);
     EnderecoModel findByClienteAndFamiliar(ClienteModel cliente, FamiliarModel familiar);
