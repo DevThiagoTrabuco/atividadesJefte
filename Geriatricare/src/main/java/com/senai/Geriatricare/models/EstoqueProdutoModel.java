@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "estoque_produto") // Tabela de junção com atributos
+@Table(name = "estoque_produto")
 @Getter
 @Setter
 public class EstoqueProdutoModel {
@@ -15,20 +15,20 @@ public class EstoqueProdutoModel {
     @Column(name = "estoque_produto_id")
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cliente_id", nullable = false)
-    private ClienteModel cliente;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "estoque_geral_id", nullable = false)
-    @JsonBackReference("estoque-produtos")
-    private EstoqueGeralModel estoqueGeral;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "produto_id", nullable = false)
-    @JsonBackReference("produto-estoques")
     private ProdutoModel produto;
 
     @Column(name = "quantidade", nullable = false)
     private int quantidade;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "estoque_paciente_id", nullable = true)
+    @JsonBackReference("estoque-paciente-produtos")
+    private EstoquePacienteModel estoquePaciente;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "estoque_geral_id", nullable = true)
+    @JsonBackReference("estoque-geral-produtos")
+    private EstoqueGeralModel estoqueGeral;
 }

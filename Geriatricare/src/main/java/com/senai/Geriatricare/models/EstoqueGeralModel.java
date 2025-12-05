@@ -26,6 +26,6 @@ public class EstoqueGeralModel {
     private ClienteModel cliente;
 
     @OneToMany(mappedBy = "estoqueGeral", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference("estoque-produtos")
+    @JsonManagedReference("estoque-geral-produtos")
     private List<EstoqueProdutoModel> itensEstoque = new ArrayList<>();
 }

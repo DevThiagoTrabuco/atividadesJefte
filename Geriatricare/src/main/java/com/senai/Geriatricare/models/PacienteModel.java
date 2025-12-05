@@ -59,13 +59,8 @@ public class PacienteModel {
     @JsonManagedReference("paciente-consulta")
     private List<ConsultaModel> consultas = new ArrayList<>();
 
-    @OneToMany(
-            mappedBy = "paciente",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    @JsonManagedReference("paciente-estoque")
-    private List<EstoqueMedicamentoModel> estoques = new ArrayList<>();
+    @OneToOne(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private EstoquePacienteModel estoque;
 
     @ManyToMany
     @JoinTable(

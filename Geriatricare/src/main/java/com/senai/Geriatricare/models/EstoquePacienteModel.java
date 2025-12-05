@@ -30,6 +30,10 @@ public class EstoquePacienteModel {
     private PacienteModel paciente;
 
     @OneToMany(mappedBy = "estoquePaciente", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference("estoque-medicamentos")
-    private List<EstoqueMedicamentoModel> itensEstoque = new ArrayList<>();
+    @JsonManagedReference("estoque-paciente-medicamentos")
+    private List<EstoqueMedicamentoModel> itensEstoqueMedicamento = new ArrayList<>();
+
+    @OneToMany(mappedBy = "estoquePaciente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("estoque-paciente-produtos")
+    private List<EstoqueProdutoModel> itensEstoqueProduto = new ArrayList<>();
 }

@@ -7,6 +7,7 @@ import com.senai.Geriatricare.enums.StatusPaciente;
 import com.senai.Geriatricare.entities.commons.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -19,7 +20,7 @@ public class PacienteEntity {
     private CPF cpf;
     private RG rg;
     private Email email;
-    private String dataNascimento;
+    private LocalDate dataNascimento;
     private String plano;
     private Genero genero;
     private StatusPaciente statusPaciente;
