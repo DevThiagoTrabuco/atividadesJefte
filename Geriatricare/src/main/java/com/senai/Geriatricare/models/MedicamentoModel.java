@@ -1,5 +1,7 @@
 package com.senai.Geriatricare.models;
 
+import com.senai.Geriatricare.enums.StatusMedicamento;
+import com.senai.Geriatricare.enums.StatusPaciente;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,6 +38,8 @@ public class MedicamentoModel {
     @Column(name = "data_validade", nullable = false)
     private LocalDate dataValidade;
 
+    @Enumerated(EnumType.STRING)
+    private StatusMedicamento status;
 
     @OneToMany(mappedBy = "medicamento", cascade = CascadeType.ALL)
     private List<PrescricaoModel> prescricoes = new ArrayList<>();

@@ -30,6 +30,9 @@ public class PacienteModel {
     private String rg;
 
     @Enumerated(EnumType.STRING)
+    private StatusPaciente status;
+
+    @Enumerated(EnumType.STRING)
     private Genero genero;
 
     @Column(name = "email", unique = true)
@@ -37,10 +40,10 @@ public class PacienteModel {
 
     @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataNascimento;
-    
+
     @Column(name = "observacoes", nullable = false)
     private List<String> observacoes = new ArrayList<>();
-    
+
     @Enumerated(EnumType.STRING)
     private StatusPaciente statusPaciente;
 
@@ -58,6 +61,14 @@ public class PacienteModel {
     )
     @JsonManagedReference("paciente-consulta")
     private List<ConsultaModel> consultas = new ArrayList<>();
+
+    @OneToMany(
+            mappedBy = "paciente",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JsonManagedReference("paciente-contas-receber")
+    private List<ContasAReceberModel> contasAReceber = new ArrayList<>();
 
     @OneToOne(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
     private EstoquePacienteModel estoque;
