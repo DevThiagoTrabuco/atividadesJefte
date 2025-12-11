@@ -1,5 +1,6 @@
 package com.senai.Geriatricare.services;
 
+import com.senai.Geriatricare.enums.StatusConta;
 import com.senai.Geriatricare.enums.TipoConta;
 import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.models.ContasAPagarModel;
@@ -7,11 +8,9 @@ import com.senai.Geriatricare.repositories.ClienteRepository;
 import com.senai.Geriatricare.repositories.ContasAPagarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 public class ContasAPagarService {
@@ -22,16 +21,37 @@ public class ContasAPagarService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    @Transactional
     public ContasAPagarModel criarContaAPagar(ContasAPagarModel contasAPagar, Integer clienteId) {
         ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado com o ID: " + clienteId));
         contasAPagar.setCliente(cliente);
+        contasAPagar.setStatusConta(StatusConta.ABERTO);
         return contasAPagarRepository.save(contasAPagar);
     }
 
+    public ContasAPagarModel atualizarContaAPagar(Integer id, ContasAPagarModel contaAtualizada) {
+        ContasAPagarModel contaExistente = contasAPagarRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Conta a pagar não encontrada com o ID: " + id));
+
+        contaExistente.setDescricao(contaAtualizada.getDescricao());
+        contaExistente.setTipoConta(contaAtualizada.getTipoConta());
+        contaExistente.setChaveNFE(contaAtualizada.getChaveNFE());
+        contaExistente.setSerieNFE(contaAtualizada.getSerieNFE());
+        contaExistente.setValor(contaAtualizada.getValor());
+        contaExistente.setDataVencimento(contaAtualizada.getDataVencimento());
+        contaExistente.setDataEmissao(contaAtualizada.getDataEmissao());
+        contaExistente.setStatusConta(contaAtualizada.getStatusConta());
+
+        return contasAPagarRepository.save(contaExistente);
+    }
+
+    public ContasAPagarModel buscarPorId(Integer id) {
+        return contasAPagarRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Conta a pagar não encontrada com o ID: " + id));
+    }
+
     public List<ContasAPagarModel> buscarPorCnpj(String cnpj) {
-        return contasAPagarRepository.findByCliente_Cnpj(cnpj);
+        return contasAPagarRepository.findByClienteAndCnpj(cnpj);
     }
 
     public List<ContasAPagarModel> buscarPorClienteETipoConta(Integer clienteId, TipoConta tipoConta) {
@@ -44,5 +64,18 @@ public class ContasAPagarService {
         ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado com o ID: " + clienteId));
         return contasAPagarRepository.findByClienteAndChaveNFE(cliente, chaveNFE);
+    }
+
+    public void removerContaAPagar(Integer id) {
+        if (!contasAPagarRepository.existsById(id)) {
+            throw new NoSuchElementException("Conta a pagar não encontrada com o ID: " + id);
+        }
+        contasAPagarRepository.deleteById(id);
+    }
+
+    public List<ContasAPagarModel> listarContaAPagarPorCliente(Integer clienteId) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado com o ID: " + clienteId));
+        return contasAPagarRepository.findByCliente(cliente);
     }
 }

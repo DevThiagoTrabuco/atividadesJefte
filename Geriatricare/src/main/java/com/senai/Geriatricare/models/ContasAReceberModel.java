@@ -1,6 +1,7 @@
 package com.senai.Geriatricare.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.senai.Geriatricare.enums.StatusConta;
 import com.senai.Geriatricare.enums.TipoConta;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -30,6 +31,9 @@ public class ContasAReceberModel {
 
     @Column(name = "data_recebimento")
     private LocalDate dataRecebimento;
+
+    @Enumerated(EnumType.STRING)
+    private StatusConta statusConta;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", nullable = false)

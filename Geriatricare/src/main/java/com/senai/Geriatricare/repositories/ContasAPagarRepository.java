@@ -11,7 +11,9 @@ import java.util.List;
 @Repository
 public interface ContasAPagarRepository extends JpaRepository<ContasAPagarModel, Integer> {
 
-    List<ContasAPagarModel> findByCliente_Cnpj(String cnpj);
+    List<ContasAPagarModel> findByClienteAndCnpj(String cnpj);
+
+    List<ContasAPagarModel> findByCliente(ClienteModel cliente);
 
     List<ContasAPagarModel> findByClienteAndTipoConta(ClienteModel cliente, TipoConta tipoConta);
 
