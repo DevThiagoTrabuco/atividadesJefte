@@ -31,10 +31,8 @@ public class PrescricaoModel {
     @JsonBackReference("consulta-prescricao")
     private ConsultaModel consulta;
 
-
-    @ManyToOne
-    @JoinColumn(name = "medicamento_id", nullable = false)
-    private MedicamentoModel medicamento;
+    @Column(name = "medicamento", nullable = false)
+    private String medicamento;
 
     @Enumerated(EnumType.STRING)
     private Posologia posologia;

@@ -70,8 +70,6 @@ public class PacienteModel {
     @JsonManagedReference("paciente-contas-receber")
     private List<ContasAReceberModel> contasAReceber = new ArrayList<>();
 
-    @OneToOne(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
-    private EstoquePacienteModel estoque;
 
     @ManyToMany
     @JoinTable(

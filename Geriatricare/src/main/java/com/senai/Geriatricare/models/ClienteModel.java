@@ -36,9 +36,6 @@ public class ClienteModel {
     @JoinColumn(name = "endereco_id", referencedColumnName = "endereco_id")
     private EnderecoModel endereco;
 
-    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private EstoqueGeralModel estoqueGeral;
-
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "admin_id", nullable = false)
