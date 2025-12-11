@@ -78,4 +78,11 @@ public class ContasAPagarService {
                 .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado com o ID: " + clienteId));
         return contasAPagarRepository.findByCliente(cliente);
     }
+
+    public ContasAPagarModel pagarConta(Integer id) {
+        ContasAPagarModel conta = contasAPagarRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Conta a pagar não encontrada com o ID: " + id));
+        conta.setStatusConta(StatusConta.PAGO);
+        return contasAPagarRepository.save(conta);
+    }
 }

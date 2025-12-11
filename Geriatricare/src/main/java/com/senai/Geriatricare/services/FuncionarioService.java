@@ -22,7 +22,7 @@ public class FuncionarioService {
         this.clienteRepository = clienteRepository;
     }
 
-    public void criarFuncionario(FuncionarioEntity funcionarioEntity) {
+    public void criarFuncionario(Integer clienteId, FuncionarioEntity funcionarioEntity) {
         String cpf = funcionarioEntity.getCpf().getCpf();
         String email = funcionarioEntity.getEmail().getEmail();
         String rg = funcionarioEntity.getRg().getRg();
@@ -37,19 +37,19 @@ public class FuncionarioService {
             throw new IllegalArgumentException("Já existe um funcionário com o RG: " + rg);
         }
 
-        ClienteModel cliente = clienteRepository.findById(funcionarioEntity.getClienteId())
-                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + funcionarioEntity.getClienteId()));
+        ClienteModel cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         FuncionarioModel funcionario = funcionarioEntity.toEntity(cliente);
         funcionarioRepository.save(funcionario);
     }
 
-    public void atualizarFuncionario(FuncionarioEntity funcionarioAtualizado) {
+    public void atualizarFuncionario(Integer clienteId, Integer funcionarioId, FuncionarioEntity funcionarioAtualizado) {
         String cpfAtualizado = funcionarioAtualizado.getCpf().getCpf();
         String emailAtualizado = funcionarioAtualizado.getEmail().getEmail();
         String rgAtualizado = funcionarioAtualizado.getRg().getRg();
 
-        FuncionarioModel funcionario = funcionarioRepository.findById(funcionarioAtualizado.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado com o ID: " + funcionarioAtualizado.getId()));
+        FuncionarioModel funcionario = funcionarioRepository.findByIdAndClienteId(funcionarioId, clienteId)
+                .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado com o ID: " + funcionarioId + " para o cliente com ID: " + clienteId));
 
         if (!funcionario.getCpf().equals(cpfAtualizado) && funcionarioRepository.existsByCpf(cpfAtualizado)) {
             throw new IllegalArgumentException("Já existe um funcionário com o CPF: " + cpfAtualizado);
@@ -73,20 +73,21 @@ public class FuncionarioService {
         funcionarioRepository.save(funcionario);
     }
 
-    public void removerFuncionario(int id) {
-        if (!funcionarioRepository.existsById(id)) {
-            throw new EntityNotFoundException("Funcionário não encontrado com o ID: " + id);
-        }
-        funcionarioRepository.deleteById(id);
+    public void removerFuncionario(Integer clienteId, Integer funcionarioId) {
+        FuncionarioModel funcionario = funcionarioRepository.findByIdAndClienteId(funcionarioId, clienteId)
+                .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado com o ID: " + funcionarioId + " para o cliente com ID: " + clienteId));
+        funcionarioRepository.delete(funcionario);
     }
 
-    public List<FuncionarioModel> listarTodos() {
-        return funcionarioRepository.findAll();
+    public List<FuncionarioModel> findAllByCliente(Integer clienteId) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
+        return funcionarioRepository.findAllByCliente(cliente);
     }
 
-    public FuncionarioModel buscarPorId(int id) {
-        return funcionarioRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Funcionário com ID " + id + " não encontrado."));
+    public FuncionarioModel findByIdAndClienteId(Integer funcionarioId, Integer clienteId) {
+        return funcionarioRepository.findByIdAndClienteId(funcionarioId, clienteId)
+                .orElseThrow(() -> new EntityNotFoundException("Funcionário com ID " + funcionarioId + " não encontrado para o cliente com ID " + clienteId));
     }
 
     public FuncionarioModel buscarPorEmail(int clienteId, String email) {

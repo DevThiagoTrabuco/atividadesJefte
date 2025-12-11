@@ -1,6 +1,7 @@
 package com.senai.Geriatricare.enums;
 
 public enum TipoConta {
+    PLANO("Plano"),
     LUZ("Luz"),
     AGUA("Água"),
     TELEFONE("Telefone"),

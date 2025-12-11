@@ -24,9 +24,9 @@ public class FuncionarioController {
 
     @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
     @PostMapping
-    public ResponseEntity<?> criarFuncionario(@RequestBody FuncionarioEntity funcionarioEntity) {
+    public ResponseEntity<?> criarFuncionario(@PathVariable Integer clienteId, @RequestBody FuncionarioEntity funcionarioEntity) {
         try {
-            funcionarioService.criarFuncionario(funcionarioEntity);
+            funcionarioService.criarFuncionario(clienteId, funcionarioEntity);
             return ResponseEntity.ok("Funcionário criado com sucesso.");
         } catch (IllegalArgumentException | EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -34,11 +34,10 @@ public class FuncionarioController {
     }
 
     @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
-    @PutMapping("/{id}")
-    public ResponseEntity<?> atualizarFuncionario(@PathVariable int id, @RequestBody FuncionarioEntity funcionarioEntity) {
+    @PutMapping("/{funcionarioId}")
+    public ResponseEntity<?> atualizarFuncionario(@PathVariable Integer clienteId, @PathVariable Integer funcionarioId, @RequestBody FuncionarioEntity funcionarioEntity) {
         try {
-            funcionarioEntity.setId(id);
-            funcionarioService.atualizarFuncionario(funcionarioEntity);
+            funcionarioService.atualizarFuncionario(clienteId, funcionarioId, funcionarioEntity);
             return ResponseEntity.ok("Funcionário atualizado com sucesso.");
         } catch (IllegalArgumentException | EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -46,10 +45,10 @@ public class FuncionarioController {
     }
 
     @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> removerFuncionario(@PathVariable int id) {
+    @DeleteMapping("/{funcionarioId}")
+    public ResponseEntity<?> removerFuncionario(@PathVariable Integer clienteId, @PathVariable Integer funcionarioId) {
         try {
-            funcionarioService.removerFuncionario(id);
+            funcionarioService.removerFuncionario(clienteId, funcionarioId);
             return ResponseEntity.ok("Funcionário removido com sucesso.");
         } catch (EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -58,15 +57,15 @@ public class FuncionarioController {
 
     @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
     @GetMapping
-    public ResponseEntity<List<FuncionarioModel>> listarTodos() {
-        return ResponseEntity.ok(funcionarioService.listarTodos());
+    public ResponseEntity<List<FuncionarioModel>> listarTodos(@PathVariable Integer clienteId) {
+        return ResponseEntity.ok(funcionarioService.findAllByCliente(clienteId));
     }
 
     @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
-    @GetMapping("/{id}")
-    public ResponseEntity<?> buscarPorId(@PathVariable int id) {
+    @GetMapping("/{funcionarioId}")
+    public ResponseEntity<?> buscarPorId(@PathVariable Integer clienteId, @PathVariable Integer funcionarioId) {
         try {
-            return ResponseEntity.ok(funcionarioService.buscarPorId(id));
+            return ResponseEntity.ok(funcionarioService.findByIdAndClienteId(funcionarioId, clienteId));
         } catch (EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -101,6 +100,8 @@ public class FuncionarioController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+
 
     @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
     @GetMapping("/funcao/{funcao}")

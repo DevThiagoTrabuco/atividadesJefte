@@ -75,4 +75,11 @@ public class ContasAReceberService {
 
         return contasAReceberRepository.findByClienteAndPaciente(cliente, paciente);
     }
+
+    public ContasAReceberModel pagarConta(Integer id) {
+        ContasAReceberModel conta = contasAReceberRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Conta a receber não encontrada com o ID: " + id));
+        conta.setStatusConta(StatusConta.PAGO);
+        return contasAReceberRepository.save(conta);
+    }
 }

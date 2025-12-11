@@ -28,7 +28,7 @@ public class PacienteService {
         this.familiarRepository = familiarRepository;
     }
 
-    public void criarPaciente(PacienteEntity pacienteEntity) {
+    public void criarPaciente(Integer clienteId, PacienteEntity pacienteEntity) {
         String cpf = pacienteEntity.getCpf().getCpf();
         String rg = pacienteEntity.getRg().getRg();
 
@@ -39,18 +39,18 @@ public class PacienteService {
             throw new IllegalArgumentException("Já existe um paciente com o RG: " + rg);
         }
 
-        ClienteModel cliente = clienteRepository.findById(pacienteEntity.getClienteId())
-                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + pacienteEntity.getClienteId()));
+        ClienteModel cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         PacienteModel paciente = pacienteEntity.toEntity(cliente);
         pacienteRepository.save(paciente);
     }
 
-    public void atualizarPaciente(PacienteEntity pacienteAtualizado) {
+    public void atualizarPaciente(Integer clienteId, Integer pacienteId, PacienteEntity pacienteAtualizado) {
         String cpfAtualizado = pacienteAtualizado.getCpf().getCpf();
         String rgAtualizado = pacienteAtualizado.getRg().getRg();
 
-        PacienteModel paciente = pacienteRepository.findById(pacienteAtualizado.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado com o ID: " + pacienteAtualizado.getId()));
+        PacienteModel paciente = pacienteRepository.findByIdAndClienteId(pacienteId, clienteId)
+                .orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado com o ID: " + pacienteId + " para o cliente com ID: " + clienteId));
 
         if (!paciente.getCpf().equals(cpfAtualizado) && pacienteRepository.existsByCpf(cpfAtualizado)) {
             throw new IllegalArgumentException("Já existe um paciente com o CPF: " + cpfAtualizado);
@@ -71,20 +71,21 @@ public class PacienteService {
         pacienteRepository.save(paciente);
     }
 
-    public void removerPaciente(int id) {
-        if (!pacienteRepository.existsById(id)) {
-            throw new EntityNotFoundException("Paciente não encontrado com o ID: " + id);
-        }
-        pacienteRepository.deleteById(id);
+    public void removerPaciente(Integer clienteId, Integer pacienteId) {
+        PacienteModel paciente = pacienteRepository.findByIdAndClienteId(pacienteId, clienteId)
+                .orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado com o ID: " + pacienteId + " para o cliente com ID: " + clienteId));
+        pacienteRepository.delete(paciente);
     }
 
-    public List<PacienteModel> listarTodos() {
-        return pacienteRepository.findAll();
+    public List<PacienteModel> findAllByCliente(Integer clienteId) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
+        return pacienteRepository.findAllByCliente(cliente);
     }
 
-    public PacienteModel buscarPorId(int id) {
-        return pacienteRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Paciente com ID " + id + " não encontrado."));
+    public PacienteModel findByIdAndClienteId(Integer pacienteId, Integer clienteId) {
+        return pacienteRepository.findByIdAndClienteId(pacienteId, clienteId)
+                .orElseThrow(() -> new EntityNotFoundException("Paciente com ID " + pacienteId + " não encontrado para o cliente com ID " + clienteId));
     }
 
     public PacienteModel buscarPorNome(int clienteId, String nome) {

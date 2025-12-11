@@ -15,7 +15,7 @@ public class EnderecoEntity {
     private String numero;
     private String bairro;
     private String cidade;
-    private UnidadeFederativa unidadeFederativa;
+    private UnidadeFederativa uf; // Renomeado de unidadeFederativa
     private CEP cep;
     private String complemento;
 
@@ -26,7 +26,7 @@ public class EnderecoEntity {
         endereco.setNumero(this.numero);
         endereco.setBairro(this.bairro);
         endereco.setCidade(this.cidade);
-        endereco.setUnidadeFederativa(this.unidadeFederativa);
+        endereco.setUnidadeFederativa(this.uf); // Atualizado
         endereco.setCep(this.cep.validaCEP() ? this.cep.getCep() : null);
         endereco.setComplemento(this.complemento);
         return endereco;

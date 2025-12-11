@@ -35,6 +35,7 @@ public class PrescricaoModel {
     private String medicamento;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "posologia", nullable = false)
     private Posologia posologia;
 
     @Column(name = "data_inicio")

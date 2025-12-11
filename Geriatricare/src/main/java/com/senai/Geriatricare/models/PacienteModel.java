@@ -51,6 +51,10 @@ public class PacienteModel {
     private String plano;
 
     @ManyToOne
+    @JoinColumn(name = "plano_id")
+    private PlanoModel planoAssociado;
+
+    @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     private ClienteModel cliente;
 

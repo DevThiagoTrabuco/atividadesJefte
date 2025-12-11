@@ -1,5 +1,6 @@
 package com.senai.Geriatricare.entities;
 
+import com.senai.Geriatricare.enums.UnidadeFederativa;
 import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.models.FuncionarioModel;
 import com.senai.Geriatricare.enums.Funcao;
@@ -19,6 +20,8 @@ public class FuncionarioEntity {
     private RG rg;
     private LocalDate dataNascimento;
     private Email email;
+    private String registro; // Adicionado
+    private UnidadeFederativa unidadeFederativa; // Adicionado
     private Telefone telefone;
     private EnderecoEntity endereco;
     private Funcao funcao;
@@ -32,6 +35,8 @@ public class FuncionarioEntity {
         funcionario.setRg(this.rg.validaRG() ? this.rg.getRg() : null);
         funcionario.setDataNascimento(this.dataNascimento);
         funcionario.setEmail(this.email.validaEmail() ? this.email.getEmail() : null);
+        funcionario.setRegistro(this.registro); // Adicionado
+        funcionario.setUnidadeFederativa(this.unidadeFederativa); // Adicionado
         funcionario.setTelefone(this.telefone.validaTelefone() ? this.telefone.getTelefone() : null);
         funcionario.setEndereco(this.endereco.toEntity());
         funcionario.setFuncao(this.funcao);

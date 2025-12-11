@@ -33,6 +33,9 @@ public class ContasAReceberModel {
     private LocalDate dataRecebimento;
 
     @Enumerated(EnumType.STRING)
+    private TipoConta tipoConta;
+    
+    @Enumerated(EnumType.STRING)
     private StatusConta statusConta;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -44,4 +47,9 @@ public class ContasAReceberModel {
     @JoinColumn(name = "paciente_id")
     @JsonBackReference("paciente-contas-receber")
     private PacienteModel paciente;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "plano_id")
+    @JsonBackReference("plano-contas-receber")
+    private PlanoModel plano;
 }
