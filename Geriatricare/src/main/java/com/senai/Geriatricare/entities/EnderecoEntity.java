@@ -1,5 +1,7 @@
 package com.senai.Geriatricare.entities;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.senai.Geriatricare.models.EnderecoModel;
 import com.senai.Geriatricare.enums.UnidadeFederativa;
 import com.senai.Geriatricare.entities.commons.CEP;
@@ -15,7 +17,11 @@ public class EnderecoEntity {
     private String numero;
     private String bairro;
     private String cidade;
-    private UnidadeFederativa uf; // Renomeado de unidadeFederativa
+
+    @JsonProperty("uf")
+    @JsonAlias("unidadeFederativa")
+    private UnidadeFederativa uf;
+
     private CEP cep;
     private String complemento;
 
@@ -26,7 +32,7 @@ public class EnderecoEntity {
         endereco.setNumero(this.numero);
         endereco.setBairro(this.bairro);
         endereco.setCidade(this.cidade);
-        endereco.setUnidadeFederativa(this.uf); // Atualizado
+        endereco.setUnidadeFederativa(this.uf);
         endereco.setCep(this.cep.validaCEP() ? this.cep.getCep() : null);
         endereco.setComplemento(this.complemento);
         return endereco;

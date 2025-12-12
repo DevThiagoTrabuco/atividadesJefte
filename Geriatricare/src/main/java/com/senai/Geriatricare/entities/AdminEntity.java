@@ -15,7 +15,6 @@ public class AdminEntity {
     private int id;
     private String nome;
     private Email email;
-    private List<ClienteModel> clientes;
 
     public AdminModel toEntity(){
         AdminModel admin = new AdminModel();

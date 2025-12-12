@@ -90,11 +90,11 @@ public class ClienteService {
         return cliente;
     }
 
-    public ClienteModel buscarPorNome(String nome) {
-        ClienteModel cliente = clienteRepository.findByNome(nome);
-        if (cliente == null) {
-            throw new EntityNotFoundException("Cliente não encontrado com o nome: " + nome);
+    public List<ClienteModel> buscarPorNome(String nome) {
+        List<ClienteModel> clientes = clienteRepository.findByNome(nome);
+        if (clientes.isEmpty()) {
+            throw new EntityNotFoundException("Nenhum cliente encontrado com o nome: " + nome);
         }
-        return cliente;
+        return clientes;
     }
 }

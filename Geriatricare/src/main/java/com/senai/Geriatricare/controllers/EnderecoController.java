@@ -74,7 +74,7 @@ public class EnderecoController {
     }
 
     @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
-    @GetMapping("/{clienteId}")
+    @GetMapping("/cliente/{clienteId}")
     public ResponseEntity<?> buscarPorCliente(@PathVariable int clienteId) {
         try {
             return ResponseEntity.ok(enderecoService.buscarPorCliente(clienteId));

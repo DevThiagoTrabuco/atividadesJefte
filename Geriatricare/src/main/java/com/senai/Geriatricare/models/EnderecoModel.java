@@ -27,7 +27,6 @@ public class EnderecoModel {
     @Column(name = "cidade", nullable = false)
     private String cidade;
 
-
     @Enumerated(EnumType.STRING)
     private UnidadeFederativa unidadeFederativa;
 

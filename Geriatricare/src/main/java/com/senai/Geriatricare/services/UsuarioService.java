@@ -1,6 +1,5 @@
 package com.senai.Geriatricare.services;
 
-
 import com.senai.Geriatricare.models.PapelModel;
 import com.senai.Geriatricare.models.UsuarioModel;
 import com.senai.Geriatricare.enums.Papel;
@@ -14,26 +13,26 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final PapelRepository papelRepository;
-    private final PasswordEncoder PasswordEncoder;
-
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UsuarioService(UsuarioRepository usuarioRepository, PapelRepository papelRepository, PasswordEncoder PasswordEncoder) {
+    public UsuarioService(UsuarioRepository usuarioRepository, PapelRepository papelRepository, PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
         this.papelRepository = papelRepository;
-        this.PasswordEncoder = PasswordEncoder;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public void criarUsuario(UsuarioEntity usuarioEntity) {
         if (usuarioRepository.findByNomeUsuario(usuarioEntity.getNomeUsuario()) != null) {
             throw new IllegalArgumentException("Já existe um usuário com o nome: " + usuarioEntity.getNomeUsuario());
         }
-        if (!usuarioEntity.getSenha().validaSenha()) {
+        if (usuarioEntity.getSenha() == null || !usuarioEntity.getSenha().validaSenha()) {
             throw new IllegalArgumentException("Senha inválida. A senha deve ter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.");
         }
 
@@ -43,9 +42,10 @@ public class UsuarioService {
                 throw new EntityNotFoundException("Papel não encontrado: " + papelEnum.name());
             }
             return papelModel;
-        }).toList();
+        }).collect(Collectors.toList());
 
         UsuarioModel usuario = usuarioEntity.toEntity();
+        usuario.setSenha(passwordEncoder.encode(usuarioEntity.getSenha().getSenha()));
         usuario.setPapeis(papeisEntity);
 
         usuarioRepository.save(usuario);
@@ -75,13 +75,9 @@ public class UsuarioService {
     }
 
     public UsuarioEntity buscarUsuarioPorIdEPapel(int id, Papel papel) {
-        UsuarioModel usuarioModel = usuarioRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com ID: " + id));
-
-        boolean possuiApenasOPapel = usuarioModel.getPapeis().size() == 1 &&
-                usuarioModel.getPapeis().getFirst().getPapel() == papel;
-        if (!possuiApenasOPapel) {
-            throw new EntityNotFoundException("Usuário não possui o papel " + papel.name() + " ou possui múltiplos papéis.");
+        UsuarioModel usuarioModel = usuarioRepository.findByIdAndPapeis_Papel(id, papel);
+        if (usuarioModel == null) {
+            throw new EntityNotFoundException("Usuário " + papel.name() + " não encontrado com ID: " + id);
         }
 
         return new UsuarioEntity(
@@ -96,10 +92,9 @@ public class UsuarioService {
         UsuarioModel usuarioModel = usuarioRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com ID: " + id));
 
-        boolean possuiApenasOPapel = usuarioModel.getPapeis().size() == 1 &&
-                usuarioModel.getPapeis().getFirst().getPapel() == papel;
-        if (!possuiApenasOPapel) {
-            throw new IllegalArgumentException("Usuário não possui o papel " + papel.name() + " ou possui múltiplos papéis.");
+        boolean possuiPapel = usuarioModel.getPapeis().stream().anyMatch(p -> p.getPapel() == papel);
+        if (!possuiPapel) {
+            throw new IllegalArgumentException("Usuário não possui o papel " + papel.name());
         }
 
         if (usuarioRepository.existsByNomeUsuario(usuarioEntity.getNomeUsuario()) &&
@@ -109,14 +104,17 @@ public class UsuarioService {
 
         usuarioModel.setNomeUsuario(usuarioEntity.getNomeUsuario());
         if (usuarioEntity.getSenha() != null && usuarioEntity.getSenha().validaSenha()) {
-            usuarioModel.setSenha(PasswordEncoder.encode(usuarioEntity.getSenha().getSenha()));
+            usuarioModel.setSenha(passwordEncoder.encode(usuarioEntity.getSenha().getSenha()));
         }
 
-        PapelModel papelModel = papelRepository.findByPapel(papel);
-        if (papelModel == null) {
-            throw new EntityNotFoundException("Papel não encontrado: " + papel.name());
+        // Preserve existing roles and only update the ones provided
+        List<Papel> novosPapeisEnum = usuarioEntity.getPapel();
+        if (novosPapeisEnum != null && !novosPapeisEnum.isEmpty()) {
+            List<PapelModel> novosPapeis = novosPapeisEnum.stream()
+                    .map(papelRepository::findByPapel)
+                    .collect(Collectors.toList());
+            usuarioModel.setPapeis(novosPapeis);
         }
-        usuarioModel.setPapeis(List.of(papelModel));
 
         usuarioRepository.save(usuarioModel);
     }
@@ -131,10 +129,9 @@ public class UsuarioService {
         UsuarioModel usuarioModel = usuarioRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com ID: " + id));
 
-        boolean possuiApenasOPapel = usuarioModel.getPapeis().size() == 1 &&
-                usuarioModel.getPapeis().getFirst().getPapel() == papel;
-        if (!possuiApenasOPapel) {
-            throw new EntityNotFoundException("Usuário não possui o papel " + papel.name() + " ou possui múltiplos papéis.");
+        boolean possuiPapel = usuarioModel.getPapeis().stream().anyMatch(p -> p.getPapel() == papel);
+        if (!possuiPapel) {
+            throw new EntityNotFoundException("Usuário não possui o papel " + papel.name());
         }
 
         usuarioRepository.delete(usuarioModel);
@@ -150,23 +147,22 @@ public class UsuarioService {
         UsuarioModel usuarioModel = usuarioRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com ID: " + id));
 
-        PapelModel papelAtual = papelRepository.findByPapel(
-                usuarioModel.getPapeis().stream()
-                        .anyMatch(p -> p.getPapel().equals(Papel.ATIVADO)) ? Papel.ATIVADO : Papel.DESATIVADO
-        );
+        PapelModel papelAtivado = papelRepository.findByPapel(Papel.ATIVADO);
+        PapelModel papelDesativado = papelRepository.findByPapel(Papel.DESATIVADO);
 
-        PapelModel papelAlternativo = papelRepository.findByPapel(
-                statusFormatado.equals("ATIVADO") ? Papel.ATIVADO : Papel.DESATIVADO
-        );
-
-        if (papelAtual == null || papelAlternativo == null) {
+        if (papelAtivado == null || papelDesativado == null) {
             throw new EntityNotFoundException("Roles ATIVADO ou DESATIVADO não encontradas.");
         }
 
         List<PapelModel> papeis = usuarioModel.getPapeis();
-        if (!papeis.contains(papelAlternativo)) {
-            papeis.remove(papelAtual);
-            papeis.add(papelAlternativo);
+        boolean isAtivado = papeis.contains(papelAtivado);
+
+        if (statusFormatado.equals("ATIVADO") && !isAtivado) {
+            papeis.remove(papelDesativado);
+            papeis.add(papelAtivado);
+        } else if (statusFormatado.equals("DESATIVADO") && isAtivado) {
+            papeis.remove(papelAtivado);
+            papeis.add(papelDesativado);
         } else {
             throw new IllegalArgumentException("Usuário já possui o status: " + statusFormatado);
         }

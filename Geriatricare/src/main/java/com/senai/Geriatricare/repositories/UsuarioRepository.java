@@ -10,4 +10,5 @@ public interface UsuarioRepository extends JpaRepository<UsuarioModel, Integer> 
     boolean existsByNomeUsuario(String nomeUsuario);
     UsuarioModel findByNomeUsuario(String nomeUsuario);
     List<UsuarioModel> findByPapeis_Papel(Papel papel);
+    UsuarioModel findByIdAndPapeis_Papel(int id, Papel papel);
 }

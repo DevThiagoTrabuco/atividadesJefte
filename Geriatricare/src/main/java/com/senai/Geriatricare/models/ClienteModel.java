@@ -36,16 +36,6 @@ public class ClienteModel {
     @JoinColumn(name = "endereco_id", referencedColumnName = "endereco_id")
     private EnderecoModel endereco;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "admin_id", nullable = false)
-    private AdminModel admin;
-
-    @JsonProperty("adminId")
-    public Integer getAdminId() {
-        return admin != null ? admin.getId() : null;
-    }
-
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("cliente-contas-pagar")
     private List<ContasAPagarModel> contasAPagarModel = new ArrayList<>();

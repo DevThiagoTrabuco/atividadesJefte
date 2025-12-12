@@ -177,7 +177,7 @@ public class UsuarioController {
     }
 
     @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
-    @PutMapping("/atualizar/admin")
+    @PutMapping("/atualizar/admin/{id}")
     public ResponseEntity<?> atualizarAdmin(@PathVariable int id, @RequestBody UsuarioEntity usuarioEntity) {
         try {
             if (usuarioEntity.getPapel() == null || usuarioEntity.getPapel().size() != 2 ||
@@ -239,7 +239,7 @@ public class UsuarioController {
                     !usuarioEntity.getPapel().contains(Papel.ATIVADO)) {
                 return ResponseEntity.badRequest().body("Para esta rota, os papéis devem ser 'FAMILIAR' e 'ATIVADO'.");
             }
-            usuarioService.atualizarUsuarioPorPapel(usuarioEntity.getId(), usuarioEntity, Papel.FAMILIAR);
+            usuarioService.atualizarUsuarioPorPapel(id, usuarioEntity, Papel.FAMILIAR);
             return ResponseEntity.ok("Usuário FAMILIAR atualizado com sucesso.");
         } catch (IllegalArgumentException | EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

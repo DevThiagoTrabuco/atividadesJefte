@@ -21,8 +21,4 @@ public class AdminModel {
     @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
-    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
-    private List<ClienteModel> clientes;
 }

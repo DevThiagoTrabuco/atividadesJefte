@@ -83,8 +83,8 @@ public class ClienteController {
     }
 
     @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
-    @GetMapping("/cnpj/{cnpj}")
-    public ResponseEntity<?> buscarPorCnpj(@PathVariable String cnpj) {
+    @GetMapping("/cnpj")
+    public ResponseEntity<?> buscarPorCnpj(@RequestParam("valor") String cnpj) {
         try {
             return ResponseEntity.ok(clienteService.buscarPorCnpj(cnpj));
         } catch (EntityNotFoundException e) {
@@ -94,11 +94,7 @@ public class ClienteController {
 
     @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @GetMapping("/nome/{nome}")
-    public ResponseEntity<?> buscarPorNome(@PathVariable String nome) {
-        try {
-            return ResponseEntity.ok(clienteService.buscarPorNome(nome));
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public ResponseEntity<List<ClienteModel>> buscarPorNome(@PathVariable String nome) {
+        return ResponseEntity.ok(clienteService.buscarPorNome(nome));
     }
 }

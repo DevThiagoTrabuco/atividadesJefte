@@ -26,7 +26,6 @@ public class ClienteEntity {
         cliente.setTelefone(this.telefone.validaTelefone() ? this.telefone.getTelefone() : null);
         cliente.setCnpj(this.cnpj.getCnpj());
         cliente.setEndereco(this.endereco.toEntity());
-        cliente.setAdmin(admin);
         return cliente;
     }
 }

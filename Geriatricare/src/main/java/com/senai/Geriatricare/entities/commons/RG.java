@@ -25,20 +25,20 @@ public class RG {
     }
 
     public boolean validaRG() {
-        if (rg == null || !RG_PADRAO.matcher(rg).matches()) {
-            return false;
-        }
+        if (rg == null) return false;
 
-        rg = rg.replace(".", "").replace("-", "");
+        String rgNum = rg.replaceAll("[^0-9]", "");
 
-        if (rg.chars().distinct().count() == 1) return false; // Ex: 00.000.000-0
+        if (rgNum.length() != 9) return false;
+
+        if (rgNum.chars().distinct().count() == 1) return false;
 
         int num = 0;
-        for (int i = 0; i < 8; i++) num += (rg.charAt(i) - '0') * (9 - i);
+        for (int i = 0; i < 8; i++) num += (rgNum.charAt(i) - '0') * (i + 2);
         int checagem = num % 11;
-        if (checagem == 10) checagem = 'X';
-        else checagem += '0';
+        if (checagem == 0) checagem = 11;
+        checagem = 11 - checagem;
 
-        return checagem == rg.charAt(8);
+        return checagem == (rgNum.charAt(8) - '0');
     }
 }
