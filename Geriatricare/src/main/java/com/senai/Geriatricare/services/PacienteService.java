@@ -88,14 +88,10 @@ public class PacienteService {
                 .orElseThrow(() -> new EntityNotFoundException("Paciente com ID " + pacienteId + " não encontrado para o cliente com ID " + clienteId));
     }
 
-    public PacienteModel buscarPorNome(int clienteId, String nome) {
+    public List<PacienteModel> buscarPorNome(int clienteId, String nome) {
         ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
-        PacienteModel paciente = pacienteRepository.findByClienteAndNome(cliente, nome);
-        if (paciente == null) {
-            throw new EntityNotFoundException("Paciente não encontrado com o nome: " + nome);
-        }
-        return paciente;
+        return pacienteRepository.findByClienteAndNomeContaining(cliente, nome);
     }
 
     public PacienteModel buscarPorCpf(int clienteId, String cpf) {
@@ -129,13 +125,13 @@ public class PacienteService {
     public List<PacienteModel> buscarPorStatusPaciente(int clienteId, StatusPaciente statusPaciente) {
         ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
-        return pacienteRepository.findByClienteAndStatusPaciente(cliente, statusPaciente.name());
+        return pacienteRepository.findByClienteAndStatusPaciente(cliente, statusPaciente);
     }
 
     public List<PacienteModel> buscarPorGenero(int clienteId, Genero genero) {
         ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
-        return pacienteRepository.findByClienteAndGenero(cliente, genero.name());
+        return pacienteRepository.findByClienteAndGenero(cliente, genero);
     }
 
     public List<PacienteModel> buscarPorPlano(int clienteId, String plano) {

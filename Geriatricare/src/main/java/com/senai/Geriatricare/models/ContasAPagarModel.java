@@ -44,6 +44,11 @@ public class ContasAPagarModel {
     private StatusConta statusConta;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "paciente_id")
+    @JsonBackReference("paciente-contas-pagar")
+    private PacienteModel paciente;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", nullable = false)
     @JsonBackReference("cliente-contas-pagar")
     private ClienteModel cliente;

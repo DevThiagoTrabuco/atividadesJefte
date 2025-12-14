@@ -31,16 +31,20 @@ public class UsuarioModel implements UserDetails {
     private String senha;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "funcionario_id", nullable = true)
+    @JoinColumn(name = "funcionario_id")
     private FuncionarioModel funcionario;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "admin_id", referencedColumnName = "admin_id", nullable = true)
+    @JoinColumn(name = "admin_id", referencedColumnName = "admin_id")
     private AdminModel admin;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cliente_id", nullable = true)
+    @JoinColumn(name = "cliente_id")
     private ClienteModel cliente;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "familiar_id")
+    private FamiliarModel familiar;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,11 +1,9 @@
 package com.senai.Geriatricare.services;
 
-import com.senai.Geriatricare.models.PapelModel;
-import com.senai.Geriatricare.models.UsuarioModel;
+import com.senai.Geriatricare.models.*;
 import com.senai.Geriatricare.enums.Papel;
 import com.senai.Geriatricare.entities.UsuarioEntity;
-import com.senai.Geriatricare.repositories.PapelRepository;
-import com.senai.Geriatricare.repositories.UsuarioRepository;
+import com.senai.Geriatricare.repositories.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,12 +18,20 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final PapelRepository papelRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ClienteRepository clienteRepository;
+    private final FuncionarioRepository funcionarioRepository;
+    private final AdminRepository adminRepository;
+    private final FamiliarRepository familiarRepository;
 
     @Autowired
-    public UsuarioService(UsuarioRepository usuarioRepository, PapelRepository papelRepository, PasswordEncoder passwordEncoder) {
+    public UsuarioService(UsuarioRepository usuarioRepository, PapelRepository papelRepository, PasswordEncoder passwordEncoder, ClienteRepository clienteRepository, FuncionarioRepository funcionarioRepository, AdminRepository adminRepository, FamiliarRepository familiarRepository) {
         this.usuarioRepository = usuarioRepository;
         this.papelRepository = papelRepository;
         this.passwordEncoder = passwordEncoder;
+        this.clienteRepository = clienteRepository;
+        this.funcionarioRepository = funcionarioRepository;
+        this.adminRepository = adminRepository;
+        this.familiarRepository = familiarRepository;
     }
 
     public void criarUsuario(UsuarioEntity usuarioEntity) {
@@ -48,6 +54,30 @@ public class UsuarioService {
         usuario.setSenha(passwordEncoder.encode(usuarioEntity.getSenha().getSenha()));
         usuario.setPapeis(papeisEntity);
 
+        if (usuarioEntity.getCliente_id() != null) {
+            ClienteModel cliente = clienteRepository.findById(usuarioEntity.getCliente_id())
+                    .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com ID: " + usuarioEntity.getCliente_id()));
+            usuario.setCliente(cliente);
+        }
+
+        if (usuarioEntity.getFuncionario_id() != null) {
+            FuncionarioModel funcionario = funcionarioRepository.findById(usuarioEntity.getFuncionario_id())
+                    .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado com ID: " + usuarioEntity.getFuncionario_id()));
+            usuario.setFuncionario(funcionario);
+        }
+
+        if (usuarioEntity.getAdmin_id() != null) {
+            AdminModel admin = adminRepository.findById(usuarioEntity.getAdmin_id())
+                    .orElseThrow(() -> new EntityNotFoundException("Admin não encontrado com ID: " + usuarioEntity.getAdmin_id()));
+            usuario.setAdmin(admin);
+        }
+
+        if (usuarioEntity.getFamiliar_id() != null) {
+            FamiliarModel familiar = familiarRepository.findById(usuarioEntity.getFamiliar_id())
+                    .orElseThrow(() -> new EntityNotFoundException("Familiar não encontrado com ID: " + usuarioEntity.getFamiliar_id()));
+            usuario.setFamiliar(familiar);
+        }
+
         usuarioRepository.save(usuario);
     }
 
@@ -57,20 +87,36 @@ public class UsuarioService {
         List<Papel> papeis = usuarioModel.getPapeis().stream()
                 .map(PapelModel::getPapel)
                 .toList();
-        return new UsuarioEntity(usuarioModel.getId(), usuarioModel.getNomeUsuario(), null, papeis);
+        Integer clienteId = usuarioModel.getCliente() != null ? usuarioModel.getCliente().getId() : null;
+        Integer funcionarioId = usuarioModel.getFuncionario() != null ? usuarioModel.getFuncionario().getId() : null;
+        Integer adminId = usuarioModel.getAdmin() != null ? usuarioModel.getAdmin().getId() : null;
+        Integer familiarId = usuarioModel.getFamiliar() != null ? usuarioModel.getFamiliar().getId() : null;
+        return new UsuarioEntity(usuarioModel.getId(), usuarioModel.getNomeUsuario(), null, papeis, clienteId, funcionarioId, adminId, familiarId);
     }
 
     public List<UsuarioEntity> listarUsuarios() {
         List<UsuarioModel> usuarios = usuarioRepository.findAll();
         return usuarios.stream()
-                .map(usuario -> new UsuarioEntity(usuario.getId(), usuario.getNomeUsuario(), null, Collections.emptyList()))
+                .map(usuario -> {
+                    Integer clienteId = usuario.getCliente() != null ? usuario.getCliente().getId() : null;
+                    Integer funcionarioId = usuario.getFuncionario() != null ? usuario.getFuncionario().getId() : null;
+                    Integer adminId = usuario.getAdmin() != null ? usuario.getAdmin().getId() : null;
+                    Integer familiarId = usuario.getFamiliar() != null ? usuario.getFamiliar().getId() : null;
+                    return new UsuarioEntity(usuario.getId(), usuario.getNomeUsuario(), null, Collections.emptyList(), clienteId, funcionarioId, adminId, familiarId);
+                })
                 .toList();
     }
 
     public List<UsuarioEntity> listarUsuariosPorPapel(Papel papel) {
         List<UsuarioModel> usuarios = usuarioRepository.findByPapeis_Papel(papel);
         return usuarios.stream()
-                .map(usuario -> new UsuarioEntity(usuario.getId(), usuario.getNomeUsuario(), null, Collections.emptyList()))
+                .map(usuario -> {
+                    Integer clienteId = usuario.getCliente() != null ? usuario.getCliente().getId() : null;
+                    Integer funcionarioId = usuario.getFuncionario() != null ? usuario.getFuncionario().getId() : null;
+                    Integer adminId = usuario.getAdmin() != null ? usuario.getAdmin().getId() : null;
+                    Integer familiarId = usuario.getFamiliar() != null ? usuario.getFamiliar().getId() : null;
+                    return new UsuarioEntity(usuario.getId(), usuario.getNomeUsuario(), null, Collections.emptyList(), clienteId, funcionarioId, adminId, familiarId);
+                })
                 .toList();
     }
 
@@ -79,12 +125,19 @@ public class UsuarioService {
         if (usuarioModel == null) {
             throw new EntityNotFoundException("Usuário " + papel.name() + " não encontrado com ID: " + id);
         }
-
+        Integer clienteId = usuarioModel.getCliente() != null ? usuarioModel.getCliente().getId() : null;
+        Integer funcionarioId = usuarioModel.getFuncionario() != null ? usuarioModel.getFuncionario().getId() : null;
+        Integer adminId = usuarioModel.getAdmin() != null ? usuarioModel.getAdmin().getId() : null;
+        Integer familiarId = usuarioModel.getFamiliar() != null ? usuarioModel.getFamiliar().getId() : null;
         return new UsuarioEntity(
                 usuarioModel.getId(),
                 usuarioModel.getNomeUsuario(),
                 null,
-                List.of(papel)
+                List.of(papel),
+                clienteId,
+                funcionarioId,
+                adminId,
+                familiarId
         );
     }
 
@@ -107,7 +160,6 @@ public class UsuarioService {
             usuarioModel.setSenha(passwordEncoder.encode(usuarioEntity.getSenha().getSenha()));
         }
 
-        // Preserve existing roles and only update the ones provided
         List<Papel> novosPapeisEnum = usuarioEntity.getPapel();
         if (novosPapeisEnum != null && !novosPapeisEnum.isEmpty()) {
             List<PapelModel> novosPapeis = novosPapeisEnum.stream()

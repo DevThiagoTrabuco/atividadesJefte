@@ -11,5 +11,4 @@ import java.util.List;
 @Repository
 public interface ContasAReceberRepository extends JpaRepository<ContasAReceberModel, Integer> {
     List<ContasAReceberModel> findByCliente(ClienteModel cliente);
-    List<ContasAReceberModel> findByClienteAndPaciente(ClienteModel cliente, PacienteModel paciente);
 }

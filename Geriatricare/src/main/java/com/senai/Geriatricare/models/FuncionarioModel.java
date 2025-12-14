@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -44,6 +43,14 @@ public class FuncionarioModel {
     @Column(name = "telefone", nullable = false)
     private String telefone;
 
+    @OneToMany(
+            mappedBy = "funcionario",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JsonManagedReference("funcionario-consulta")
+    private List<ConsultaModel> consultas;
+
     @JsonManagedReference("funcionario-endereco")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "endereco_id")
@@ -56,11 +63,4 @@ public class FuncionarioModel {
     @JoinColumn(name = "cliente_id", nullable = false)
     private ClienteModel cliente;
 
-    @OneToMany(
-            mappedBy = "funcionario",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    @JsonManagedReference("funcionario-consulta")
-    private List<ConsultaModel> consultas = new ArrayList<>();
 }

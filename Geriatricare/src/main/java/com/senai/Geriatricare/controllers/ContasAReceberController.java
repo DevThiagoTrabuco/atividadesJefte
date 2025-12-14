@@ -70,14 +70,5 @@ public class ContasAReceberController {
         }
     }
 
-    @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
-    @GetMapping("/paciente/{pacienteId}")
-    public ResponseEntity<?> buscarPorClienteEPaciente(@PathVariable Integer clienteId, @PathVariable Integer pacienteId) {
-        try {
-            List<ContasAReceberModel> contas = contasAReceberService.buscarPorClienteEPaciente(clienteId, pacienteId);
-            return ResponseEntity.ok(contas);
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
+
 }

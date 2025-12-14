@@ -1,5 +1,7 @@
 package com.senai.Geriatricare.repositories;
 
+import com.senai.Geriatricare.enums.Genero;
+import com.senai.Geriatricare.enums.StatusPaciente;
 import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.models.FamiliarModel;
 import com.senai.Geriatricare.models.PacienteModel;
@@ -20,11 +22,11 @@ public interface PacienteRepository extends JpaRepository<PacienteModel, Integer
 
     @Query("SELECT p FROM PacienteModel p WHERE p.id = :pacienteId AND p.cliente.id = :clienteId")
     Optional<PacienteModel> findByIdAndClienteId(@Param("pacienteId") Integer pacienteId, @Param("clienteId") Integer clienteId);
-    PacienteModel findByClienteAndNome(ClienteModel cliente, String nome);
+    List<PacienteModel> findByClienteAndNomeContaining(ClienteModel cliente, String nome);
     PacienteModel findByClienteAndCpf(ClienteModel cliente, String cpf);
     PacienteModel findByClienteAndRg(ClienteModel cliente, String rg);
     List<PacienteModel> findByClienteAndFamiliares(ClienteModel cliente, FamiliarModel familiar);
-    List<PacienteModel> findByClienteAndStatusPaciente(ClienteModel cliente, String statusPaciente);
-    List<PacienteModel> findByClienteAndGenero(ClienteModel cliente, String genero);
+    List<PacienteModel> findByClienteAndStatusPaciente(ClienteModel cliente, StatusPaciente statusPaciente);
+    List<PacienteModel> findByClienteAndGenero(ClienteModel cliente, Genero genero);
     List<PacienteModel> findByClienteAndPlano(ClienteModel cliente, String plano);
 }

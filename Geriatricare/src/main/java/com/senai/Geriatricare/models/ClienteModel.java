@@ -38,9 +38,11 @@ public class ClienteModel {
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("cliente-contas-pagar")
+    @JsonProperty("contasAPagar")
     private List<ContasAPagarModel> contasAPagarModel = new ArrayList<>();
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("cliente-contas-receber")
+    @JsonProperty("contasAReceber")
     private List<ContasAReceberModel> contasAReceberModel = new ArrayList<>();
 }

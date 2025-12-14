@@ -1,7 +1,10 @@
 package com.senai.Geriatricare.entities;
 
 import com.senai.Geriatricare.models.ClienteModel;
+import com.senai.Geriatricare.models.ConsultaModel;
+import com.senai.Geriatricare.models.ContasAPagarModel;
 import com.senai.Geriatricare.models.PacienteModel;
+import com.senai.Geriatricare.models.PlanoModel;
 import com.senai.Geriatricare.enums.Genero;
 import com.senai.Geriatricare.enums.StatusPaciente;
 import com.senai.Geriatricare.entities.commons.*;
@@ -22,9 +25,13 @@ public class PacienteEntity {
     private Email email;
     private LocalDate dataNascimento;
     private String plano;
+    private PlanoModel planoAssociado;
     private Genero genero;
     private StatusPaciente statusPaciente;
-    private int clienteId;
+    private ClienteModel cliente;
+    private List<String> observacoes;
+    private List<ConsultaModel> consultas;
+    private List<ContasAPagarModel> contasAPagar;
     private List<PrescricaoEntity> prescricoes;
     private List<FamiliarEntity> familiares;
 
@@ -37,8 +44,20 @@ public class PacienteEntity {
         paciente.setEmail(this.email.validaEmail() ? this.email.getEmail() : null);
         paciente.setDataNascimento(this.dataNascimento);
         paciente.setPlano(this.plano);
+        paciente.setPlanoAssociado(this.planoAssociado);
         paciente.setGenero(this.genero);
         paciente.setStatusPaciente(this.statusPaciente);
+        if (this.observacoes != null) {
+            paciente.setObservacoes(this.observacoes);
+        }
+        if (this.consultas != null) {
+            this.consultas.forEach(c -> c.setPaciente(paciente));
+            paciente.setConsultas(this.consultas);
+        }
+        if (this.contasAPagar != null) {
+            this.contasAPagar.forEach(c -> c.setPaciente(paciente));
+            paciente.setContasAPagar(this.contasAPagar);
+        }
         paciente.setCliente(cliente);
 
         return paciente;

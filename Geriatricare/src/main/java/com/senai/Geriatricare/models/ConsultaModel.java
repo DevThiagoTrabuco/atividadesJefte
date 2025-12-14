@@ -1,5 +1,6 @@
 package com.senai.Geriatricare.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -26,10 +27,12 @@ public class ConsultaModel {
 
     @ManyToOne
     @JoinColumn(name = "paciente_id", nullable = false)
+    @JsonBackReference("paciente-consulta")
     private PacienteModel paciente;
 
     @ManyToOne
     @JoinColumn(name = "funcionario_id", nullable = false)
+    @JsonBackReference("funcionario-consulta")
     private FuncionarioModel funcionario;
 
     @OneToMany(

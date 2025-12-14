@@ -22,7 +22,6 @@ public class ContasAReceberModel {
     @Column(name = "descricao")
     private String descricao;
 
-
     @Column(name = "valor")
     private double valor;
 
@@ -42,11 +41,6 @@ public class ContasAReceberModel {
     @JoinColumn(name = "cliente_id", nullable = false)
     @JsonBackReference("cliente-contas-receber")
     private ClienteModel cliente;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "paciente_id")
-    @JsonBackReference("paciente-contas-receber")
-    private PacienteModel paciente;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "plano_id")

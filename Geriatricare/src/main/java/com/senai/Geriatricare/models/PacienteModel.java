@@ -30,9 +30,6 @@ public class PacienteModel {
     private String rg;
 
     @Enumerated(EnumType.STRING)
-    private StatusPaciente status;
-
-    @Enumerated(EnumType.STRING)
     private Genero genero;
 
     @Column(name = "email", unique = true)
@@ -71,9 +68,8 @@ public class PacienteModel {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    @JsonManagedReference("paciente-contas-receber")
-    private List<ContasAReceberModel> contasAReceber = new ArrayList<>();
-
+    @JsonManagedReference("paciente-contas-pagar")
+    private List<ContasAPagarModel> contasAPagar = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(

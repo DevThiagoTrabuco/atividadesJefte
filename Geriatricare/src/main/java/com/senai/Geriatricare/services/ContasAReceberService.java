@@ -29,7 +29,6 @@ public class ContasAReceberService {
         ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado com o ID: " + clienteId));
 
-        contaAReceber.setPaciente(paciente);
         contaAReceber.setStatusConta(StatusConta.ABERTO);
         contaAReceber.setCliente(cliente);
 
@@ -67,14 +66,6 @@ public class ContasAReceberService {
         return contasAReceberRepository.findByCliente(cliente);
     }
 
-    public List<ContasAReceberModel> buscarPorClienteEPaciente(Integer clienteId, Integer pacienteId) {
-        ClienteModel cliente = clienteRepository.findById(clienteId)
-                .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado com o ID: " + clienteId));
-        PacienteModel paciente = pacienteRepository.findById(pacienteId)
-                .orElseThrow(() -> new NoSuchElementException("Paciente não encontrado com o ID: " + pacienteId));
-
-        return contasAReceberRepository.findByClienteAndPaciente(cliente, paciente);
-    }
 
     public ContasAReceberModel pagarConta(Integer id) {
         ContasAReceberModel conta = contasAReceberRepository.findById(id)
