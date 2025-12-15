@@ -2,11 +2,14 @@ package com.senai.Geriatricare.services;
 
 import com.senai.Geriatricare.enums.TipoPlano;
 import com.senai.Geriatricare.models.ClienteModel;
+import com.senai.Geriatricare.models.PacienteModel;
 import com.senai.Geriatricare.models.PlanoModel;
 import com.senai.Geriatricare.repositories.ClienteRepository;
+import com.senai.Geriatricare.repositories.PacienteRepository;
 import com.senai.Geriatricare.repositories.PlanoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -19,6 +22,9 @@ public class PlanoService {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private PacienteRepository pacienteRepository;
 
     private ClienteModel buscarClientePorId(Integer clienteId) {
         return clienteRepository.findById(clienteId)
@@ -58,5 +64,17 @@ public class PlanoService {
     public List<PlanoModel> findByClienteAndTipoPlano(Integer clienteId, TipoPlano tipoPlano) {
         ClienteModel cliente = buscarClientePorId(clienteId);
         return planoRepository.findByClienteAndTipo(cliente, tipoPlano);
+    }
+
+    @Transactional
+    public PlanoModel associarPlanoAPaciente(Integer planoId, Integer pacienteId, Integer clienteId) {
+        PlanoModel plano = buscarPlanoPorIdECliente(planoId, clienteId);
+        PacienteModel paciente = pacienteRepository.findByIdAndClienteId(pacienteId, clienteId)
+                .orElseThrow(() -> new NoSuchElementException("Paciente com o ID " + pacienteId + " não encontrado para o cliente " + clienteId));
+
+        paciente.setPlanoAssociado(plano);
+        pacienteRepository.save(paciente);
+
+        return plano;
     }
 }

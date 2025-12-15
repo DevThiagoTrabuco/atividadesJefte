@@ -1,5 +1,6 @@
 package com.senai.Geriatricare.controllers;
 
+import com.senai.Geriatricare.enums.Funcao;
 import com.senai.Geriatricare.models.FuncionarioModel;
 import com.senai.Geriatricare.entities.FuncionarioEntity;
 import com.senai.Geriatricare.services.FuncionarioService;
@@ -93,19 +94,15 @@ public class FuncionarioController {
 
     @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
     @GetMapping("/nome/{nome}")
-    public ResponseEntity<?> buscarPorNome(@PathVariable int clienteId, @PathVariable String nome) {
-        try {
-            return ResponseEntity.ok(funcionarioService.buscarPorNome(clienteId, nome));
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public ResponseEntity<List<FuncionarioModel>> buscarPorNome(@PathVariable int clienteId, @PathVariable String nome) {
+        return ResponseEntity.ok(funcionarioService.buscarPorNome(clienteId, nome));
     }
 
 
 
     @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
     @GetMapping("/funcao/{funcao}")
-    public ResponseEntity<List<FuncionarioModel>> buscarPorFuncao(@PathVariable int clienteId, @PathVariable String funcao) {
+    public ResponseEntity<List<FuncionarioModel>> buscarPorFuncao(@PathVariable int clienteId, @PathVariable Funcao funcao) {
         return ResponseEntity.ok(funcionarioService.buscarPorFuncao(clienteId, funcao));
     }
 }

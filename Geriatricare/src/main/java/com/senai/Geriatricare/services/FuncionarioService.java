@@ -1,5 +1,6 @@
 package com.senai.Geriatricare.services;
 
+import com.senai.Geriatricare.enums.Funcao;
 import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.models.FuncionarioModel;
 import com.senai.Geriatricare.entities.FuncionarioEntity;
@@ -110,17 +111,13 @@ public class FuncionarioService {
         return funcionario;
     }
 
-    public FuncionarioModel buscarPorNome(int clienteId, String nome) {
+    public List<FuncionarioModel> buscarPorNome(int clienteId, String nome) {
         ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
-        FuncionarioModel funcionario = funcionarioRepository.findByClienteAndNome(cliente, nome);
-        if (funcionario == null) {
-            throw new EntityNotFoundException("Funcionário não encontrado com o nome: " + nome);
-        }
-        return funcionario;
+        return funcionarioRepository.findByClienteAndNomeContaining(cliente, nome);
     }
 
-    public List<FuncionarioModel> buscarPorFuncao(int clienteId, String funcao) {
+    public List<FuncionarioModel> buscarPorFuncao(int clienteId, Funcao funcao) {
         ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         return funcionarioRepository.findByClienteAndFuncao(cliente, funcao);

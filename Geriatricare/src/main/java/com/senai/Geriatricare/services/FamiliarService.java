@@ -10,8 +10,10 @@ import com.senai.Geriatricare.repositories.PacienteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class FamiliarService {
@@ -93,14 +95,10 @@ public class FamiliarService {
                 .orElseThrow(() -> new EntityNotFoundException("Familiar com ID " + id + " não encontrado."));
     }
 
-    public FamiliarModel buscarPorNome(int clienteId, String nome) {
+    public List<FamiliarModel> buscarPorNome(int clienteId, String nome) {
         ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
-        FamiliarModel familiar = familiarRepository.findByClienteAndNome(cliente, nome);
-        if (familiar == null) {
-            throw new EntityNotFoundException("Familiar não encontrado com o nome: " + nome);
-        }
-        return familiar;
+        return familiarRepository.findByClienteAndNomeContaining(cliente, nome);
     }
 
     public FamiliarModel buscarPorEmail(int clienteId, String email) {
@@ -139,5 +137,16 @@ public class FamiliarService {
         PacienteModel paciente = pacienteRepository.findById(pacienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado com o ID: " + pacienteId));
         return familiarRepository.findByClienteAndPacientes(cliente, paciente);
+    }
+
+    @Transactional
+    public PacienteModel associarFamiliarAoPaciente(Integer familiarId, Integer pacienteId, Integer clienteId) {
+        FamiliarModel familiar = familiarRepository.findById(familiarId)
+                .orElseThrow(() -> new NoSuchElementException("Familiar com o ID " + familiarId + " não encontrado."));
+        PacienteModel paciente = pacienteRepository.findByIdAndClienteId(pacienteId, clienteId)
+                .orElseThrow(() -> new NoSuchElementException("Paciente com o ID " + pacienteId + " não encontrado para o cliente " + clienteId));
+
+        paciente.getFamiliares().add(familiar);
+        return pacienteRepository.save(paciente);
     }
 }

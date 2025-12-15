@@ -2,6 +2,7 @@ package com.senai.Geriatricare.controllers;
 
 import com.senai.Geriatricare.models.FamiliarModel;
 import com.senai.Geriatricare.entities.FamiliarEntity;
+import com.senai.Geriatricare.models.PacienteModel;
 import com.senai.Geriatricare.services.FamiliarService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/{clienteId}/familiares")
@@ -74,12 +76,8 @@ public class FamiliarController {
 
     @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
     @GetMapping("/nome/{nome}")
-    public ResponseEntity<?> buscarPorNome(@PathVariable int clienteId, @PathVariable String nome) {
-        try {
-            return ResponseEntity.ok(familiarService.buscarPorNome(clienteId, nome));
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public ResponseEntity<List<FamiliarModel>> buscarPorNome(@PathVariable int clienteId, @PathVariable String nome) {
+        return ResponseEntity.ok(familiarService.buscarPorNome(clienteId, nome));
     }
 
     @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
@@ -116,5 +114,16 @@ public class FamiliarController {
     @GetMapping("/paciente/{pacienteId}")
     public ResponseEntity<List<FamiliarModel>> buscarPorPaciente(@PathVariable int clienteId, @PathVariable int pacienteId) {
         return ResponseEntity.ok(familiarService.buscarPorPaciente(clienteId, pacienteId));
+    }
+
+    @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
+    @PostMapping("/{familiarId}/associar-paciente/{pacienteId}")
+    public ResponseEntity<?> associarFamiliarAoPaciente(@PathVariable Integer clienteId, @PathVariable Integer familiarId, @PathVariable Integer pacienteId) {
+        try {
+            PacienteModel paciente = familiarService.associarFamiliarAoPaciente(familiarId, pacienteId, clienteId);
+            return ResponseEntity.ok(paciente);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

@@ -13,7 +13,7 @@ public interface FamiliarRepository extends JpaRepository<FamiliarModel, Integer
     boolean existsByCpf(String cpf);
     boolean existsByEmail(String email);
     boolean existsByRg(String rg);
-    FamiliarModel findByClienteAndNome(ClienteModel cliente, String nome);
+    List<FamiliarModel> findByClienteAndNomeContaining(ClienteModel cliente, String nome);
     FamiliarModel findByClienteAndEmail(ClienteModel cliente, String email);
     FamiliarModel findByClienteAndCpf(ClienteModel cliente, String cpf);
     FamiliarModel findByClienteAndRg(ClienteModel cliente, String rg);
