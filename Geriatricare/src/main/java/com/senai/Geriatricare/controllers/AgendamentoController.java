@@ -66,9 +66,9 @@ public class AgendamentoController {
 
     @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
     @GetMapping("/data")
-    public ResponseEntity<?> buscarPorClienteEData(@PathVariable Integer clienteId, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime data) {
+    public ResponseEntity<?> buscarPorClienteEDataHora(@PathVariable Integer clienteId, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime data) {
         try {
-            List<AgendamentoModel> agendamentos = agendamentoService.buscarPorClienteEData(clienteId, data);
+            List<AgendamentoModel> agendamentos = agendamentoService.buscarPorClienteEDataHora(clienteId, data);
             return ResponseEntity.ok(agendamentos);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

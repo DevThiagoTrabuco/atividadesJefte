@@ -1,6 +1,7 @@
 package com.senai.Geriatricare.models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.senai.Geriatricare.enums.StatusConta;
 import com.senai.Geriatricare.enums.TipoConta;
@@ -49,12 +50,14 @@ public class ContasAPagarModel {
 
     @Enumerated(EnumType.STRING)
     private StatusConta statusConta;
-
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "paciente_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private PacienteModel paciente;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private ClienteModel cliente;
 }

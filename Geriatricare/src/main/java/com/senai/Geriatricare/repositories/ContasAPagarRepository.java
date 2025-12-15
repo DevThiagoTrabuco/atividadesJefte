@@ -1,5 +1,6 @@
 package com.senai.Geriatricare.repositories;
 
+import com.senai.Geriatricare.enums.StatusConta;
 import com.senai.Geriatricare.enums.TipoConta;
 import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.models.ContasAPagarModel;
@@ -18,4 +19,6 @@ public interface ContasAPagarRepository extends JpaRepository<ContasAPagarModel,
     List<ContasAPagarModel> findByClienteAndTipoConta(ClienteModel cliente, TipoConta tipoConta);
 
     List<ContasAPagarModel> findByClienteAndChaveNFE(ClienteModel cliente, String chaveNFE);
+
+    List<ContasAPagarModel> findByClienteAndStatusConta(ClienteModel cliente, StatusConta statusConta);
 }

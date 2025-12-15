@@ -1,6 +1,7 @@
 package com.senai.Geriatricare.models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -39,7 +40,7 @@ public class ClienteModel {
     private EnderecoModel endereco;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonProperty("contasAPagar")
+    @JsonIgnore
     private List<ContasAPagarModel> contasAPagarModel = new ArrayList<>();
 
 }

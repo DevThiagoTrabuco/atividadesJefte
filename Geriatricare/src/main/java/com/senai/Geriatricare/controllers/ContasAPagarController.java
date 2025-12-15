@@ -1,6 +1,7 @@
 package com.senai.Geriatricare.controllers;
 
 import com.senai.Geriatricare.entities.ContasAPagarEntity;
+import com.senai.Geriatricare.enums.StatusConta;
 import com.senai.Geriatricare.enums.TipoConta;
 import com.senai.Geriatricare.models.ContasAPagarModel;
 import com.senai.Geriatricare.services.ContasAPagarService;
@@ -98,6 +99,17 @@ public class ContasAPagarController {
     public ResponseEntity<?> buscarPorClienteEChaveNFE(@PathVariable Integer clienteId, @PathVariable String chaveNFE) {
         try {
             List<ContasAPagarModel> contas = contasAPagarService.buscarPorClienteEChaveNFE(clienteId, chaveNFE);
+            return ResponseEntity.ok(contas);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
+    @GetMapping("/status/{statusConta}")
+    public ResponseEntity<?> buscarPorClienteEStatus(@PathVariable Integer clienteId, @PathVariable StatusConta statusConta) {
+        try {
+            List<ContasAPagarModel> contas = contasAPagarService.buscarPorClienteEStatus(clienteId, statusConta);
             return ResponseEntity.ok(contas);
         } catch (NoSuchElementException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

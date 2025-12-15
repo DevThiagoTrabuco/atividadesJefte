@@ -1,35 +1,22 @@
 use geriatricare
 
 INSERT INTO usuarios (nome_usuario, senha)
-VALUES ('jorge', '$2a$10$BXRHeBV7.URY/sZa0WyrMunoY81lYoGGH.5GTrl5QZkCpV3Y5mR2K'),
-('admin1', '$2a$12$wrWDDvufr4Gc3ytrNUk0qupDe9AtKLtoIHT1KgxOJjUONA49VGNda'),
-('cliente1', '$2a$12$wrWDDvufr4Gc3ytrNUk0qupDe9AtKLtoIHT1KgxOJjUONA49VGNda'),
-('familiar1', '$2a$12$wrWDDvufr4Gc3ytrNUk0qupDe9AtKLtoIHT1KgxOJjUONA49VGNda'),
-('funcionario1', '$2a$12$wrWDDvufr4Gc3ytrNUk0qupDe9AtKLtoIHT1KgxOJjUONA49VGNda');
+VALUES ('jorge', '$2a$10$BXRHeBV7.URY/sZa0WyrMunoY81lYoGGH.5GTrl5QZkCpV3Y5mR2K');
 
 
 INSERT INTO papeis (papel) VALUES ('ADMIN'), ('CLIENTE'), ('FUNCIONARIO'), ('FAMILIAR'), ('ATIVADO'), ('DESATIVADO');
 
 INSERT INTO usuarios_papeis (usuario_id, papel_id)
-SELECT (SELECT usuario_id FROM usuarios WHERE nome_usuario = 'jorge'), (SELECT papel_id FROM papeis WHERE papel = 'ADMIN')
-UNION ALL
-SELECT (SELECT usuario_id FROM usuarios WHERE nome_usuario = 'jorge'), (SELECT papel_id FROM papeis WHERE papel = 'ATIVADO')
-UNION ALL
-SELECT (SELECT usuario_id FROM usuarios WHERE nome_usuario = 'admin1'), (SELECT papel_id FROM papeis WHERE papel = 'ADMIN')
-UNION ALL
-SELECT (SELECT usuario_id FROM usuarios WHERE nome_usuario = 'admin1'), (SELECT papel_id FROM papeis WHERE papel = 'ATIVADO')
-UNION ALL
-SELECT (SELECT usuario_id FROM usuarios WHERE nome_usuario = 'cliente1'), (SELECT papel_id FROM papeis WHERE papel = 'CLIENTE')
-UNION ALL
-SELECT (SELECT usuario_id FROM usuarios WHERE nome_usuario = 'cliente1'), (SELECT papel_id FROM papeis WHERE papel = 'ATIVADO')
-UNION ALL
-SELECT (SELECT usuario_id FROM usuarios WHERE nome_usuario = 'familiar1'), (SELECT papel_id FROM papeis WHERE papel = 'FAMILIAR')
-UNION ALL
-SELECT (SELECT usuario_id FROM usuarios WHERE nome_usuario = 'familiar1'), (SELECT papel_id FROM papeis WHERE papel = 'ATIVADO')
-UNION ALL
-SELECT (SELECT usuario_id FROM usuarios WHERE nome_usuario = 'funcionario1'), (SELECT papel_id FROM papeis WHERE papel = 'FUNCIONARIO')
-UNION ALL
-SELECT (SELECT usuario_id FROM usuarios WHERE nome_usuario = 'funcionario1'), (SELECT papel_id FROM papeis WHERE papel = 'ATIVADO');
+VALUES (
+    (SELECT usuario_id FROM usuarios WHERE nome_usuario = 'jorge'), 
+    (SELECT papel_id FROM papeis WHERE papel = 'ADMIN')
+);
+
+INSERT INTO usuarios_papeis (usuario_id, papel_id)
+VALUES (
+    (SELECT usuario_id FROM usuarios WHERE nome_usuario = 'jorge'), 
+    (SELECT papel_id FROM papeis WHERE papel = 'ATIVADO')
+);
 
 
 select * from usuarios;
@@ -37,5 +24,3 @@ select * from usuarios;
 select * from usuarios_papeis;
 
 select * from clientes;
-
-

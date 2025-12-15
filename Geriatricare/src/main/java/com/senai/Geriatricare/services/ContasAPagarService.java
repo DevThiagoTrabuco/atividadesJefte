@@ -77,6 +77,12 @@ public class ContasAPagarService {
         return contasAPagarRepository.findByClienteAndChaveNFE(cliente, chaveNFE);
     }
 
+    public List<ContasAPagarModel> buscarPorClienteEStatus(Integer clienteId, StatusConta statusConta) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado com o ID: " + clienteId));
+        return contasAPagarRepository.findByClienteAndStatusConta(cliente, statusConta);
+    }
+
     public void removerContaAPagar(Integer id) {
         if (!contasAPagarRepository.existsById(id)) {
             throw new NoSuchElementException("Conta a pagar não encontrada com o ID: " + id);

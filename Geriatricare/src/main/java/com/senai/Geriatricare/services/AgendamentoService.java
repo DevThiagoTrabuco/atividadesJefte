@@ -55,7 +55,7 @@ public class AgendamentoService {
         return agendamentoRepository.findByClienteAndPaciente(cliente, paciente);
     }
 
-    public List<AgendamentoModel> buscarPorClienteEData(Integer clienteId, LocalDateTime data) {
+    public List<AgendamentoModel> buscarPorClienteEDataHora(Integer clienteId, LocalDateTime data) {
         ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         return agendamentoRepository.findByClienteAndData(cliente, data);
