@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.senai.Geriatricare.models.AdminModel;
 import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.models.ContasAPagarModel;
-import com.senai.Geriatricare.models.ContasAReceberModel;
 import com.senai.Geriatricare.entities.commons.*;
 import lombok.*;
 
@@ -24,7 +23,6 @@ public class ClienteEntity {
     @JsonProperty("admin_id")
     private int adminId;
     private List<ContasAPagarModel> contasAPagar;
-    private List<ContasAReceberModel> contasAReceber;
 
     public ClienteModel toEntity(AdminModel admin){
         ClienteModel cliente = new ClienteModel();
@@ -38,11 +36,6 @@ public class ClienteEntity {
         if (this.contasAPagar != null) {
             this.contasAPagar.forEach(c -> c.setCliente(cliente));
             cliente.setContasAPagarModel(this.contasAPagar);
-        }
-
-        if (this.contasAReceber != null) {
-            this.contasAReceber.forEach(c -> c.setCliente(cliente));
-            cliente.setContasAReceberModel(this.contasAReceber);
         }
 
         return cliente;

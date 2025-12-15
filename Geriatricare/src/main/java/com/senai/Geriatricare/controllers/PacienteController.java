@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/{clienteId}/pacientes")
@@ -125,5 +126,16 @@ public class PacienteController {
     @GetMapping("/plano/{plano}")
     public ResponseEntity<List<PacienteModel>> buscarPorPlano(@PathVariable int clienteId, @PathVariable String plano) {
         return ResponseEntity.ok(pacienteService.buscarPorPlano(clienteId, plano));
+    }
+
+    @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
+    @PostMapping("/{pacienteId}/associar-familiar/{familiarId}")
+    public ResponseEntity<?> associarFamiliar(@PathVariable Integer clienteId, @PathVariable Integer pacienteId, @PathVariable Integer familiarId) {
+        try {
+            PacienteModel paciente = pacienteService.associarFamiliar(pacienteId, familiarId, clienteId);
+            return ResponseEntity.ok(paciente);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

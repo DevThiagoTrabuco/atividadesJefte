@@ -1,5 +1,7 @@
 package com.senai.Geriatricare.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,12 +12,19 @@ import java.time.LocalDateTime;
 @Table(name = "agendamentos")
 @Getter
 @Setter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class AgendamentoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "agendamento_id")
     private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private ClienteModel cliente;
 
     @ManyToOne
     @JoinColumn(name = "paciente_id", nullable = false)

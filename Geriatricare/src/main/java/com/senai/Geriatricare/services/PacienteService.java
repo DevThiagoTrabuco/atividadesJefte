@@ -12,8 +12,10 @@ import com.senai.Geriatricare.repositories.PacienteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class PacienteService {
@@ -138,5 +140,16 @@ public class PacienteService {
         ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         return pacienteRepository.findByClienteAndPlano(cliente, plano);
+    }
+
+    @Transactional
+    public PacienteModel associarFamiliar(Integer pacienteId, Integer familiarId, Integer clienteId) {
+        PacienteModel paciente = pacienteRepository.findByIdAndClienteId(pacienteId, clienteId)
+                .orElseThrow(() -> new NoSuchElementException("Paciente com o ID " + pacienteId + " não encontrado para o cliente " + clienteId));
+        FamiliarModel familiar = familiarRepository.findById(familiarId)
+                .orElseThrow(() -> new NoSuchElementException("Familiar com o ID " + familiarId + " não encontrado."));
+
+        paciente.getFamiliares().add(familiar);
+        return pacienteRepository.save(paciente);
     }
 }

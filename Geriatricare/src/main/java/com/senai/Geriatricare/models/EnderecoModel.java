@@ -1,6 +1,7 @@
 package com.senai.Geriatricare.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.senai.Geriatricare.enums.UnidadeFederativa;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,6 +10,9 @@ import lombok.*;
 @Table(name = "enderecos")
 @Getter
 @Setter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class EnderecoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,15 +40,12 @@ public class EnderecoModel {
     @Column(name = "complemento")
     private String complemento;
 
-    @JsonBackReference("cliente-endereco")
     @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
     private ClienteModel cliente;
 
-    @JsonBackReference("familiar-endereco")
     @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
     private FamiliarModel familiar;
 
-    @JsonBackReference("funcionario-endereco")
     @OneToOne(mappedBy = "endereco", cascade = CascadeType.ALL)
     private FuncionarioModel funcionario;
 }

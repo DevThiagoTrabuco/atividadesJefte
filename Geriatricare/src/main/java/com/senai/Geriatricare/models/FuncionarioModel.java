@@ -1,6 +1,7 @@
 package com.senai.Geriatricare.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.senai.Geriatricare.enums.Funcao;
 import com.senai.Geriatricare.enums.UnidadeFederativa;
 import jakarta.persistence.*;
@@ -13,6 +14,9 @@ import java.util.List;
 @Table(name = "funcionarios")
 @Getter
 @Setter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class FuncionarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,10 +52,8 @@ public class FuncionarioModel {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    @JsonManagedReference("funcionario-consulta")
     private List<ConsultaModel> consultas;
 
-    @JsonManagedReference("funcionario-endereco")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "endereco_id")
     private EnderecoModel endereco;

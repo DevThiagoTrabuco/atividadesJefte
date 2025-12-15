@@ -1,11 +1,14 @@
 package com.senai.Geriatricare.services;
 
+import com.senai.Geriatricare.entities.ContasAPagarEntity;
 import com.senai.Geriatricare.enums.StatusConta;
 import com.senai.Geriatricare.enums.TipoConta;
 import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.models.ContasAPagarModel;
+import com.senai.Geriatricare.models.PacienteModel;
 import com.senai.Geriatricare.repositories.ClienteRepository;
 import com.senai.Geriatricare.repositories.ContasAPagarRepository;
+import com.senai.Geriatricare.repositories.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +24,11 @@ public class ContasAPagarService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    public ContasAPagarModel criarContaAPagar(ContasAPagarModel contasAPagar, Integer clienteId) {
+    @Autowired
+    private PacienteRepository pacienteRepository;
+
+    public ContasAPagarModel criarContaAPagar(ContasAPagarEntity contasAPagarEntity, Integer clienteId) {
+        ContasAPagarModel contasAPagar = contasAPagarEntity.toModel();
         ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado com o ID: " + clienteId));
         contasAPagar.setCliente(cliente);
@@ -29,7 +36,8 @@ public class ContasAPagarService {
         return contasAPagarRepository.save(contasAPagar);
     }
 
-    public ContasAPagarModel atualizarContaAPagar(Integer id, ContasAPagarModel contaAtualizada) {
+    public ContasAPagarModel atualizarContaAPagar(Integer id, ContasAPagarEntity contaAtualizadaEntity) {
+        ContasAPagarModel contaAtualizada = contaAtualizadaEntity.toModel();
         ContasAPagarModel contaExistente = contasAPagarRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Conta a pagar não encontrada com o ID: " + id));
 
@@ -37,6 +45,7 @@ public class ContasAPagarService {
         contaExistente.setTipoConta(contaAtualizada.getTipoConta());
         contaExistente.setChaveNFE(contaAtualizada.getChaveNFE());
         contaExistente.setSerieNFE(contaAtualizada.getSerieNFE());
+        contaExistente.setCNPJ(contaAtualizada.getCNPJ());
         contaExistente.setValor(contaAtualizada.getValor());
         contaExistente.setDataVencimento(contaAtualizada.getDataVencimento());
         contaExistente.setDataEmissao(contaAtualizada.getDataEmissao());
@@ -50,8 +59,10 @@ public class ContasAPagarService {
                 .orElseThrow(() -> new NoSuchElementException("Conta a pagar não encontrada com o ID: " + id));
     }
 
-    public List<ContasAPagarModel> buscarPorCnpj(String cnpj) {
-        return contasAPagarRepository.findByClienteAndCnpj(cnpj);
+    public List<ContasAPagarModel> buscarPorClienteECnpj(Integer clienteId, String cnpj) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado com o ID: " + clienteId));
+        return contasAPagarRepository.findByClienteAndCNPJ(cliente, cnpj);
     }
 
     public List<ContasAPagarModel> buscarPorClienteETipoConta(Integer clienteId, TipoConta tipoConta) {
@@ -83,6 +94,24 @@ public class ContasAPagarService {
         ContasAPagarModel conta = contasAPagarRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Conta a pagar não encontrada com o ID: " + id));
         conta.setStatusConta(StatusConta.PAGO);
+        return contasAPagarRepository.save(conta);
+    }
+
+    public ContasAPagarModel associarContaAoCliente(Integer contaId, Integer clienteId) {
+        ContasAPagarModel conta = contasAPagarRepository.findById(contaId)
+                .orElseThrow(() -> new NoSuchElementException("Conta a pagar não encontrada com o ID: " + contaId));
+        ClienteModel cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado com o ID: " + clienteId));
+        conta.setCliente(cliente);
+        return contasAPagarRepository.save(conta);
+    }
+
+    public ContasAPagarModel associarContaAoPaciente(Integer contaId, Integer pacienteId) {
+        ContasAPagarModel conta = contasAPagarRepository.findById(contaId)
+                .orElseThrow(() -> new NoSuchElementException("Conta a pagar não encontrada com o ID: " + contaId));
+        PacienteModel paciente = pacienteRepository.findById(pacienteId)
+                .orElseThrow(() -> new NoSuchElementException("Paciente não encontrado com o ID: " + pacienteId));
+        conta.setPaciente(paciente);
         return contasAPagarRepository.save(conta);
     }
 }

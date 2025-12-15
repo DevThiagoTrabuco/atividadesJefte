@@ -1,7 +1,7 @@
 package com.senai.Geriatricare.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
@@ -13,6 +13,9 @@ import lombok.*;
 @Table(name = "clientes")
 @Getter
 @Setter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class ClienteModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,18 +34,12 @@ public class ClienteModel {
     @Column(name = "cnpj", unique = true, nullable = false)
     private String cnpj;
 
-    @JsonManagedReference("cliente-endereco")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "endereco_id")
     private EnderecoModel endereco;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference("cliente-contas-pagar")
     @JsonProperty("contasAPagar")
     private List<ContasAPagarModel> contasAPagarModel = new ArrayList<>();
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference("cliente-contas-receber")
-    @JsonProperty("contasAReceber")
-    private List<ContasAReceberModel> contasAReceberModel = new ArrayList<>();
 }

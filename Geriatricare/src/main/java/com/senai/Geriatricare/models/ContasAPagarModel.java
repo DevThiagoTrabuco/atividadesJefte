@@ -1,6 +1,7 @@
 package com.senai.Geriatricare.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.senai.Geriatricare.enums.StatusConta;
 import com.senai.Geriatricare.enums.TipoConta;
 import jakarta.persistence.*;
@@ -13,6 +14,9 @@ import java.time.LocalDate;
 @Table(name = "contas_a_pagar")
 @Getter
 @Setter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class ContasAPagarModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +35,9 @@ public class ContasAPagarModel {
     @Column(name = "serie_NFE")
     private String serieNFE;
 
+    @Column(name = "CNPJ")
+    private String CNPJ;
+
     @Column(name = "valor")
     private double valor;
 
@@ -45,11 +52,9 @@ public class ContasAPagarModel {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "paciente_id")
-    @JsonBackReference("paciente-contas-pagar")
     private PacienteModel paciente;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", nullable = false)
-    @JsonBackReference("cliente-contas-pagar")
     private ClienteModel cliente;
 }

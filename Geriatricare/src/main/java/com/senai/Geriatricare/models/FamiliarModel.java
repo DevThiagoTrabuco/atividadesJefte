@@ -1,6 +1,7 @@
 package com.senai.Geriatricare.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.senai.Geriatricare.enums.Parentesco;
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,6 +12,9 @@ import java.util.List;
 @Table(name = "familiares")
 @Getter
 @Setter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class FamiliarModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +46,6 @@ public class FamiliarModel {
     @ManyToMany(mappedBy = "familiares", cascade = CascadeType.ALL)
     private List<PacienteModel> pacientes;
 
-    @JsonManagedReference("familiar-endereco")
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "endereco_id")
     private EnderecoModel endereco;

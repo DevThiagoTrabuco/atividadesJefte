@@ -1,6 +1,7 @@
 package com.senai.Geriatricare.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.senai.Geriatricare.enums.Genero;
 import com.senai.Geriatricare.enums.StatusPaciente;
 import jakarta.persistence.*;
@@ -14,6 +15,9 @@ import java.util.List;
 @Table(name = "pacientes")
 @Getter
 @Setter
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class PacienteModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,7 +64,6 @@ public class PacienteModel {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    @JsonManagedReference("paciente-consulta")
     private List<ConsultaModel> consultas = new ArrayList<>();
 
     @OneToMany(
@@ -68,7 +71,6 @@ public class PacienteModel {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    @JsonManagedReference("paciente-contas-pagar")
     private List<ContasAPagarModel> contasAPagar = new ArrayList<>();
 
     @ManyToMany

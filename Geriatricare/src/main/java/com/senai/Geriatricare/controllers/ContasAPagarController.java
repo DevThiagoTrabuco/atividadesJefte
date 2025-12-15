@@ -1,5 +1,6 @@
 package com.senai.Geriatricare.controllers;
 
+import com.senai.Geriatricare.entities.ContasAPagarEntity;
 import com.senai.Geriatricare.enums.TipoConta;
 import com.senai.Geriatricare.models.ContasAPagarModel;
 import com.senai.Geriatricare.services.ContasAPagarService;
@@ -20,22 +21,22 @@ public class ContasAPagarController {
 
     @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
     @PostMapping
-    public ResponseEntity<?> criarContaAPagar(@RequestBody ContasAPagarModel contasAPagar, @PathVariable Integer clienteId) {
+    public ResponseEntity<?> criarContaAPagar(@RequestBody ContasAPagarEntity contasAPagar, @PathVariable Integer clienteId) {
         try {
             ContasAPagarModel novaConta = contasAPagarService.criarContaAPagar(contasAPagar, clienteId);
             return ResponseEntity.ok(novaConta);
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException | IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
     @PutMapping("/{id}")
-    public ResponseEntity<?> atualizarContaAPagar(@PathVariable Integer id, @RequestBody ContasAPagarModel contaAtualizada) {
+    public ResponseEntity<?> atualizarContaAPagar(@PathVariable Integer id, @RequestBody ContasAPagarEntity contaAtualizada) {
         try {
             ContasAPagarModel conta = contasAPagarService.atualizarContaAPagar(id, contaAtualizada);
             return ResponseEntity.ok(conta);
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException | IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -63,7 +64,7 @@ public class ContasAPagarController {
 
     @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
     @GetMapping
-    public ResponseEntity<?> listarContaAPagarByPorCliente(@PathVariable Integer clienteId) {
+    public ResponseEntity<?> listarContaAPagarPorCliente(@PathVariable Integer clienteId) {
         try{
             return ResponseEntity.ok(contasAPagarService.listarContaAPagarPorCliente(clienteId));
         } catch (NoSuchElementException e) {
@@ -72,10 +73,10 @@ public class ContasAPagarController {
     }
 
     @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
-    @GetMapping("/cnpj/{cnpj}")
-    public ResponseEntity<?> buscarPorCnpj(@PathVariable String cnpj) {
+    @GetMapping("/cnpj")
+    public ResponseEntity<?> buscarPorClienteECnpj(@PathVariable Integer clienteId, @RequestParam String cnpj) {
         try {
-            return ResponseEntity.ok(contasAPagarService.buscarPorCnpj(cnpj));
+            return ResponseEntity.ok(contasAPagarService.buscarPorClienteECnpj(clienteId, cnpj));
         } catch (NoSuchElementException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -98,6 +99,39 @@ public class ContasAPagarController {
         try {
             List<ContasAPagarModel> contas = contasAPagarService.buscarPorClienteEChaveNFE(clienteId, chaveNFE);
             return ResponseEntity.ok(contas);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
+    @PutMapping("/{contaId}/associar-cliente")
+    public ResponseEntity<?> associarContaAoCliente(@PathVariable Integer contaId, @PathVariable Integer clienteId) {
+        try {
+            ContasAPagarModel conta = contasAPagarService.associarContaAoCliente(contaId, clienteId);
+            return ResponseEntity.ok(conta);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
+    @PutMapping("/{contaId}/associar-paciente/{pacienteId}")
+    public ResponseEntity<?> associarContaAoPaciente(@PathVariable Integer contaId, @PathVariable Integer pacienteId) {
+        try {
+            ContasAPagarModel conta = contasAPagarService.associarContaAoPaciente(contaId, pacienteId);
+            return ResponseEntity.ok(conta);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
+    @PutMapping("/{contaId}/pagar")
+    public ResponseEntity<?> pagarConta(@PathVariable Integer contaId) {
+        try {
+            ContasAPagarModel conta = contasAPagarService.pagarConta(contaId);
+            return ResponseEntity.ok(conta);
         } catch (NoSuchElementException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
