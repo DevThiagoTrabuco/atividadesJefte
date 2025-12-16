@@ -16,4 +16,8 @@ public interface ContasAPagarRepository extends JpaRepository<ContasAPagarModel,
     List<ContasAPagarModel> findByClienteAndTipoConta(ClienteModel cliente, TipoConta tipoConta);
     List<ContasAPagarModel> findByClienteAndChaveNFE(ClienteModel cliente, String chaveNFE);
     List<ContasAPagarModel> findByClienteAndStatusConta(ClienteModel cliente, StatusConta statusConta);
+    List<ContasAPagarModel> findByClienteAndPacienteIdAndStatusConta(ClienteModel cliente, Integer pacienteId, StatusConta status);
+    List<ContasAPagarModel> findByClienteAndPacienteId(ClienteModel cliente, Integer pacienteId);
+    List<ContasAPagarModel> findByClienteAndPacienteIsNullAndStatusConta(ClienteModel cliente, StatusConta status);
+    List<ContasAPagarModel> findByClienteAndPacienteIsNull(ClienteModel cliente);
 }

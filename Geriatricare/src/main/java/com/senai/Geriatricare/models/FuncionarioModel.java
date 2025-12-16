@@ -54,12 +54,6 @@ public class FuncionarioModel {
     @Column(name = "telefone", nullable = false)
     private String telefone;
 
-    @OneToMany(
-            mappedBy = "funcionario",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<ConsultaModel> consultas;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "endereco_id")

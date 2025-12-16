@@ -120,4 +120,28 @@ public class ContasAPagarService {
         conta.setPaciente(paciente);
         return contasAPagarRepository.save(conta);
     }
+
+    public List<ContasAPagarModel> buscarPorClienteEPacienteIdEStatus(Integer clienteId, Integer pacienteId, StatusConta status) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado com o ID: " + clienteId));
+        return contasAPagarRepository.findByClienteAndPacienteIdAndStatusConta(cliente, pacienteId, status);
+    }
+
+    public List<ContasAPagarModel> buscarPorClienteEPacienteId(Integer clienteId, Integer pacienteId) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado com o ID: " + clienteId));
+        return contasAPagarRepository.findByClienteAndPacienteId(cliente, pacienteId);
+    }
+
+    public List<ContasAPagarModel> buscarPorClienteSemPacienteEStatus(Integer clienteId, StatusConta status) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado com o ID: " + clienteId));
+        return contasAPagarRepository.findByClienteAndPacienteIsNullAndStatusConta(cliente, status);
+    }
+
+    public List<ContasAPagarModel> buscarPorClienteSemPaciente(Integer clienteId) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado com o ID: " + clienteId));
+        return contasAPagarRepository.findByClienteAndPacienteIsNull(cliente);
+    }
 }

@@ -1,7 +1,6 @@
 package com.senai.Geriatricare.entities;
 
 import com.senai.Geriatricare.models.ClienteModel;
-import com.senai.Geriatricare.models.ConsultaModel;
 import com.senai.Geriatricare.models.ContasAPagarModel;
 import com.senai.Geriatricare.models.PacienteModel;
 import com.senai.Geriatricare.models.PlanoModel;
@@ -12,6 +11,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -29,8 +29,7 @@ public class PacienteEntity {
     private Genero genero;
     private StatusPaciente statusPaciente;
     private ClienteModel cliente;
-    private List<String> observacoes;
-    private List<ConsultaModel> consultas;
+    private List<ObservacaoEntity> observacoes;
     private List<ContasAPagarModel> contasAPagar;
     private List<PrescricaoEntity> prescricoes;
     private List<FamiliarEntity> familiares;
@@ -48,11 +47,7 @@ public class PacienteEntity {
         paciente.setGenero(this.genero);
         paciente.setStatusPaciente(this.statusPaciente);
         if (this.observacoes != null) {
-            paciente.setObservacoes(this.observacoes);
-        }
-        if (this.consultas != null) {
-            this.consultas.forEach(c -> c.setPaciente(paciente));
-            paciente.setConsultas(this.consultas);
+            paciente.setObservacoes(this.observacoes.stream().map(obs -> obs.toModel(cliente, paciente)).collect(Collectors.toList()));
         }
         if (this.contasAPagar != null) {
             this.contasAPagar.forEach(c -> c.setPaciente(paciente));

@@ -148,4 +148,48 @@ public class ContasAPagarController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
+    @GetMapping("/paciente/{pacienteId}/status/{status}")
+    public ResponseEntity<?> buscarPorClienteEPacienteIdEStatus(@PathVariable Integer clienteId, @PathVariable Integer pacienteId, @PathVariable StatusConta status) {
+        try {
+            List<ContasAPagarModel> contas = contasAPagarService.buscarPorClienteEPacienteIdEStatus(clienteId, pacienteId, status);
+            return ResponseEntity.ok(contas);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
+    @GetMapping("/paciente/{pacienteId}")
+    public ResponseEntity<?> buscarPorClienteEPacienteId(@PathVariable Integer clienteId, @PathVariable Integer pacienteId) {
+        try {
+            List<ContasAPagarModel> contas = contasAPagarService.buscarPorClienteEPacienteId(clienteId, pacienteId);
+            return ResponseEntity.ok(contas);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
+    @GetMapping("/sem-paciente/status/{status}")
+    public ResponseEntity<?> buscarPorClienteSemPacienteEStatus(@PathVariable Integer clienteId, @PathVariable StatusConta status) {
+        try {
+            List<ContasAPagarModel> contas = contasAPagarService.buscarPorClienteSemPacienteEStatus(clienteId, status);
+            return ResponseEntity.ok(contas);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
+    @GetMapping("/sem-paciente")
+    public ResponseEntity<?> buscarPorClienteSemPaciente(@PathVariable Integer clienteId) {
+        try {
+            List<ContasAPagarModel> contas = contasAPagarService.buscarPorClienteSemPaciente(clienteId);
+            return ResponseEntity.ok(contas);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

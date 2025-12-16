@@ -43,8 +43,12 @@ public class PacienteModel {
     @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataNascimento;
 
-    @Column(name = "observacoes", nullable = false)
-    private List<String> observacoes = new ArrayList<>();
+    @OneToMany(
+            mappedBy = "paciente",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<ObservacaoModel> observacoes = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private StatusPaciente statusPaciente;
@@ -60,13 +64,6 @@ public class PacienteModel {
     @JoinColumn(name = "cliente_id", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private ClienteModel cliente;
-
-    @OneToMany(
-            mappedBy = "paciente",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<ConsultaModel> consultas = new ArrayList<>();
 
     @OneToMany(
             mappedBy = "paciente",

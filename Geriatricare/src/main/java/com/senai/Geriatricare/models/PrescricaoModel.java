@@ -1,11 +1,15 @@
 package com.senai.Geriatricare.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.senai.Geriatricare.enums.Posologia;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "prescricoes")
@@ -26,13 +30,11 @@ public class PrescricaoModel {
     @JsonBackReference
     private PacienteModel paciente;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "consulta_id", nullable = false)
-    @JsonBackReference("consulta-prescricao")
-    private ConsultaModel consulta;
-
     @Column(name = "medicamento", nullable = false)
     private String medicamento;
+
+    @Column(name = "descricao")
+    private String descricao;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "posologia", nullable = false)
@@ -43,4 +45,8 @@ public class PrescricaoModel {
 
     @Column(name = "quantidade")
     private int quantidade;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "prescricao_id")
+    private List<ObservacaoModel> observacoes = new ArrayList<>();
 }
