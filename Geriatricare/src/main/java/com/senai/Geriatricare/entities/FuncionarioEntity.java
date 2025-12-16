@@ -1,5 +1,6 @@
 package com.senai.Geriatricare.entities;
 
+import com.senai.Geriatricare.enums.StatusFuncionario;
 import com.senai.Geriatricare.enums.UnidadeFederativa;
 import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.models.FuncionarioModel;
@@ -20,14 +21,16 @@ public class FuncionarioEntity {
     private RG rg;
     private LocalDate dataNascimento;
     private Email email;
-    private String registro; // Adicionado
-    private UnidadeFederativa unidadeFederativa; // Adicionado
+    private String registro;
+    private UnidadeFederativa unidadeFederativa;
     private Telefone telefone;
     private EnderecoEntity endereco;
     private Funcao funcao;
+    private StatusFuncionario statusFuncionario = StatusFuncionario.ATIVO;
+    private LocalDate dataAdmissao;
     private int clienteId;
 
-    public FuncionarioModel toEntity(ClienteModel cliente) {
+    public FuncionarioModel toModel(ClienteModel cliente) {
         FuncionarioModel funcionario = new FuncionarioModel();
         funcionario.setId(this.id);
         funcionario.setNome(this.nome);
@@ -35,11 +38,13 @@ public class FuncionarioEntity {
         funcionario.setRg(this.rg.validaRG() ? this.rg.getRg() : null);
         funcionario.setDataNascimento(this.dataNascimento);
         funcionario.setEmail(this.email.validaEmail() ? this.email.getEmail() : null);
-        funcionario.setRegistro(this.registro); // Adicionado
-        funcionario.setUnidadeFederativa(this.unidadeFederativa); // Adicionado
+        funcionario.setRegistro(this.registro);
+        funcionario.setUnidadeFederativa(this.unidadeFederativa);
         funcionario.setTelefone(this.telefone.validaTelefone() ? this.telefone.getTelefone() : null);
-        funcionario.setEndereco(this.endereco.toEntity());
+        funcionario.setEndereco(this.endereco.toModel());
         funcionario.setFuncao(this.funcao);
+        funcionario.setStatusFuncionario(this.statusFuncionario);
+        funcionario.setDataAdmissao(this.dataAdmissao);
         funcionario.setCliente(cliente);
 
         return funcionario;

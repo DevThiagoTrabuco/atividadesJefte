@@ -1,6 +1,7 @@
 package com.senai.Geriatricare.controllers;
 
 import com.senai.Geriatricare.entities.AgendamentoEntity;
+import com.senai.Geriatricare.enums.StatusAgendamento;
 import com.senai.Geriatricare.models.AgendamentoModel;
 import com.senai.Geriatricare.services.AgendamentoService;
 import jakarta.persistence.EntityNotFoundException;
@@ -87,11 +88,33 @@ public class AgendamentoController {
     }
 
     @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
+    @GetMapping("/status/{status}")
+    public ResponseEntity<?> buscarPorClienteEStatus(@PathVariable Integer clienteId, @PathVariable StatusAgendamento status) {
+        try {
+            List<AgendamentoModel> agendamentos = agendamentoService.buscarPorClienteEStatus(clienteId, status);
+            return ResponseEntity.ok(agendamentos);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
     @PutMapping("/{agendamentoId}")
     public ResponseEntity<?> atualizarAgendamento(@PathVariable Integer clienteId, @PathVariable Integer agendamentoId, @RequestBody AgendamentoEntity agendamentoEntity) {
         try {
             AgendamentoModel agendamentoAtualizado = agendamentoService.atualizarAgendamento(clienteId, agendamentoId, agendamentoEntity);
             return ResponseEntity.ok(agendamentoAtualizado);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
+    @PutMapping("/{agendamentoId}/fechar")
+    public ResponseEntity<?> fecharAgendamento(@PathVariable Integer clienteId, @PathVariable Integer agendamentoId) {
+        try {
+            AgendamentoModel agendamento = agendamentoService.fecharAgendamento(clienteId, agendamentoId);
+            return ResponseEntity.ok(agendamento);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

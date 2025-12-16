@@ -23,7 +23,7 @@ public class RegistroEntity {
     private String valorNovo;
     private LocalDateTime dataHora;
 
-    public RegistroModel toEntity(ClienteModel cliente, FuncionarioModel funcionario) {
+    public RegistroModel toModel(ClienteModel cliente, FuncionarioModel funcionario) {
         RegistroModel registro = new RegistroModel();
         registro.setId(this.id);
         registro.setCliente(cliente);

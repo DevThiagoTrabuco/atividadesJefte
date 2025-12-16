@@ -20,7 +20,7 @@ public class ConsultaEntity {
     private LocalDateTime dataConsulta;
     private String observacoes;
 
-    public ConsultaModel toEntity(ClienteModel cliente, PacienteModel paciente, FuncionarioModel funcionario) {
+    public ConsultaModel toModel(ClienteModel cliente, PacienteModel paciente, FuncionarioModel funcionario) {
         ConsultaModel consulta = new ConsultaModel();
         consulta.setCliente(cliente);
         consulta.setPaciente(paciente);

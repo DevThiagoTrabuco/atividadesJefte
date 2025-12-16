@@ -73,6 +73,7 @@ public class PlanoService {
                 .orElseThrow(() -> new NoSuchElementException("Paciente com o ID " + pacienteId + " não encontrado para o cliente " + clienteId));
 
         paciente.setPlanoAssociado(plano);
+        paciente.setPlano(plano.getNome());
         pacienteRepository.save(paciente);
 
         return plano;

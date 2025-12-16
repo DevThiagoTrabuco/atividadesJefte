@@ -43,7 +43,7 @@ public class PrescricaoService {
         ConsultaModel consulta = consultaRepository.findById(prescricaoEntity.getConsultaId())
                 .orElseThrow(() -> new EntityNotFoundException("Consulta não encontrada com o ID: " + prescricaoEntity.getConsultaId()));
 
-        PrescricaoModel prescricao = prescricaoEntity.toEntity(cliente, paciente, consulta);
+        PrescricaoModel prescricao = prescricaoEntity.toModel(cliente, paciente, consulta);
         prescricaoRepository.save(prescricao);
     }
 

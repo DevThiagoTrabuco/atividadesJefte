@@ -2,6 +2,7 @@ package com.senai.Geriatricare.models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.senai.Geriatricare.enums.StatusAgendamento;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,6 +33,9 @@ public class AgendamentoModel {
 
     @Column(name = "data_agendamento", nullable = false)
     private LocalDateTime data;
+
+    @Enumerated(EnumType.STRING)
+    private StatusAgendamento statusAgendamento;
 
     @Column(name = "procedimento", nullable = false)
     private String procedimento;

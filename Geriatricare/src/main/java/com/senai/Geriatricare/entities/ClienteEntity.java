@@ -24,14 +24,14 @@ public class ClienteEntity {
     private int adminId;
     private List<ContasAPagarModel> contasAPagar;
 
-    public ClienteModel toEntity(AdminModel admin){
+    public ClienteModel toModel(AdminModel admin){
         ClienteModel cliente = new ClienteModel();
         cliente.setId(this.id);
         cliente.setNome(this.nome);
         cliente.setEmail(this.email.validaEmail() ? this.email.getEmail() : null);
         cliente.setTelefone(this.telefone.validaTelefone() ? this.telefone.getTelefone() : null);
         cliente.setCnpj(this.cnpj.getCnpj());
-        cliente.setEndereco(this.endereco.toEntity());
+        cliente.setEndereco(this.endereco.toModel());
 
         if (this.contasAPagar != null) {
             this.contasAPagar.forEach(c -> c.setCliente(cliente));

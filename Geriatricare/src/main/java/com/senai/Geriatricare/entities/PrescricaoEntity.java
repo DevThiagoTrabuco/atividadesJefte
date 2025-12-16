@@ -23,7 +23,7 @@ public class PrescricaoEntity {
     private LocalDate dataInicio;
     private int quantidade;
 
-    public PrescricaoModel toEntity(ClienteModel cliente, PacienteModel paciente, ConsultaModel consulta) { // Modificado
+    public PrescricaoModel toModel(ClienteModel cliente, PacienteModel paciente, ConsultaModel consulta) { // Modificado
         PrescricaoModel prescricao = new PrescricaoModel();
         prescricao.setId(this.id);
         prescricao.setCliente(cliente);

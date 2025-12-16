@@ -35,7 +35,7 @@ public class PacienteEntity {
     private List<PrescricaoEntity> prescricoes;
     private List<FamiliarEntity> familiares;
 
-    public PacienteModel toEntity(ClienteModel cliente) {
+    public PacienteModel toModel(ClienteModel cliente) {
         PacienteModel paciente = new PacienteModel();
         paciente.setId(this.id);
         paciente.setNome(this.nome);

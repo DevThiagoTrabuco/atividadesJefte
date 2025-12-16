@@ -138,4 +138,15 @@ public class PacienteController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
+    @PutMapping("/{pacienteId}/alterar-status")
+    public ResponseEntity<?> alterarStatus(@PathVariable Integer clienteId, @PathVariable Integer pacienteId, @RequestParam StatusPaciente status) {
+        try {
+            pacienteService.alterarStatus(clienteId, pacienteId, status);
+            return ResponseEntity.ok("Status do paciente alterado com sucesso.");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

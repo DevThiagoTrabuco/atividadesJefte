@@ -25,7 +25,7 @@ public class EnderecoEntity {
     private CEP cep;
     private String complemento;
 
-    public EnderecoModel toEntity(){
+    public EnderecoModel toModel(){
         EnderecoModel endereco = new EnderecoModel();
         endereco.setId(this.id);
         endereco.setLogradouro(this.logradouro);

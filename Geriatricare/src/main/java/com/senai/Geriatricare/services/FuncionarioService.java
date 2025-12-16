@@ -1,9 +1,11 @@
 package com.senai.Geriatricare.services;
 
 import com.senai.Geriatricare.enums.Funcao;
+import com.senai.Geriatricare.enums.StatusFuncionario;
 import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.models.FuncionarioModel;
 import com.senai.Geriatricare.entities.FuncionarioEntity;
+import com.senai.Geriatricare.models.UsuarioModel;
 import com.senai.Geriatricare.repositories.ClienteRepository;
 import com.senai.Geriatricare.repositories.FuncionarioRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -16,11 +18,13 @@ import java.util.List;
 public class FuncionarioService {
     private final FuncionarioRepository funcionarioRepository;
     private final ClienteRepository clienteRepository;
+    private final UsuarioService usuarioService;
 
     @Autowired
-    public FuncionarioService(FuncionarioRepository funcionarioRepository, ClienteRepository clienteRepository) {
+    public FuncionarioService(FuncionarioRepository funcionarioRepository, ClienteRepository clienteRepository, UsuarioService usuarioService) {
         this.funcionarioRepository = funcionarioRepository;
         this.clienteRepository = clienteRepository;
+        this.usuarioService = usuarioService;
     }
 
     public void criarFuncionario(Integer clienteId, FuncionarioEntity funcionarioEntity) {
@@ -40,7 +44,10 @@ public class FuncionarioService {
 
         ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
-        FuncionarioModel funcionario = funcionarioEntity.toEntity(cliente);
+        
+        funcionarioEntity.setStatusFuncionario(StatusFuncionario.ATIVO);
+        
+        FuncionarioModel funcionario = funcionarioEntity.toModel(cliente);
         funcionarioRepository.save(funcionario);
     }
 
@@ -69,7 +76,7 @@ public class FuncionarioService {
         funcionario.setRg(rgAtualizado);
         funcionario.setDataNascimento(funcionarioAtualizado.getDataNascimento());
         funcionario.setFuncao(funcionarioAtualizado.getFuncao());
-        funcionario.setEndereco(funcionarioAtualizado.getEndereco().toEntity());
+        funcionario.setEndereco(funcionarioAtualizado.getEndereco().toModel());
 
         funcionarioRepository.save(funcionario);
     }
@@ -121,5 +128,29 @@ public class FuncionarioService {
         ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
         return funcionarioRepository.findByClienteAndFuncao(cliente, funcao);
+    }
+
+    public void inativarFuncionario(Integer clienteId, Integer funcionarioId) {
+        if (!funcionarioRepository.existsById(funcionarioId)) {
+            throw new EntityNotFoundException("Funcionário não encontrado com o ID: " + funcionarioId);
+        }
+        funcionarioRepository.inativarFuncionario(funcionarioId, clienteId);
+        UsuarioModel usuario = usuarioService.buscarPorFuncionarioId(funcionarioId);
+        usuarioService.inativarUsuario(usuario.getId());
+    }
+
+    public void ativarFuncionario(Integer clienteId, Integer funcionarioId) {
+        if (!funcionarioRepository.existsById(funcionarioId)) {
+            throw new EntityNotFoundException("Funcionário não encontrado com o ID: " + funcionarioId);
+        }
+        funcionarioRepository.ativarFuncionario(funcionarioId, clienteId);
+        UsuarioModel usuario = usuarioService.buscarPorFuncionarioId(funcionarioId);
+        usuarioService.ativarUsuario(usuario.getId());
+    }
+
+    public List<FuncionarioModel> listarFuncionariosPorStatus(Integer clienteId, StatusFuncionario status) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
+        return funcionarioRepository.findAllByClienteAndStatusFuncionario(cliente, status);
     }
 }

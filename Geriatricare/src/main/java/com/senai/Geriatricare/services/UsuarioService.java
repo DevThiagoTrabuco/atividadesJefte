@@ -50,7 +50,7 @@ public class UsuarioService {
             return papelModel;
         }).collect(Collectors.toList());
 
-        UsuarioModel usuario = usuarioEntity.toEntity();
+        UsuarioModel usuario = usuarioEntity.toModel();
         usuario.setSenha(passwordEncoder.encode(usuarioEntity.getSenha().getSenha()));
         usuario.setPapeis(papeisEntity);
 
@@ -207,19 +207,44 @@ public class UsuarioService {
         }
 
         List<PapelModel> papeis = usuarioModel.getPapeis();
-        boolean isAtivado = papeis.contains(papelAtivado);
+        papeis.remove(papelAtivado);
+        papeis.remove(papelDesativado);
 
-        if (statusFormatado.equals("ATIVADO") && !isAtivado) {
-            papeis.remove(papelDesativado);
+        if (statusFormatado.equals("ATIVADO")) {
             papeis.add(papelAtivado);
-        } else if (statusFormatado.equals("DESATIVADO") && isAtivado) {
-            papeis.remove(papelAtivado);
-            papeis.add(papelDesativado);
         } else {
-            throw new IllegalArgumentException("Usuário já possui o status: " + statusFormatado);
+            papeis.add(papelDesativado);
         }
 
         usuarioModel.setPapeis(papeis);
         usuarioRepository.save(usuarioModel);
+    }
+
+    public UsuarioModel buscarPorFuncionarioId(Integer funcionarioId) {
+        return usuarioRepository.findByFuncionarioId(funcionarioId)
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado para o funcionário com ID: " + funcionarioId));
+    }
+
+    public UsuarioModel buscarPorAdminId(Integer adminId) {
+        return usuarioRepository.findByAdminId(adminId)
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado para o admin com ID: " + adminId));
+    }
+
+    public UsuarioModel buscarPorClienteId(Integer clienteId) {
+        return usuarioRepository.findByClienteId(clienteId)
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado para o cliente com ID: " + clienteId));
+    }
+
+    public UsuarioModel buscarPorFamiliarId(Integer familiarId) {
+        return usuarioRepository.findByFamiliarId(familiarId)
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado para o familiar com ID: " + familiarId));
+    }
+
+    public void inativarUsuario(int id) {
+        alternarStatusUsuario(id, "DESATIVADO");
+    }
+
+    public void ativarUsuario(int id) {
+        alternarStatusUsuario(id, "ATIVADO");
     }
 }

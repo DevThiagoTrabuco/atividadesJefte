@@ -1,6 +1,7 @@
 package com.senai.Geriatricare.services;
 
 import com.senai.Geriatricare.entities.AgendamentoEntity;
+import com.senai.Geriatricare.enums.StatusAgendamento;
 import com.senai.Geriatricare.models.AgendamentoModel;
 import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.models.PacienteModel;
@@ -10,6 +11,7 @@ import com.senai.Geriatricare.repositories.PacienteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,7 +32,8 @@ public class AgendamentoService {
         PacienteModel paciente = pacienteRepository.findById(agendamentoEntity.getPacienteId())
                 .orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado com o ID: " + agendamentoEntity.getPacienteId()));
 
-        AgendamentoModel agendamento = agendamentoEntity.toEntity(cliente, paciente);
+        AgendamentoModel agendamento = agendamentoEntity.toModel(cliente, paciente);
+        agendamento.setStatusAgendamento(StatusAgendamento.ABERTO);
         return agendamentoRepository.save(agendamento);
     }
 
@@ -67,6 +70,12 @@ public class AgendamentoService {
         return agendamentoRepository.findByClienteAndProcedimentoContaining(cliente, procedimento);
     }
 
+    public List<AgendamentoModel> buscarPorClienteEStatus(Integer clienteId, StatusAgendamento status) {
+        ClienteModel cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
+        return agendamentoRepository.findByClienteAndStatusAgendamento(cliente, status);
+    }
+
     public AgendamentoModel atualizarAgendamento(Integer clienteId, Integer agendamentoId, AgendamentoEntity agendamentoAtualizado) {
         ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
@@ -79,8 +88,16 @@ public class AgendamentoService {
         agendamentoExistente.setPaciente(paciente);
         agendamentoExistente.setData(agendamentoAtualizado.getData());
         agendamentoExistente.setProcedimento(agendamentoAtualizado.getProcedimento());
+        agendamentoExistente.setStatusAgendamento(agendamentoAtualizado.getStatusAgendamento());
 
         return agendamentoRepository.save(agendamentoExistente);
+    }
+
+    @Transactional
+    public AgendamentoModel fecharAgendamento(Integer clienteId, Integer agendamentoId) {
+        AgendamentoModel agendamento = buscarPorClienteEId(clienteId, agendamentoId);
+        agendamento.setStatusAgendamento(StatusAgendamento.FECHADO);
+        return agendamentoRepository.save(agendamento);
     }
 
     public void removerAgendamento(Integer clienteId, Integer agendamentoId) {

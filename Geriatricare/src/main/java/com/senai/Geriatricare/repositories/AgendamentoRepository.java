@@ -1,5 +1,6 @@
 package com.senai.Geriatricare.repositories;
 
+import com.senai.Geriatricare.enums.StatusAgendamento;
 import com.senai.Geriatricare.models.AgendamentoModel;
 import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.models.PacienteModel;
@@ -17,4 +18,5 @@ public interface AgendamentoRepository extends JpaRepository<AgendamentoModel, I
     List<AgendamentoModel> findByClienteAndPaciente(ClienteModel cliente, PacienteModel paciente);
     List<AgendamentoModel> findByClienteAndData(ClienteModel cliente, LocalDateTime data);
     List<AgendamentoModel> findByClienteAndProcedimentoContaining(ClienteModel cliente, String procedimento);
+    List<AgendamentoModel> findByClienteAndStatusAgendamento(ClienteModel cliente, StatusAgendamento statusAgendamento);
 }

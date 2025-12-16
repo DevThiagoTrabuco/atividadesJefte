@@ -26,7 +26,7 @@ public class UsuarioEntity {
     private Integer admin_id;
     private Integer familiar_id;
 
-    public UsuarioModel toEntity() {
+    public UsuarioModel toModel() {
         UsuarioModel usuario = new UsuarioModel();
         usuario.setId(this.id);
         usuario.setNomeUsuario(this.nomeUsuario);

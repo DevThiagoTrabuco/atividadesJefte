@@ -32,7 +32,7 @@ public class RegistroService {
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + registroEntity.getClienteId()));
         FuncionarioModel funcionario = funcionarioRepository.findById(registroEntity.getFuncionarioId())
                 .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado com o ID: " + registroEntity.getFuncionarioId()));
-        RegistroModel registro = registroEntity.toEntity(cliente, funcionario);
+        RegistroModel registro = registroEntity.toModel(cliente, funcionario);
         registroRepository.save(registro);
     }
 

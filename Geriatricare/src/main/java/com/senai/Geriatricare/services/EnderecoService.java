@@ -35,7 +35,7 @@ public class EnderecoService {
     }
 
     public void criarEndereco(EnderecoEntity enderecoEntity){
-        EnderecoModel enderecoModel = enderecoEntity.toEntity();
+        EnderecoModel enderecoModel = enderecoEntity.toModel();
         enderecoRepository.save(enderecoModel);
     }
 
@@ -43,7 +43,7 @@ public class EnderecoService {
         EnderecoModel endereco = enderecoRepository.findById(enderecoEntity.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Endereço não encontrado com o ID: " + enderecoEntity.getId()));
 
-        EnderecoModel atualizado = enderecoEntity.toEntity();
+        EnderecoModel atualizado = enderecoEntity.toModel();
         endereco.setLogradouro(atualizado.getLogradouro());
         endereco.setNumero(atualizado.getNumero());
         endereco.setBairro(atualizado.getBairro());

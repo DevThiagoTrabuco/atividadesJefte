@@ -1,6 +1,7 @@
 package com.senai.Geriatricare.controllers;
 
 import com.senai.Geriatricare.enums.Funcao;
+import com.senai.Geriatricare.enums.StatusFuncionario;
 import com.senai.Geriatricare.models.FuncionarioModel;
 import com.senai.Geriatricare.entities.FuncionarioEntity;
 import com.senai.Geriatricare.services.FuncionarioService;
@@ -104,5 +105,37 @@ public class FuncionarioController {
     @GetMapping("/funcao/{funcao}")
     public ResponseEntity<List<FuncionarioModel>> buscarPorFuncao(@PathVariable int clienteId, @PathVariable Funcao funcao) {
         return ResponseEntity.ok(funcionarioService.buscarPorFuncao(clienteId, funcao));
+    }
+
+    @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
+    @PutMapping("/inativar/{funcionarioId}")
+    public ResponseEntity<?> inativarFuncionario(@PathVariable Integer clienteId, @PathVariable Integer funcionarioId) {
+        try {
+            funcionarioService.inativarFuncionario(clienteId, funcionarioId);
+            return ResponseEntity.ok("Funcionário inativado com sucesso.");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
+    @PutMapping("/ativar/{funcionarioId}")
+    public ResponseEntity<?> ativarFuncionario(@PathVariable Integer clienteId, @PathVariable Integer funcionarioId) {
+        try {
+            funcionarioService.ativarFuncionario(clienteId, funcionarioId);
+            return ResponseEntity.ok("Funcionário ativado com sucesso.");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
+    @GetMapping("/status/{status}")
+    public ResponseEntity<?> listarFuncionariosPorStatus(@PathVariable Integer clienteId, @PathVariable StatusFuncionario status) {
+        try {
+            return ResponseEntity.ok(funcionarioService.listarFuncionariosPorStatus(clienteId, status));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

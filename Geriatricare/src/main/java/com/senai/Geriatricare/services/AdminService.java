@@ -24,7 +24,7 @@ public class AdminService {
             throw new IllegalArgumentException("Já existe um admin com o email: " + email);
         }
 
-        AdminModel admin = adminEntity.toEntity();
+        AdminModel admin = adminEntity.toModel();
 
         if (admin.getEmail() == null) {
             throw new IllegalArgumentException("Email inválido.");
@@ -43,7 +43,7 @@ public class AdminService {
             throw new IllegalArgumentException("Já existe um admin com o email: " + emailAtualizado);
         }
 
-        AdminModel adminConvertido = adminAtualizado.toEntity();
+        AdminModel adminConvertido = adminAtualizado.toModel();
 
         if (adminConvertido.getEmail() == null) {
             throw new IllegalArgumentException("Email inválido.");

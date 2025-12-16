@@ -2,6 +2,7 @@ package com.senai.Geriatricare.controllers;
 
 import com.senai.Geriatricare.enums.Papel;
 import com.senai.Geriatricare.entities.UsuarioEntity;
+import com.senai.Geriatricare.models.UsuarioModel;
 import com.senai.Geriatricare.services.UsuarioService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -305,14 +306,10 @@ public class UsuarioController {
     public ResponseEntity<?> alternarStatusUsuario(@PathVariable int id, @PathVariable String status) {
         try {
             UsuarioEntity usuario = usuarioService.buscarUsuarioPorId(id);
-
-            // Verifica se o status fornecido é válido
             String statusFormatado = status.toUpperCase();
             if (!statusFormatado.equals("ATIVADO") && !statusFormatado.equals("DESATIVADO")) {
                 return ResponseEntity.badRequest().body("Status inválido. Use 'ATIVADO' ou 'DESATIVADO'.");
             }
-
-            // Alterna o status do usuário
             usuarioService.alternarStatusUsuario(id, statusFormatado);
             return ResponseEntity.ok("Status do usuário alternado com sucesso para: " + statusFormatado);
         } catch (IllegalArgumentException | EntityNotFoundException e) {
@@ -322,4 +319,49 @@ public class UsuarioController {
         }
     }
 
+    @GetMapping("/funcionario/{funcionarioId}")
+    public ResponseEntity<UsuarioModel> buscarPorFuncionarioId(@PathVariable Integer funcionarioId) {
+        return ResponseEntity.ok(usuarioService.buscarPorFuncionarioId(funcionarioId));
+    }
+
+    @GetMapping("/admin/{adminId}")
+    public ResponseEntity<UsuarioModel> buscarPorAdminId(@PathVariable Integer adminId) {
+        return ResponseEntity.ok(usuarioService.buscarPorAdminId(adminId));
+    }
+
+    @GetMapping("/cliente/{clienteId}")
+    public ResponseEntity<UsuarioModel> buscarPorClienteId(@PathVariable Integer clienteId) {
+        return ResponseEntity.ok(usuarioService.buscarPorClienteId(clienteId));
+    }
+
+    @GetMapping("/familiar/{familiarId}")
+    public ResponseEntity<UsuarioModel> buscarPorFamiliarId(@PathVariable Integer familiarId) {
+        return ResponseEntity.ok(usuarioService.buscarPorFamiliarId(familiarId));
+    }
+
+    @PreAuthorize("(hasRole('ADMIN') or hasRole('CLIENTE')) and hasRole('ATIVADO')")
+    @PutMapping("/inativar/{id}")
+    public ResponseEntity<?> inativarUsuario(@PathVariable int id) {
+        try {
+            usuarioService.inativarUsuario(id);
+            return ResponseEntity.ok("Usuário inativado com sucesso.");
+        } catch (IllegalArgumentException | EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao inativar usuário: " + e.getMessage());
+        }
+    }
+
+    @PreAuthorize("(hasRole('ADMIN') or hasRole('CLIENTE')) and hasRole('ATIVADO')")
+    @PutMapping("/ativar/{id}")
+    public ResponseEntity<?> ativarUsuario(@PathVariable int id) {
+        try {
+            usuarioService.ativarUsuario(id);
+            return ResponseEntity.ok("Usuário ativado com sucesso.");
+        } catch (IllegalArgumentException | EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao ativar usuário: " + e.getMessage());
+        }
+    }
 }

@@ -26,7 +26,7 @@ public class FamiliarEntity {
     private EnderecoEntity endereco;
     private List<PacienteEntity> pacientes;
 
-    public FamiliarModel toEntity(ClienteModel cliente) {
+    public FamiliarModel toModel(ClienteModel cliente) {
         FamiliarModel familiar = new FamiliarModel();
         familiar.setId(this.id);
         familiar.setNome(this.nome);
@@ -36,7 +36,7 @@ public class FamiliarEntity {
         familiar.setRg(this.rg.validaRG() ? this.rg.getRg() : null);
         familiar.setParentesco(this.parentesco);
         familiar.setCliente(cliente);
-        familiar.setEndereco(this.endereco.toEntity());
+        familiar.setEndereco(this.endereco.toModel());
 
         return familiar;
     }

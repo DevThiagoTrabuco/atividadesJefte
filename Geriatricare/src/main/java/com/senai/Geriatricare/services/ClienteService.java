@@ -32,7 +32,7 @@ public class ClienteService {
         AdminModel admin = adminRepository.findById(clienteEntity.getAdminId())
                 .orElseThrow(() -> new EntityNotFoundException("Admin não encontrado com o ID: " + clienteEntity.getAdminId()));
 
-        ClienteModel cliente = clienteEntity.toEntity(admin);
+        ClienteModel cliente = clienteEntity.toModel(admin);
         clienteRepository.save(cliente);
     }
 
@@ -53,7 +53,7 @@ public class ClienteService {
         cliente.setEmail(emailAtualizado);
         cliente.setTelefone(telefoneAtualizado);
         cliente.setCnpj(cnpjAtualizado);
-        cliente.setEndereco(clienteAtualizado.getEndereco().toEntity());
+        cliente.setEndereco(clienteAtualizado.getEndereco().toModel());
 
         clienteRepository.save(cliente);
     }

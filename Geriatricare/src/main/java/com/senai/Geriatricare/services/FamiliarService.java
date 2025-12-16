@@ -46,7 +46,7 @@ public class FamiliarService {
         ClienteModel cliente = clienteRepository.findById(familiarEntity.getClienteId())
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + familiarEntity.getClienteId()));
 
-        FamiliarModel familiar = familiarEntity.toEntity(cliente);
+        FamiliarModel familiar = familiarEntity.toModel(cliente);
         familiarRepository.save(familiar);
     }
 
@@ -74,7 +74,7 @@ public class FamiliarService {
         familiar.setCpf(cpfAtualizado);
         familiar.setRg(rgAtualizado);
         familiar.setParentesco(familiarAtualizado.getParentesco());
-        familiar.setEndereco(familiarAtualizado.getEndereco().toEntity());
+        familiar.setEndereco(familiarAtualizado.getEndereco().toModel());
 
         familiarRepository.save(familiar);
     }

@@ -3,6 +3,7 @@ package com.senai.Geriatricare.models;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.senai.Geriatricare.enums.Funcao;
+import com.senai.Geriatricare.enums.StatusFuncionario;
 import com.senai.Geriatricare.enums.UnidadeFederativa;
 import jakarta.persistence.*;
 import lombok.*;
@@ -35,6 +36,9 @@ public class FuncionarioModel {
     @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataNascimento;
 
+    @Column(name = "data_admissao", nullable = false)
+    private LocalDate dataAdmissao;
+
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
@@ -43,6 +47,9 @@ public class FuncionarioModel {
 
     @Enumerated(EnumType.STRING)
     private UnidadeFederativa unidadeFederativa;
+
+    @Enumerated(EnumType.STRING)
+    private StatusFuncionario statusFuncionario;
 
     @Column(name = "telefone", nullable = false)
     private String telefone;

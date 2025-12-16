@@ -43,7 +43,7 @@ public class PacienteService {
 
         ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
-        PacienteModel paciente = pacienteEntity.toEntity(cliente);
+        PacienteModel paciente = pacienteEntity.toModel(cliente);
         pacienteRepository.save(paciente);
     }
 
@@ -151,5 +151,12 @@ public class PacienteService {
 
         paciente.getFamiliares().add(familiar);
         return pacienteRepository.save(paciente);
+    }
+
+    public void alterarStatus(Integer clienteId, Integer pacienteId, StatusPaciente status) {
+        if (!pacienteRepository.existsById(pacienteId)) {
+            throw new EntityNotFoundException("Paciente não encontrado com o ID: " + pacienteId);
+        }
+        pacienteRepository.alterarStatus(pacienteId, clienteId, status);
     }
 }

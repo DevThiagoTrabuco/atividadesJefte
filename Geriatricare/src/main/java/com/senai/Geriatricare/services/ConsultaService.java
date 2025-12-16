@@ -35,7 +35,7 @@ public class ConsultaService {
         FuncionarioModel funcionario = funcionarioRepository.findById(consultaEntity.getFuncionarioId())
                 .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado com o ID: " + consultaEntity.getFuncionarioId()));
 
-        ConsultaModel consulta = consultaEntity.toEntity(cliente, paciente, funcionario);
+        ConsultaModel consulta = consultaEntity.toModel(cliente, paciente, funcionario);
         return consultaRepository.save(consulta);
     }
 

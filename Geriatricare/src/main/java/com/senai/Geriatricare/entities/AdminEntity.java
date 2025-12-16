@@ -1,11 +1,8 @@
 package com.senai.Geriatricare.entities;
 
 import com.senai.Geriatricare.models.AdminModel;
-import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.entities.commons.*;
 import lombok.*;
-
-import java.util.List;
 
 @Getter
 @Setter
@@ -16,7 +13,7 @@ public class AdminEntity {
     private String nome;
     private Email email;
 
-    public AdminModel toEntity(){
+    public AdminModel toModel(){
         AdminModel admin = new AdminModel();
         admin.setId(this.id);
         admin.setNome(this.nome);
