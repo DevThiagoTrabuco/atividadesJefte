@@ -4,7 +4,7 @@ public enum Papel {
     ADMIN("ADMIN"),
     CLIENTE("CLIENTE"),
     FUNCIONARIO("FUNCIONARIO"),
-    FAMILIAR("FAMILIAR"),
+    FAMILIAR("FAMILIAR"), // Remove, familiares não têm acesso
     ATIVADO("ATIVADO"),
     DESATIVADO("DESATIVADO");
 

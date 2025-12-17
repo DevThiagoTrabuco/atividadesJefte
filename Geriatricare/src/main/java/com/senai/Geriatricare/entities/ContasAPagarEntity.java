@@ -20,11 +20,11 @@ public class ContasAPagarEntity {
 
     private int id;
     private String descricao;
-    private TipoConta tipoConta;
-    private String chaveNFE;
-    private String serieNFE;
+    private TipoConta tipoConta; // Melhor o usuário colocar isso, muito variado pra um ENUM
+    private String chaveNFE; // Desnecessário
+    private String serieNFE; // Desnecessário
     @JsonProperty("CNPJ")
-    private CNPJ cnpj;
+    private CNPJ cnpj; //Desnecessário, dá pra simplificar
     private double valor;
     private LocalDate dataVencimento;
     private LocalDate dataEmissao;

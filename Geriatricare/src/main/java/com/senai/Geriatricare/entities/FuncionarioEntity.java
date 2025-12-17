@@ -22,7 +22,7 @@ public class FuncionarioEntity {
     private LocalDate dataNascimento;
     private Email email;
     private String registro;
-    private UnidadeFederativa unidadeFederativa;
+    private UnidadeFederativa unidadeFederativa; // ???
     private Telefone telefone;
     private EnderecoEntity endereco;
     private Funcao funcao;

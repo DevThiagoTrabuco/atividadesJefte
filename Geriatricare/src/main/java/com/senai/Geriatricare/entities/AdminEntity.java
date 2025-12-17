@@ -12,6 +12,7 @@ public class AdminEntity {
     private int id;
     private String nome;
     private Email email;
+    //Acho que falta senha, mas fica no TODO
 
     public AdminModel toModel(){
         AdminModel admin = new AdminModel();

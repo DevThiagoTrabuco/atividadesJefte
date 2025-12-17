@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class AgendamentoEntity {
     private Integer clienteId;
     private Integer pacienteId;
-    private LocalDateTime data;
+    private LocalDateTime data; // Melhor colocar LocalDate e LocalTime pra data e hora respectivamente
     private String procedimento;
     private StatusAgendamento statusAgendamento;
 

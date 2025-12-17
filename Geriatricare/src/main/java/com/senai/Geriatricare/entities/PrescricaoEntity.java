@@ -24,7 +24,7 @@ public class PrescricaoEntity {
     private Posologia posologia;
     private LocalDate dataInicio;
     private int quantidade;
-    private List<ObservacaoEntity> observacoes;
+    private List<ObservacaoEntity> observacoes; // Vira String
 
     public PrescricaoModel toModel(ClienteModel cliente, PacienteModel paciente) {
         PrescricaoModel prescricao = new PrescricaoModel();

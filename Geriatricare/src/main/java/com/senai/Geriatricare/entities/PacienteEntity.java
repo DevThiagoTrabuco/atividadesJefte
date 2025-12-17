@@ -24,13 +24,13 @@ public class PacienteEntity {
     private RG rg;
     private Email email;
     private LocalDate dataNascimento;
-    private String plano;
-    private PlanoModel planoAssociado;
+    private String plano; // Desnecessário
+    private PlanoModel planoAssociado; // Desnecessário
     private Genero genero;
     private StatusPaciente statusPaciente;
-    private ClienteModel cliente;
+    private ClienteModel cliente; // Pq não clienteId como FK?
     private List<ObservacaoEntity> observacoes;
-    private List<ContasAPagarModel> contasAPagar;
+    private List<ContasAPagarModel> contasAPagar; // Desnecessário
     private List<PrescricaoEntity> prescricoes;
     private List<FamiliarEntity> familiares;
 
