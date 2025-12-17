@@ -66,7 +66,6 @@ public class PacienteService {
         paciente.setRg(rgAtualizado);
         paciente.setEmail(pacienteAtualizado.getEmail().getEmail());
         paciente.setDataNascimento(pacienteAtualizado.getDataNascimento());
-        paciente.setPlano(pacienteAtualizado.getPlano());
         paciente.setGenero(pacienteAtualizado.getGenero());
         paciente.setStatusPaciente(pacienteAtualizado.getStatusPaciente());
 
@@ -136,11 +135,6 @@ public class PacienteService {
         return pacienteRepository.findByClienteAndGenero(cliente, genero);
     }
 
-    public List<PacienteModel> buscarPorPlano(int clienteId, String plano) {
-        ClienteModel cliente = clienteRepository.findById(clienteId)
-                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
-        return pacienteRepository.findByClienteAndPlano(cliente, plano);
-    }
 
     @Transactional
     public PacienteModel associarFamiliar(Integer pacienteId, Integer familiarId, Integer clienteId) {

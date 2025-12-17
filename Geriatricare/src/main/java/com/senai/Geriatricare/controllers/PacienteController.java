@@ -122,11 +122,6 @@ public class PacienteController {
         return ResponseEntity.ok(pacienteService.buscarPorGenero(clienteId, genero));
     }
 
-    @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
-    @GetMapping("/plano/{plano}")
-    public ResponseEntity<List<PacienteModel>> buscarPorPlano(@PathVariable int clienteId, @PathVariable String plano) {
-        return ResponseEntity.ok(pacienteService.buscarPorPlano(clienteId, plano));
-    }
 
     @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
     @PostMapping("/{pacienteId}/associar-familiar/{familiarId}")

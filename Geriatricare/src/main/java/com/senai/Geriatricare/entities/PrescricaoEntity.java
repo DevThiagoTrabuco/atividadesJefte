@@ -1,11 +1,13 @@
 package com.senai.Geriatricare.entities;
 
+import com.senai.Geriatricare.enums.Posologia;
 import com.senai.Geriatricare.models.ClienteModel;
-import com.senai.Geriatricare.models.ObservacaoModel;
 import com.senai.Geriatricare.models.PacienteModel;
 import com.senai.Geriatricare.models.PrescricaoModel;
-import com.senai.Geriatricare.enums.Posologia;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,7 +26,7 @@ public class PrescricaoEntity {
     private Posologia posologia;
     private LocalDate dataInicio;
     private int quantidade;
-    private List<ObservacaoEntity> observacoes; // Vira String
+    private List<String> observacoes;
 
     public PrescricaoModel toModel(ClienteModel cliente, PacienteModel paciente) {
         PrescricaoModel prescricao = new PrescricaoModel();
@@ -37,7 +39,7 @@ public class PrescricaoEntity {
         prescricao.setDataInicio(this.dataInicio);
         prescricao.setQuantidade(this.quantidade);
         if (this.observacoes != null) {
-            prescricao.setObservacoes(this.observacoes.stream().map(obs -> obs.toModel(cliente, paciente)).collect(Collectors.toList()));
+            prescricao.setObservacoes(this.observacoes.stream().collect(Collectors.toList()));
         }
 
         return prescricao;

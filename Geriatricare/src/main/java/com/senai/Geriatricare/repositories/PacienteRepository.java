@@ -30,7 +30,6 @@ public interface PacienteRepository extends JpaRepository<PacienteModel, Integer
     List<PacienteModel> findByClienteAndFamiliares(ClienteModel cliente, FamiliarModel familiar);
     List<PacienteModel> findByClienteAndStatusPaciente(ClienteModel cliente, StatusPaciente statusPaciente);
     List<PacienteModel> findByClienteAndGenero(ClienteModel cliente, Genero genero);
-    List<PacienteModel> findByClienteAndPlano(ClienteModel cliente, String plano);
 
     @Transactional
     @Modifying

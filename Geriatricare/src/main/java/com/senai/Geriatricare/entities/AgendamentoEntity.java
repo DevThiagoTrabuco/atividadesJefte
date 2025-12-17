@@ -8,7 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +17,8 @@ import java.time.LocalDateTime;
 public class AgendamentoEntity {
     private Integer clienteId;
     private Integer pacienteId;
-    private LocalDateTime data; // Melhor colocar LocalDate e LocalTime pra data e hora respectivamente
+    private LocalDate data;
+    private LocalTime hora;
     private String procedimento;
     private StatusAgendamento statusAgendamento;
 
@@ -25,6 +27,7 @@ public class AgendamentoEntity {
         agendamento.setCliente(cliente);
         agendamento.setPaciente(paciente);
         agendamento.setData(this.data);
+        agendamento.setHora(this.hora);
         agendamento.setProcedimento(this.procedimento);
         agendamento.setStatusAgendamento(this.statusAgendamento);
         return agendamento;

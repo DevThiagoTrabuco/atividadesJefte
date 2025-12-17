@@ -27,17 +27,8 @@ public class ContasAPagarModel {
     @Column(name = "descricao")
     private String descricao;
 
-    @Enumerated(EnumType.STRING)
-    private TipoConta tipoConta;
-
-    @Column(name = "chave_NFE")
-    private String chaveNFE;
-
-    @Column(name = "serie_NFE")
-    private String serieNFE;
-
-    @Column(name = "CNPJ")
-    private String CNPJ;
+    @Column(name = "tipo_conta")
+    private String tipoConta;
 
     @Column(name = "valor")
     private double valor;
@@ -50,7 +41,7 @@ public class ContasAPagarModel {
 
     @Enumerated(EnumType.STRING)
     private StatusConta statusConta;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "paciente_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

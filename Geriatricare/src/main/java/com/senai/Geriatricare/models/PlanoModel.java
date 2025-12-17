@@ -4,8 +4,6 @@ import com.senai.Geriatricare.enums.TipoPlano;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "planos")
@@ -30,7 +28,4 @@ public class PlanoModel {
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     private ClienteModel cliente;
-
-    @OneToMany(mappedBy = "planoAssociado")
-    private List<PacienteModel> pacientes = new ArrayList<>();
 }

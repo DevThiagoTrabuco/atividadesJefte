@@ -53,24 +53,11 @@ public class PacienteModel {
     @Enumerated(EnumType.STRING)
     private StatusPaciente statusPaciente;
 
-    @Column(name = "plano", nullable = false)
-    private String plano;
-
-    @ManyToOne
-    @JoinColumn(name = "plano_id")
-    private PlanoModel planoAssociado;
-
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private ClienteModel cliente;
 
-    @OneToMany(
-            mappedBy = "paciente",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<ContasAPagarModel> contasAPagar = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(

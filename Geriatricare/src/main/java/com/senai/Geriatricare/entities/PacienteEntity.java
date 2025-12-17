@@ -4,10 +4,17 @@ import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.models.ContasAPagarModel;
 import com.senai.Geriatricare.models.PacienteModel;
 import com.senai.Geriatricare.models.PlanoModel;
+import com.senai.Geriatricare.entities.commons.CPF;
+import com.senai.Geriatricare.entities.commons.Email;
+import com.senai.Geriatricare.entities.commons.RG;
 import com.senai.Geriatricare.enums.Genero;
 import com.senai.Geriatricare.enums.StatusPaciente;
-import com.senai.Geriatricare.entities.commons.*;
-import lombok.*;
+import com.senai.Geriatricare.models.ClienteModel;
+import com.senai.Geriatricare.models.PacienteModel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,14 +31,10 @@ public class PacienteEntity {
     private RG rg;
     private Email email;
     private LocalDate dataNascimento;
-    private String plano; // Desnecessário
-    private PlanoModel planoAssociado; // Desnecessário
     private Genero genero;
     private StatusPaciente statusPaciente;
-    private ClienteModel cliente; // Pq não clienteId como FK?
+    private Integer clienteId;
     private List<ObservacaoEntity> observacoes;
-    private List<ContasAPagarModel> contasAPagar; // Desnecessário
-    private List<PrescricaoEntity> prescricoes;
     private List<FamiliarEntity> familiares;
 
     public PacienteModel toModel(ClienteModel cliente) {
@@ -42,16 +45,10 @@ public class PacienteEntity {
         paciente.setRg(this.rg.validaRG() ? this.rg.getRg() : null);
         paciente.setEmail(this.email.validaEmail() ? this.email.getEmail() : null);
         paciente.setDataNascimento(this.dataNascimento);
-        paciente.setPlano(this.plano);
-        paciente.setPlanoAssociado(this.planoAssociado);
         paciente.setGenero(this.genero);
         paciente.setStatusPaciente(this.statusPaciente);
         if (this.observacoes != null) {
             paciente.setObservacoes(this.observacoes.stream().map(obs -> obs.toModel(cliente, paciente)).collect(Collectors.toList()));
-        }
-        if (this.contasAPagar != null) {
-            this.contasAPagar.forEach(c -> c.setPaciente(paciente));
-            paciente.setContasAPagar(this.contasAPagar);
         }
         paciente.setCliente(cliente);
 

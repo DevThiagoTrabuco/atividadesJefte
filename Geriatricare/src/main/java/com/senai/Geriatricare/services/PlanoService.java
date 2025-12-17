@@ -66,16 +66,4 @@ public class PlanoService {
         return planoRepository.findByClienteAndTipo(cliente, tipoPlano);
     }
 
-    @Transactional
-    public PlanoModel associarPlanoAPaciente(Integer planoId, Integer pacienteId, Integer clienteId) {
-        PlanoModel plano = buscarPlanoPorIdECliente(planoId, clienteId);
-        PacienteModel paciente = pacienteRepository.findByIdAndClienteId(pacienteId, clienteId)
-                .orElseThrow(() -> new NoSuchElementException("Paciente com o ID " + pacienteId + " não encontrado para o cliente " + clienteId));
-
-        paciente.setPlanoAssociado(plano);
-        paciente.setPlano(plano.getNome());
-        pacienteRepository.save(paciente);
-
-        return plano;
-    }
 }

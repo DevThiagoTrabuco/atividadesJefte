@@ -3,7 +3,7 @@ package com.senai.Geriatricare.enums;
 public enum Genero {
     MASCULINO("MASCULINO"),
     FEMININO("FEMININO"),
-    OUTRO("OUTRO"); // Acredito que seja desnecessário
+    OUTRO("OUTRO");
 
     private final String genero;
 

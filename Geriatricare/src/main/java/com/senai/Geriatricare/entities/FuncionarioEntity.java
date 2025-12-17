@@ -22,7 +22,6 @@ public class FuncionarioEntity {
     private LocalDate dataNascimento;
     private Email email;
     private String registro;
-    private UnidadeFederativa unidadeFederativa; // ???
     private Telefone telefone;
     private EnderecoEntity endereco;
     private Funcao funcao;
@@ -39,7 +38,6 @@ public class FuncionarioEntity {
         funcionario.setDataNascimento(this.dataNascimento);
         funcionario.setEmail(this.email.validaEmail() ? this.email.getEmail() : null);
         funcionario.setRegistro(this.registro);
-        funcionario.setUnidadeFederativa(this.unidadeFederativa);
         funcionario.setTelefone(this.telefone.validaTelefone() ? this.telefone.getTelefone() : null);
         funcionario.setEndereco(this.endereco.toModel());
         funcionario.setFuncao(this.funcao);

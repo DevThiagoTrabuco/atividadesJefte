@@ -79,14 +79,4 @@ public class PlanoController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE')")
-    @PostMapping("/{planoId}/associar-paciente/{pacienteId}")
-    public ResponseEntity<?> associarPlanoAPaciente(@PathVariable Integer clienteId, @PathVariable Integer planoId, @PathVariable Integer pacienteId) {
-        try {
-            PlanoModel plano = planoService.associarPlanoAPaciente(planoId, pacienteId, clienteId);
-            return ResponseEntity.ok(plano);
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
 }

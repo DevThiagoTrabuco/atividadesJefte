@@ -36,6 +36,9 @@ public class PrescricaoModel {
     @Column(name = "descricao")
     private String descricao;
 
+    @Column(name = "observacoes")
+    private List<String> observacoes  = new ArrayList();
+
     @Enumerated(EnumType.STRING)
     @Column(name = "posologia", nullable = false)
     private Posologia posologia;
@@ -45,8 +48,4 @@ public class PrescricaoModel {
 
     @Column(name = "quantidade")
     private int quantidade;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "prescricao_id")
-    private List<ObservacaoModel> observacoes = new ArrayList<>();
 }

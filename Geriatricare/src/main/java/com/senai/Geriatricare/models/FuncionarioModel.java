@@ -45,15 +45,12 @@ public class FuncionarioModel {
     @Column(name = "registro_profissional", nullable = false, unique = true)
     private String registro;
 
-    @Enumerated(EnumType.STRING)
-    private UnidadeFederativa unidadeFederativa;
 
     @Enumerated(EnumType.STRING)
     private StatusFuncionario statusFuncionario;
 
     @Column(name = "telefone", nullable = false)
     private String telefone;
-
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "endereco_id")

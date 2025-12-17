@@ -69,22 +69,6 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('FUNCIONARIO') and hasRole('ATIVADO')")
-    @PostMapping("/familiar")
-    public ResponseEntity<?> criarFamiliarUsuario(@RequestBody UsuarioEntity usuarioEntity) {
-        try {
-            if (usuarioEntity.getPapel() == null || usuarioEntity.getPapel().size() != 2 ||
-                    !usuarioEntity.getPapel().contains(Papel.FAMILIAR) ||
-                    !usuarioEntity.getPapel().contains(Papel.ATIVADO)) {
-                return ResponseEntity.badRequest().body("Para esta rota, os papéis devem ser 'FAMILIAR' e 'ATIVADO'.");
-            }
-            usuarioService.criarUsuario(usuarioEntity);
-            return ResponseEntity.ok("Usuário familiar criado com sucesso.");
-        } catch (IllegalArgumentException | EntityNotFoundException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
-
     @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @GetMapping("/listar/admin")
     public ResponseEntity<?> listarUsuariosAdmin() {
@@ -112,16 +96,6 @@ public class UsuarioController {
             return ResponseEntity.ok(usuarioService.listarUsuariosPorPapel(Papel.FUNCIONARIO));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Erro ao listar usuários FUNCIONARIO: " + e.getMessage());
-        }
-    }
-
-    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('FUNCIONARIO') and hasRole('ATIVADO')")
-    @GetMapping("/listar/familiar")
-    public ResponseEntity<?> listarUsuariosFamiliar() {
-        try {
-            return ResponseEntity.ok(usuarioService.listarUsuariosPorPapel(Papel.FAMILIAR));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Erro ao listar usuários FAMILIAR: " + e.getMessage());
         }
     }
 
@@ -164,18 +138,6 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('FUNCIONARIO') and hasRole('ATIVADO')")
-    @GetMapping("/buscar/familiar/{id}")
-    public ResponseEntity<?> buscarFamiliarPorId(@PathVariable int id) {
-        try {
-            UsuarioEntity usuario = usuarioService.buscarUsuarioPorIdEPapel(id, Papel.FAMILIAR);
-            return ResponseEntity.ok(usuario);
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.badRequest().body("Usuário FAMILIAR não encontrado com ID: " + id);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Erro ao buscar usuário FAMILIAR: " + e.getMessage());
-        }
-    }
 
     @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @PutMapping("/atualizar/admin/{id}")
@@ -231,23 +193,6 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('FUNCIONARIO') and hasRole('ATIVADO')")
-    @PutMapping("/atualizar/familiar/{id}")
-    public ResponseEntity<?> atualizarFamiliar(@PathVariable int id, @RequestBody UsuarioEntity usuarioEntity) {
-        try {
-            if (usuarioEntity.getPapel() == null || usuarioEntity.getPapel().size() != 2 ||
-                    !usuarioEntity.getPapel().contains(Papel.FAMILIAR) ||
-                    !usuarioEntity.getPapel().contains(Papel.ATIVADO)) {
-                return ResponseEntity.badRequest().body("Para esta rota, os papéis devem ser 'FAMILIAR' e 'ATIVADO'.");
-            }
-            usuarioService.atualizarUsuarioPorPapel(id, usuarioEntity, Papel.FAMILIAR);
-            return ResponseEntity.ok("Usuário FAMILIAR atualizado com sucesso.");
-        } catch (IllegalArgumentException | EntityNotFoundException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Erro ao atualizar usuário FAMILIAR: " + e.getMessage());
-        }
-    }
 
     @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
     @DeleteMapping("/deletar/admin/{id}")
@@ -288,18 +233,6 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') or hasRole('FUNCIONARIO') and hasRole('ATIVADO')")
-    @DeleteMapping("/deletar/familiar/{id}")
-    public ResponseEntity<?> deletarFamiliar(@PathVariable int id) {
-        try {
-            usuarioService.deletarUsuarioPorPapel(id, Papel.FAMILIAR);
-            return ResponseEntity.ok("Usuário FAMILIAR deletado com sucesso.");
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.badRequest().body("Usuário FAMILIAR não encontrado com ID: " + id);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Erro ao deletar usuário FAMILIAR: " + e.getMessage());
-        }
-    }
 
     @PreAuthorize("(hasRole('ADMIN') or hasRole('CLIENTE')) and hasRole('ATIVADO')")
     @PutMapping("/alternar-status/{id}/{status}")

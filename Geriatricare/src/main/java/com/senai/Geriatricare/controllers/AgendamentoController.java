@@ -11,7 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @RestController
@@ -67,9 +68,9 @@ public class AgendamentoController {
 
     @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
     @GetMapping("/data")
-    public ResponseEntity<?> buscarPorClienteEDataHora(@PathVariable Integer clienteId, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime data) {
+    public ResponseEntity<?> buscarPorClienteEData(@PathVariable Integer clienteId, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data) {
         try {
-            List<AgendamentoModel> agendamentos = agendamentoService.buscarPorClienteEDataHora(clienteId, data);
+            List<AgendamentoModel> agendamentos = agendamentoService.buscarPorClienteEData(clienteId, data);
             return ResponseEntity.ok(agendamentos);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

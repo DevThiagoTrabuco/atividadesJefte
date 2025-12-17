@@ -7,7 +7,8 @@ import com.senai.Geriatricare.models.PacienteModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +17,7 @@ public interface AgendamentoRepository extends JpaRepository<AgendamentoModel, I
     Optional<AgendamentoModel> findByIdAndCliente(Integer id, ClienteModel cliente);
     List<AgendamentoModel> findByCliente(ClienteModel cliente);
     List<AgendamentoModel> findByClienteAndPaciente(ClienteModel cliente, PacienteModel paciente);
-    List<AgendamentoModel> findByClienteAndData(ClienteModel cliente, LocalDateTime data);
+    List<AgendamentoModel> findByClienteAndData(ClienteModel cliente, LocalDate data);
     List<AgendamentoModel> findByClienteAndProcedimentoContaining(ClienteModel cliente, String procedimento);
     List<AgendamentoModel> findByClienteAndStatusAgendamento(ClienteModel cliente, StatusAgendamento statusAgendamento);
 }

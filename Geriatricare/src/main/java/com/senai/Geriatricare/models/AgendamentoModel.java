@@ -7,7 +7,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "agendamentos")
@@ -32,7 +33,10 @@ public class AgendamentoModel {
     private PacienteModel paciente;
 
     @Column(name = "data_agendamento", nullable = false)
-    private LocalDateTime data;
+    private LocalDate data;
+
+    @Column(name = "hora_agendamento", nullable = false)
+    private LocalTime hora;
 
     @Enumerated(EnumType.STRING)
     private StatusAgendamento statusAgendamento;
