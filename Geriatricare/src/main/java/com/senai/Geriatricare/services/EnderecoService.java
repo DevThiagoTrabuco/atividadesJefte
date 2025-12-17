@@ -1,11 +1,11 @@
 package com.senai.Geriatricare.services;
 
-import com.senai.Geriatricare.entities.ClienteEntity;
-import com.senai.Geriatricare.entities.EnderecoEntity;
-import com.senai.Geriatricare.entities.FamiliarEntity;
-import com.senai.Geriatricare.entities.FuncionarioEntity;
-import com.senai.Geriatricare.enums.UnidadeFederativa;
+import com.senai.Geriatricare.models.ClienteModel;
 import com.senai.Geriatricare.models.EnderecoModel;
+import com.senai.Geriatricare.models.FamiliarModel;
+import com.senai.Geriatricare.models.FuncionarioModel;
+import com.senai.Geriatricare.enums.UnidadeFederativa;
+import com.senai.Geriatricare.entities.EnderecoEntity;
 import com.senai.Geriatricare.repositories.ClienteRepository;
 import com.senai.Geriatricare.repositories.EnderecoRepository;
 import com.senai.Geriatricare.repositories.FamiliarRepository;
@@ -34,16 +34,16 @@ public class EnderecoService {
         this.funcionarioRepository = funcionarioRepository;
     }
 
-    public void criarEndereco(EnderecoModel enderecoModel){
-        EnderecoEntity enderecoEntity = enderecoModel.toEntity();
-        enderecoRepository.save(enderecoEntity);
+    public void criarEndereco(EnderecoEntity enderecoEntity){
+        EnderecoModel enderecoModel = enderecoEntity.toModel();
+        enderecoRepository.save(enderecoModel);
     }
 
-    public void atualizarEndereco(EnderecoModel enderecoModel){
-        EnderecoEntity endereco = enderecoRepository.findById(enderecoModel.getId())
-                .orElseThrow(() -> new EntityNotFoundException("Endereço não encontrado com o ID: " + enderecoModel.getId()));
+    public void atualizarEndereco(EnderecoEntity enderecoEntity){
+        EnderecoModel endereco = enderecoRepository.findById(enderecoEntity.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Endereço não encontrado com o ID: " + enderecoEntity.getId()));
 
-        EnderecoEntity atualizado = enderecoModel.toEntity();
+        EnderecoModel atualizado = enderecoEntity.toModel();
         endereco.setLogradouro(atualizado.getLogradouro());
         endereco.setNumero(atualizado.getNumero());
         endereco.setBairro(atualizado.getBairro());
@@ -62,54 +62,54 @@ public class EnderecoService {
         enderecoRepository.deleteById(id);
     }
 
-    public List<EnderecoEntity> listarTodos(){
+    public List<EnderecoModel> listarTodos(){
         return enderecoRepository.findAll();
     }
 
-    public EnderecoEntity buscarPorId(int id){
+    public EnderecoModel buscarPorId(int id){
         return enderecoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Endereço não encontrado com o ID: " + id));
     }
 
-    public EnderecoEntity buscarPorCliente(int clienteId){
-        ClienteEntity cliente = clienteRepository.findById(clienteId)
+    public EnderecoModel buscarPorCliente(int clienteId){
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
-        EnderecoEntity endereco = enderecoRepository.findByCliente(cliente);
+        EnderecoModel endereco = enderecoRepository.findByCliente(cliente);
         if (endereco == null) {
             throw new EntityNotFoundException("Endereço não encontrado para o cliente ID: " + clienteId);
         }
         return endereco;
     }
 
-    public EnderecoEntity buscarPorFamiliar(int clienteId, int familiarId){
-        ClienteEntity cliente = clienteRepository.findById(clienteId)
+    public EnderecoModel buscarPorFamiliar(int clienteId, int familiarId){
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
-        FamiliarEntity familiar = familiarRepository.findById(familiarId)
+        FamiliarModel familiar = familiarRepository.findById(familiarId)
                 .orElseThrow(() -> new EntityNotFoundException("Familiar não encontrado com o ID: " + familiarId));
-        EnderecoEntity endereco = enderecoRepository.findByClienteAndFamiliar(cliente, familiar);
+        EnderecoModel endereco = enderecoRepository.findByClienteAndFamiliar(cliente, familiar);
         if (endereco == null) {
             throw new EntityNotFoundException("Endereço não encontrado para o familiar ID: " + familiarId);
         }
         return endereco;
     }
 
-    public EnderecoEntity buscarPorFuncionario(int clienteId, int funcionarioId){
-        ClienteEntity cliente = clienteRepository.findById(clienteId)
+    public EnderecoModel buscarPorFuncionario(int clienteId, int funcionarioId){
+        ClienteModel cliente = clienteRepository.findById(clienteId)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado com o ID: " + clienteId));
-        FuncionarioEntity funcionario = funcionarioRepository.findById(funcionarioId)
+        FuncionarioModel funcionario = funcionarioRepository.findById(funcionarioId)
                 .orElseThrow(() -> new EntityNotFoundException("Funcionário não encontrado com o ID: " + funcionarioId));
-        EnderecoEntity endereco = enderecoRepository.findByClienteAndFuncionario(cliente, funcionario);
+        EnderecoModel endereco = enderecoRepository.findByClienteAndFuncionario(cliente, funcionario);
         if (endereco == null) {
             throw new EntityNotFoundException("Endereço não encontrado para o funcionário ID: " + funcionarioId);
         }
         return endereco;
     }
 
-    public List<EnderecoEntity> buscarPorUnidadeFederativa(UnidadeFederativa uf){
+    public List<EnderecoModel> buscarPorUnidadeFederativa(UnidadeFederativa uf){
         return enderecoRepository.findByUnidadeFederativa(uf);
     }
 
-    public List<EnderecoEntity> buscarPorCidade(String cidade){
+    public List<EnderecoModel> buscarPorCidade(String cidade){
         return enderecoRepository.findByCidade(cidade);
     }
 }

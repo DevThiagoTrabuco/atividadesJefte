@@ -1,49 +1,43 @@
 package com.senai.Geriatricare.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.senai.Geriatricare.models.ClienteModel;
+import com.senai.Geriatricare.models.FamiliarModel;
 import com.senai.Geriatricare.enums.Parentesco;
-import jakarta.persistence.*;
+import com.senai.Geriatricare.entities.commons.*;
 import lombok.*;
 
 import java.util.List;
 
-@Entity
-@Table(name = "familiares")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FamiliarEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "familiar_id")
     private int id;
-
-    @Column(name = "nome", nullable = false)
     private String nome;
-
-    @Column(name = "cpf", nullable = false, unique = true)
-    private String cpf;
-
-    @Column(name = "rg", nullable = false, unique = true)
-    private String rg;
-
-    @Column(name = "email", nullable = false, unique = true)
-    private String email;
-
-    @Column(name = "telefone", nullable = false)
-    private String telefone;
-
-    @Enumerated(EnumType.STRING)
+    private Email email;
+    private Telefone telefone;
+    private CPF cpf;
+    private RG rg;
     private Parentesco parentesco;
-
-    @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
-    private ClienteEntity cliente;
-
-    @ManyToMany(mappedBy = "familiares", cascade = CascadeType.ALL)
+    private int clienteId;
+    private EnderecoEntity endereco;
     private List<PacienteEntity> pacientes;
 
-    @JsonManagedReference("familiar-endereco")
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "endereco_id", referencedColumnName = "endereco_id")
-    private EnderecoEntity endereco;
+    public FamiliarModel toModel(ClienteModel cliente) {
+        FamiliarModel familiar = new FamiliarModel();
+        familiar.setId(this.id);
+        familiar.setNome(this.nome);
+        familiar.setEmail(this.email.validaEmail() ? this.email.getEmail() : null);
+        familiar.setTelefone(this.telefone.validaTelefone() ? this.telefone.getTelefone() : null);
+        familiar.setCpf(this.cpf.validaCPF() ? this.cpf.getCpf() : null);
+        familiar.setRg(this.rg.validaRG() ? this.rg.getRg() : null);
+        familiar.setParentesco(this.parentesco);
+        familiar.setCliente(cliente);
+        familiar.setEndereco(this.endereco.toModel());
+
+        return familiar;
+    }
 }

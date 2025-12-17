@@ -1,67 +1,61 @@
 package com.senai.Geriatricare.entities;
 
-import jakarta.persistence.*;
+import com.senai.Geriatricare.models.AdminModel;
+import com.senai.Geriatricare.models.ClienteModel;
+import com.senai.Geriatricare.models.FamiliarModel;
+import com.senai.Geriatricare.models.FuncionarioModel;
+import com.senai.Geriatricare.models.UsuarioModel;
+import com.senai.Geriatricare.enums.Papel;
+import com.senai.Geriatricare.entities.commons.Senha;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.Collection;
 import java.util.List;
 
-@Entity
-@Table(name = "usuarios")
 @Getter
 @Setter
-public class UsuarioEntity implements UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "usuario_id")
+@NoArgsConstructor
+@AllArgsConstructor
+public class UsuarioEntity {
     private int id;
-
-    @ManyToMany
-    @JoinTable(name = "usuarios_papeis",
-            joinColumns = @JoinColumn(name = "usuario_id"),
-            inverseJoinColumns = @JoinColumn(name = "papel_id"))
-    private List<PapelEntity> papeis;
-
-    @Column(name = "nome_usuario", nullable = false, unique = true)
     private String nomeUsuario;
+    private Senha senha;
+    private List<Papel> papel;
+    private Integer cliente_id;
+    private Integer funcionario_id;
+    private Integer admin_id;
+    private Integer familiar_id;
 
-    @Column(name = "senha", nullable = false)
-    private String senha;
+    public UsuarioModel toModel() {
+        UsuarioModel usuario = new UsuarioModel();
+        usuario.setId(this.id);
+        usuario.setNomeUsuario(this.nomeUsuario);
+        usuario.setSenha(this.senha.validaSenha() ? new BCryptPasswordEncoder().encode(this.senha.getSenha()) : null);
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.papeis;
-    }
+        if (this.cliente_id != null) {
+            ClienteModel cliente = new ClienteModel();
+            cliente.setId(this.cliente_id);
+            usuario.setCliente(cliente);
+        }
 
-    @Override
-    public String getPassword() {
-        return this.senha;
-    }
+        if (this.funcionario_id != null) {
+            FuncionarioModel funcionario = new FuncionarioModel();
+            funcionario.setId(this.funcionario_id);
+            usuario.setFuncionario(funcionario);
+        }
 
-    @Override
-    public String getUsername() {
-        return this.nomeUsuario;
-    }
+        if (this.admin_id != null) {
+            AdminModel admin = new AdminModel();
+            admin.setId(this.admin_id);
+            usuario.setAdmin(admin);
+        }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+        if (this.familiar_id != null) {
+            FamiliarModel familiar = new FamiliarModel();
+            familiar.setId(this.familiar_id);
+            usuario.setFamiliar(familiar);
+        }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
+        return usuario;
     }
 }
