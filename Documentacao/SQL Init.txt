@@ -1,10 +1,9 @@
-use geriatricare
+USE geriatricare;
+
+INSERT INTO papeis (papel) VALUES ('ADMIN'), ('CLIENTE'), ('FUNCIONARIO'), ('ATIVADO'), ('DESATIVADO');
 
 INSERT INTO usuarios (nome_usuario, senha)
 VALUES ('jorge', '$2a$10$BXRHeBV7.URY/sZa0WyrMunoY81lYoGGH.5GTrl5QZkCpV3Y5mR2K');
-
-
-INSERT INTO papeis (papel) VALUES ('ADMIN'), ('CLIENTE'), ('FUNCIONARIO'), ('FAMILIAR'), ('ATIVADO'), ('DESATIVADO');
 
 INSERT INTO usuarios_papeis (usuario_id, papel_id)
 VALUES (
@@ -18,9 +17,299 @@ VALUES (
     (SELECT papel_id FROM papeis WHERE papel = 'ATIVADO')
 );
 
+INSERT INTO administradores (nome, email) 
+VALUES ('Jilson', 'jilson@email.com');
 
-select * from usuarios;
+SET @admin_id = LAST_INSERT_ID();
 
-select * from usuarios_papeis;
+INSERT INTO usuarios (nome_usuario, senha, admin_id) 
+VALUES ('Admin1', '$2a$12$mCAc.ZEa7RQFlnw2mZV/KeTLVoo1PihD5qm76Lrsm4NT98IsV4P4a', @admin_id);
 
-select * from clientes;
+SET @usuario_id = LAST_INSERT_ID();
+
+INSERT INTO usuarios_papeis (usuario_id, papel_id)
+SELECT @usuario_id, papel_id 
+FROM papeis 
+WHERE papel IN ('ADMIN', 'ATIVADO');
+
+SELECT * FROM administradores WHERE admin_id = @admin_id;
+SELECT * FROM usuarios WHERE usuario_id = @usuario_id;
+SELECT u.nome_usuario, p.papel 
+FROM usuarios u
+JOIN usuarios_papeis up ON u.usuario_id = up.usuario_id
+JOIN papeis p ON up.papel_id = p.papel_id
+WHERE u.usuario_id = @usuario_id;
+
+
+INSERT INTO enderecos (logradouro, numero, bairro, cidade, unidade_federativa, cep, complemento)
+VALUES ('Rua das Palmeiras', '456', 'Jardim América', 'Belo Horizonte', 'MG', '30140-120', 'Casa 2');
+
+SET @endereco_id = LAST_INSERT_ID();
+
+
+INSERT INTO clientes (nome, email, telefone, cnpj, endereco_id)
+VALUES ('Clínica Bem Viver', 'contato@bemviver.com', '(31) 99999-8388', '58.579.552/0001-31', @endereco_id);
+
+
+SET @cliente_id = LAST_INSERT_ID();
+
+
+INSERT INTO usuarios (nome_usuario, senha, cliente_id)
+VALUES ('Cliente1', '$2a$12$mCAc.ZEa7RQFlnw2mZV/KeTLVoo1PihD5qm76Lrsm4NT98IsV4P4a', @cliente_id);
+
+
+SET @usuario_id = LAST_INSERT_ID();
+
+
+INSERT INTO usuarios_papeis (usuario_id, papel_id)
+SELECT @usuario_id, papel_id 
+FROM papeis 
+WHERE papel IN ('CLIENTE', 'ATIVADO');
+
+
+SELECT * FROM clientes WHERE cliente_id = @cliente_id;
+SELECT * FROM usuarios WHERE usuario_id = @usuario_id;
+SELECT u.nome_usuario, p.papel 
+FROM usuarios u
+JOIN usuarios_papeis up ON u.usuario_id = up.usuario_id
+JOIN papeis p ON up.papel_id = p.papel_id
+WHERE u.usuario_id = @usuario_id;
+
+
+-- ==============================================================================
+-- FUNCIONÁRIO 1: Carlos Andrade
+-- Usuário: Funcionario1
+-- ==============================================================================
+
+INSERT INTO enderecos (logradouro, numero, complemento, bairro, cidade, unidade_federativa, cep)
+VALUES ('Rua das Flores', '123', 'Apto 4B', 'Centro', 'São Paulo', 'SP', '01001-000');
+
+SET @end_id_1 = LAST_INSERT_ID();
+
+INSERT INTO funcionarios (
+    nome, cpf, rg, data_nascimento, data_admissao, email, 
+    registro_profissional, telefone, funcao, status_funcionario, 
+    endereco_id, cliente_id
+)
+VALUES (
+    'Carlos Andrade', 
+    '541.116.294-74', 
+    '19.167.850-8', 
+    '1990-08-15', 
+    '2024-05-10', 
+    'carlos.andrades@email.com', 
+    'CRM/SP 1234526', 
+    '11987654321', 
+    'MEDICO', 
+    'ATIVO', 
+    @end_id_1, 
+    1
+);
+
+SET @func_id_1 = LAST_INSERT_ID();
+
+INSERT INTO usuarios (nome_usuario, senha, funcionario_id)
+VALUES ('Funcionario1', '$2a$12$mCAc.ZEa7RQFlnw2mZV/KeTLVoo1PihD5qm76Lrsm4NT98IsV4P4a', @func_id_1);
+
+SET @user_id_1 = LAST_INSERT_ID();
+
+INSERT INTO usuarios_papeis (usuario_id, papel_id)
+SELECT @user_id_1, papel_id FROM papeis WHERE papel IN ('FUNCIONARIO', 'ATIVADO');
+
+
+-- ==============================================================================
+-- FUNCIONÁRIO 2: Marcos Samuel Pedro Carvalho
+-- Usuário: Funcionario2
+-- ==============================================================================
+
+INSERT INTO enderecos (logradouro, numero, complemento, bairro, cidade, unidade_federativa, cep)
+VALUES ('Rua das Flores', '123', 'Apto 4B', 'Centro', 'São Paulo', 'SP', '01001-000');
+
+SET @end_id_2 = LAST_INSERT_ID();
+
+INSERT INTO funcionarios (
+    nome, cpf, rg, data_nascimento, data_admissao, email, 
+    registro_profissional, telefone, funcao, status_funcionario, 
+    endereco_id, cliente_id
+)
+VALUES (
+    'Marcos Samuel Pedro Carvalho', 
+    '966.156.200-81', 
+    '37.108.487-8', 
+    '1996-08-13', 
+    '2024-05-10', 
+    'carlos.andrades2@email.com', 
+    'CRM/SP 123456', 
+    '11987654221', 
+    'MEDICO', 
+    'ATIVO', 
+    @end_id_2, 
+    1
+);
+
+SET @func_id_2 = LAST_INSERT_ID();
+
+
+INSERT INTO usuarios (nome_usuario, senha, funcionario_id)
+VALUES ('Funcionario2', '$2a$12$mCAc.ZEa7RQFlnw2mZV/KeTLVoo1PihD5qm76Lrsm4NT98IsV4P4a', @func_id_2);
+
+SET @user_id_2 = LAST_INSERT_ID();
+
+INSERT INTO usuarios_papeis (usuario_id, papel_id)
+SELECT @user_id_2, papel_id FROM papeis WHERE papel IN ('FUNCIONARIO', 'ATIVADO');
+
+
+-- ==============================================================================
+-- FUNCIONÁRIO 3: Fabiana Vera Clara Freitas
+-- Usuário: Funcionario3
+-- ==============================================================================
+
+INSERT INTO enderecos (logradouro, numero, complemento, bairro, cidade, unidade_federativa, cep)
+VALUES ('Rua das Flores', '123', 'Apto 4B', 'Centro', 'São Paulo', 'SP', '01001-000');
+
+SET @end_id_3 = LAST_INSERT_ID();
+
+
+INSERT INTO funcionarios (
+    nome, cpf, rg, data_nascimento, data_admissao, email, 
+    registro_profissional, telefone, funcao, status_funcionario, 
+    endereco_id, cliente_id
+)
+VALUES (
+    'Fabiana Vera Clara Freitas', 
+    '210.543.497-54', 
+    '41.717.189-4', 
+    '1993-08-15', 
+    '2024-05-10', 
+    'fabiana.freitas@email.com', 
+    'CRM/SP 1234567', 
+    '11987654311', 
+    'MEDICO', 
+    'ATIVO', 
+    @end_id_3, 
+    1
+);
+
+SET @func_id_3 = LAST_INSERT_ID();
+
+INSERT INTO usuarios (nome_usuario, senha, funcionario_id)
+VALUES ('Funcionario3', '$2a$12$mCAc.ZEa7RQFlnw2mZV/KeTLVoo1PihD5qm76Lrsm4NT98IsV4P4a', @func_id_3);
+
+SET @user_id_3 = LAST_INSERT_ID();
+
+INSERT INTO usuarios_papeis (usuario_id, papel_id)
+SELECT @user_id_3, papel_id FROM papeis WHERE papel IN ('FUNCIONARIO', 'ATIVADO');
+
+
+-- ---------------------------------------------------------
+-- 1. Familiar: Marli Sarah Nicole da Costa
+-- ---------------------------------------------------------
+
+INSERT INTO enderecos (logradouro, numero, bairro, cidade, unidade_federativa, cep, complemento)
+VALUES ('Rua Exemplo', '123', 'Centro', 'Cidade Exemplo', 'SP', '12345-678', 'Apartamento 101');
+
+SET @endereco_id_1 = LAST_INSERT_ID();
+
+INSERT INTO familiares (nome, cpf, rg, email, telefone, parentesco, cliente_id, endereco_id)
+VALUES (
+    'Marli Sarah Nicole da Costa', 
+    '023.188.548-23', 
+    '31.371.932-9', 
+    'email@exemplo1.com', 
+    '(61)22666653', 
+    'MAE', 
+    1, 
+    @endereco_id_1
+);
+
+-- ---------------------------------------------------------
+-- 2. Familiar: Vanessa Cristiane Carvalho
+-- ---------------------------------------------------------
+
+INSERT INTO enderecos (logradouro, numero, bairro, cidade, unidade_federativa, cep, complemento)
+VALUES ('Rua Exemplo', '123', 'Centro', 'Cidade Exemplo', 'SP', '12345-678', 'Apartamento 101');
+
+-- Capturar ID do endereço
+SET @endereco_id_2 = LAST_INSERT_ID();
+
+INSERT INTO familiares (nome, cpf, rg, email, telefone, parentesco, cliente_id, endereco_id)
+VALUES (
+    'Vanessa Cristiane Carvalho', 
+    '091.053.705-40', 
+    '23.650.508-7', 
+    'email@exemplo2.com', 
+    '(61)22666652', 
+    'PAI', 
+    1, 
+    @endereco_id_2
+);
+
+-- ---------------------------------------------------------
+-- 3. Familiar: Renan Leonardo Vicente Moura
+-- ---------------------------------------------------------
+
+INSERT INTO enderecos (logradouro, numero, bairro, cidade, unidade_federativa, cep, complemento)
+VALUES ('Rua Exemplo', '123', 'Centro', 'Cidade Exemplo', 'SP', '12345-678', 'Apartamento 101');
+
+SET @endereco_id_3 = LAST_INSERT_ID();
+
+INSERT INTO familiares (nome, cpf, rg, email, telefone, parentesco, cliente_id, endereco_id)
+VALUES (
+    'Renan Leonardo Vicente Moura', 
+    '974.866.074-50', 
+    '43.373.143-6', 
+    'email@exemplo3.com', 
+    '(61)22666651', 
+    'PAI', 
+    1, 
+    @endereco_id_3
+);
+
+
+
+SET @cliente_id = 1;
+
+-- ---------------------------------------------------------
+-- 1. Paciente: Elza Brenda Moreira
+-- ---------------------------------------------------------
+INSERT INTO pacientes (nome, cpf, rg, genero, email, data_nascimento, status_paciente, cliente_id)
+VALUES ('Elza Brenda Moreira', '020.088.856-07', '38.117.927-8', 'FEMININO', 'email@exemplo1.com', '1970-01-01', 'ATIVO', @cliente_id);
+
+
+SET @paciente_id_1 = LAST_INSERT_ID();
+
+INSERT INTO paciente_familiar (paciente_id, familiar_id)
+VALUES (@paciente_id_1, 1);
+
+
+-- ---------------------------------------------------------
+-- 2. Paciente: Levi Edson Pereira
+-- ---------------------------------------------------------
+INSERT INTO pacientes (nome, cpf, rg, genero, email, data_nascimento, status_paciente, cliente_id)
+VALUES ('Levi Edson Pereira', '460.368.748-63', '34.257.823-6', 'MASCULINO', 'email@exemplo2.com', '1959-10-01', 'ATIVO', @cliente_id);
+
+
+SET @paciente_id_2 = LAST_INSERT_ID();
+
+INSERT INTO paciente_familiar (paciente_id, familiar_id)
+VALUES (@paciente_id_2, 2);
+
+
+-- ---------------------------------------------------------
+-- 3. Paciente: Renato Victor Renan Nunes
+-- ---------------------------------------------------------
+INSERT INTO pacientes (nome, cpf, rg, genero, email, data_nascimento, status_paciente, cliente_id)
+VALUES ('Renato Victor Renan Nunes', '729.528.123-14', '34.360.031-6', 'MASCULINO', 'email@exemplo3.com', '1970-01-10', 'ATIVO', @cliente_id);
+
+SET @paciente_id_3 = LAST_INSERT_ID();
+
+INSERT INTO paciente_familiar (paciente_id, familiar_id)
+VALUES (@paciente_id_3, 3);
+
+
+INSERT INTO contas_a_pagar (descricao, tipo_conta, valor, data_vencimento, data_emissao, status_conta, cliente_id)
+VALUES 
+('Conta de Luz', 'LUZ', 150.50, '2025-12-20', '2025-12-01', 'ABERTO', 1),
+('Conta de Agua', 'AGUA', 150.50, '2025-12-20', '2025-12-01', 'ABERTO', 1),
+('Conta de Internet', 'INTERNET', 150.50, '2025-12-20', '2025-12-01', 'ABERTO', 1);
+

@@ -29,10 +29,7 @@ public class ClienteService {
             throw new IllegalArgumentException("Já existe um cliente com o CNPJ: " + cnpj);
         }
 
-        AdminModel admin = adminRepository.findById(clienteEntity.getAdminId())
-                .orElseThrow(() -> new EntityNotFoundException("Admin não encontrado com o ID: " + clienteEntity.getAdminId()));
-
-        ClienteModel cliente = clienteEntity.toModel(admin);
+        ClienteModel cliente = clienteEntity.toModel();
         clienteRepository.save(cliente);
     }
 
