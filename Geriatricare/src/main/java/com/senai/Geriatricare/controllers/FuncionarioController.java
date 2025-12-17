@@ -1,7 +1,9 @@
 package com.senai.Geriatricare.controllers;
 
-import com.senai.Geriatricare.entities.FuncionarioEntity;
+import com.senai.Geriatricare.enums.Funcao;
+import com.senai.Geriatricare.enums.StatusFuncionario;
 import com.senai.Geriatricare.models.FuncionarioModel;
+import com.senai.Geriatricare.entities.FuncionarioEntity;
 import com.senai.Geriatricare.services.FuncionarioService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +26,9 @@ public class FuncionarioController {
 
     @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
     @PostMapping
-    public ResponseEntity<?> criarFuncionario(@RequestBody FuncionarioModel funcionarioModel) {
+    public ResponseEntity<?> criarFuncionario(@PathVariable Integer clienteId, @RequestBody FuncionarioEntity funcionarioEntity) {
         try {
-            funcionarioService.criarFuncionario(funcionarioModel);
+            funcionarioService.criarFuncionario(clienteId, funcionarioEntity);
             return ResponseEntity.ok("Funcionário criado com sucesso.");
         } catch (IllegalArgumentException | EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -34,11 +36,10 @@ public class FuncionarioController {
     }
 
     @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
-    @PutMapping("/{id}")
-    public ResponseEntity<?> atualizarFuncionario(@PathVariable int id, @RequestBody FuncionarioModel funcionarioModel) {
+    @PutMapping("/{funcionarioId}")
+    public ResponseEntity<?> atualizarFuncionario(@PathVariable Integer clienteId, @PathVariable Integer funcionarioId, @RequestBody FuncionarioEntity funcionarioEntity) {
         try {
-            funcionarioModel.setId(id);
-            funcionarioService.atualizarFuncionario(funcionarioModel);
+            funcionarioService.atualizarFuncionario(clienteId, funcionarioId, funcionarioEntity);
             return ResponseEntity.ok("Funcionário atualizado com sucesso.");
         } catch (IllegalArgumentException | EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -46,10 +47,10 @@ public class FuncionarioController {
     }
 
     @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> removerFuncionario(@PathVariable int id) {
+    @DeleteMapping("/{funcionarioId}")
+    public ResponseEntity<?> removerFuncionario(@PathVariable Integer clienteId, @PathVariable Integer funcionarioId) {
         try {
-            funcionarioService.removerFuncionario(id);
+            funcionarioService.removerFuncionario(clienteId, funcionarioId);
             return ResponseEntity.ok("Funcionário removido com sucesso.");
         } catch (EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -58,15 +59,15 @@ public class FuncionarioController {
 
     @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
     @GetMapping
-    public ResponseEntity<List<FuncionarioEntity>> listarTodos() {
-        return ResponseEntity.ok(funcionarioService.listarTodos());
+    public ResponseEntity<List<FuncionarioModel>> listarTodos(@PathVariable Integer clienteId) {
+        return ResponseEntity.ok(funcionarioService.findAllByCliente(clienteId));
     }
 
     @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
-    @GetMapping("/{id}")
-    public ResponseEntity<?> buscarPorId(@PathVariable int id) {
+    @GetMapping("/{funcionarioId}")
+    public ResponseEntity<?> buscarPorId(@PathVariable Integer clienteId, @PathVariable Integer funcionarioId) {
         try {
-            return ResponseEntity.ok(funcionarioService.buscarPorId(id));
+            return ResponseEntity.ok(funcionarioService.findByIdAndClienteId(funcionarioId, clienteId));
         } catch (EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -94,17 +95,47 @@ public class FuncionarioController {
 
     @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
     @GetMapping("/nome/{nome}")
-    public ResponseEntity<?> buscarPorNome(@PathVariable int clienteId, @PathVariable String nome) {
+    public ResponseEntity<List<FuncionarioModel>> buscarPorNome(@PathVariable int clienteId, @PathVariable String nome) {
+        return ResponseEntity.ok(funcionarioService.buscarPorNome(clienteId, nome));
+    }
+
+
+
+    @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
+    @GetMapping("/funcao/{funcao}")
+    public ResponseEntity<List<FuncionarioModel>> buscarPorFuncao(@PathVariable int clienteId, @PathVariable Funcao funcao) {
+        return ResponseEntity.ok(funcionarioService.buscarPorFuncao(clienteId, funcao));
+    }
+
+    @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
+    @PutMapping("/inativar/{funcionarioId}")
+    public ResponseEntity<?> inativarFuncionario(@PathVariable Integer clienteId, @PathVariable Integer funcionarioId) {
         try {
-            return ResponseEntity.ok(funcionarioService.buscarPorNome(clienteId, nome));
+            funcionarioService.inativarFuncionario(clienteId, funcionarioId);
+            return ResponseEntity.ok("Funcionário inativado com sucesso.");
         } catch (EntityNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
-    @GetMapping("/funcao/{funcao}")
-    public ResponseEntity<List<FuncionarioEntity>> buscarPorFuncao(@PathVariable int clienteId, @PathVariable String funcao) {
-        return ResponseEntity.ok(funcionarioService.buscarPorFuncao(clienteId, funcao));
+    @PutMapping("/ativar/{funcionarioId}")
+    public ResponseEntity<?> ativarFuncionario(@PathVariable Integer clienteId, @PathVariable Integer funcionarioId) {
+        try {
+            funcionarioService.ativarFuncionario(clienteId, funcionarioId);
+            return ResponseEntity.ok("Funcionário ativado com sucesso.");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PreAuthorize("hasRole('CLIENTE') and hasRole('ATIVADO')")
+    @GetMapping("/status/{status}")
+    public ResponseEntity<?> listarFuncionariosPorStatus(@PathVariable Integer clienteId, @PathVariable StatusFuncionario status) {
+        try {
+            return ResponseEntity.ok(funcionarioService.listarFuncionariosPorStatus(clienteId, status));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

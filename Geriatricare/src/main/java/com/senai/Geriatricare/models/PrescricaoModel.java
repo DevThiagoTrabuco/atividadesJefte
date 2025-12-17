@@ -1,37 +1,51 @@
 package com.senai.Geriatricare.models;
 
-import com.senai.Geriatricare.entities.ClienteEntity;
-import com.senai.Geriatricare.entities.MedicamentoEntity;
-import com.senai.Geriatricare.entities.PacienteEntity;
-import com.senai.Geriatricare.entities.PrescricaoEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.senai.Geriatricare.enums.Posologia;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
+@Table(name = "prescricoes")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class PrescricaoModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "prescricao_id")
     private int id;
-    private int clienteId;
-    private int pacienteId;
-    private int medicamentoId;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private ClienteModel cliente;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "paciente_id", nullable = false)
+    @JsonBackReference
+    private PacienteModel paciente;
+
+    @Column(name = "medicamento", nullable = false)
+    private String medicamento;
+
+    @Column(name = "descricao")
+    private String descricao;
+
+    @Column(name = "observacoes")
+    private List<String> observacoes  = new ArrayList();
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "posologia", nullable = false)
     private Posologia posologia;
+
+    @Column(name = "data_inicio")
     private LocalDate dataInicio;
-    private LocalDate dataFim;
 
-    public PrescricaoEntity toEntity(ClienteEntity cliente, PacienteEntity paciente, MedicamentoEntity medicamento) {
-        PrescricaoEntity prescricao = new PrescricaoEntity();
-        prescricao.setId(this.id);
-        prescricao.setCliente(cliente);
-        prescricao.setPaciente(paciente);
-        prescricao.setMedicamento(medicamento);
-        prescricao.setPosologia(this.posologia);
-        prescricao.setDataInicio(this.dataInicio);
-        prescricao.setDataFim(this.dataFim);
-
-        return prescricao;
-    }
+    @Column(name = "quantidade")
+    private int quantidade;
 }

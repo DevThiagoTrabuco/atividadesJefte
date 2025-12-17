@@ -1,49 +1,50 @@
 package com.senai.Geriatricare.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.senai.Geriatricare.enums.StatusFuncionario;
+import com.senai.Geriatricare.enums.UnidadeFederativa;
+import com.senai.Geriatricare.models.ClienteModel;
+import com.senai.Geriatricare.models.FuncionarioModel;
 import com.senai.Geriatricare.enums.Funcao;
-import jakarta.persistence.*;
+import com.senai.Geriatricare.entities.commons.*;
 import lombok.*;
 
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "funcionarios")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class FuncionarioEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "funcionario_id")
     private int id;
-
-    @Column(name = "nome", nullable = false)
     private String nome;
-
-    @Column(name = "cpf", nullable = false, unique = true)
-    private String cpf;
-
-    @Column(name = "rg", nullable = false, unique = true)
-    private String rg;
-
-    @Column(name = "data_nascimento", nullable = false)
+    private CPF cpf;
+    private RG rg;
     private LocalDate dataNascimento;
-
-    @Column(name = "email", nullable = false, unique = true)
-    private String email;
-
-    @Column(name = "telefone", nullable = false)
-    private String telefone;
-
-    @JsonManagedReference("funcionario-endereco")
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "endereco_id", referencedColumnName = "endereco_id")
+    private Email email;
+    private String registro;
+    private Telefone telefone;
     private EnderecoEntity endereco;
-
-    @Enumerated(EnumType.STRING)
     private Funcao funcao;
+    private StatusFuncionario statusFuncionario = StatusFuncionario.ATIVO;
+    private LocalDate dataAdmissao;
+    private int clienteId;
 
-    @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
-    private ClienteEntity cliente;
+    public FuncionarioModel toModel(ClienteModel cliente) {
+        FuncionarioModel funcionario = new FuncionarioModel();
+        funcionario.setId(this.id);
+        funcionario.setNome(this.nome);
+        funcionario.setCpf(this.cpf.validaCPF() ? this.cpf.getCpf() : null);
+        funcionario.setRg(this.rg.validaRG() ? this.rg.getRg() : null);
+        funcionario.setDataNascimento(this.dataNascimento);
+        funcionario.setEmail(this.email.validaEmail() ? this.email.getEmail() : null);
+        funcionario.setRegistro(this.registro);
+        funcionario.setTelefone(this.telefone.validaTelefone() ? this.telefone.getTelefone() : null);
+        funcionario.setEndereco(this.endereco.toModel());
+        funcionario.setFuncao(this.funcao);
+        funcionario.setStatusFuncionario(this.statusFuncionario);
+        funcionario.setDataAdmissao(this.dataAdmissao);
+        funcionario.setCliente(cliente);
+
+        return funcionario;
+    }
 }

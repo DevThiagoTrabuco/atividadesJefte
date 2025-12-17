@@ -1,9 +1,8 @@
 package com.senai.Geriatricare.configs.security;
 
-import com.senai.Geriatricare.entities.UsuarioEntity;
+import com.senai.Geriatricare.models.UsuarioModel;
 import com.senai.Geriatricare.repositories.UsuarioRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
 
@@ -18,18 +17,18 @@ public class UsuarioDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UsuarioEntity usuarioEntity = usuarioRepository.findByNomeUsuario(username);
-        if (usuarioEntity == null) {
+        UsuarioModel usuarioModel = usuarioRepository.findByNomeUsuario(username);
+        if (usuarioModel == null) {
             throw new UsernameNotFoundException("Usuário não encontrado: " + username);
         }
         return new User(
-                usuarioEntity.getNomeUsuario(),
-                usuarioEntity.getSenha(),
+                usuarioModel.getNomeUsuario(),
+                usuarioModel.getSenha(),
                 true,
                 true,
                 true,
                 true,
-                usuarioEntity.getAuthorities()
+                usuarioModel.getAuthorities()
         );
     }
 }

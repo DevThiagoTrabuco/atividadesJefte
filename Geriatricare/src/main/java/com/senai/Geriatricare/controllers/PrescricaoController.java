@@ -1,7 +1,7 @@
 package com.senai.Geriatricare.controllers;
 
-    import com.senai.Geriatricare.entities.PrescricaoEntity;
     import com.senai.Geriatricare.models.PrescricaoModel;
+    import com.senai.Geriatricare.entities.PrescricaoEntity;
     import com.senai.Geriatricare.services.PrescricaoService;
     import jakarta.persistence.EntityNotFoundException;
     import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +24,9 @@ package com.senai.Geriatricare.controllers;
 
         @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
         @PostMapping
-        public ResponseEntity<?> criarPrescricao(@RequestBody PrescricaoModel prescricaoModel) {
+        public ResponseEntity<?> criarPrescricao(@RequestBody PrescricaoEntity prescricaoEntity) {
             try {
-                prescricaoService.criarPrescricao(prescricaoModel);
+                prescricaoService.criarPrescricao(prescricaoEntity);
                 return ResponseEntity.ok("Prescrição criada com sucesso.");
             } catch (IllegalArgumentException | EntityNotFoundException e) {
                 return ResponseEntity.badRequest().body(e.getMessage());
@@ -35,10 +35,10 @@ package com.senai.Geriatricare.controllers;
 
         @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
         @PutMapping("/{id}")
-        public ResponseEntity<?> atualizarPrescricao(@PathVariable int id, @RequestBody PrescricaoModel prescricaoModel) {
+        public ResponseEntity<?> atualizarPrescricao(@PathVariable int id, @RequestBody PrescricaoEntity prescricaoEntity) {
             try {
-                prescricaoModel.setId(id);
-                prescricaoService.atualizarPrescricao(prescricaoModel);
+                prescricaoEntity.setId(id);
+                prescricaoService.atualizarPrescricao(prescricaoEntity);
                 return ResponseEntity.ok("Prescrição atualizada com sucesso.");
             } catch (IllegalArgumentException | EntityNotFoundException e) {
                 return ResponseEntity.badRequest().body(e.getMessage());
@@ -58,7 +58,7 @@ package com.senai.Geriatricare.controllers;
 
         @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
         @GetMapping
-        public ResponseEntity<List<PrescricaoEntity>> listarTodos() {
+        public ResponseEntity<List<PrescricaoModel>> listarTodos() {
             return ResponseEntity.ok(prescricaoService.listarTodos());
         }
 
@@ -74,7 +74,7 @@ package com.senai.Geriatricare.controllers;
 
         @PreAuthorize("(hasRole('CLIENTE') or hasRole('FUNCIONARIO')) and hasRole('ATIVADO')")
         @GetMapping("/paciente/{pacienteId}")
-        public ResponseEntity<List<PrescricaoEntity>> buscarPorPaciente(@PathVariable int clienteId, @PathVariable int pacienteId) {
+        public ResponseEntity<List<PrescricaoModel>> buscarPorPaciente(@PathVariable int clienteId, @PathVariable int pacienteId) {
             return ResponseEntity.ok(prescricaoService.buscarPorPaciente(clienteId, pacienteId));
         }
     }
