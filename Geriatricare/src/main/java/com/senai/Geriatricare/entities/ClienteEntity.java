@@ -20,11 +20,9 @@ public class ClienteEntity {
     private Telefone telefone;
     private CNPJ cnpj;
     private EnderecoEntity endereco;
-    @JsonProperty("admin_id")
-    private int adminId;
     private List<ContasAPagarModel> contasAPagar;
 
-    public ClienteModel toModel(AdminModel admin){
+    public ClienteModel toModel(){
         ClienteModel cliente = new ClienteModel();
         cliente.setId(this.id);
         cliente.setNome(this.nome);

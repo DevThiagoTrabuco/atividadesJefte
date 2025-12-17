@@ -1,16 +1,12 @@
 package com.senai.Geriatricare.entities;
 
 import com.senai.Geriatricare.models.ClienteModel;
-import com.senai.Geriatricare.models.ContasAPagarModel;
 import com.senai.Geriatricare.models.PacienteModel;
-import com.senai.Geriatricare.models.PlanoModel;
 import com.senai.Geriatricare.entities.commons.CPF;
 import com.senai.Geriatricare.entities.commons.Email;
 import com.senai.Geriatricare.entities.commons.RG;
 import com.senai.Geriatricare.enums.Genero;
 import com.senai.Geriatricare.enums.StatusPaciente;
-import com.senai.Geriatricare.models.ClienteModel;
-import com.senai.Geriatricare.models.PacienteModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
