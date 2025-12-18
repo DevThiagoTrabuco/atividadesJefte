@@ -297,4 +297,15 @@ public class UsuarioController {
             return ResponseEntity.badRequest().body("Erro ao ativar usuário: " + e.getMessage());
         }
     }
+    
+    @PreAuthorize("hasRole('ATIVADO')")
+    @GetMapping("/me")
+    public ResponseEntity<?> getUsuarioLogado(org.springframework.security.core.Authentication authentication) {
+        try {
+            UsuarioModel usuario = usuarioService.buscarPorNomeUsuario(authentication.getName());
+            return ResponseEntity.ok(usuario);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

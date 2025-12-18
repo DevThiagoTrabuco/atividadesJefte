@@ -33,7 +33,7 @@ public class ClienteController {
         }
     }
 
-    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') and hasRole('ATIVADO')")
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizarCliente(@PathVariable int id, @RequestBody ClienteEntity clienteEntity) {
         try {
@@ -62,7 +62,7 @@ public class ClienteController {
         return ResponseEntity.ok(clienteService.listarTodos());
     }
 
-    @PreAuthorize("hasRole('ADMIN') and hasRole('ATIVADO')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENTE') and hasRole('ATIVADO')")
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarPorId(@PathVariable int id) {
         try {
