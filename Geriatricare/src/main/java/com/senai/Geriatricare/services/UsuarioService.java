@@ -247,4 +247,12 @@ public class UsuarioService {
     public void ativarUsuario(int id) {
         alternarStatusUsuario(id, "ATIVADO");
     }
+
+    public UsuarioModel buscarPorNomeUsuario(String nomeUsuario) {
+        UsuarioModel usuario = usuarioRepository.findByNomeUsuario(nomeUsuario);
+        if (usuario == null) {
+            throw new EntityNotFoundException("Usuário não encontrado: " + nomeUsuario);
+        }
+        return usuario;
+    }
 }
